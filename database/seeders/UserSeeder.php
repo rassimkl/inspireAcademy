@@ -20,7 +20,8 @@ class UserSeeder extends Seeder
             'user_type_id' => 1,
             'first_name' => "admin",
             'last_name' => 'family name',
-            'gender' => 'male'
+            'gender' => 'male',
+            'languages' => 'English'
             // Add other columns as needed
         ]);
     }

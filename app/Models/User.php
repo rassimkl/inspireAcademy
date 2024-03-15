@@ -32,6 +32,7 @@ class User extends Authenticatable
         'zip_code',
         'country',
         'profile_picture',
+        'languages',
         'info' // Add profile picture to fillable
     ];
     /**
@@ -48,6 +49,11 @@ class User extends Authenticatable
     public function userType()
     {
         return $this->belongsTo(UserType::class);
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_student', 'student_id', 'course_id');
     }
 
 }

@@ -1,12 +1,13 @@
 <?php
 
 use App\Livewire\Home;
+use App\Livewire\Students;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Metadata\Api\HookMethods;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use PHPUnit\Metadata\Api\HookMethods;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ use PHPUnit\Metadata\Api\HookMethods;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', Home::class)->name('home');
+    Route::get('/student/list', Students::class)->name('student/list');
 });
 
 function set_active($route)
@@ -86,7 +88,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     // ------------------------ student -------------------------------//
     Route::controller(StudentController::class)->group(function () {
-        Route::get('student/list', 'student')->middleware('auth')->name('student/list'); // list student
+        //Route::get('student/list', 'student')->middleware('auth')->name('student/list'); // list student
         Route::get('student/grid', 'studentGrid')->middleware('auth')->name('student/grid'); // grid student
         Route::get('student/add/page', 'studentAdd')->middleware('auth')->name('student/add/page'); // page student
         Route::post('student/add/save', 'studentSave')->name('student/add/save'); // save record student
