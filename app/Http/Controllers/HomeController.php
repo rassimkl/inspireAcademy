@@ -17,10 +17,10 @@ class HomeController extends Controller
     }
 
     /**
-    * Show the application dashboard.
-    *
-    * @return \Illuminate\Contracts\Support\Renderable
-    */
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     /** home dashboard */
     public function index()
     {
