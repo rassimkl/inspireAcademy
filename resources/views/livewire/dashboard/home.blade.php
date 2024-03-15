@@ -7,10 +7,10 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-sub-header">
-                        <h3 class="page-title">Welcome {{ Session::get('name') }}!</h3>
+                        <h3 class="page-title">Welcome!</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active">{{ Session::get('name') }}</li>
+                            <li class="breadcrumb-item active">{{auth()->user()->first_name }} {{auth()->user()->last_name }}</li>
                         </ul>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
                                 <h6>Students</h6>
-                                <h3>50055</h3>
+                                <h3>{{$studentCount}}</h3>
                             </div>
                             <div class="db-icon">
                                 <img src="{{ URL::to('assets/img/icons/dash-icon-01.svg') }}" alt="Dashboard Icon">
@@ -38,8 +38,8 @@
                     <div class="card-body">
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
-                                <h6>Awards</h6>
-                                <h3>50+</h3>
+                                <h6>Teachers</h6>
+                                <h3>{{$teacherCount}}</h3>
                             </div>
                             <div class="db-icon">
                                 <img src="{{ URL::to('assets/img/icons/dash-icon-02.svg') }}" alt="Dashboard Icon">

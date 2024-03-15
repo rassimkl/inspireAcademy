@@ -184,7 +184,7 @@
 		{{-- content page --}}
               {{ $slot }}
         <footer>
-            <p>Copyright ©  <?php echo date('Y'); ?> Soeng Souy.</p>
+            <p>Copyright ©  <?php echo date('Y'); ?> Soeng Swwwouy.</p>
         </footer>
     
     </div>

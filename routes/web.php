@@ -22,7 +22,12 @@ use PHPUnit\Metadata\Api\HookMethods;
 /** for side bar menu active */
 
 
-Route::get('/home', Home::class);
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', Home::class)->name('home');
+});
 
 function set_active($route)
 {
@@ -36,14 +41,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('homes', function () {
-        return view('home');
-    });
-    Route::get('home', function () {
-        return view('home');
-    });
-});
 
 Auth::routes();
 Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
@@ -65,7 +62,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // -------------------------- main dashboard ----------------------//
     Route::controller(HomeController::class)->group(function () {
-        Route::get('/home', 'index')->middleware('auth')->name('home');
+        //Route::get('/home', 'index')->middleware('auth')->name('home');
         Route::get('user/profile/page', 'userProfile')->middleware('auth')->name('user/profile/page');
         Route::get('teacher/dashboard', 'teacherDashboardIndex')->middleware('auth')->name('teacher/dashboard');
         Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
