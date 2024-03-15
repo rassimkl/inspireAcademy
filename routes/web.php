@@ -1,10 +1,12 @@
 <?php
 
+use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use PHPUnit\Metadata\Api\HookMethods;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +20,18 @@ use App\Http\Controllers\Auth\RegisterController;
 */
 
 /** for side bar menu active */
-function set_active( $route ) {
-    if( is_array( $route ) ){
+
+
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', Home::class)->name('home');
+});
+
+function set_active($route)
+{
+    if (is_array($route)) {
         return in_array(Request::path(), $route) ? 'active' : '';
     }
     return Request::path() == $route ? 'active' : '';
@@ -29,21 +41,9 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::group(['middleware'=>'auth'],function()
-{
-    Route::get('home',function()
-    {
-        return view('home');
-    });
-    Route::get('home',function()
-    {
-        return view('home');
-    });
-});
 
 Auth::routes();
-Route::group(['namespace' => 'App\Http\Controllers\Auth'],function()
-{
+Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
     // ----------------------------login ------------------------------//
     Route::controller(LoginController::class)->group(function () {
         Route::get('/login', 'login')->name('login');
@@ -55,15 +55,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'],function()
     // ----------------------------- register -------------------------//
     Route::controller(RegisterController::class)->group(function () {
         Route::get('/register', 'register')->name('register');
-        Route::post('/register','storeUser')->name('register');    
+        Route::post('/register', 'storeUser')->name('register');
     });
 });
 
-Route::group(['namespace' => 'App\Http\Controllers'],function()
-{
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // -------------------------- main dashboard ----------------------//
     Route::controller(HomeController::class)->group(function () {
-        Route::get('/home', 'index')->middleware('auth')->name('home');
+        //Route::get('/home', 'index')->middleware('auth')->name('home');
         Route::get('user/profile/page', 'userProfile')->middleware('auth')->name('user/profile/page');
         Route::get('teacher/dashboard', 'teacherDashboardIndex')->middleware('auth')->name('teacher/dashboard');
         Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
@@ -156,3 +155,7 @@ Route::group(['namespace' => 'App\Http\Controllers'],function()
         Route::get('add/fees/collection/page', 'addFeesCollection')->middleware('auth')->name('add/fees/collection/page'); // add/fees/collection
     });
 });
+
+
+//livewire
+
