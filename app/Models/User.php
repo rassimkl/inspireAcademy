@@ -32,7 +32,7 @@ class User extends Authenticatable
         'zip_code',
         'country',
         'profile_picture',
-        'comment' // Add profile picture to fillable
+        'info' // Add profile picture to fillable
     ];
     /**
      * The attributes that should be hidden for serialization.
