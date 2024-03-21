@@ -21,7 +21,7 @@
                  
                     <div class="col-lg-4 col-md-6">
                         <div class="form-group">
-                             <input wire:model.live.throttle.150ms="search" type="text" class="form-control" placeholder="Search">
+                             <input wire:model.live.throttle.350ms="search" type="text" class="form-control" placeholder="Search">
                         </div>
                     </div>
                     <div class="col-lg-2">
@@ -65,6 +65,7 @@
                                             <th>DOB</th>
                                             <th>Email</th>
                                             <th>Mobile Number</th>
+                                               <th>Languages</th>
                                             <th>Address</th>
                                             <th class="text-end">Action</th>
                                         </tr>
@@ -93,6 +94,7 @@
                                             <td>{{ $student->date_of_birth }}</td>
                                             <td>{{ $student->email }}</td>
                                             <td>{{ $student->phone_number }}</td>
+                                               <td>{{ $student->languages }}</td>
                                             <td>{{$student->address}},{{$student->city}}</td>
                                             <td class="text-end">
                                                 <div class="actions">

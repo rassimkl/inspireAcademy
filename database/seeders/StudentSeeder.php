@@ -30,7 +30,7 @@ class StudentSeeder extends Seeder
                 'zip_code' => $faker->postcode,
                 'country' => $faker->country,
                 'info' => $faker->text,
-                'languages' => implode(',', $faker->randomElements(['English', 'French', 'Spanish', 'German'], rand(1, 3))), // Randomly select 1 to 3 languages and implode them with commas
+                'languages' => json_encode($faker->randomElements(['English', 'French', 'Spanish', 'German'], rand(1, 3))), // Convert array to JSON
                 'profile_picture' => null,
 
             ]);

@@ -19,6 +19,12 @@ class Students extends Component
         $this->search = '';
     }
 
+    public function updatedSearch()
+    {
+        if ($this->search == '') {
+            $this->refresh();
+        }
+    }
     public function render()
     {
         // Retrieve the user type with the name "Student"
@@ -29,10 +35,11 @@ class Students extends Component
 
         $this->students = User::where('user_type_id', 3)
             ->where(function ($query) {
-                $query->where('first_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('last_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('phone_number', 'like', '%' . $this->search . '%')
-                    ->orWhere('languages', 'like', '%' . $this->search . '%');
+                $searchTerm = mb_strtolower($this->search); // Convert search term to lowercase
+                $query->where('first_name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('last_name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('phone_number', 'like', '%' . $searchTerm . '%')
+                    ->orWhereRaw("LOWER(languages) LIKE '%$searchTerm%'"); // Convert column data to lowercase
             })
             ->paginate($this->perPage);
 

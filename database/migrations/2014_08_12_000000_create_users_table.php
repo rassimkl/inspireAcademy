@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('zip_code')->nullable();
             $table->string('country')->nullable();
             $table->string('info')->nullable();
-            $table->string('languages');
+            $table->JSON('languages');
             $table->string('profile_picture')->nullable();
             $table->rememberToken();
             $table->timestamps();
