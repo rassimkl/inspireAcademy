@@ -19,12 +19,7 @@ class Students extends Component
         $this->search = '';
     }
 
-    public function updatedSearch()
-    {
-        if ($this->search == '') {
-            $this->refresh();
-        }
-    }
+
     public function render()
     {
         // Retrieve the user type with the name "Student"
