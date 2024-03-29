@@ -1,10 +1,9 @@
 <?php
 
 use App\Livewire\Home;
+use App\Livewire\AddUser;
 use App\Livewire\Students;
-use App\Livewire\AddStudent;
 use Illuminate\Support\Facades\Route;
-use PHPUnit\Metadata\Api\HookMethods;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\LoginController;
@@ -32,7 +31,8 @@ Route::middleware(['auth'])->group(function () {
 
     //student
     Route::get('/student/list', Students::class)->name('student/list');
-    Route::get('student/add/page', AddStudent::class)->name('student/add/page'); // page student
+    Route::get('user/add/page', AddUser::class)->name('user/add/page'); // page student
+
 
 });
 

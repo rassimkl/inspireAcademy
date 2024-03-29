@@ -33,7 +33,7 @@ class User extends Authenticatable
         'country',
         'profile_picture',
         'languages',
-        'info' // Add profile picture to fillable
+        'info','user_type_id' // Add profile picture to fillable
     ];
     /**
      * The attributes that should be hidden for serialization.

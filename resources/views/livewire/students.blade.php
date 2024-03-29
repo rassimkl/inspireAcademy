@@ -44,7 +44,7 @@
                                         
                                       
                                         
-                                        <a href="{{ route('student/add/page') }}" class="btn btn-primary">Add Student <i class="fas fa-plus"></i></a>
+                                        <a href="{{ route('user/add/page') }}" class="btn btn-primary">Add Student <i class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
