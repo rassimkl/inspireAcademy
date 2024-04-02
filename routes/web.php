@@ -2,7 +2,10 @@
 
 use App\Livewire\Home;
 use App\Livewire\AddUser;
+use App\Livewire\Interns;
+use App\Livewire\EditUser;
 use App\Livewire\Students;
+use App\Livewire\Teachers;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
@@ -29,9 +32,13 @@ use App\Http\Controllers\Auth\RegisterController;
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', Home::class)->name('home');
 
-    //student
-    Route::get('/student/list', Students::class)->name('student/list');
     Route::get('user/add/page', AddUser::class)->name('user/add/page'); // page student
+
+    Route::get('/student/list', Students::class)->name('student/list');
+    Route::get('/teacher/list', Teachers::class)->name('teacher/list');
+    Route::get('/intern/list', Interns::class)->name('intern/list');
+    Route::get('/users/edit/{userId}', EditUser::class)->name('user/edit');
+
 
 
 });

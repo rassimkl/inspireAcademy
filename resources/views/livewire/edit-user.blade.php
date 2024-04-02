@@ -6,7 +6,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Add Users</h3>
+                            <h3 class="page-title">Update {{$userType}}</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('user/add/page') }}">User</a></li>
                                 <li class="breadcrumb-item active">Add Users</li>
@@ -21,11 +21,11 @@
                 <div class="col-sm-12">
                     <div class="card comman-shadow">
                         <div class="card-body">
-                            <form wire:submit='createUser' >
+                            <form wire:submit='updateUser' >
                                 @csrf
                                 <div class="row">
                                     <div class="col-12">
-                                        <h5 class="form-title student-info">User Information
+                                        <h5 class="form-title student-info">{{$userType}} Information
                                             <span>
                                                 <a href="javascript:;"><i class="feather-more-vertical"></i></a>
                                             </span>
@@ -35,7 +35,7 @@
     <div class="form-group local-forms">
         <label>User <span class="login-danger">*</span></label>
         <div class="position-relative">
-            <select  wire:model='user_type_id' aria-label="Default select example" class=" form-select   @error('user_type_id') is-invalid @enderror" name="user_type_id">
+            <select disabled  wire:model='user_type_id' aria-label="Default select example" class=" form-select   @error('user_type_id') is-invalid @enderror" name="user_type_id">
                <option selected>Select Type</option>
              @foreach($userTypes as $id => $userType)
             <option value="{{ $id }}">{{ $userType }}</option>
@@ -78,9 +78,10 @@
         <label>Gender <span class="login-danger">*</span></label>
         <div class="position-relative">
             <select wire:model='gender' class="form-control  @error('gender') is-invalid @enderror" name="gender">
-                <option selected >Select Gender</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
+                <option  >Select Gender</option>
+
+                 <option value="Female" @if($gender == 'Female') selected @endif>Female</option>
+                <option value="Male" @if($gender == 'Male') selected @endif>Male</option>
             </select>
             @error('gender')
                 <span class="invalid-feedback" role="alert">
@@ -242,7 +243,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="student-submit">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
                                         </div>
                                         
                                     </div>
@@ -261,21 +262,22 @@
         
 
     document.addEventListener('livewire:initialized', () => {
-
         var datetimePicker =$('#datepickeru');
-             $('#languages').select2({});
+       
+          var selectedLanguages = @this.get('languages');
+          console.log(selectedLanguages)
+           $('#languages').select2({}).val(selectedLanguages).trigger('change');//preload select with the user languages
+   
              
+
+
+          
   $('#languages').on('change', function() {
                 var selectedLanguages = $(this).val();
                 //console.log('Selected languages:', selectedLanguages);
                   @this.set('languages',selectedLanguages,false);
                 // You can perform further actions here based on the selected values
             });
-
-                 Livewire.on('resetSelect2', function () {
-             
-            $('#languages').val(null).trigger('change');
-        });
 
 datetimePicker.on('dp.change', function(e) {
 

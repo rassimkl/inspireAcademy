@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="{{ URL::to('assets/plugins/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ URL::to('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ URL::to('assets/css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 	{{-- message toastr --}}
 	<link rel="stylesheet" href="{{ URL::to('assets/css/toastr.min.css') }}">
 	<script src="{{ URL::to('assets/js/toastr_jquery.min.js') }}"></script>
@@ -206,6 +208,7 @@
     <script src="{{ URL::to('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script src="{{ URL::to('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ URL::to('assets/js/script.js') }}"></script>
+        <script src="{{ URL::to('assets/js/main.js') }}"></script>
     @yield('script')
     <script>
         $(document).ready(function() {

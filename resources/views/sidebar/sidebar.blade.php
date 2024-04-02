@@ -36,16 +36,19 @@
                 </li>
                 @endif
 {{-- //user --}}
-                <li class="submenu {{set_active(['student/list','student/grid','user/add/page'])}} {{ (request()->is('student/edit/*')) ? 'active' : '' }} {{ (request()->is('student/profile/*')) ? 'active' : '' }}">
+                <li class="submenu {{set_active(['student/list','student/grid','user/add/page','teacher/list','intern/list'])}} {{ (request()->is('users/edit/*')) ? 'active' : '' }} {{ (request()->is('student/profile/*')) ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-graduation-cap"></i>
                         <span> Users</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                     <li><a href="{{ route('user/add/page') }}" class="{{set_active(['user/add/page'])}}">user Add</a></li>
+                     <li><a href="{{ route('user/add/page') }}" class="{{set_active(['user/add/page'])}}">User Add</a></li>
                         <li><a href="{{ route('student/list') }}"  class="{{set_active(['student/list','student/grid'])}}">Student List</a></li>
+                                                <li><a href="{{ route('teacher/list') }}"  class="{{set_active(['teacher/list','teacher/grid'])}}">Teacher List</a></li>
+                                                <li><a href="{{ route('intern/list') }}"  class="{{set_active(['intern/list','intern/grid'])}}">Intern List</a></li>
+
                        
-                        <li><a class="{{ (request()->is('student/edit/*')) ? 'active' : '' }}">Student Edit</a></li>
+                        <li><a class="{{ (request()->is('users/edit/*')) ? 'active' : '' }}">User Edit</a></li>
                         <li><a href=""  class="{{ (request()->is('student/profile/*')) ? 'active' : '' }}">Student View</a></li>
                     </ul>
                 </li>
@@ -155,3 +158,4 @@
         </div>
     </div>
 </div>
+

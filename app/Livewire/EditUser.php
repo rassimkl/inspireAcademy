@@ -4,18 +4,21 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use App\Models\User;
-
 use Livewire\Component;
 use App\Models\UserType;
-use Livewire\Attributes\Url;
 use Livewire\Attributes\Title;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 
-class AddUser extends Component
+
+class EditUser extends Component
 {
-    #[Title('Add User')]
+    #[Title('Update User')]
+    public $user_id;
+    public $user;
+    public $userType = "User";//for the page to display currently user being edited
 
-
+    public $userTypes;
     public $AllLanguages = [
         "Afar",
         "Abkhazian",
@@ -200,7 +203,6 @@ class AddUser extends Component
         "Chinese",
         "Zulu"
     ];
-    public $userTypes;
 
     public $first_name;
     public $last_name;
@@ -217,35 +219,75 @@ class AddUser extends Component
     public $info;
     public $languages;
     public $profile_picture;
-    #[Url]
     public $user_type_id;
 
+    public function rules()
+    {
+        return [
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'gender' => 'required|in:Male,Female',
+            'date_of_birth' => 'nullable|date',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($this->user_id),
+            ],
+            'phone_number' => ['required', 'string', 'regex:/^\+?[0-9]+$/'],
+            'blood_group' => 'nullable|string',
+            'address' => 'nullable|string',
+            'city' => 'nullable|string',
+            'zip_code' => 'nullable|string',
+            'country' => 'nullable|string',
+            'info' => 'nullable|string',
+            'languages' => 'required|array',
+            'languages.*' => 'string',
+            'profile_picture' => 'nullable|string',
 
-    protected $rules = [
-        'first_name' => 'required|string',
-        'last_name' => 'required|string',
-        'gender' => 'required|in:Male,Female',
-        'date_of_birth' => 'nullable|date',
-        'email' => 'required|email|unique:users,email',
-        'phone_number' => ['required', 'string', 'regex:/^\+?[0-9]+$/'],
-        'blood_group' => 'nullable|string',
-        'address' => 'nullable|string',
-        'city' => 'nullable|string',
-        'zip_code' => 'nullable|string',
-        'country' => 'nullable|string',
-        'info' => 'nullable|string',
-        'languages' => 'required|array',
-        'languages.*' => 'string',
-        'profile_picture' => 'nullable|string',
-        'user_type_id' => 'required|exists:user_types,id'
+        ];
+    }
 
-    ];
+    public function mount($userId)
+    {
+        $this->user_id = $userId;
+        $user = User::find($userId);
+        if (!$user) {
+            return redirect()->route('home');
+        }
 
-    public function createUser()
+
+        if ($user) {
+            $this->user=$user;
+            $this->first_name = $user->first_name;
+            $this->last_name = $user->last_name;
+            $this->gender = $user->gender;
+            $this->date_of_birth = $user->date_of_birth;
+            $this->email = $user->email;
+            $this->password = $user->password;
+            $this->phone_number = $user->phone_number;
+            $this->blood_group = $user->blood_group;
+            $this->address = $user->address;
+            $this->city = $user->city;
+            $this->zip_code = $user->zip_code;
+            $this->country = $user->country;
+            $this->info = $user->info;
+            $this->languages = json_decode($user->languages, true);
+            $this->profile_picture = $user->profile_picture;
+            $this->user_type_id = $user->user_type_id;
+
+            // Fetch user types
+            $this->userTypes = UserType::pluck('name', 'id');
+            $this->userType = $this->userTypes[$this->user_type_id] ?? "User";
+
+
+        }
+    }
+
+    public function updateUser()
     {
 
         $validatedData = $this->validate(); // Validate input data based on defined rules
-//dd($validatedData);
+
         // Hash the password before storing it in the database
         $validatedData['password'] = Hash::make('password');
         $validatedData['languages'] = json_encode($validatedData['languages']);
@@ -253,49 +295,26 @@ class AddUser extends Component
 
 
         // Create a new student record
-        User::create($validatedData);
+        $this->user->update($validatedData);
         $this->dispatch('resetSelect2');
 
 
 
-        $userType = $this->userTypes[$this->user_type_id] ?? "User";
+
 
 
         $this->dispatch('showAlert', [
-            'title' => "$userType Created Succesfully",
+            'title' => "$this->userType Updated Succesfully",
             'text' => '',
             'icon' => 'success'
         ]);
 
-        // Optionally, you can reset the input fields after creating the student
-        $this->reset([
-            'first_name',
-            'last_name',
-            'gender',
-            'date_of_birth',
-            'email',
-            'password',
-            'phone_number',
-            'blood_group',
-            'address',
-            'city',
-            'zip_code',
-            'country',
-            'info',
-            'languages',
-            'profile_picture',
-            'user_type_id',
-        ]);
 
 
-    }
 
-    public function mount()
-    {
-        $this->userTypes = UserType::pluck('name', 'id');
     }
     public function render()
     {
-        return view('livewire.add-user');
+        return view('livewire.edit-user');
     }
 }

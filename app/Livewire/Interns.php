@@ -3,25 +3,19 @@
 namespace App\Livewire;
 
 use App\Models\User;
-use Livewire\Component;
 use App\Models\UserType;
-use Livewire\WithPagination;
 use Livewire\Attributes\Title;
-#[Title('Students')]
-class Students extends Main
+#[Title('Interns')]
+class Interns extends Main
 {
-   
 
 
-    public function render()
+       public function render()
     {
         // Retrieve the user type with the name "Student"
-        $userType = UserType::where('name', 'Student')->firstOrFail();
-        // Retrieve the users associated with the "Student" user type
-        // Retrieve the users associated with the "Student" user type
-        // $this->students = $userType->users()->paginate($this->perPage);
+        $userType = UserType::where('name', 'Intern')->firstOrFail()->id;
 
-        $this->students = User::where('user_type_id', 3)
+        $this->interns = User::where('user_type_id', $userType)
             ->where(function ($query) {
                 $searchTerm = mb_strtolower($this->search); // Convert search term to lowercase
                 $query->where('first_name', 'like', '%' . $searchTerm . '%')
@@ -31,6 +25,8 @@ class Students extends Main
             })
             ->paginate($this->perPage);
 
-        return view('livewire.students', ['students' => $this->students]);
+
+
+        return view('livewire.interns', ['interns' => $this->interns]);
     }
 }

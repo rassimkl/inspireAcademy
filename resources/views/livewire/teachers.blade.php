@@ -5,10 +5,10 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Students</h3>
+                            <h3 class="page-title">Teachers</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('student/list') }}">Student</a></li>
-                                <li class="breadcrumb-item active">All Students</li>
+                                <li class="breadcrumb-item"><a href="{{ route('teacher/list') }}">Teacher</a></li>
+                                <li class="breadcrumb-item active">All Teachers</li>
                             </ul>
                         </div>
                     </div>
@@ -38,13 +38,13 @@
                             <div class="page-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h3 class="page-title">Students</h3>
+                                        <h3 class="page-title">Teachers</h3>
                                     </div>
                                     <div class="col-auto text-end float-end ms-auto download-grp">
                                         
                                       
                                         
-                                        <a href="{{ route('user/add/page', ['user_type_id' => 3]) }}" class="btn btn-primary">Add Student <i class="fas fa-plus"></i></a>
+                                        <a href="{{ route('user/add/page', ['user_type_id' => 2]) }}" class="btn btn-primary">Add Teacher <i class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                     <thead class="student-thread">
                                         <tr>
                                             <th>
-                                             
+                                                
                                             </th>
                                             <th>ID</th>
                                             <th>Name</th>
@@ -70,35 +70,33 @@
                                     </thead>
                                     <tbody>
                                   
-                                        @foreach ($students as $student )
+                                        @foreach ($teachers as $teacher )
                                         <tr>
                                             <td>
-                                              
+                                               
                                             </td>
-                                            <td>STD{{ $student->id }}</td>
+                                            <td>TCH{{ $teacher->id }}</td>
                                            
-                                            <td hidden class="avatar">{{ $student->id }}</td>
+                                            <td hidden class="avatar">{{ $teacher->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
                                                     <a href="student-details.html"class="avatar avatar-sm me-2">
-                                                        <img class="avatar-img rounded-circle" src="{{ $student->profile_picture ? Storage::url('student-photos/'.$student->profile_picture) :Storage::url('student-photos/default.png') }}" alt="User Image">
+                                                        <img class="avatar-img rounded-circle" src="{{ $teacher->profile_picture ? Storage::url('student-photos/'.$teacher->profile_picture) :Storage::url('student-photos/default.png') }}" alt="User Image">
                                                     </a>
-                                                    <a href="{{ url('student/profile/'.$student->id) }}">{{ $student->first_name }} {{ $student->last_name }}</a>
+                                                    <a href="{{ url('teacher/profile/'.$teacher->id) }}">{{ $teacher->first_name }} {{ $teacher->last_name }}</a>
                                                 </h2>
                                             </td>
-                                            <td>{{ $student->gender }} </td>
-                                            <td>{{ $student->date_of_birth }}</td>
-                                            <td>{{ $student->email }}</td>
-                                            <td>{{ $student->phone_number }}</td>
-                                            <td> @foreach(json_decode($student->languages) as $key => $language)
+                                            <td>{{ $teacher->gender }} </td>
+                                            <td>{{ $teacher->date_of_birth }}</td>
+                                            <td>{{ $teacher->email }}</td>
+                                            <td>{{ $teacher->phone_number }}</td>
+                                      <td> @foreach(json_decode($teacher->languages) as $key => $language)
         {{ $language }}@if(!$loop->last),@endif
     @endforeach</td>
-
-                                            <td>{{$student->address}},{{$student->city}}</td>
+                                            <td>{{$teacher->address}},{{$teacher->city}}</td>
                                             <td class="text-end">
                                                 <div class="actions">
-                                         
-                                                    <a        href="{{ route('user/edit', ['userId' => $student->id]) }}" class="btn btn-sm bg-danger-light">
+                                                      <a        href="{{ route('user/edit', ['userId' => $teacher->id]) }}" class="btn btn-sm bg-danger-light">
                                                         <i class="far fa-edit me-2"></i>
                                                     </a>
                                                     <a class="btn btn-sm bg-danger-light student_delete" data-bs-toggle="modal" data-bs-target="#studentUser">
@@ -110,7 +108,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                {{ $students->links() }}
+                                {{ $teachers->links() }}
                             </div>
                         </div>
                     </div>
@@ -129,7 +127,7 @@
                         <p>Are you sure want to delete?</p>
                     </div>
                     <div class="modal-btn delete-action">
-                        <form action="{{ route('student/delete') }}" method="POST">
+                        <form action="{{ route('teacher/delete') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <input type="hidden" name="id" class="e_id" value="">
