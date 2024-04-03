@@ -10,14 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('courses', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('status_id')->default(1)->constrained('statuses')->onDelete('cascade');
-            $table->foreignId('teacher_id')->constrained('users');
             $table->string('name');
-            $table->text('info');
-            $table->unsignedInteger('total_hours');
-            $table->decimal('charge_per_hour', 8, 2);
             $table->timestamps();
         });
     }
@@ -27,6 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('courses');
+        Schema::dropIfExists('statuses');
     }
 };

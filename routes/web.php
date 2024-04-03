@@ -1,11 +1,13 @@
 <?php
 
+use App\Livewire\Courses;
 use App\Livewire\Home;
 use App\Livewire\AddUser;
 use App\Livewire\Interns;
 use App\Livewire\EditUser;
 use App\Livewire\Students;
 use App\Livewire\Teachers;
+use App\Livewire\CreateCourse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
@@ -38,6 +40,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/teacher/list', Teachers::class)->name('teacher/list');
     Route::get('/intern/list', Interns::class)->name('intern/list');
     Route::get('/users/edit/{userId}', EditUser::class)->name('user/edit');
+    Route::get('/courses/create', CreateCourse::class)->name('courses.create');
+    Route::get('/course/list', Courses::class)->name('course/list');
+
+
 
 
 

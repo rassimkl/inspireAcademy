@@ -5,10 +5,10 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Students</h3>
+                            <h3 class="page-title">Courses</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('student/list') }}">Student</a></li>
-                                <li class="breadcrumb-item active">All Students</li>
+                                <li class="breadcrumb-item"><a href="{{ route('course/list') }}">Course</a></li>
+                                <li class="breadcrumb-item active">All Courses</li>
                             </ul>
                         </div>
                     </div>
@@ -38,13 +38,13 @@
                             <div class="page-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h3 class="page-title">Students</h3>
+                                        <h3 class="page-title">Courses</h3>
                                     </div>
                                     <div class="col-auto text-end float-end ms-auto download-grp">
                                         
                                       
                                         
-                                        <a href="{{ route('user/add/page', ['user_type_id' => 3]) }}" class="btn btn-primary">Add Student <i class="fas fa-plus"></i></a>
+                                        <a href="{{ route('courses.create') }}" class="btn btn-primary">Create Course <i class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -60,54 +60,56 @@
 </div>
                             <div class="table-responsive">
                                 <table
-                                    class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                                    class="table border-0 star-student table-hover table-center mb-0  table-striped">
                                     <thead class="student-thread">
+                       
                                         <tr>
+                                   
                                             <th>
                                              
                                             </th>
                                             <th>ID</th>
                                             <th>Name</th>
-                                      <th>Gender</th>
-                                            <th>DOB</th>
-                                            <th>Email</th>
-                                            <th>Mobile Number</th>
-                                               <th>Languages</th>
-                                            <th>Address</th>
+                                      <th>Teacher</th>
+                                            <th>Total Hours</th>
+                                            <th>Charge/Hour</th>
+                                            <th>Info</th>
+                                              <th>Status</th>
+                                               <th class="text-center">Number of Students</th>
+                                         
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                         
                                   
-                                        @foreach ($students as $student )
+                                        @foreach ($courses as $course )
                                         <tr>
                                             <td>
                                               
                                             </td>
-                                            <td>STD{{ $student->id }}</td>
+                                            <td>CRS{{ $course->id }}</td>
                                            
-                                            <td hidden class="avatar">{{ $student->id }}</td>
+                                            <td hidden class="avatar">{{ $course->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                    <a href="student-details.html"class="avatar avatar-sm me-2">
-                                                        <img class="avatar-img rounded-circle" src="{{ $student->profile_picture ? Storage::url('student-photos/'.$student->profile_picture) :Storage::url('student-photos/default.png') }}" alt="User Image">
-                                                    </a>
-                                                    <a href="{{ url('student/profile/'.$student->id) }}">{{ $student->first_name }} {{ $student->last_name }}</a>
+                                                 
+                                                    <a href="{{ url('student/profile/'.$course->id) }}">{{ $course->name }} {{ $course->name }}</a>
                                                 </h2>
                                             </td>
-                                            <td>{{ $student->gender }} </td>
-                                            <td>{{ $student->date_of_birth }}</td>
-                                            <td>{{ $student->email }}</td>
-                                            <td>{{ $student->phone_number }}</td>
-                                            <td> @foreach(json_decode($student->languages) as $key => $language)
-        {{ $language }}@if(!$loop->last),@endif
-    @endforeach</td>
+                                            <td>{{ $course->teacher->first_name }} {{ $course->teacher->last_name }} </td>
+                                            <td>{{ $course->total_hours }}</td>
+                                            <td>{{ $course->charge_per_hour }}</td>
+                                            <td>{{ $course->info }}</td>
+                                               <td>{{ $course->status->name }}</td>
+                                             <td class='text-center'>{{$course->students_count}}</td>
+                            
 
-                                            <td>{{$student->address}},{{$student->city}}</td>
+                                           
                                             <td class="text-end">
                                                 <div class="actions">
                                          
-                                                    <a        href="{{ route('user/edit', ['userId' => $student->id]) }}" class="btn btn-sm bg-danger-light">
+                                                    <a        href="{{ route('user/edit', ['userId' => $course->id]) }}" class="btn btn-sm bg-danger-light">
                                                         <i class="far fa-edit me-2"></i>
                                                     </a>
                                                     <a class="btn btn-sm bg-danger-light student_delete" data-bs-toggle="modal" data-bs-target="#studentUser">
@@ -117,11 +119,15 @@
                                             </td>
                                         </tr>
                                         @endforeach
+                                        
                                     </tbody>
+
                                 </table>
-   
-                                {{ $students->links() }}
+                                {{ $courses->links() }}
                             </div>
+                                                                           @if ($courses->isEmpty())
+    <p class="text-center">No courses available.</p>
+    @endif
                         </div>
                     </div>
                 </div>

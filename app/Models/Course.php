@@ -13,7 +13,7 @@ class Course extends Model
         'name',
         'info',
         'total_hours',
-        'charge_per_hour',
+        'charge_per_hour','status',
     ];
     public function teacher()
     {
@@ -21,6 +21,11 @@ class Course extends Model
     }
     public function students()
     {
-        return $this->belongsToMany(Student::class);
+        return $this->belongsToMany(User::class, 'course_student', 'course_id', 'student_id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 }

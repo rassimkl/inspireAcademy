@@ -11,6 +11,8 @@ class Main extends Component
     protected $students;
     public $perPage = 10;
     public $search;
+    protected $paginationTheme = 'bootstrap';
+
 
     public function clearSearch()
     {
@@ -18,6 +20,11 @@ class Main extends Component
     }
     
     public function updatingSearch()
+    {
+        
+        $this->resetPage();
+    }
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
