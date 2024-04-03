@@ -33,7 +33,8 @@ class User extends Authenticatable
         'country',
         'profile_picture',
         'languages',
-        'info','user_type_id' // Add profile picture to fillable
+        'info',
+        'user_type_id' // Add profile picture to fillable
     ];
     /**
      * The attributes that should be hidden for serialization.
@@ -51,9 +52,20 @@ class User extends Authenticatable
         return $this->belongsTo(UserType::class);
     }
 
-    public function courses()
+
+
+    public function coursesAsTeacher()
+    {
+        return $this->hasMany(Course::class, 'teacher_id');
+    }
+
+    public function coursesAsStudent()
     {
         return $this->belongsToMany(Course::class, 'course_student', 'student_id', 'course_id');
     }
 
+    public function classes()
+    {
+        return $this->hasManyThrough(ClassSession::class, Course::class);
+    }
 }

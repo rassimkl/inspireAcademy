@@ -10,11 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('courses', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('teacher_id')->constrained('users', 'id');
-            $table->unsignedDecimal('total_hours', 8, 2);
-            $table->unsignedDecimal('price_per_hour', 8, 2);
+        Schema::create('course_student', function (Blueprint $table) {
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
+            $table->primary(['course_id', 'student_id']);
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('courses');
+        Schema::dropIfExists('course_student');
     }
 };
