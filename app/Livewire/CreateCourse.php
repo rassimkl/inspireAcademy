@@ -16,38 +16,63 @@ class CreateCourse extends Component
     public $info;
     public $totalHours;
     public $teachers;
+    public $students;
+    public $selectedStudents;
     public $teacher;
-    public $chargePerHour;
+    public $chargePerHour = 10;
     public $userType;
 
     public function rules()
     {
         return [
             'name' => 'required',
-            'info' => 'required',
+
             'totalHours' => 'required|numeric',
             'chargePerHour' => 'required|numeric',
             'teacher' => 'required|exists:users,id',
+            'selectedStudents' => ['required', 'array'],
+
         ];
     }
 
     public function mount()
     {
-        $this->userType = UserType::where('name', 'Teacher')->firstOrFail()->id;
-        $this->teachers = User::where('user_type_id', $this->userType)->get();
+        $userType = UserType::where('name', 'Teacher')->firstOrFail()->id;
+        $this->teachers = User::where('user_type_id', $userType)->get();
+        $userType = UserType::where('name', 'Student')->firstOrFail()->id;
+        $this->students = User::where('user_type_id', $userType)->get();
+
     }
 
     public function createCourse()
     {
+
         $this->validate();
 
-        Course::create([
+        foreach ($this->selectedStudents as $userId) {
+            $user = User::find($userId);
+            if (!$user || $user->user_type_id !== 3) {
+                $this->addError('selectedStudents', 'One or more selected users are not students.');
+                return;
+            }
+        }
+
+        $user = User::find($this->teacher);
+        if (!$user || $user->user_type_id !== 2) {
+            $this->addError('teacher', 'please selecta teacher');
+            return;
+        }
+
+
+        $course = Course::create([
             'teacher_id' => $this->teacher,
             'name' => $this->name,
             'info' => $this->info,
             'total_hours' => $this->totalHours,
             'charge_per_hour' => $this->chargePerHour,
         ]);
+        // Attach students to the course
+        $course->students()->attach($this->selectedStudents);
 
 
         $this->reset(['name', 'info', 'totalHours', 'teacher', 'chargePerHour']);
@@ -56,6 +81,7 @@ class CreateCourse extends Component
             'text' => '',
             'icon' => 'success'
         ]);
+        $this->dispatch('resetSelect2');
     }
 
     public function render()

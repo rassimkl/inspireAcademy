@@ -16,6 +16,8 @@ class ClassSession extends Model
         'end_time',
     ];
 
+    protected $table = 'classes';
+
     /**
      * Get the course that owns the class session.
      */

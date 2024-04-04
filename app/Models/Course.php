@@ -13,7 +13,8 @@ class Course extends Model
         'name',
         'info',
         'total_hours',
-        'charge_per_hour','status',
+        'charge_per_hour',
+        'status',
     ];
     public function teacher()
     {
@@ -27,5 +28,10 @@ class Course extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function classes()
+    {
+        return $this->hasMany(ClassSession::class);
     }
 }

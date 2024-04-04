@@ -1,12 +1,13 @@
 <?php
 
-use App\Livewire\Courses;
 use App\Livewire\Home;
 use App\Livewire\AddUser;
+use App\Livewire\Courses;
 use App\Livewire\Interns;
 use App\Livewire\EditUser;
 use App\Livewire\Students;
 use App\Livewire\Teachers;
+use App\Livewire\TeacherHome;
 use App\Livewire\CreateCourse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -42,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/edit/{userId}', EditUser::class)->name('user/edit');
     Route::get('/courses/create', CreateCourse::class)->name('courses.create');
     Route::get('/course/list', Courses::class)->name('course/list');
+
+
+    Route::get('/teacher/home', TeacherHome::class)->name('teacher/home');
 
 
 
@@ -84,7 +88,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::controller(HomeController::class)->group(function () {
         //Route::get('/home', 'index')->middleware('auth')->name('home');
         Route::get('user/profile/page', 'userProfile')->middleware('auth')->name('user/profile/page');
-        Route::get('teacher/dashboard', 'teacherDashboardIndex')->middleware('auth')->name('teacher/dashboard');
+   
         Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
     });
 

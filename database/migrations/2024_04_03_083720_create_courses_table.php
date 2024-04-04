@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->foreignId('status_id')->default(1)->constrained('statuses')->onDelete('cascade');
             $table->foreignId('teacher_id')->constrained('users');
             $table->string('name');
-            $table->text('info');
+            $table->text('info')->nullable();
             $table->unsignedInteger('total_hours');
             $table->decimal('charge_per_hour', 8, 2);
             $table->timestamps();

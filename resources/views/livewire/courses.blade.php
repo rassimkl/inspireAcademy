@@ -101,7 +101,26 @@
                                             <td>{{ $course->total_hours }}</td>
                                             <td>{{ $course->charge_per_hour }}</td>
                                             <td>{{ $course->info }}</td>
-                                               <td>{{ $course->status->name }}</td>
+                                            <td>
+    @php
+        $statusClass = '';
+        switch ($course->status_id) {
+            case 1:
+                $statusClass = 'text-danger';
+                break;
+            case 2:
+                $statusClass = 'text-success';
+                break;
+            case 3:
+                $statusClass = 'text-primary';
+                break;
+            case 4:
+                $statusClass = 'text-decoration-line-through';
+                break;
+        }
+    @endphp
+    <span class="{{ $statusClass }}">{{ $course->status->name }}</span>
+</td>
                                              <td class='text-center'>{{$course->students_count}}</td>
                             
 

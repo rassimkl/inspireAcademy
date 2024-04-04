@@ -66,20 +66,44 @@
         </div>
     </div>
 </div>
-                                    
-                                  <div class="col-12 col-sm-4">
+
+
+     <div class="col-12 col-sm-4">
     <div class="form-group local-forms">
-        <label>Per Hour <span class="login-danger">*</span></label>
-        <div class="position-relative">
-             <input type="number" class="form-control " name="chargePerHour" placeholder="Enter Charge per hour" wire:model='chargePerHour'>
-            @error('chargePerHour')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+        <label class="@error('selectedStudents') text-danger @enderror">Students <span class="login-danger">*</span>@error('selectedStudents') - Choose at least 1 Student @enderror</label>
+        <div >
+<div wire:ignore>
+            <select  class="form-control js-example-responsive  @error('selectedStudents') is-invalid @enderror" id="students" multiple="multiple">
+            
+            @foreach ($students as $student)
+        <option value="{{ $student->id }}">{{ $student->first_name }} {{ $student->last_name }}</option>
+    @endforeach
+                <!-- Add more languages as needed -->
+            </select>
+            </div>
+            @error('selectedStudents')
+            <div  class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </div>
             @enderror
         </div>
     </div>
 </div>
+                                    
+    
+
+  <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Charge/Hour<span class="login-danger">*</span></label>
+                                            <input type="number" class="form-control @error('chargePerHour') is-invalid @enderror" name="chargePerHour" placeholder="Enter Charge per hour" wire:model='chargePerHour'>
+                                            @error('chargePerHour')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+   </div>
 
                                       
                                                 
@@ -138,29 +162,29 @@
         
 
     document.addEventListener('livewire:initialized', () => {
+    $('#students').select2({});
+    $('#teacher').select2({});
 
-      
-             $('#teacher').select2({});
+
+        $('#students').on('change', function() {
+                var selectedStudents = $(this).val();
+                //console.log('Selected languages:', selectedLanguages);
+                  @this.set('selectedStudents',selectedStudents,false);
+                // You can perform further actions here based on the selected values
+            });
+
              
   $('#teacher').on('change', function() {
                 var selectedteacher = $(this).val();
-          
+
                   @this.set('teacher',selectedteacher,false);
-        
-            });
+                  });
 
                  Livewire.on('resetSelect2', function () {
              
-            $('#teacher').val(null).trigger('change');
-        });
-
-datetimePicker.on('dp.change', function(e) {
-
-         @this.set('date_of_birth', e.date.format('DD-MM-YYYY'),false);
-
-       
-
-});
+                $('#teacher').val(null).trigger('change');
+              $('#students').val(null).trigger('change');
+                                                        });
     })
 
 </script>

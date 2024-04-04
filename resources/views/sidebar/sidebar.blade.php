@@ -5,21 +5,16 @@
                 <li class="menu-title">
                     <span>Main Menu</span>
                 </li>
-                <li class="{{set_active(['setting/page'])}}">
-                    <a href="{{ route('setting/page') }}">
-                        <i class="fas fa-cog"></i> 
-                        <span>Settings</span>
-                    </a>
-                </li>
-                <li class="submenu {{set_active(['home','teacher/dashboard','student/dashboard'])}}">
+              
+                <li class="submenu {{set_active(['home','teacher/home','student/dashboard'])}}">
                     <a>
                         <i class="fas fa-tachometer-alt"></i>
-                        <span> Dashboard</span> 
+                        <span> Home</span> 
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
                         <li><a href="{{ route('home') }}" class="{{set_active(['home'])}}">Admin Dashboard</a></li>
-                        <li><a href="{{ route('teacher/dashboard') }}" class="{{set_active(['teacher/dashboard'])}}">Teacher Dashboard</a></li>
+                        <li><a href="{{ route('teacher/home') }}" class="{{set_active(['teacher/home'])}}">Teacher Home</a></li>
                         <li><a href="{{ route('student/dashboard') }}" class="{{set_active(['student/dashboard'])}}">Student Dashboard</a></li>
                     </ul>
                 </li>
@@ -73,8 +68,7 @@
                     <ul>
                         <li><a href="{{ route('courses.create') }}" class="{{set_active(['courses/create'])}}">Create Course</a></li>
                          <li><a href="{{ route('course/list') }}" class="{{set_active(['course/list'])}}">Courses</a></li>
-                        <li><a href="{{ route('teacher/add/page') }}" class="{{set_active(['teacher/add/page'])}}">Teacher Add</a></li>
-                        <li><a class="{{ (request()->is('teacher/edit/*')) ? 'active' : '' }}">Teacher Edit</a></li>
+                 
                     </ul>
                 </li>
                 
@@ -92,7 +86,7 @@
 
                 <li class="submenu {{set_active(['subject/list/page','subject/add/page'])}} {{ request()->is('subject/edit/*') ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-book-reader"></i>
-                        <span> Subjects</span>
+                        <span> Classes</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
