@@ -279,7 +279,7 @@
 
 datetimePicker.on('dp.change', function(e) {
 
-         @this.set('date_of_birth', e.date.format('DD-MM-YYYY'),false);
+         @this.set('date_of_birth', e.date.format('YYYY-MM-DD'),false);
 
        
 

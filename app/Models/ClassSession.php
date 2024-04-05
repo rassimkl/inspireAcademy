@@ -9,11 +9,14 @@ class ClassSession extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'course_id',
+        'course_id','room_id',
         'hours',
         'date',
         'start_time',
         'end_time',
+        'payment_status',
+        'status',
+        'report'
     ];
 
     protected $table = 'classes';
@@ -24,5 +27,10 @@ class ClassSession extends Model
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
     }
 }

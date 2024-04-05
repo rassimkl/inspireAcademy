@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             InternsTableSeeder::class,
             StudentSeeder::class,
-            TeachersTableSeeder::class
+            TeachersTableSeeder::class,
+            RoomSeeder::class
         ]);
     }
 }

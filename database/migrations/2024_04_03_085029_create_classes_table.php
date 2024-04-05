@@ -13,10 +13,14 @@ return new class extends Migration {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->foreignId('room_id')->constrained()->onDelete('cascade');
             $table->unsignedInteger('hours');
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
+            $table->tinyInteger('status')->default(1)->comment('1: Not Completed, 2: Completed');
+            $table->tinyInteger('payment_status')->default(1)->comment('1: Not Paid, 2: Paid');
+            $table->string('report')->nullable();
             $table->timestamps();
         });
     }

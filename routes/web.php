@@ -8,6 +8,7 @@ use App\Livewire\EditUser;
 use App\Livewire\Students;
 use App\Livewire\Teachers;
 use App\Livewire\TeacherHome;
+use App\Livewire\ClassSession;
 use App\Livewire\CreateCourse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -47,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/teacher/home', TeacherHome::class)->name('teacher/home');
 
-
+    Route::get('/add/class/{course}', ClassSession::class)->name('class/add');
 
 
 
@@ -88,7 +89,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::controller(HomeController::class)->group(function () {
         //Route::get('/home', 'index')->middleware('auth')->name('home');
         Route::get('user/profile/page', 'userProfile')->middleware('auth')->name('user/profile/page');
-   
+
         Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
     });
 

@@ -70,7 +70,7 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6>Total Hours</h6>
-                                    <h3>15/20</h3>
+                                    <h3>{{$totalHours}}</h3>
                                 </div>
                                 <div class="db-icon">
                                     <img src="{{ URL::to('assets/img/icons/teacher-icon-03.svg') }}" alt="Dashboard Icon">
@@ -103,17 +103,18 @@
                                     
                                         <table class="table table-center">
                                             <tbody>
+                                            @foreach($upcomingClasses as $class)
+                                         
                                                 <tr>
                                                     <td>
                                                         <div class="date">
-                                                            <b>Lessons 30</b>
-                                                            <p>3.1 Ipsuum dolor</p>
+                                                            <b>Class-{{$class->id}}</b>
+                                                            <p>Course:{{$class->course->name}} {{$class->room->name}}</p>
                                                             <ul class="teacher-date-list">
-                                                                <li><i class="fas fa-calendar-alt me-2"></i>Sep 5,
-                                                                    2022</li>
+                                                                <li><i class="fas fa-calendar-alt me-2"></i>{{   Carbon\Carbon::parse($class->date)->format('M j, Y')}}</li>
                                                                 <li>|</li>
-                                                                <li><i class="fas fa-clock me-2"></i>09:00 - 10:00
-                                                                    am</li>
+                                                                <li><i class="fas fa-clock me-2"></i>{{Carbon\Carbon::parse($class->start_time)->format('H:i')}} - {{Carbon\Carbon::parse($class->end_time)->format('H:i')}} 
+                                                                    </li>
                                                             </ul>
                                                         </div>
                                                     </td>
@@ -125,28 +126,10 @@
                                                             class="btn btn-info">Reschedule</button>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="date">
-                                                            <b>Lessons 30</b>
-                                                            <p>3.1 Ipsuum dolor</p>
-                                                            <ul class="teacher-date-list">
-                                                                <li><i class="fas fa-calendar-alt me-2"></i>Sep 5,
-                                                                    2022</li>
-                                                                <li>|</li>
-                                                                <li><i class="fas fa-clock me-2"></i>09:00 - 10:00
-                                                                    am</li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="lesson-confirm">
-                                                            <a href="#">Confirmed</a>
-                                                        </div>
-                                                        <button type="submit"
-                                                            class="btn btn-info">Reschedule</button>
-                                                    </td>
-                                                </tr>
+                                                @endforeach
+
+                                            
+                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -166,7 +149,7 @@
                                 <div class="dash-widget">
                                     <div class="circle-bar circle-bar1">
                                         <div >
-                                            <h1>4</h1>
+                                            <h1>{{$totalHoursThisMonth}}</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -224,7 +207,7 @@
                                             <td>
                                                 <h2 class="table-avatar">
                                                  
-                                                    <a href="{{ url('student/profile/'.$course->id) }}">{{ $course->name }} {{ $course->name }}</a>
+                                                    <a href="{{ url('student/profile/'.$course->id) }}"> {{ $course->name }}</a>
                                                 </h2>
                                             </td>
                                          
@@ -258,7 +241,7 @@
                                             <td class="text-end">
                                                 <div class="actions">
                                          
-                                                    <a        href="{{ route('user/edit', ['userId' => $course->id]) }}" class="btn btn-sm bg-danger-light">
+                                                    <a        href="{{ route('class/add', ['course' => $course->id]) }}" class="btn btn-sm bg-danger-light">
 <i class="feather-plus"></i></a></span>
                                                     </a>
                                                    
@@ -350,7 +333,7 @@
                 <div class="col-12 col-lg-12 col-xl-4 d-flex">
                     <div class="card flex-fill comman-shadow">
                         <div class="card-body">
-                            <div id="calendar-doctor" class="calendar-container"></div>
+                            <div id="teacher-calendar" class="calendar-container"></div>
                             <div class="calendar-info calendar-info1">
                                 <div class="up-come-header">
                                     <h2>Upcoming Events</h2>
@@ -452,5 +435,40 @@
         </div>
     </div>
 
+
+<script>
+
+    document.addEventListener('livewire:initialized', () => {
+        
+    var events = @json($calendarClasses); // Encode events to JSON
+
+
+
+
+
+   var calendarevents =events.map(function(event) {
+
+     var startTime = event.start_time.split(':').slice(0, 2).join(':'); // Remove seconds
+            var endTime = event.end_time.split(':').slice(0, 2).join(':'); // Remove seconds
+            var status = event.status==1?'Pending':'Completed';
+            var summary = `From ${startTime} Till ${endTime} ${status}`;
+
+                return {
+                    startDate: event.date,
+                    endDate: event.date,
+                    summary: summary
+                };
+            });
+
+
+  $("#teacher-calendar").simpleCalendar({
+    fixedStartDay: 0,
+    disableEmptyDetails: true,
+    events: calendarevents,
+  });
+
+      
+    });
+</script>
 
 </div>
