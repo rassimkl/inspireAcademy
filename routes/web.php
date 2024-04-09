@@ -1,11 +1,13 @@
 <?php
 
+use App\Livewire\EditClassSession;
 use App\Livewire\Home;
 use App\Livewire\AddUser;
 use App\Livewire\Courses;
 use App\Livewire\Interns;
 use App\Livewire\EditUser;
 use App\Livewire\Students;
+use App\Livewire\SubmitClass;
 use App\Livewire\Teachers;
 use App\Livewire\TeacherHome;
 use App\Livewire\ClassSession;
@@ -49,8 +51,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/teacher/home', TeacherHome::class)->name('teacher/home');
 
     Route::get('/add/class/{course}', ClassSession::class)->name('class/add');
-
-
+    Route::get('/edit/class/{classsession}', EditClassSession::class)->name('class/edit');
+    Route::get('/submit/class/{classsession}', SubmitClass::class)->name('class/submit');
 
 });
 

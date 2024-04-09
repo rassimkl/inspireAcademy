@@ -27,6 +27,7 @@ class TeacherHome extends Component
 
         $this->teacher = User::with(['coursesAsTeacher.students', 'coursesAsTeacher.classes'])->find(auth()->id());
         $this->calendarClasses = $this->teacher->classes;
+
         $this->unfinishedClasses = $this->teacher->classes->where('status', 1);
         $this->totalStudents = $this->teacher->coursesAsTeacher->flatMap->students->unique()->count();
         $this->totalClasses = $this->teacher->coursesAsTeacher->flatMap->classes->unique()->count();
@@ -69,6 +70,8 @@ class TeacherHome extends Component
             ->get();
 
     }
+
+
     public function render()
     {
         return view('livewire.teacher-home');

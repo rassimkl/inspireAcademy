@@ -261,70 +261,91 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-12 col-xl-12 d-flex">
+                          <div class="col-12 col-lg-12 col-xl-12 d-flex">
                             <div class="card flex-fill comman-shadow">
-                                <div class="card-header d-flex align-items-center">
-                                    <h5 class="card-title">Teaching History</h5>
-                                    <ul class="chart-list-out student-ellips">
-                                        <li class="star-menus"><a href="javascript:;"><i
-                                                    class="fas fa-ellipsis-v"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="card-body">
-                                    <div class="teaching-card">
-                                        <ul class="steps-history">
-                                            <li>Sep22</li>
-                                            <li>Sep23</li>
-                                            <li>Sep24</li>
-                                        </ul>
-                                        <ul class="activity-feed">
-                                            <li class="feed-item d-flex align-items-center">
-                                                <div class="dolor-activity">
-                                                    <span class="feed-text1"><a>Mathematics</a></span>
-                                                    <ul class="teacher-date-list">
-                                                        <li><i class="fas fa-calendar-alt me-2"></i>September 5,
-                                                            2022</li>
-                                                        <li>|</li>
-                                                        <li><i class="fas fa-clock me-2"></i>09:00 am - 10:00 am (60
-                                                            Minutes)</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="activity-btns ms-auto">
-                                                    <button type="submit" class="btn btn-info">In Progress</button>
-                                                </div>
-                                            </li>
-                                            <li class="feed-item d-flex align-items-center">
-                                                <div class="dolor-activity">
-                                                    <span class="feed-text1"><a>Geography </a></span>
-                                                    <ul class="teacher-date-list">
-                                                        <li><i class="fas fa-calendar-alt me-2"></i>September 5,
-                                                            2022</li>
-                                                        <li>|</li>
-                                                        <li><i class="fas fa-clock me-2"></i>09:00 am - 10:00 am (60
-                                                            Minutes)</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="activity-btns ms-auto">
-                                                    <button type="submit" class="btn btn-info">Completed</button>
-                                                </div>
-                                            </li>
-                                            <li class="feed-item d-flex align-items-center">
-                                                <div class="dolor-activity">
-                                                    <span class="feed-text1"><a>Botony</a></span>
-                                                    <ul class="teacher-date-list">
-                                                        <li><i class="fas fa-calendar-alt me-2"></i>September 5,
-                                                            2022</li>
-                                                        <li>|</li>
-                                                        <li><i class="fas fa-clock me-2"></i>09:00 am - 10:00 am (60
-                                                            Minutes)</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="activity-btns ms-auto">
-                                                    <button type="submit" class="btn btn-info">In Progress</button>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col-6">
+                                            <h5 class="card-title">Pending Classes</h5>
+                                        </div>
+                                        <div class="col-6">
+                                              {{-- <span class="float-end view-link"><a href="{{ route('course/list') }}">Add Class</a></span> --}}
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="">
+                                
+                                    <div class="table-responsive">
+                                <table
+                                    class="table border-0 star-student table-hover table-center mb-0  table-striped">
+                                    <thead class="student-thread">
+                       
+                                        <tr>
+                                   
+                                            <th>
+                                             
+                                            </th>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                   
+                                            <th>Hours</th>
+                                            <th>Date</th>
+                                         
+                                            
+                                               <th class="text-center">Time</th>
+                                         
+                                            <th class="text-end">Edit</th>
+                                            <th class="text-end">Submit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                         
+                                  
+                                        @foreach ($unfinishedClasses as $uclass )
+                                        <tr>
+                                            <td>
+                                              
+                                            </td>
+                                            <td>CLS{{ $uclass->id }}</td>
+                                           
+                                            <td hidden class="avatar">{{ $uclass->id }}</td>
+                                            <td>
+                                                <h2 class="table-avatar">
+                                                 
+                                                    <a href="{{ url('student/profile/'.$uclass->id) }}"> {{ $uclass->course->name }}</a>
+                                                </h2>
+                                            </td>
+                                         
+                                            <td class="">{{$uclass->hours}}H</td>
+                                            <td>{{ $uclass->date }}</td>
+                                    
+                                        <td class='text-center'>{{ date('H:i', strtotime($uclass->start_time)) }}/{{ date('H:i', strtotime($uclass->end_time)) }}</td>
+
+
+                                              <td>{{$uclass->room->name }}</td>
+                                              <td class="text-end">
+                                                <div class="actions">
+                                         
+                                                    <a        href="{{ route('class/edit', ['classsession' => $uclass->id]) }}" class="btn btn-sm bg-danger-light">
+                                                        <i class="far fa-edit me-2"></i>
+                                                    </a>
+                                                    <a  href="{{ route('class/submit', ['classsession' => $uclass->id]) }}" class="btn btn-sm bg-danger-light student_delete" >
+                                                     <i class="fa fa-check" aria-hidden="true"></i>
+
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        
+                                    </tbody>
+
+                                </table>
+                                       @if ($courses->isEmpty())
+    <p class="text-center">No courses available.</p>
+    @endif
+                            
+                            </div>
                                 </div>
                             </div>
                         </div>
@@ -433,6 +454,8 @@
                 </div>
             </div>
         </div>
+
+        
     </div>
 
 

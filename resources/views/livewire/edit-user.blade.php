@@ -96,7 +96,7 @@
                                     <div class="col-12 col-sm-4">
                                         <div wire:ignore class="form-group local-forms calendar-icon">
                                             <label>Date Of Birth <span class="login-danger"></span></label>
-                                            <input id="datepickeru" wire:model.live='date_of_birth' class="form-control datetimepicker @error('date_of_birth') is-invalid @enderror" name="date_of_birth" type="text" placeholder="DD-MM-YYYY" >
+                                            <input id="datepickeru" wire:model='date_of_birth' class="form-control datetimepicker @error('date_of_birth') is-invalid @enderror" name="date_of_birth" type="text" placeholder="DD-MM-YYYY" >
                                             @error('date_of_birth')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -265,7 +265,7 @@
         var datetimePicker =$('#datepickeru');
        
           var selectedLanguages = @this.get('languages');
-          console.log(selectedLanguages)
+       
            $('#languages').select2({}).val(selectedLanguages).trigger('change');//preload select with the user languages
    
              

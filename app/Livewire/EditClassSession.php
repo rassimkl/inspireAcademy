@@ -6,14 +6,15 @@ use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\Course;
 use Livewire\Component;
+use App\Models\ClassSession;
 use App\Rules\NoClassConflict;
 
-class ClassSession extends Component
+class EditClassSession extends Component
 {
 
-
     public $course;
-    public $hours = 1;
+    public $classsession;
+    public $hours;
     public $date;
     public $start_time;
     public $end_time;
@@ -21,40 +22,48 @@ class ClassSession extends Component
     public $total_hours;
     public $remainingHours;
     public $rooms;
+
     public $conflict;
 
-    public function rules()
-    {
 
-        return [
-            'hours' => 'required|min:0.5',
-            'date' => ['required', 'date', 'after_or_equal:today'],
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
-            'room_id' => 'required|exists:rooms,id',
+    protected $rules = [
+        'hours' => 'required|min:0.5',
+        'date' => 'required|date|after_or_equal:today',
+        'start_time' => 'required|date_format:H:i',
+        'end_time' => 'required|date_format:H:i|after:start_time',
+        'room_id' => 'required|exists:rooms,id',
 
+    ];
 
-
-        ];
-    }
 
     public function crules()
     {
         return [
-            'conflict' => [new NoClassConflict(null, $this->room_id, $this->date, $this->start_time, $this->end_time)],
+            'conflict' => [new NoClassConflict($this->classsession->id, $this->room_id, $this->date, $this->start_time, $this->end_time)],
 
 
         ];
     }
 
-    public function mount(Course $course)
+
+    public function mount(ClassSession $classsession)
     {
-        $this->date = Carbon::today()->format('d-m-Y');
-        $this->start_time = Carbon::now()->format('H:i');
-        $this->course = $course;
-        $this->authorize('addClass', $course);
+        $this->classsession = $classsession;
+
+        $this->course = $classsession->course;
+
+        //$this->authorize('addClass', $course);
         $this->rooms = Room::all();
         $this->calculateRemainingHours();
+
+        $this->hours = $classsession->hours;
+        $this->date = Carbon::parse($classsession->date)->format('d-m-Y');
+        $this->start_time = Carbon::parse($classsession->start_time)->format('H:i');
+        $this->end_time = Carbon::parse($classsession->end_time)->format('H:i');
+
+        $this->room_id = $classsession->room_id;
+
+
 
     }
 
@@ -91,13 +100,11 @@ class ClassSession extends Component
 
 
 
-    public function createClass()
+    public function updateClassSession()
     {
+
         $validatedData = $this->validate();
-
         $this->validate($this->crules());
-
-
         $validatedData['date'] = Carbon::parse($this->date)->format('Y-m-d');
 
         if ($this->hours > $this->remainingHours) {
@@ -105,18 +112,15 @@ class ClassSession extends Component
             return;
         }
 
-
-        Course::find($this->course->id)->classes()->create($validatedData);
+        $this->classsession->update($validatedData);
 
         $this->dispatch('showAlert', [
-            'title' => "Class Created Succesfully",
+            'title' => "Class Updated Succesfully",
             'text' => '',
             'icon' => 'success'
         ]);
-        $this->reset(['end_time', 'start_time', 'date', 'hours', 'room_id']);
+
         $this->calculateRemainingHours();
-        $this->date = Carbon::today()->format('d-m-Y');
-        $this->start_time = Carbon::now()->format('H:i');
     }
 
     public function calculateRemainingHours()
@@ -126,6 +130,6 @@ class ClassSession extends Component
     }
     public function render()
     {
-        return view('livewire.class-session');
+        return view('livewire.edit-class-session');
     }
 }

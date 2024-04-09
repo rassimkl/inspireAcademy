@@ -22,7 +22,7 @@
                 <div class="col-sm-12">
                     <div class="card comman-shadow">
                         <div class="card-body">
-                            <form wire:submit='createClass' >
+                            <form wire:submit='updateClassSession' >
                                 @csrf
                                 <div class="row">
                                     <div class="col-12">
@@ -39,7 +39,7 @@
                                             <label>Hours <span class="login-danger">*</span> <span class="font-weight-bold">{{$remainingHours}} Hours Remaining</span>
 </label>
                                             <input step="0.25" type="number" class="form-control @error('hours') is-invalid @enderror" name="hours" placeholder="Enter number of hours" wire:model.live.500ms='hours'>
-                                            @error('conflict')
+                                          @error('conflict')
                                                 <p class="text-danger" role="alert">
                                                     {{ $message }}
                                                 </p>
@@ -52,7 +52,7 @@
                                                 <label class="@error('date') text-danger @enderror">Date <span class="login-danger">*</span>@error('date') {{ $message }} @enderror</label>
 
                                         <div  wire:ignore>
-                                            <input id="datepickeru" wire:model='date' class="form-control datetimepicker @error('date') is-invalid @enderror" name="date" type="text" placeholder="DD-MM-YYYY" >
+                                            <input id="datepickeru" wire:model='date' class="form-control datetimepicker @error('date') is-invalid @enderror" name="date" type="text"  >
                                             </div>
                                             @error('date')
                                                 <span class="invalid-feedback" role="alert">
@@ -63,10 +63,10 @@
                                     </div>
     <div class="col-12 col-sm-4">
                                         <div   class="form-group local-forms calendar-icon">
-                                                                                        <label class="@error('start_time') text-danger @enderror">Start Time <span class="login-danger">*</span>@error('start_time') {{ $message }} @enderror</label>
+                                                                                        <label class="@error('start_time') text-danger @enderror">Start Time <span class="login-danger">*</span>@error('end_time') {{ $message }} @enderror</label>
 
                                             <div wire:ignore>
-            <input type="text" class="form-control" id='start_time' wire:model.live.500ms="start_time">
+            <input type="text" class="form-control " id='start_time'  wire:model.live.500ms="start_time">
             </div>
                                             @error('start_time')
                                                 <span class="invalid-feedback" role="alert">
@@ -125,9 +125,8 @@
                                 
                                     <div class="col-12">
                                         <div class="student-submit">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
                                         </div>
-                      
                                         
                                     </div>
                                 </div>
@@ -146,13 +145,11 @@
 
     document.addEventListener('livewire:initialized', () => {
 
- Livewire.on('updateEndtime', function (data) {
 
-   //alert(data)
-    });
 
 
  var starTimepicker = $('#start_time').datetimepicker({
+
        
             format: "H:mm",
 
@@ -175,7 +172,17 @@
         
         });
 
- var datetimePicker =$('#datepickeru');
+
+
+
+     
+  
+ 
+starTimepicker.on('dp.change', function(e) {
+    var selectedTime = e.date.format('HH:mm'); // Format the selected time
+    @this.set('start_time', selectedTime); // Emit a Livewire event to update the start time
+});
+var datetimePicker =$('#datepickeru');
 
 
  datetimePicker.on('dp.change', function(e) {
@@ -185,11 +192,6 @@
        
 
 });
-starTimepicker.on('dp.change', function(e) {
-    var selectedTime = e.date.format('HH:mm'); // Format the selected time
-    @this.set('start_time', selectedTime); // Emit a Livewire event to update the start time
-});
-
                                                         });
   
 </script>
