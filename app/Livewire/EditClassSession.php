@@ -50,6 +50,12 @@ class EditClassSession extends Component
 
     public function mount(ClassSession $classsession)
     {
+
+        if ($classsession->status == 2) {
+
+            $this->redirect(TeacherHome::class);
+        }
+
         $this->classsession = $classsession;
 
         $this->course = $classsession->course;

@@ -67,6 +67,8 @@ class SubmitClass extends Component
             'icon' => 'success'
         ]);
 
+        $this->course->updateStatus();
+
         $this->redirect(TeacherHome::class);
 
     }

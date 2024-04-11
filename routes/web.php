@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\ClassList;
 use App\Livewire\EditClassSession;
 use App\Livewire\Home;
 use App\Livewire\AddUser;
@@ -53,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/add/class/{course}', ClassSession::class)->name('class/add');
     Route::get('/edit/class/{classsession}', EditClassSession::class)->name('class/edit');
     Route::get('/submit/class/{classsession}', SubmitClass::class)->name('class/submit');
+    Route::get('/teacher/classes/', ClassList::class)->name('teacher/classes');
 
 });
 

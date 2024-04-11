@@ -275,10 +275,10 @@
                                     <div class="row align-items-center">
                                         <div class="col-6">
                                             <h5 class="card-title">Pending Classes</h5>
+                                            
                                         </div>
                                         <div class="col-6">
-                                              {{-- <span class="float-end view-link"><a href="{{ route('course/list') }}">Add Class</a></span> --}}
-                                        </div>
+    <span class="float-end view-link"><a href="{{ route('teacher/classes') }}">View All Classes</a></span>                                        </div>
                                     </div>
                                 </div>
                                 <div class="">

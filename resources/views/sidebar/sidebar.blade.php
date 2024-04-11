@@ -84,14 +84,14 @@
                     </ul>
                 </li>
 
-                <li class="submenu {{set_active(['subject/list/page','subject/add/page'])}} {{ request()->is('submit/class/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }} {{ request()->is('edit/class/*') ? 'active' : '' }}">
+                <li class="submenu {{set_active(['subject/list/page','subject/add/page','teacher/classes'])}} {{ request()->is('submit/class/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }} {{ request()->is('edit/class/*') ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-book-reader"></i>
                         <span> Classes</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
                         <li><a class="{{set_active(['subject/list/page'])}} {{ request()->is('subject/edit/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }}" href="#">Add Class</a></li>
-                        <li><a class="{{set_active(['subject/add/page'])}}" href="{{ route('subject/add/page') }}">All Classes</a></li>
+                        <li><a class="{{set_active(['teacher/classes'])}}" href="{{ route('teacher/classes') }}">All Classes</a></li>
                         <li><a class={{ request()->is('edit/class/*') ? 'active' : '' }}>Class Edit</a></li>
                              <li><a class={{ request()->is('submit/class/*') ? 'active' : '' }}>Submit Class</a></li>
                     </ul>

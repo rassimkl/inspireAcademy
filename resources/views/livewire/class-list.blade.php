@@ -5,10 +5,10 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Students</h3>
+                            <h3 class="page-title">Classes</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('student/list') }}">Student</a></li>
-                                <li class="breadcrumb-item active">All Students</li>
+                                <li class="breadcrumb-item active">All Classes</li>
                             </ul>
                         </div>
                     </div>
@@ -21,13 +21,18 @@
                  
                     <div class="col-lg-4 col-md-6">
                         <div class="form-group">
-                  
-                             <input wire:model.live.debounce.500ms="status"  type="text" class="form-control" placeholder="Search">
-                        </div>
+                         <label for="exampleInputEmail1" class="form-label">Status</label>
+    <select wire:model.live="status" class="form-select">
+        <option value="0">All</option>
+        <option value="1">Not Completed</option>
+        <option value="2">Completed</option>
+    </select>
+    
+</div>
                     </div>
                     <div class="col-lg-2">
                         <div class="search-student-btn">
-                            <button wire:click="clearSearch" type="btn" class="btn btn-primary">Clear</button>
+                           
                         </div>
                     </div>
                 </div>
@@ -39,89 +44,113 @@
                             <div class="page-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h3 class="page-title">Students</h3>
+                                        <h3 class="page-title">Classes</h3>
                                     </div>
                                     <div class="col-auto text-end float-end ms-auto download-grp">
                                         
                                       
                                         
-                                        <a href="{{ route('user/add/page', ['user_type_id' => 3]) }}" class="btn btn-primary">Add Student <i class="fas fa-plus"></i></a>
+                                  
                                     </div>
                                 </div>
                             </div>
 <div class="per-page-container">
-    <label class="my-1 mr-2" for="perPage">Show</label>
-    <select wire:model.live="perPage" id="perPage" class="custom-select custom-select-sm my-1 mr-sm-2">
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-    </select>
-    <label class="my-1" for="perPage">entries</label>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <label class="my-1 mr-2" for="perPage">Show</label>
+        </div>
+        <div class="col-auto m-0 p-0">
+            <select wire:model.live="perPage" id="perPage" class=" custom-select-sm form form-control-sm">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            
+        </div>
+        <div class="col-auto">
+            <label class="my-1" for="perPage">entries</label>
+        </div>
+    </div>
 </div>
+
+
+
+
+
                             <div class="table-responsive">
                                 <table
-                                    class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                                    class="table border-0 star-student table-hover table-center mb-0  table-striped">
                                     <thead class="student-thread">
                                         <tr>
                                             <th>
                                              
                                             </th>
                                             <th>ID</th>
-                                            <th>Name</th>
-                                      <th>Gender</th>
-                                            <th>DOB</th>
-                                            <th>Email</th>
-                                            <th>Mobile Number</th>
-                                               <th>Languages</th>
-                                            <th>Address</th>
+                                            <th>Course</th>
+                                            <th>Hours</th>
+                                            <th>Students</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Room</th>
+                                              <th>Status</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                   
-                                        @foreach ($students as $student )
+                                        @foreach ($classes as $class )
                                         <tr>
                                             <td>
                                               
                                             </td>
-                                            <td>STD{{ $student->id }}</td>
+                                            <td>CLS{{ $class->id }}</td>
                                            
-                                            <td hidden class="avatar">{{ $student->id }}</td>
+                                       
                                             <td>
                                                 <h2 class="table-avatar">
-                                                    <a href="student-details.html"class="avatar avatar-sm me-2">
-                                                        <img class="avatar-img rounded-circle" src="{{ $student->profile_picture ? Storage::url('student-photos/'.$student->profile_picture) :Storage::url('student-photos/default.png') }}" alt="User Image">
-                                                    </a>
-                                                    <a href="{{ url('student/profile/'.$student->id) }}">{{ $student->first_name }} {{ $student->last_name }}</a>
+                                                    
+                                                    <a href="{{ url('student/profile/'.$class->id) }}">{{ $class->course->name }} </a>
                                                 </h2>
                                             </td>
-                                            <td>{{ $student->gender }} </td>
-                                            <td>{{ $student->date_of_birth }}</td>
-                                            <td>{{ $student->email }}</td>
-                                            <td>{{ $student->phone_number }}</td>
-                                            <td> @foreach(json_decode($student->languages) as $key => $language)
-        {{ $language }}@if(!$loop->last),@endif
-    @endforeach</td>
+                                            <td>{{ $class->hours }} </td>
+                                            <td>{{ $class->course->students->count() }}</td>
+                                            <td>{{ $class->date }}</td>
+                                           <td class='text-center'>{{ date('H:i', strtotime($class->start_time)) }}/{{ date('H:i', strtotime($class->end_time)) }}</td>
+                                          
 
-                                            <td>{{$student->address}},{{$student->city}}</td>
-                                            <td class="text-end">
-                                                <div class="actions">
-                                         
-                                                    <a        href="{{ route('user/edit', ['userId' => $student->id]) }}" class="btn btn-sm bg-danger-light">
-                                                        <i class="far fa-edit me-2"></i>
-                                                    </a>
-                                                    <a class="btn btn-sm bg-danger-light student_delete" data-bs-toggle="modal" data-bs-target="#studentUser">
-                                                        <i class="far fa-trash-alt me-2"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
+                                            <td>{{$class->room->name}}</td>
+                                        <td class="{{ $class->status == 2 ? 'text-success' : '' }}">
+    {{ $class->status == 1 ? 'Not Completed' : 'Completed' }}
+</td>
+                                         <td class="text-end">
+    @if($class->status != 2)
+        <div class="actions">
+            <a href="{{ route('class/edit', ['classsession' => $class->id]) }}" class="btn btn-sm bg-danger-light">
+                <i class="far fa-edit me-2"></i>
+            </a>
+            <a href="{{ route('class/submit', ['classsession' => $class->id]) }}" class="btn btn-sm bg-danger-light student_delete">
+                <i class="fa fa-check" aria-hidden="true"></i>
+            </a>
+        </div>
+        @else
+           <div class="actions">
+          <button class="btn btn-sm bg-danger-light disabled" disabled>
+                <i class="far fa-edit me-2"></i>
+            </button>
+            <button class="btn btn-sm bg-danger-light disabled" disabled>
+                <i class="fa fa-check" aria-hidden="true"></i>
+            </button>
+        </div>
+    @endif
+</td>
+
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
    
-                                {{ $students->links() }}
+                                {{ $classes->links() }}
                             </div>
                         </div>
                     </div>
