@@ -29,7 +29,9 @@
 	<script src="{{ URL::to('assets/js/toastr_jquery.min.js') }}"></script>
 	<script src="{{ URL::to('assets/js/toastr.min.js') }}"></script>
 
-   
+   <style>
+
+</style>
 </head>
 <body>
     <div class="main-wrapper">
@@ -210,6 +212,8 @@
     <script src="{{ URL::to('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script src="{{ URL::to('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ URL::to('assets/js/script.js') }}"></script>
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+
 
         <script src="{{ URL::to('assets/js/main.js') }}"></script>
     @yield('script')

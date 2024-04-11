@@ -97,7 +97,7 @@
     <div class="form-group local-forms">
         <label>Room <span class="login-danger">*</span></label>
         <div class="position-relative">
-            <select wire:model='room_id' class="form-control  @error('room_id') is-invalid @enderror" name="room_id">
+            <select wire:model.live.500ms='room_id' class="form-control  @error('room_id') is-invalid @enderror" name="room_id">
                 <option selected >Select Room</option>
                @foreach($rooms as $room)
   <option value="{{$room->id}}" >{{$room->name}}</option>
@@ -132,6 +132,15 @@
                                 </div>
                             </form>
                         </div>
+                            <div class="row">
+  <div wire:ignore class="col-md-8 offset-md-2">
+    <div id='calendarss' class="card">
+      <div class="card-body">
+        <!-- Calendar will be rendered here -->
+      </div>
+    </div>
+  </div>
+</div>
                     </div>
                 </div>
             </div>
@@ -142,58 +151,110 @@
           
 
         
+ document.addEventListener('livewire:initialized', () => {
+        var formattedDate;
+        var events;
 
-    document.addEventListener('livewire:initialized', () => {
-
-
-
-
- var starTimepicker = $('#start_time').datetimepicker({
-
-       
+        var starTimepicker = $('#start_time').datetimepicker({
             format: "H:mm",
+            useCurrent: true,
+            showTodayButton: true,
+            showClear: true,
+            toolbarPlacement: 'bottom',
+            sideBySide: true,
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down",
+                previous: "fa fa-chevron-left",
+                next: "fa fa-chevron-right",
+                today: "fa fa-clock-o",
+                clear: "fa fa-trash-o"
+            }
+        });
 
-         
-    useCurrent: true,
-    showTodayButton: true,
-    showClear: true,
-    toolbarPlacement: 'bottom',
-    sideBySide: true,
-    icons: {
-        time: "fa fa-clock-o",
-        date: "fa fa-calendar",
-        up: "fa fa-arrow-up",
-        down: "fa fa-arrow-down",
-        previous: "fa fa-chevron-left",
-        next: "fa fa-chevron-right",
-        today: "fa fa-clock-o",
-          clear: "fa fa-trash-o"
+        var datetimePicker = $('#datepickeru');
+
+        datetimePicker.on('dp.change', function(e) {
+            @this.set('date', e.date.format('DD-MM-YYYY'), true);
+        });
+
+        starTimepicker.on('dp.change', function(e) {
+            var selectedTime = e.date.format('HH:mm');
+            @this.set('start_time', selectedTime);
+        });
+
+        var classes = @this.get('events');
+        events = classes.map(function(item) {
+            return {
+                title: item.title,
+                start: item.start,
+                end: item.end
+            };
+        });
+
+function initializeCalendar() {
+            var calendarEl = document.getElementById('calendarss');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridDay',
+                initialDate: formattedDate,
+                themeSystem: "bootstrap",
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'timeGridDay'
+                },
+                slotMinTime: '08:00',
+                slotMaxTime: '24:00',
+                slotLabelFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                },
+                events: events
+            });
+
+            calendar.render();
+
+            return calendar;
         }
-        
+
+
+
+
+
+
+ var calendar = initializeCalendar();
+        Livewire.on('dateChanged', function(date) {
+      
+            var parts = date[0].split('-');
+            var parsedDate = new Date(parts[2], parts[1] - 1, parts[0]);
+            var year = parsedDate.getFullYear();
+            var month = ('0' + (parsedDate.getMonth() + 1)).slice(-2);
+            var day = ('0' + parsedDate.getDate()).slice(-2);
+            formattedDate = year + '-' + month + '-' + day;
+            calendar.gotoDate(formattedDate);
+        });
+
+        Livewire.on('roomChanged', function(uevents) {
+            console.log('room changed');
+            events = uevents[0].map(function(item) {
+                return {
+                    title: item.title,
+                    start: item.start,
+                    end: item.end
+                };
+            });
+            console.log(events);
+
+            var calendar = initializeCalendar();
         });
 
 
-
-
-     
-  
- 
-starTimepicker.on('dp.change', function(e) {
-    var selectedTime = e.date.format('HH:mm'); // Format the selected time
-    @this.set('start_time', selectedTime); // Emit a Livewire event to update the start time
-});
-var datetimePicker =$('#datepickeru');
-
-
- datetimePicker.on('dp.change', function(e) {
-
-         @this.set('date', e.date.format('DD-MM-YYYY'),false);
-
-       
-
-});
-                                                        });
-  
+         
+    });
 </script>
 @endscript
         </div>

@@ -19,7 +19,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                <div class="col-xl-3 col-sm-6 col-12 d-flex   ">
                     <div class="card bg-comman w-100">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                <div class=" col-xl-3 col-sm-6 col-12 d-flex">
                     <div class="card bg-comman w-100">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
@@ -82,15 +82,15 @@
             </div>
 
 
-            <div class="row">
-                <div class="col-12 col-lg-12 col-xl-8">
+            <div >
+                <div >
                     <div class="row">
-                        <div class="col-12 col-lg-8 col-xl-8 d-flex">
+                        <div class="col-12 col-lg-8 col-xl-5 d-flex">
                             <div class="card flex-fill comman-shadow">
                                 <div class="card-header">
                                     <div class="row align-items-center">
                                         <div class="col-6">
-                                            <h5 class="card-title">Upcoming Lesson</h5>
+                                            <h5 class="card-title">Today Lessons</h5>
                                         </div>
                                         <div class="col-6">
                                      <span class="float-end view-link"><a href="{{ route('course/list') }}">View All Courses</a></span>
@@ -120,10 +120,10 @@
                                                     </td>
                                                     <td>
                                                         <div class="lesson-confirm">
-                                                            <a href="#">Confirmed</a>
+                                                            <a   href="{{ route('class/submit', ['classsession' => $class->id]) }}">Submit</a>
                                                         </div>
-                                                        <button type="submit"
-                                                            class="btn btn-info">Reschedule</button>
+                                                    <a href="{{ route('class/edit', ['classsession' => $class->id]) }}" class="btn btn-info">Reschedule</a>
+
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-4 col-xl-4 d-flex">
+                        <div class="col-12 col-lg-4 col-xl-2 d-flex">
                             <div class="card flex-fill comman-shadow">
                                 <div class="card-header">
                                     <div class="row align-items-center">
@@ -155,9 +155,17 @@
                                 </div>
                             </div>
                         </div>
+                          <div class="col-12 col-lg-12 col-xl-5 d-flex">
+                    <div class="card flex-fill comman-shadow">
+                        <div class="card-body">
+                            <div id="teacher-calendar" class="calendar-container"></div>
+                          
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 col-lg-12 col-xl-12 d-flex">
+                </div>
+                    </div>
+                    <div class="row ">
+                        <div class=" col-12 col-lg-12 col-xl-12 d-flex">
                             <div class="card flex-fill comman-shadow">
                                 <div class="card-header">
                                     <div class="row align-items-center">
@@ -211,7 +219,7 @@
                                                 </h2>
                                             </td>
                                          
-                                            <td class="text-center">{{$course->classes_sum_hours??0}}/{{ $course->total_hours }} H</td>
+                                            <td class="">{{$course->classes_sum_hours??0}}/{{ $course->total_hours }} H</td>
                                             <td>{{ $course->charge_per_hour }} €</td>
                                     
                                                <td>
@@ -351,107 +359,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-12 col-xl-4 d-flex">
-                    <div class="card flex-fill comman-shadow">
-                        <div class="card-body">
-                            <div id="teacher-calendar" class="calendar-container"></div>
-                            <div class="calendar-info calendar-info1">
-                                <div class="up-come-header">
-                                    <h2>Upcoming Events</h2>
-                                    <span><a href="javascript:;"><i class="feather-plus"></i></a></span>
-                                </div>
-                                <div class="upcome-event-date">
-                                    <h3>10 Jan</h3>
-                                    <span><i class="fas fa-ellipsis-h"></i></span>
-                                </div>
-                                <div class="calendar-details">
-                                    <p>08:00 am</p>
-                                    <div class="calendar-box normal-bg">
-                                        <div class="calandar-event-name">
-                                            <h4>Botony</h4>
-                                            <h5>Lorem ipsum sit amet</h5>
-                                        </div>
-                                        <span>08:00 - 09:00 am</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-details">
-                                    <p>09:00 am</p>
-                                    <div class="calendar-box normal-bg">
-                                        <div class="calandar-event-name">
-                                            <h4>Botony</h4>
-                                            <h5>Lorem ipsum sit amet</h5>
-                                        </div>
-                                        <span>09:00 - 10:00 am</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-details">
-                                    <p>10:00 am</p>
-                                    <div class="calendar-box normal-bg">
-                                        <div class="calandar-event-name">
-                                            <h4>Botony</h4>
-                                            <h5>Lorem ipsum sit amet</h5>
-                                        </div>
-                                        <span>10:00 - 11:00 am</span>
-                                    </div>
-                                </div>
-                                <div class="upcome-event-date">
-                                    <h3>10 Jan</h3>
-                                    <span><i class="fas fa-ellipsis-h"></i></span>
-                                </div>
-                                <div class="calendar-details">
-                                    <p>08:00 am</p>
-                                    <div class="calendar-box normal-bg">
-                                        <div class="calandar-event-name">
-                                            <h4>English</h4>
-                                            <h5>Lorem ipsum sit amet</h5>
-                                        </div>
-                                        <span>08:00 - 09:00 am</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-details">
-                                    <p>09:00 am</p>
-                                    <div class="calendar-box normal-bg">
-                                        <div class="calandar-event-name">
-                                            <h4>Mathematics </h4>
-                                            <h5>Lorem ipsum sit amet</h5>
-                                        </div>
-                                        <span>09:00 - 10:00 am</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-details">
-                                    <p>10:00 am</p>
-                                    <div class="calendar-box normal-bg">
-                                        <div class="calandar-event-name">
-                                            <h4>History</h4>
-                                            <h5>Lorem ipsum sit amet</h5>
-                                        </div>
-                                        <span>10:00 - 11:00 am</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-details">
-                                    <p>11:00 am</p>
-                                    <div class="calendar-box break-bg">
-                                        <div class="calandar-event-name">
-                                            <h4>Break</h4>
-                                            <h5>Lorem ipsum sit amet</h5>
-                                        </div>
-                                        <span>11:00 - 12:00 am</span>
-                                    </div>
-                                </div>
-                                <div class="calendar-details">
-                                    <p>11:30 am</p>
-                                    <div class="calendar-box normal-bg">
-                                        <div class="calandar-event-name">
-                                            <h4>History</h4>
-                                            <h5>Lorem ipsum sit amet</h5>
-                                        </div>
-                                        <span>11:30 - 12:00 am</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                
+               
             </div>
         </div>
 

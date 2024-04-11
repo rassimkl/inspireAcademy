@@ -28,7 +28,11 @@ class TeacherHome extends Component
         $this->teacher = User::with(['coursesAsTeacher.students', 'coursesAsTeacher.classes'])->find(auth()->id());
         $this->calendarClasses = $this->teacher->classes;
 
-        $this->unfinishedClasses = $this->teacher->classes->where('status', 1);
+        $this->unfinishedClasses = $this->teacher->classes
+        ->where('status', 1)
+        ->sortBy(function ($class) {
+            return $class->date . ' ' . $class->start_time; // Combine date and start_time for sorting
+        });
         $this->totalStudents = $this->teacher->coursesAsTeacher->flatMap->students->unique()->count();
         $this->totalClasses = $this->teacher->coursesAsTeacher->flatMap->classes->unique()->count();
 
@@ -46,27 +50,33 @@ class TeacherHome extends Component
         // Get the current date and time
         $currentDateTime = Carbon::now();
 
-        // Retrieve the teacher's upcoming classes
-        $this->upcomingClasses = $this->teacher->coursesAsTeacher()
-            ->with([
-                'classes' => function ($query) use ($currentDateTime) {
-                    $query->where('date', '>=', $currentDateTime->toDateString()) // Classes after or on the current date
-                        ->orWhere(function ($query) use ($currentDateTime) {
-                            $query->where('date', $currentDateTime->toDateString()) // Classes on the current date
-                                ->where('start_time', '>=', $currentDateTime->toTimeString()); // Classes with start time after or equal to current time
-                        })
-                        ->orderBy('date', 'asc') // Order by date in ascending order
-                        ->orderBy('start_time', 'asc') // Then by start_time in ascending order
-                        ->limit(2); // Limit the results to 2
-                }
-            ])
-            ->get()
-            ->flatMap->classes; // Flatten the classes collection
+    // Get the current date and time
+$currentDateTime = now();
+
+// Retrieve the teacher's upcoming classes for today
+$this->upcomingClasses = $this->teacher->coursesAsTeacher()
+    ->whereHas('classes', function ($query) use ($currentDateTime) {
+        $query->whereDate('date', $currentDateTime->toDateString())
+           ;
+    })
+    ->with(['classes' => function ($query) use ($currentDateTime) {
+        $query->whereDate('date', $currentDateTime->toDateString())
+            
+            ->orderBy('start_time', 'asc'); // Order by start_time in ascending order
+    }])
+    ->get()
+    ->flatMap->classes; // Flatten the classes collection
 
 
-        $this->courses = $this->teacher->coursesAsTeacher()
+
+            $this->courses = $this->teacher->coursesAsTeacher()
             ->whereIn('status_id', [1, 2])
-            ->withSum('classes', 'hours')
+            ->with(['classes' => function ($query) {
+                $query->where('status', 2);
+            }])
+            ->withSum(['classes' => function ($query) {
+                $query->where('status', 2);
+            }], 'hours')
             ->get();
 
     }

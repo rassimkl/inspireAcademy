@@ -25,9 +25,11 @@ class EditClassSession extends Component
 
     public $conflict;
 
+    public $events = [];
+
 
     protected $rules = [
-        'hours' => 'required|min:0.5',
+        'hours' => 'required|min:0.25',
         'date' => 'required|date|after_or_equal:today',
         'start_time' => 'required|date_format:H:i',
         'end_time' => 'required|date_format:H:i|after:start_time',
@@ -51,6 +53,7 @@ class EditClassSession extends Component
         $this->classsession = $classsession;
 
         $this->course = $classsession->course;
+        $this->authorize('addClass', $this->course);
 
         //$this->authorize('addClass', $course);
         $this->rooms = Room::all();
@@ -62,10 +65,49 @@ class EditClassSession extends Component
         $this->end_time = Carbon::parse($classsession->end_time)->format('H:i');
 
         $this->room_id = $classsession->room_id;
+        $this->loadClasses($classsession->room_id);
 
 
 
     }
+
+    public function loadClasses($roomId)
+    {
+        $today = now()->toDateString();
+
+        $classes = ClassSession::where('date', '>=', $today)
+            ->where('room_id', $roomId)
+            ->get();
+
+        $this->events = [];
+
+        foreach ($classes as $class) {
+            $title = $class->course->name . ' In ' . $class->room->name;
+            if ($class->id == $this->classsession->id) {
+                $title .= ' - Current Session';
+            }
+            $this->events[] = [
+                'title' => $title,
+                'start' => $class->date . 'T' . $class->start_time,
+                'end' => $class->date . 'T' . $class->end_time,
+                // Add other necessary properties
+            ];
+        }
+        $this->dispatch('roomChanged', $this->events);
+    }
+
+    public function updatedDate($value)
+    {
+        $this->dispatch('dateChanged', $value);
+        $this->loadClasses($this->room_id); // Pass the current room_id
+
+    }
+
+    public function updatedRoomId($value)
+    {
+        $this->loadClasses($value);
+    }
+
 
     public function updatedHours($value)
     {
@@ -121,6 +163,7 @@ class EditClassSession extends Component
         ]);
 
         $this->calculateRemainingHours();
+        $this->loadClasses($validatedData['room_id']);
     }
 
     public function calculateRemainingHours()

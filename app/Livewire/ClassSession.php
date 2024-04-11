@@ -23,6 +23,9 @@ class ClassSession extends Component
     public $rooms;
     public $conflict;
 
+
+    public $events = [];
+
     public function rules()
     {
 
@@ -47,14 +50,53 @@ class ClassSession extends Component
         ];
     }
 
+
     public function mount(Course $course)
     {
         $this->date = Carbon::today()->format('d-m-Y');
         $this->start_time = Carbon::now()->format('H:i');
+        $this->calculateEndTime();
+        $this->room_id = 1;
         $this->course = $course;
         $this->authorize('addClass', $course);
         $this->rooms = Room::all();
         $this->calculateRemainingHours();
+        $this->loadClasses(1);
+
+
+
+
+    }
+
+    public function updatedRoomId($value)
+    {
+        $this->loadClasses($value);
+    }
+    public function loadClasses($roomId)
+    {
+        $today = now()->toDateString();
+
+        $classes = \App\Models\ClassSession::where('date', '>=', $today)
+            ->where('room_id', $roomId)
+            ->get();
+
+        $this->events = [];
+
+        foreach ($classes as $class) {
+            $this->events[] = [
+                'title' => $class->course->name . ' In ' . $class->room->name,
+                'start' => $class->date . 'T' . $class->start_time,
+                'end' => $class->date . 'T' . $class->end_time,
+                // Add other necessary properties
+            ];
+        }
+        $this->dispatch('roomChanged', $this->events);
+    }
+
+    public function updatedDate($value)
+    {
+        $this->dispatch('dateChanged', $value);
+        $this->loadClasses($this->room_id); // Pass the current room_id
 
     }
 
@@ -113,10 +155,9 @@ class ClassSession extends Component
             'text' => '',
             'icon' => 'success'
         ]);
-        $this->reset(['end_time', 'start_time', 'date', 'hours', 'room_id']);
+        //$this->reset(['end_time', 'start_time', 'date', 'hours', 'room_id']);
         $this->calculateRemainingHours();
-        $this->date = Carbon::today()->format('d-m-Y');
-        $this->start_time = Carbon::now()->format('H:i');
+        $this->loadClasses($this->room_id);
     }
 
     public function calculateRemainingHours()
