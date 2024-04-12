@@ -129,7 +129,12 @@
                                         <div class="student-submit">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
-                      
+                      <div class="form-check mt-2">
+        <input class="form-check-input" type="checkbox" value="1" id="notifyUser" name="notifyUser" wire:model="notifyUser">
+        <label class="form-check-label" for="notifyUser">
+            Notify user
+        </label>
+    </div>
                                         
                                     </div>
                                 </div>
@@ -213,7 +218,9 @@ function initializeCalendar() {
                     minute: '2-digit',
                     hour12: false
                 },
-                events: events
+                events: events,
+           slotEventOverlap:false,
+           
             });
 
             calendar.render();

@@ -7,11 +7,14 @@ use App\Models\Course;
 use Livewire\Component;
 use App\Models\UserType;
 use Livewire\Attributes\Title;
+use Illuminate\Validation\Rule;
+
 
 #[Title('Create Course')]
 
 class CreateCourse extends Component
 {
+    public $course_type = 1;
     public $name;
     public $info;
     public $totalHours;
@@ -22,11 +25,15 @@ class CreateCourse extends Component
     public $chargePerHour = 10;
     public $userType;
 
+
     public function rules()
     {
         return [
             'name' => 'required',
-
+            'course_type' => [
+                'required',
+                Rule::in([1, 2]),
+            ],
             'totalHours' => 'required|numeric',
             'chargePerHour' => 'required|numeric',
             'teacher' => 'required|exists:users,id',
@@ -70,6 +77,7 @@ class CreateCourse extends Component
             'info' => $this->info,
             'total_hours' => $this->totalHours,
             'charge_per_hour' => $this->chargePerHour,
+            'course_type' => $this->course_type
         ]);
         // Attach students to the course
         $course->students()->attach($this->selectedStudents);

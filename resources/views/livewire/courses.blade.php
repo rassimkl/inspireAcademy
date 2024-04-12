@@ -73,7 +73,7 @@
                                       <th>Teacher</th>
                                             <th>Total Hours</th>
                                             <th>Charge/Hour</th>
-                                            <th>Info</th>
+                                            <th>Type</th>
                                               <th>Status</th>
                                                <th class="text-center">Number of Students</th>
                                          
@@ -100,7 +100,9 @@
                                             <td>{{ $course->teacher->first_name }} {{ $course->teacher->last_name }} </td>
                                             <td>{{ $course->total_hours }}</td>
                                             <td>{{ $course->charge_per_hour }}</td>
-                                            <td>{{ $course->info }}</td>
+                                           <td>
+    {{ $course->course_type == 1 ? 'Face To Face' : 'Online' }}
+</td>
                                             <td>
     @php
         $statusClass = '';

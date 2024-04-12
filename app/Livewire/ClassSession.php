@@ -6,7 +6,9 @@ use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\Course;
 use Livewire\Component;
+use App\Mail\ClassCreated;
 use App\Rules\NoClassConflict;
+use Illuminate\Support\Facades\Mail;
 
 class ClassSession extends Component
 {
@@ -22,7 +24,7 @@ class ClassSession extends Component
     public $remainingHours;
     public $rooms;
     public $conflict;
-
+    public $notifyUser = true;
 
     public $events = [];
 
@@ -48,6 +50,10 @@ class ClassSession extends Component
 
 
         ];
+
+
+
+
     }
 
 
@@ -62,6 +68,10 @@ class ClassSession extends Component
         $this->rooms = Room::all();
         $this->calculateRemainingHours();
         $this->loadClasses(1);
+        if ($this->course->course_type == 2) {
+
+            $this->room_id = 102;
+        }
 
 
 
@@ -137,8 +147,11 @@ class ClassSession extends Component
     {
         $validatedData = $this->validate();
 
-        $this->validate($this->crules());
 
+        if ($this->room_id != 101 && $this->room_id != 102) {//check if the class is physical class to check conflict in classes
+            $this->validate($this->crules());
+
+        }
 
         $validatedData['date'] = Carbon::parse($this->date)->format('Y-m-d');
 
@@ -147,8 +160,11 @@ class ClassSession extends Component
             return;
         }
 
+        $validatedData['course_id'] = $this->course->id;
 
-        Course::find($this->course->id)->classes()->create($validatedData);
+        $classSession = \App\Models\ClassSession::Create($validatedData);
+
+
 
         $this->dispatch('showAlert', [
             'title' => "Class Created Succesfully",
@@ -158,7 +174,23 @@ class ClassSession extends Component
         //$this->reset(['end_time', 'start_time', 'date', 'hours', 'room_id']);
         $this->calculateRemainingHours();
         $this->loadClasses($this->room_id);
+
+        if ($this->notifyUser) {
+            $this->sendEmail($classSession);
+        }
+
     }
+
+    public function sendEmail(\App\Models\ClassSession $classSession)
+    {
+
+        Mail::to('ali.gogo11ayad@gmail.com')->send(new ClassCreated($classSession));
+
+
+    }
+
+
+
 
     public function calculateRemainingHours()
     {

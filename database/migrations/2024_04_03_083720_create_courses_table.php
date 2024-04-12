@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('status_id')->default(1)->constrained('statuses')->onDelete('cascade');
+            $table->tinyInteger('course_type')->default(1)->comment('1: Face To Face, 2: Online');
             $table->foreignId('teacher_id')->constrained('users');
             $table->string('name');
             $table->text('info')->nullable();

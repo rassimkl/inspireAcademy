@@ -45,6 +45,25 @@
                                         </div>
                                     </div>
 
+                                       <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Type<span class="login-danger"></span></label>
+                                             <div class="position-relative">
+                                            <select wire:model='course_type' class="form-control  @error('blood_group') is-invalid @enderror" name="blood_group">
+                                               
+                                                <option value="1">Face To Face</option>
+                                                <option value="2" >Online</option>
+                                            
+                                            </select>
+                                            @error('course_type')
+                                                <span class="text-danger" >
+                                                    <p>{{ $message }}</p>
+                                                </span>
+                                            @enderror
+                                              </div>
+                                        </div>
+                                    </div>
+
              <div class="col-12 col-sm-4">
     <div class="form-group local-forms">
         <label class="@error('teacher') text-danger @enderror">Teacher <span class="login-danger">*</span>@error('teacher') - Choose a teacher @enderror</label>

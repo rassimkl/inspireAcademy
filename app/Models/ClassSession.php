@@ -9,7 +9,8 @@ class ClassSession extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'course_id','room_id',
+        'course_id',
+        'room_id',
         'hours',
         'date',
         'start_time',
