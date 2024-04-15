@@ -19,14 +19,27 @@
          <div class="student-group-form">
                 <div class="row">
                  
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-2 col-md-4">
                         <div class="form-group">
-                             <input wire:model.live.throttle.350ms="search"  type="text" class="form-control" placeholder="Search">
+                             <input wire:model.live.debounce.500ms="search"  type="text" class="form-control" placeholder="Search">
                         </div>
                     </div>
                     <div class="col-lg-2">
                         <div class="search-student-btn">
                             <button wire:click="clearSearch" type="btn" class="btn btn-primary">Clear</button>
+                        </div>
+                    </div>
+                  
+                     <div class=" mx-1 col-lg-2 col-md-3">
+                        <div class="form-group">
+                        
+                               <select wire:model.live="status" class="form-select form-control">
+                                <option value="0">All Courses</option>
+                               @foreach($courseStatuses as $status)
+        <option value="{{$status->id}}">{{$status->name}}</option>
+       
+        @endforeach
+    </select>
                         </div>
                     </div>
                 </div>
@@ -50,12 +63,12 @@
                             </div>
 <div class="per-page-container">
     <label class="my-1 mr-2" for="perPage">Show</label>
-    <select wire:model.live="perPage" id="perPage" class="custom-select custom-select-sm my-1 mr-sm-2">
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-    </select>
+ <select wire:model.live="perPage" id="perPage" class=" custom-select-sm form form-control-sm">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
     <label class="my-1" for="perPage">entries</label>
 </div>
                             <div class="table-responsive">
@@ -94,11 +107,11 @@
                                             <td>
                                                 <h2 class="table-avatar">
                                                  
-                                                    <a href="{{ url('student/profile/'.$course->id) }}">{{ $course->name }} {{ $course->name }}</a>
+                                                    <a href="{{ url('student/profile/'.$course->id) }}">{{ $course->name }}</a>
                                                 </h2>
                                             </td>
                                             <td>{{ $course->teacher->first_name }} {{ $course->teacher->last_name }} </td>
-                                            <td>{{ $course->total_hours }}</td>
+                                            <td>{{$course->classes_sum_hours??0}}/{{ $course->total_hours }} H</td>
                                             <td>{{ $course->charge_per_hour }}</td>
                                            <td>
     {{ $course->course_type == 1 ? 'Face To Face' : 'Online' }}

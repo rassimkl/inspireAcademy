@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Course;
+use App\Models\Status;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
@@ -10,21 +11,35 @@ use Livewire\Attributes\Title;
 class Courses extends Main
 {
 
+    public $courseStatuses;
+    public $status = 0;
+
+    public function mount()
+    {
+        $this->courseStatuses = Status::all();
+    }
     public function render()
     {
         $searchTerm = mb_strtolower($this->search);
         $user = auth()->user();
 
         $query = Course::query()
-            ->with('teacher', 'students')
+            ->with('teacher', 'students')->latest()
+            ->withSum([
+                'classes' => function ($query) {
+                    $query->where('status', 2);
+                }
+            ], 'hours')
             ->withCount('students');
 
-        if ($user->user_type_id == 2) {
-            // If the user is a teacher, filter courses by the teacher's ID
-            $query->where('teacher_id', $user->id);
-        } else {
-            // If the user is not a teacher, show all courses
+        if ($this->status != 0) {
+            $query->where('status_id', $this->status);
         }
+
+        // if ($user->user_type_id != 1) {
+        //     // If the user is a teacher, filter courses by the teacher's ID
+        //     $query->where('teacher_id', $user->id);
+        // } 
 
         $courses = $query->where(function ($query) use ($searchTerm) {
             $query->orWhereHas('teacher', function ($subQuery) use ($searchTerm) {

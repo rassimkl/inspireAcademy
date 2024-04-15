@@ -7,6 +7,7 @@ use App\Livewire\AddUser;
 use App\Livewire\Courses;
 use App\Livewire\Interns;
 use App\Livewire\EditUser;
+use App\Livewire\ManageTeacherPayments;
 use App\Livewire\Students;
 use App\Livewire\SubmitClass;
 use App\Livewire\Teachers;
@@ -55,6 +56,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/edit/class/{classsession}', EditClassSession::class)->name('class/edit');
     Route::get('/submit/class/{classsession}', SubmitClass::class)->name('class/submit');
     Route::get('/teacher/classes/', ClassList::class)->name('teacher/classes');
+
+    Route::get('/teacher/payments/', ManageTeacherPayments::class)->name('teacher/payments');
 
 });
 

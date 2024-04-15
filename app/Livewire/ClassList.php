@@ -23,7 +23,7 @@ class ClassList extends Main
     public function render()
     {
         $user = Auth::user();
-        $classesQuery = $user->classes()->with('course');
+        $classesQuery = $user->classes()->with('course')->orderBy('date', 'desc');
 
         // Check the value of $status and apply appropriate filtering
         if ($this->status == 1) {
