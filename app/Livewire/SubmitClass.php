@@ -58,6 +58,15 @@ class SubmitClass extends Component
     {
 
         $validatedData = $this->validate();
+
+        $endTime = Carbon::parse($this->date . ' ' . $this->end_time);
+
+
+        if ($endTime->greaterThan(Carbon::now())) {
+            $this->addError('report', 'You cant submit before end of the class');
+            return;
+        }
+
         $validatedData['status'] = 2;
         $this->classsession->update($validatedData);
 

@@ -127,7 +127,12 @@
                                         <div class="student-submit">
                                             <button type="submit" class="btn btn-primary">Update</button>
                                         </div>
-                                        
+                                                    <div class="form-check mt-2">
+        <input class="form-check-input" type="checkbox" value="1" id="notifyUser" name="notifyUser" wire:model="notifyUser">
+        <label class="form-check-label" for="notifyUser">
+            Notify {{Str::plural("Student", $course->students);}}
+        </label>
+    </div>
                                     </div>
                                 </div>
                             </form>

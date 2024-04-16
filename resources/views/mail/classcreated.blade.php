@@ -127,7 +127,7 @@
               <h1 style="font-size: 20px; line-height: 24px; font-family: 'Helvetica', Arial, sans-serif; font-weight: 600; text-decoration: none; color: #000000;">Your Next class Is schedueled</h1>
 
 <div class="class-info">
-    <p>You have a class on <span class="class-date">{{$date}}</span> at <span class="class-hour">{{$start_time}}</span> for <span class="class-hour">{{$hours}} Hours</span>.</p>
+    <p>You have a class on <span class="class-date">{{$date}}</span> at <span class="class-hour">{{$start_time}}</span> for <span class="class-hour">{{$hours}} {{Str::plural("Hour", $hours);}}</span>.</p>
 </div>            
 
 <p></p>

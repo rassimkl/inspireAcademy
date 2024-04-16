@@ -226,25 +226,25 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4">
-                                        <div class="form-group students-up-files">
-                                            <label>Upload User Photo (150px X 150px)</label>
-                                            <div class="uplod">
-                                                <label class="file-upload image-upbtn mb-0 @error('upload') is-invalid @enderror">
-                                                    Choose File <input type="file" name="upload">
-                                                </label>
-                                                @error('upload')
+                                 <div class="col-12 col-sm-4">
+                                <div class="form-group local-forms">
+                                            <label>Password </label>
+                                            <input @if(!$passwordEnabled) disabled @endif wire:model='password' class="form-control @error('password') is-invalid @enderror" type="text" name="password" placeholder="Enter password" >
+                                            @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            </div>
+                                              <input class='mx-1' type="checkbox" wire:model.live="passwordEnabled"> Update Password?
                                         </div>
+                                          
                                     </div>
                                     <div class="col-12">
                                         <div class="student-submit">
                                             <button type="submit" class="btn btn-primary">Update</button>
+                                           
                                         </div>
+                                     
                                         
                                     </div>
                                 </div>
@@ -262,7 +262,13 @@
         
 
     document.addEventListener('livewire:initialized', () => {
-        var datetimePicker =$('#datepickeru');
+          var datetimePicker = $('#datepickeru');
+
+        datetimePicker.on('dp.change', function(e) {
+            @this.set('date_of_birth', e.date.format('DD-MM-YYYY'), true);
+        });
+
+
        
           var selectedLanguages = @this.get('languages');
        
@@ -279,13 +285,7 @@
                 // You can perform further actions here based on the selected values
             });
 
-datetimePicker.on('dp.change', function(e) {
 
-         @this.set('date_of_birth', e.date.format('DD-MM-YYYY'),false);
-
-       
-
-});
     })
 
 </script>

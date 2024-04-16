@@ -8,6 +8,7 @@ use App\Models\Course;
 use Livewire\Component;
 use App\Models\ClassSession;
 use App\Rules\NoClassConflict;
+use Illuminate\Support\Facades\Mail;
 
 class EditClassSession extends Component
 {
@@ -177,6 +178,16 @@ class EditClassSession extends Component
         $this->totalHours = $this->course->classes->sum('hours');
         $this->remainingHours = $this->course->total_hours - $this->totalHours;
     }
+
+    public function sendEmail(\App\Models\ClassSession $classSession)
+    {
+
+        //Mail::to('ali.gogo11ayad@gmail.com')->send(new ClassCreated($classSession));
+
+        Mail::to('ali.gogo11ayad@gmail.com')->queue(new ClassCreated($classSession));
+
+    }
+
     public function render()
     {
         return view('livewire.edit-class-session');

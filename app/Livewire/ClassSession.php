@@ -184,8 +184,9 @@ class ClassSession extends Component
     public function sendEmail(\App\Models\ClassSession $classSession)
     {
 
-        Mail::to('ali.gogo11ayad@gmail.com')->send(new ClassCreated($classSession));
+        //Mail::to('ali.gogo11ayad@gmail.com')->send(new ClassCreated($classSession));
 
+        Mail::to('ali.gogo11ayad@gmail.com')->queue(new ClassCreated($classSession));
 
     }
 

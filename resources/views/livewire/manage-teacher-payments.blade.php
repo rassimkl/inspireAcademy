@@ -70,17 +70,7 @@
                                         {{-- <a href="{{ route('') }}" class="btn btn-primary">Create Course <i class="fas fa-plus"></i></a> --}}
                                     </div>
                                 </div>
-                            </div>
-<div class="per-page-container mt-1 mb-1">
-    <label class="my-1 mr-2" for="perPage">Show</label>
- <select wire:model.live="perPage" id="perPage" class=" custom-select-sm form form-control-sm">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-            </select>
-    <label class="my-1" for="perPage">entries</label>
-</div>
+
                             <div class="table-responsive">
                                 <table
                                     class="table border-0 star-student table-hover table-center mb-0  table-striped">
@@ -137,15 +127,20 @@
                                 </table>
                                 {{-- {{ $courses->links() }} --}}
                             </div>
-                                                                           @if (!$lessons)
-    <p class="text-center">No courses available.</p>
-    @endif
+         @if (is_null($Selectedteacher) || is_null($selectedMonth))
+    <p class="text-center">Please choose both a teacher and a date.</p>
+@elseif (!$lessons)
+    <p class="text-center">No lessons available.</p>
+@endif
+
                         </div>
                          <div class="row">
         <div class="col-md-8">
             <!-- List of teachers and their classes -->
            
         </div>
+
+        @if ($lessons)
         <div class="col-md-4">
             <!-- Total hours and total payment -->
             <div>
@@ -157,6 +152,8 @@
                 <p>€{{$totalPayment}}</p> <!-- Replace with actual total payment -->
             </div>
         </div>
+        @endif
+
     </div>
                     </div>
                 </div>

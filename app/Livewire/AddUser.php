@@ -207,7 +207,7 @@ class AddUser extends Component
     public $gender;
     public $date_of_birth;
     public $email;
-    public $password;
+    public $password = 'password';
     public $phone_number;
     public $blood_group;
     public $address;
@@ -217,6 +217,8 @@ class AddUser extends Component
     public $info;
     public $languages;
     public $profile_picture;
+
+
     #[Url]
     public $user_type_id;
 
@@ -237,7 +239,8 @@ class AddUser extends Component
         'languages' => 'required|array',
         'languages.*' => 'string',
         'profile_picture' => 'nullable|string',
-        'user_type_id' => 'required|exists:user_types,id'
+        'user_type_id' => 'required|exists:user_types,id',
+        'password' => 'required|string',
 
     ];
 
@@ -245,9 +248,9 @@ class AddUser extends Component
     {
 
         $validatedData = $this->validate(); // Validate input data based on defined rules
-//dd($validatedData);
+
         // Hash the password before storing it in the database
-        $validatedData['password'] = Hash::make('password');
+        $validatedData['password'] = Hash::make($validatedData['password']);
         $validatedData['languages'] = json_encode($validatedData['languages']);
         $validatedData['date_of_birth'] = Carbon::parse($validatedData['date_of_birth'])->toDateString();
 

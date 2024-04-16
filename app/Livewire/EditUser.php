@@ -221,9 +221,12 @@ class EditUser extends Component
     public $profile_picture;
     public $user_type_id;
 
+    public $passwordEnabled = false;
+
+
     public function rules()
     {
-        return [
+        $rules = [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'gender' => 'required|in:Male,Female',
@@ -245,6 +248,12 @@ class EditUser extends Component
             'profile_picture' => 'nullable|string',
 
         ];
+
+        if ($this->passwordEnabled) {
+
+            $rules['password'] = 'required|string';
+        }
+        return $rules;
     }
 
     public function mount($userId)
@@ -257,13 +266,16 @@ class EditUser extends Component
 
 
         if ($user) {
-            $this->user=$user;
+            $this->user = $user;
             $this->first_name = $user->first_name;
             $this->last_name = $user->last_name;
             $this->gender = $user->gender;
-            $this->date_of_birth = $user->date_of_birth;
+
+
+
+            $this->date_of_birth = Carbon::parse($user->date_of_birth)->format('d-m-Y');
             $this->email = $user->email;
-            $this->password = $user->password;
+          
             $this->phone_number = $user->phone_number;
             $this->blood_group = $user->blood_group;
             $this->address = $user->address;
@@ -289,7 +301,14 @@ class EditUser extends Component
         $validatedData = $this->validate(); // Validate input data based on defined rules
 
         // Hash the password before storing it in the database
-        $validatedData['password'] = Hash::make('password');
+
+
+
+        if ($this->passwordEnabled) {
+
+            $validatedData['password'] = Hash::make('password');
+        }
+
         $validatedData['languages'] = json_encode($validatedData['languages']);
         $validatedData['date_of_birth'] = Carbon::parse($validatedData['date_of_birth'])->toDateString();
 
