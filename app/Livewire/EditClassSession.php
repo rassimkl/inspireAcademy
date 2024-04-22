@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\Course;
 use Livewire\Component;
+use App\Mail\Reschedule;
+
 use App\Models\ClassSession;
 use App\Rules\NoClassConflict;
 use Illuminate\Support\Facades\Mail;
@@ -25,6 +27,9 @@ class EditClassSession extends Component
     public $rooms;
 
     public $conflict;
+
+    public $oldclassSession;
+    public $notifyUser = true;
 
     public $events = [];
 
@@ -58,6 +63,15 @@ class EditClassSession extends Component
         }
 
         $this->classsession = $classsession;
+
+
+        $this->oldclassSession = [
+            'hours' => $classsession->hours,
+            'date' => $classsession->date,
+            'start_time' => $classsession->start_time,
+            'end_time' => $classsession->end_time,
+        ];
+
 
         $this->course = $classsession->course;
         $this->authorize('addClass', $this->course);
@@ -169,6 +183,10 @@ class EditClassSession extends Component
             'icon' => 'success'
         ]);
 
+        if ($this->notifyUser) {
+            $this->sendEmail($this->classsession);
+        }
+
         $this->calculateRemainingHours();
         $this->loadClasses($validatedData['room_id']);
     }
@@ -184,7 +202,7 @@ class EditClassSession extends Component
 
         //Mail::to('ali.gogo11ayad@gmail.com')->send(new ClassCreated($classSession));
 
-        Mail::to('ali.gogo11ayad@gmail.com')->queue(new ClassCreated($classSession));
+        Mail::to('ali.gogo11ayad@gmail.com')->queue(new Reschedule($classSession, $this->oldclassSession));
 
     }
 

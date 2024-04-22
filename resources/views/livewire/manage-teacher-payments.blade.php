@@ -111,11 +111,12 @@
                                                 </h2>
                                             </td>
                                             <td>{{$lesson->room->name}}</td>
-                                            <td>{{ $lesson->hours}} H</td>
+                                            <td>{{ $lesson->hours}} {{Str::plural("Hour", $lesson->hours);}}</td>
                                             <td>€{{ ($lesson->hours)*$lesson->course->charge_per_hour }}</td>
                                           
                                           
-                                           <td class='text-center'>{{ date('H:i', strtotime($lesson->start_time)) }}/{{ date('H:i', strtotime($lesson->end_time)) }}</td>
+                                           <td class='text-center'>    {{ date('F j, Y', strtotime($lesson->date)) }}
+{{ date('H:i', strtotime($lesson->start_time)) }}</td>
 
                                            
                                            
@@ -151,8 +152,16 @@
                 <h2>Total Payment</h2>
                 <p>€{{$totalPayment}}</p> <!-- Replace with actual total payment -->
             </div>
+                <div class="col-12">
+                                        <div class="student-submit">
+                                            <button type="submit" wire:click='updatePaymentStatus' class="btn btn-primary">Paid</button>
+                                        </div>
+                                        
+                                    </div>
         </div>
+        
         @endif
+        
 
     </div>
                     </div>

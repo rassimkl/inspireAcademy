@@ -20,6 +20,7 @@ class ClassSession extends Model
         'report'
     ];
 
+
     protected $table = 'classes';
 
     /**

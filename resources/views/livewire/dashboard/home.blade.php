@@ -53,8 +53,8 @@
                     <div class="card-body">
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
-                                <h6>Department</h6>
-                                <h3>30+</h3>
+                                <h6>Classses</h6>
+                                <h3>{{$currentMonthClasses}}</h3>
                             </div>
                             <div class="db-icon">
                                 <img src="{{ URL::to('assets/img/icons/dash-icon-03.svg') }}" alt="Dashboard Icon">
@@ -68,8 +68,8 @@
                     <div class="card-body">
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
-                                <h6>Revenue</h6>
-                                <h3>$505</h3>
+                                <h6>Payment</h6>
+                                <h3>€{{$totalPayment}}</h3>
                             </div>
                             <div class="db-icon">
                                 <img src="{{ URL::to('assets/img/icons/dash-icon-04.svg') }}" alt="Dashboard Icon">
@@ -80,62 +80,13 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12 col-lg-6">
-
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <h5 class="card-title">Overview</h5>
-                            </div>
-                            <div class="col-6">
-                                <ul class="chart-list-out">
-                                    <li><span class="circle-blue"></span>Teacher</li>
-                                    <li><span class="circle-green"></span>Student</li>
-                                    <li class="star-menus"><a href="javascript:;"><i
-                                                class="fas fa-ellipsis-v"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="apexcharts-area"></div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-12 col-lg-6">
-
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <h5 class="card-title">Number of Students</h5>
-                            </div>
-                            <div class="col-6">
-                                <ul class="chart-list-out">
-                                    <li><span class="circle-blue"></span>Girls</li>
-                                    <li><span class="circle-green"></span>Boys</li>
-                                    <li class="star-menus"><a href="javascript:;"><i
-                                                class="fas fa-ellipsis-v"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="bar"></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        
         <div class="row">
             <div class="col-xl-6 d-flex">
 
                 <div class="card flex-fill student-space comman-shadow">
                     <div class="card-header d-flex align-items-center">
-                        <h5 class="card-title">Star Students</h5>
+                        <h5 class="card-title">Classes Today</h5>
                         <ul class="chart-list-out student-ellips">
                             <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
                             </li>
@@ -147,89 +98,33 @@
                                 class="table star-student table-hover table-center table-borderless table-striped">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th class="text-center">Marks</th>
-                                        <th class="text-center">Percentage</th>
-                                        <th class="text-end">Year</th>
+                                        <th>Class</th>
+                                        <th>Course</th>
+                                        <th class="text-center">Teacher</th>
+                                        <th class="text-center">Time</th>
+                                        <th class="text-end">Room</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($classesForToday as $tclass)
                                     <tr>
                                         <td class="text-nowrap">
-                                            <div>PRE2209</div>
+                                            <div>CLS{{$tclass->id}}</div>
                                         </td>
                                         <td class="text-nowrap">
                                             <a href="profile.html">
-                                                <img class="rounded-circle"src="{{ URL::to('assets/img/profiles/avatar-01.jpg') }}" width="25" alt="Star Students"> Soeng Souy
+                                           {{$tclass->course->name}}
                                             </a>
                                         </td>
-                                        <td class="text-center">1185</td>
-                                        <td class="text-center">98%</td>
+                                        <td class="text-center">{{$tclass->course->teacher->first_name}} {{$tclass->course->teacher->last_name}}</td>
+                                        <td class="text-center">{{Carbon\Carbon::parse($tclass->start_time)->format('H:i')}}/{{Carbon\Carbon::parse($tclass->end_time)->format('H:i')}}</td>
                                         <td class="text-end">
-                                            <div>2019</div>
+                                            <div>{{$tclass->room->name}}</div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-nowrap">
-                                            <div>PRE1245</div>
-                                        </td>
-                                        <td class="text-nowrap">
-                                            <a href="profile.html">
-                                                <img class="rounded-circle"src="{{ URL::to('assets/img/profiles/avatar-01.jpg') }}" width="25" alt="Star Students"> Soeng Souy
-                                            </a>
-                                        </td>
-                                        <td class="text-center">1195</td>
-                                        <td class="text-center">99.5%</td>
-                                        <td class="text-end">
-                                            <div>2018</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-nowrap">
-                                            <div>PRE1625</div>
-                                        </td>
-                                        <td class="text-nowrap">
-                                            <a href="profile.html">
-                                                <img class="rounded-circle"src="{{ URL::to('assets/img/profiles/avatar-01.jpg') }}" width="25" alt="Star Students"> Soeng Souy
-                                            </a>
-                                        </td>
-                                        <td class="text-center">1196</td>
-                                        <td class="text-center">99.6%</td>
-                                        <td class="text-end">
-                                            <div>2017</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-nowrap">
-                                            <div>PRE2516</div>
-                                        </td>
-                                        <td class="text-nowrap">
-                                            <a href="profile.html">
-                                                <img class="rounded-circle"src="{{ URL::to('assets/img/profiles/avatar-01.jpg') }}" width="25" alt="Star Students"> Soeng Souy
-                                            </a>
-                                        </td>
-                                        <td class="text-center">1187</td>
-                                        <td class="text-center">98.2%</td>
-                                        <td class="text-end">
-                                            <div>2016</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-nowrap">
-                                            <div>PRE2209</div>
-                                        </td>
-                                        <td class="text-nowrap">
-                                            <a href="profile.html">
-                                                <img class="rounded-circle"src="{{ URL::to('assets/img/profiles/avatar-01.jpg') }}" width="25" alt="Star Students"> Soeng Souy
-                                            </a>
-                                        </td>
-                                        <td class="text-center">1185</td>
-                                        <td class="text-center">98%</td>
-                                        <td class="text-end">
-                                            <div>2015</div>
-                                        </td>
-                                    </tr>
+                              @endforeach
+                                
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -241,7 +136,7 @@
 
                 <div class="card flex-fill comman-shadow">
                     <div class="card-header d-flex align-items-center">
-                        <h5 class="card-title ">Student Activity </h5>
+                        <h5 class="card-title ">Latest Submit</h5>
                         <ul class="chart-list-out student-ellips">
                             <li class="star-menus"><a href="javascript:;"><i class="fas fa-ellipsis-v"></i></a>
                             </li>
@@ -250,53 +145,22 @@
                     <div class="card-body">
                         <div class="activity-groups">
                             <div class="activity-awards">
+                          
                                 <div class="award-boxs">
                                     <img src="assets/img/icons/award-icon-01.svg" alt="Award">
                                 </div>
+                               
                                 <div class="award-list-outs">
-                                    <h4>1st place in "Chess”</h4>
+                                    <h4>ClS Submitted</h4>
                                     <h5>John Doe won 1st place in "Chess"</h5>
                                 </div>
+                            
                                 <div class="award-time-list">
                                     <span>1 Day ago</span>
                                 </div>
+                                
                             </div>
-                            <div class="activity-awards">
-                                <div class="award-boxs">
-                                    <img src="assets/img/icons/award-icon-02.svg" alt="Award">
-                                </div>
-                                <div class="award-list-outs">
-                                    <h4>Participated in "Carrom"</h4>
-                                    <h5>Justin Lee participated in "Carrom"</h5>
-                                </div>
-                                <div class="award-time-list">
-                                    <span>2 hours ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-awards">
-                                <div class="award-boxs">
-                                    <img src="assets/img/icons/award-icon-03.svg" alt="Award">
-                                </div>
-                                <div class="award-list-outs">
-                                    <h4>Internation conference in "St.John School"</h4>
-                                    <h5>Justin Leeattended internation conference in "St.John School"</h5>
-                                </div>
-                                <div class="award-time-list">
-                                    <span>2 Week ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-awards mb-0">
-                                <div class="award-boxs">
-                                    <img src="assets/img/icons/award-icon-04.svg" alt="Award">
-                                </div>
-                                <div class="award-list-outs">
-                                    <h4>Won 1st place in "Chess"</h4>
-                                    <h5>John Doe won 1st place in "Chess"</h5>
-                                </div>
-                                <div class="award-time-list">
-                                    <span>3 Day ago</span>
-                                </div>
-                            </div>
+                       
                         </div>
                     </div>
                 </div>
@@ -304,54 +168,39 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card flex-fill fb sm-box">
-                    <div class="social-likes">
-                        <p>Like us on facebook</p>
-                        <h6>50,095</h6>
-                    </div>
-                    <div class="social-boxs">
-                        <img src="assets/img/icons/social-icon-01.svg" alt="Social Icon">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card flex-fill twitter sm-box">
-                    <div class="social-likes">
-                        <p>Follow us on twitter</p>
-                        <h6>48,596</h6>
-                    </div>
-                    <div class="social-boxs">
-                        <img src="assets/img/icons/social-icon-02.svg" alt="Social Icon">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card flex-fill insta sm-box">
-                    <div class="social-likes">
-                        <p>Follow us on instagram</p>
-                        <h6>52,085</h6>
-                    </div>
-                    <div class="social-boxs">
-                        <img src="assets/img/icons/social-icon-03.svg" alt="Social Icon">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card flex-fill linkedin sm-box">
-                    <div class="social-likes">
-                        <p>Follow us on linkedin</p>
-                        <h6>69,050</h6>
-                    </div>
-                    <div class="social-boxs">
-                        <img src="assets/img/icons/social-icon-04.svg" alt="Social Icon">
-                    </div>
-                </div>
-            </div>
-        </div>
+         <div class="container">
+        <div id="calendar"></div>
+    </div>
+
+      
     </div>
 </div>
 
+
+    <script>
+    document.addEventListener('livewire:initialized', () => {
+  var calendarEl = document.getElementById('calendar');
+ var classes = @this.get('formattedEvents');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+        headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+            initialView: 'dayGridMonth',
+            events: classes,
+                    slotEventOverlap:false,
+                    
+            eventDidMount: function(arg) {
+                    // Change background color to blue for all events
+                    arg.el.style.backgroundColor = 'blue';
+                }, // an option!
+            // Add any other FullCalendar options here
+        });
+        calendar.render();
+
+    });
+
+    </script>
 
 </div>

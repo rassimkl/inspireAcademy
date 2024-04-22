@@ -9,7 +9,10 @@ use Livewire\Component;
 
 class ManageTeacherPayments extends Component
 {
+    protected $listeners = [
+        'updateStatusPayment' => 'updateStatusPayment',
 
+    ];
     public $teachers;
     public $Selectedteacher;
     public $selectedMonth;
@@ -31,7 +34,7 @@ class ManageTeacherPayments extends Component
 
     public function mount()
     {
-        $this->selectedMonth = now()->format('Y-m');
+
         $this->loadTeachers();
         $this->selectedMonth = Carbon::today()->format('m-Y');
 
@@ -69,6 +72,7 @@ class ManageTeacherPayments extends Component
     }
     public function loadTeachers()
     {
+        $this->selectedMonth = now()->format('Y-m');
         $this->teachers = User::where('user_type_id', 2)
             ->with([
                 'classes' => function ($query) {
@@ -91,12 +95,47 @@ class ManageTeacherPayments extends Component
     {
         $this->validate();
         $this->loadClasses($this->Selectedteacher, $value);
+
+
+
     }
 
     public function updatedSelectedTeacher($value)
     {
+
         $this->validate();
         $this->loadClasses($value, $this->selectedMonth);
+    }
+
+    public function updatePaymentStatus()
+    {
+
+        $this->dispatch('confirmTask', 'Are you sure you want to update Payment Status', 'updateStatusPayment');
+
+    }
+
+    public function updateStatusPayment()
+    {
+        foreach ($this->lessons as $lesson) {
+            $lesson->payment_status = 2;
+            $lesson->save();
+        }
+
+
+        $this->dispatch('showAlert', [
+            'title' => "Classes assigned Paid Succesfully",
+            'text' => '',
+            'icon' => 'success'
+        ]);
+
+        $this->Selectedteacher = null;
+
+        $this->lessons = [];
+        $this->loadTeachers();
+        // $this->loadTeachers();
+
+
+
     }
     public function render()
     {
