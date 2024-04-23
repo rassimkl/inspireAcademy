@@ -83,7 +83,7 @@
                                                     <a href="student-details.html"class="avatar avatar-sm me-2">
                                                         <img class="avatar-img rounded-circle" src="{{ $intern->profile_picture ? Storage::url('student-photos/'.$intern->profile_picture) :Storage::url('student-photos/default.png') }}" alt="User Image">
                                                     </a>
-                                                    <a href="{{ url('student/profile/'.$intern->id) }}">{{ $intern->first_name }} {{ $intern->last_name }}</a>
+                                                    <a href="{{ route('user/details', ['user' => $intern->id]) }}">{{ $intern->first_name }} {{ $intern->last_name }}</a>
                                                 </h2>
                                             </td>
                                             <td>{{ $intern->gender }} </td>

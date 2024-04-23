@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use App\Livewire\Home;
 use App\Livewire\Login;
 use App\Livewire\AddUser;
@@ -11,10 +12,10 @@ use App\Livewire\Teachers;
 use App\Livewire\ClassList;
 use App\Livewire\SubmitClass;
 use App\Livewire\TeacherHome;
+use App\Livewire\UserDetails;
 use App\Livewire\ClassSession;
 use App\Livewire\CreateCourse;
 use App\Livewire\EditClassSession;
-use App\Livewire\UserDetails;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\ManageTeacherPayments;
 use App\Http\Controllers\HomeController;
@@ -38,7 +39,6 @@ use App\Http\Controllers\Auth\RegisterController;
 
 
 Route::get('/', Login::class)->name('login')->middleware('guest');
-Route::get('/user/profile/{user}', UserDetails::class)->name('user/details');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -67,6 +67,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/home', Home::class)->name('home');
     Route::get('user/add/page', AddUser::class)->name('user/add/page'); // page student
+    Route::get('/user/profile/{user}', UserDetails::class)->name('user/details');
 
     Route::get('/student/list', Students::class)->name('student/list');
     Route::get('/teacher/list', Teachers::class)->name('teacher/list');
