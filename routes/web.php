@@ -1,23 +1,24 @@
 <?php
 
-use App\Livewire\ClassList;
-use App\Livewire\EditClassSession;
 use App\Livewire\Home;
+use App\Livewire\Login;
 use App\Livewire\AddUser;
 use App\Livewire\Courses;
 use App\Livewire\Interns;
 use App\Livewire\EditUser;
-use App\Livewire\ManageTeacherPayments;
 use App\Livewire\Students;
-use App\Livewire\SubmitClass;
 use App\Livewire\Teachers;
+use App\Livewire\ClassList;
+use App\Livewire\SubmitClass;
 use App\Livewire\TeacherHome;
 use App\Livewire\ClassSession;
 use App\Livewire\CreateCourse;
+use App\Livewire\EditClassSession;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\ManageTeacherPayments;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 
 /*
@@ -35,10 +36,9 @@ use App\Http\Controllers\Auth\RegisterController;
 
 
 
-
+Route::get('/', Login::class)->name('login')->middleware('guest');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', Home::class)->name('home');
 
     Route::get('user/add/page', AddUser::class)->name('user/add/page'); // page student
 
@@ -59,6 +59,16 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/teacher/payments/', ManageTeacherPayments::class)->name('teacher/payments');
 
+    Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
+
+
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    Route::get('/home', Home::class)->name('home');
+
+
 });
 
 function set_active($route)
@@ -69,27 +79,10 @@ function set_active($route)
     return Request::path() == $route ? 'active' : '';
 }
 
-Route::get('/', function () {
-    return view('auth.login');
-});
 
 
-Auth::routes();
-Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
-    // ----------------------------login ------------------------------//
-    Route::controller(LoginController::class)->group(function () {
-        Route::get('/login', 'login')->name('login');
-        Route::post('/login', 'authenticate');
-        Route::get('/logout', 'logout')->name('logout');
-        Route::post('change/password', 'changePassword')->name('change/password');
-    });
 
-    // ----------------------------- register -------------------------//
-    Route::controller(RegisterController::class)->group(function () {
-        Route::get('/register', 'register')->name('register');
-        Route::post('/register', 'storeUser')->name('register');
-    });
-});
+
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // -------------------------- main dashboard ----------------------//

@@ -48,8 +48,9 @@ class Home extends Component
 
 
 
-        $classesForCalendar = ClassSession::whereDate('date', '>=', now()->format('Y-m-d'))
+            $classesForCalendar = ClassSession::whereDate('date', '>=', now()->subMonth()->startOfMonth()->format('Y-m-d'))
             ->get();
+        
 
         $formattedEvents = [];
 

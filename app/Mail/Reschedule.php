@@ -23,11 +23,11 @@ class Reschedule extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(ClassSession $classSession,$oldclassSession)
+    public function __construct(ClassSession $classSession, $oldclassSession)
     {
         $this->classSession = $classSession;
         $this->oldclassSession = $oldclassSession;
-        
+
     }
     /**
      * Get the message envelope.
