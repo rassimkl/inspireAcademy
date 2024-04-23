@@ -13,9 +13,9 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="{{ route('home') }}" class="{{set_active(['home'])}}">Admin Dashboard</a></li>
-                        <li><a href="{{ route('teacher/home') }}" class="{{set_active(['teacher/home'])}}">Teacher Home</a></li>
-                        <li><a href="{{ route('student/dashboard') }}" class="{{set_active(['student/dashboard'])}}">Student Dashboard</a></li>
+                        @if(auth()->user()->user_type_id==1)<li><a href="{{ route('home') }}" class="{{set_active(['home'])}}">Dashboard</a></li> @endif
+                  @if(auth()->user()->user_type_id==2) <li><a href="{{ route('teacher/home') }}" class="{{set_active(['teacher/home'])}}">Dashboard</a></li> @endif
+                         @if(auth()->user()->user_type_id==3) <li><a href="{{ route('student/dashboard') }}" class="{{set_active(['student/dashboard'])}}">Dashboard</a></li>@endif
                     </ul>
                 </li>
                 @if (Session::get('role_name') === 'Admin' || Session::get('role_name') === 'Super Admin')
@@ -31,7 +31,8 @@
                 </li>
                 @endif
 {{-- //user --}}
-                <li class="submenu {{set_active(['student/list','student/grid','user/add/page','teacher/list','intern/list'])}} {{ (request()->is('users/edit/*')) ? 'active' : '' }} {{ (request()->is('student/profile/*')) ? 'active' : '' }}">
+@if(auth()->user()->user_type_id==1)
+                <li class="submenu {{set_active(['student/list','student/grid','user/add/page','teacher/list','intern/list'])}} {{ (request()->is('users/edit/*')) ? 'active' : '' }} {{ (request()->is('user/profile/*')) ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-graduation-cap"></i>
                         <span> Users</span>
                         <span class="menu-arrow"></span>
@@ -44,9 +45,10 @@
 
                        
                         <li><a class="{{ (request()->is('users/edit/*')) ? 'active' : '' }}">User Edit</a></li>
-                        <li><a href=""  class="{{ (request()->is('student/profile/*')) ? 'active' : '' }}">Student View</a></li>
+                        <li><a href=""  class="{{ (request()->is('user/profile/*')) ? 'active' : '' }}">User View</a></li>
                     </ul>
                 </li>
+                @endif
                   {{-- <li class="submenu {{set_active(['student/list','student/grid','student/add/page'])}} {{ (request()->is('student/edit/*')) ? 'active' : '' }} {{ (request()->is('student/profile/*')) ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-graduation-cap"></i>
                         <span> Students</span>
@@ -60,18 +62,22 @@
                     </ul>
                 </li> --}}
 
+
                 <li class="submenu  {{set_active(['courses/create','course/list'])}} {{ (request()->is('teacher/edit/*')) ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-chalkboard-teacher"></i>
                         <span> Courses</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="{{ route('courses.create') }}" class="{{set_active(['courses/create'])}}">Create Course</a></li>
+                      @if(auth()->user()->user_type_id==1)  <li><a href="{{ route('courses.create') }}" class="{{set_active(['courses/create'])}}">Create Course</a></li>    @endif
                          <li><a href="{{ route('course/list') }}" class="{{set_active(['course/list'])}}">Courses</a></li>
                  
                     </ul>
                 </li>
-                
+                            
+
+                @if(auth()->user()->user_type_id==1)
+
                 <li class="submenu {{set_active(['department/add/page','department/edit/page'])}} {{ request()->is('department/edit/*') ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-building"></i>
                         <span> Rooms</span>
@@ -83,19 +89,22 @@
                         <li><a>Edit Room</a></li>
                     </ul>
                 </li>
-
+                @endif
+ @if(auth()->user()->user_type_id==2 || auth()->user()->user_type_id==1)
                 <li class="submenu {{set_active(['subject/list/page','subject/add/page','teacher/classes'])}} {{ request()->is('submit/class/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }} {{ request()->is('edit/class/*') ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-book-reader"></i>
                         <span> Classes</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a class="{{set_active(['subject/list/page'])}} {{ request()->is('subject/edit/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }}" href="#">Add Class</a></li>
-                        <li><a class="{{set_active(['teacher/classes'])}}" href="{{ route('teacher/classes') }}">All Classes</a></li>
-                        <li><a class={{ request()->is('edit/class/*') ? 'active' : '' }}>Class Edit</a></li>
-                             <li><a class={{ request()->is('submit/class/*') ? 'active' : '' }}>Submit Class</a></li>
+                             @if(auth()->user()->user_type_id==2)<li><a class="{{set_active(['subject/list/page'])}} {{ request()->is('subject/edit/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }}" href="#">Add Class</a></li>     @endif
+                        <li><a class="{{set_active(['teacher/classes'])}}" href="{{ route('teacher/classes') }}">All Classes</a></li>   
+                         @if(auth()->user()->user_type_id==2) <li><a class={{ request()->is('edit/class/*') ? 'active' : '' }}>Class Edit</a></li>     @endif
+                             @if(auth()->user()->user_type_id==2)    <li><a class={{ request()->is('submit/class/*') ? 'active' : '' }}>Submit Class</a></li>@endif
                     </ul>
                 </li>
+@endif 
+@if(auth()->user()->user_type_id==1)
 
                 <li class="submenu {{set_active(['teacher/payments',])}}" {{ request()->is('invoice/edit/*') ? 'active' : '' }}>
                     <a href="#"><i class="fas fa-clipboard"></i>
@@ -108,7 +117,7 @@
                       
                     </ul>
                 </li>
-
+@endif
             
             </ul>
         </div>

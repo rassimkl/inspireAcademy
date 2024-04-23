@@ -14,6 +14,7 @@ use App\Livewire\TeacherHome;
 use App\Livewire\ClassSession;
 use App\Livewire\CreateCourse;
 use App\Livewire\EditClassSession;
+use App\Livewire\UserDetails;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\ManageTeacherPayments;
 use App\Http\Controllers\HomeController;
@@ -37,17 +38,16 @@ use App\Http\Controllers\Auth\RegisterController;
 
 
 Route::get('/', Login::class)->name('login')->middleware('guest');
+Route::get('/user/profile/{user}', UserDetails::class)->name('user/details');
+
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
+});
 
-    Route::get('user/add/page', AddUser::class)->name('user/add/page'); // page student
+Route::middleware(['auth', 'teacher'])->group(function () {
 
-    Route::get('/student/list', Students::class)->name('student/list');
-    Route::get('/teacher/list', Teachers::class)->name('teacher/list');
-    Route::get('/intern/list', Interns::class)->name('intern/list');
-    Route::get('/users/edit/{userId}', EditUser::class)->name('user/edit');
-    Route::get('/courses/create', CreateCourse::class)->name('courses.create');
-    Route::get('/course/list', Courses::class)->name('course/list');
+
 
 
     Route::get('/teacher/home', TeacherHome::class)->name('teacher/home');
@@ -55,11 +55,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/add/class/{course}', ClassSession::class)->name('class/add');
     Route::get('/edit/class/{classsession}', EditClassSession::class)->name('class/edit');
     Route::get('/submit/class/{classsession}', SubmitClass::class)->name('class/submit');
-    Route::get('/teacher/classes/', ClassList::class)->name('teacher/classes');
 
-    Route::get('/teacher/payments/', ManageTeacherPayments::class)->name('teacher/payments');
 
-    Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
+
+
 
 
 });
@@ -67,9 +66,24 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/home', Home::class)->name('home');
+    Route::get('user/add/page', AddUser::class)->name('user/add/page'); // page student
+
+    Route::get('/student/list', Students::class)->name('student/list');
+    Route::get('/teacher/list', Teachers::class)->name('teacher/list');
+    Route::get('/intern/list', Interns::class)->name('intern/list');
+    Route::get('/users/edit/{userId}', EditUser::class)->name('user/edit');
+    Route::get('/courses/create', CreateCourse::class)->name('courses.create');
+
+    Route::get('/teacher/payments/', ManageTeacherPayments::class)->name('teacher/payments');
 
 
 });
+Route::middleware(['adminteacher'])->group(function () {
+    Route::get('/teacher/classes/', ClassList::class)->name('teacher/classes');
+    Route::get('/course/list', Courses::class)->name('course/list');
+});
+
+
 
 function set_active($route)
 {

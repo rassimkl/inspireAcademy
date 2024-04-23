@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\ClassSession;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Auth;
@@ -23,15 +24,18 @@ class ClassList extends Main
     public function render()
     {
         $user = Auth::user();
-        $classesQuery = $user->classes()->with('course')->orderBy('date', 'desc');
-
+        if ($user->user_type_id == 1) {
+            $classesQuery = ClassSession::with('course')->orderBy('date', 'desc');
+        } else {
+            $classesQuery = $user->classes()->with('course')->orderBy('date', 'desc');
+        }
         // Check the value of $status and apply appropriate filtering
         if ($this->status == 1) {
             $classesQuery->where('status', 1);
         } elseif ($this->status == 2) {
             $classesQuery->where('status', 2);
         }
-        
+
         $classes = $classesQuery->paginate($this->perPage);
 
 

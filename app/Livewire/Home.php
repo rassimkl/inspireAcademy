@@ -20,6 +20,11 @@ class Home extends Component
     public $formattedEvents;
 
     public $classSubmitted;
+
+    public function mount()
+    {
+
+    }
     public function render()
     {
         $this->studentCount = UserType::where('name', 'Student')->firstOrFail()->users()->count();
@@ -48,9 +53,9 @@ class Home extends Component
 
 
 
-            $classesForCalendar = ClassSession::whereDate('date', '>=', now()->subMonth()->startOfMonth()->format('Y-m-d'))
+        $classesForCalendar = ClassSession::whereDate('date', '>=', now()->subMonth()->startOfMonth()->format('Y-m-d'))
             ->get();
-        
+
 
         $formattedEvents = [];
 
