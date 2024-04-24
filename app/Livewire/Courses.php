@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Course;
 use App\Models\Status;
-use Livewire\Component;
 use Livewire\Attributes\Title;
 
 #[Title('Courses')]
@@ -36,10 +35,10 @@ class Courses extends Main
             $query->where('status_id', $this->status);
         }
 
-        // if ($user->user_type_id != 1) {
-        //     // If the user is a teacher, filter courses by the teacher's ID
-        //     $query->where('teacher_id', $user->id);
-        // } 
+        if ($user->user_type_id != 1) {
+            // If the user is a teacher, filter courses by the teacher's ID
+            $query->where('teacher_id', $user->id);
+        }
 
         $courses = $query->where(function ($query) use ($searchTerm) {
             $query->orWhereHas('teacher', function ($subQuery) use ($searchTerm) {

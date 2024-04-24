@@ -23,4 +23,16 @@ class CoursePolicy
 
     }
 
+    public function addCourse(User $user, Course $course)
+    {
+
+        if ($user->user_type_id == 1) {
+            return true;
+        }
+        return false;
+
+
+
+    }
+
 }

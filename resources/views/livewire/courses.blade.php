@@ -57,7 +57,7 @@
                                         
                                       
                                         
-                                        <a href="{{ route('courses.create') }}" class="btn btn-primary">Create Course <i class="fas fa-plus"></i></a>
+                                     @if(auth()->user()->user_type_id==1) <a href="{{ route('courses.create') }}" class="btn btn-primary">Create Course <i class="fas fa-plus"></i></a>@endif
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                                               <th>Status</th>
                                                <th class="text-center">Number of Students</th>
                                          
-                                            <th class="text-end">Action</th>
+                                              @if(auth()->user()->user_type_id==1) <th class="text-end">Action</th>@endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -107,7 +107,7 @@
                                             <td>
                                                 <h2 class="table-avatar">
                                                  
-                                                    <a href="{{ url('student/profile/'.$course->id) }}">{{ $course->name }}</a>
+                                                    <a href="{{ route('course/deails', ['course' => $course]) }}">{{ $course->name }}</a>
                                                 </h2>
                                             </td>
                                             <td>{{ $course->teacher->first_name }} {{ $course->teacher->last_name }} </td>
@@ -138,7 +138,7 @@
 </td>
                                              <td class='text-center'>{{$course->students_count}}</td>
                             
-
+@if(auth()->user()->user_type_id==1) 
                                            
                                             <td class="text-end">
                                                 <div class="actions">
@@ -151,6 +151,7 @@
                                                     </a>
                                                 </div>
                                             </td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                         

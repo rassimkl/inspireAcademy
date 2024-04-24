@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\CourseDetails;
 use App\Models\User;
 use App\Livewire\Home;
 use App\Livewire\Login;
@@ -39,6 +40,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 
 Route::get('/', Login::class)->name('login')->middleware('guest');
+Route::get('/course/details/{course}', CourseDetails::class)->name('course/deails');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -82,6 +84,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['adminteacher'])->group(function () {
     Route::get('/teacher/classes/', ClassList::class)->name('teacher/classes');
     Route::get('/course/list', Courses::class)->name('course/list');
+
 });
 
 
