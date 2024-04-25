@@ -22,7 +22,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="form-group">
                   
-                             <input wire:model.live.debounce.500ms="status"  type="text" class="form-control" placeholder="Search">
+                             <input wire:model.live.debounce.500ms="search"  type="text" class="form-control" placeholder="Search">
                         </div>
                     </div>
                     <div class="col-lg-2">

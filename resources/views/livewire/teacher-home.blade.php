@@ -119,11 +119,18 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="lesson-confirm">
-                                                            <a   href="{{ route('class/submit', ['classsession' => $class->id]) }}">Submit</a>
-                                                        </div>
-                                                    <a href="{{ route('class/edit', ['classsession' => $class->id]) }}" class="btn btn-info">Reschedule</a>
-
+                                                       <div class="lesson-confirm">
+    @if($class->status == 2)
+  <a>Submitted</a>
+    @else
+        <a href="{{ route('class/submit', ['classsession' => $class->id]) }}">Submit</a>
+    @endif
+</div>
+                                                            @if($class->status == 2)
+                                                
+                                                        @else
+  <a href="{{ route('class/edit', ['classsession' => $class->id]) }}" class="btn btn-info">Reschedule</a>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                                 @endforeach
