@@ -2,10 +2,13 @@
 
 namespace App\Livewire;
 
-use App\Models\ClassSession;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Payment;
 use Livewire\Component;
+use App\Models\ClassSession;
+use Illuminate\Support\Facades\DB;
+
 
 class ManageTeacherPayments extends Component
 {
@@ -114,29 +117,48 @@ class ManageTeacherPayments extends Component
 
     }
 
+
+
     public function updateStatusPayment()
     {
-        foreach ($this->lessons as $lesson) {
-            $lesson->payment_status = 2;
-            $lesson->save();
+        DB::beginTransaction();
+
+        try {
+            foreach ($this->lessons as $lesson) {
+                $lesson->payment_status = 2;
+                $lesson->save();
+            }
+
+            Payment::create([
+                'user_id' => $this->Selectedteacher,
+                'amount' => $this->totalPayment,
+                'hours' => $this->totalHours,
+            ]);
+
+            DB::commit();
+
+            $this->dispatch('showAlert', [
+                'title' => "Classes assigned Paid Successfully",
+                'text' => '',
+                'icon' => 'success'
+            ]);
+
+            $this->reset(['Selectedteacher', 'totalPayment', 'lessons', 'totalHours']);
+
+            $this->loadTeachers();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Handle the exception (e.g., log the error, display a message)
+            $errorMessage = $e->getMessage();
+            $this->dispatch('showAlert', [
+                'title' => "Error occurred",
+                'text' => $errorMessage,
+                'icon' => 'error'
+            ]);
         }
-
-
-        $this->dispatch('showAlert', [
-            'title' => "Classes assigned Paid Succesfully",
-            'text' => '',
-            'icon' => 'success'
-        ]);
-
-        $this->Selectedteacher = null;
-
-        $this->lessons = [];
-        $this->loadTeachers();
-        // $this->loadTeachers();
-
-
-
     }
+
     public function render()
     {
         return view('livewire.manage-teacher-payments');

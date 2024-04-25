@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\CourseDetails;
+use App\Livewire\ViewPayments;
 use App\Models\User;
 use App\Livewire\Home;
 use App\Livewire\Login;
@@ -11,11 +11,13 @@ use App\Livewire\EditUser;
 use App\Livewire\Students;
 use App\Livewire\Teachers;
 use App\Livewire\ClassList;
+use App\Livewire\EditCourse;
 use App\Livewire\SubmitClass;
 use App\Livewire\TeacherHome;
 use App\Livewire\UserDetails;
 use App\Livewire\ClassSession;
 use App\Livewire\CreateCourse;
+use App\Livewire\CourseDetails;
 use App\Livewire\EditClassSession;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\ManageTeacherPayments;
@@ -78,6 +80,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/courses/create', CreateCourse::class)->name('courses.create');
 
     Route::get('/teacher/payments/', ManageTeacherPayments::class)->name('teacher/payments');
+    Route::get('/courses/{course}/edit', EditCourse::class)->name('courses/edit');
+    Route::get('/teachers/all/payments', ViewPayments::class)->name('teacher/all/payments');
 
 
 });
@@ -110,6 +114,37 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // ----------------------------- user controller ---------------------//
     Route::controller(UserManagementController::class)->group(function () {

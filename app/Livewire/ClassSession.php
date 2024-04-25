@@ -145,6 +145,8 @@ class ClassSession extends Component
 
     public function createClass()
     {
+
+       
         $validatedData = $this->validate();
 
 

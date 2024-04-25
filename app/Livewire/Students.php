@@ -21,7 +21,7 @@ class Students extends Main
         // Retrieve the users associated with the "Student" user type
         // $this->students = $userType->users()->paginate($this->perPage);
 
-        $this->students = User::where('user_type_id', 3)
+        $students = User::where('user_type_id', 3)
             ->where(function ($query) {
                 $searchTerm = mb_strtolower($this->search); // Convert search term to lowercase
                 $query->where('first_name', 'like', '%' . $searchTerm . '%')
@@ -31,6 +31,6 @@ class Students extends Main
             })
             ->paginate($this->perPage);
 
-        return view('livewire.students', ['students' => $this->students]);
+        return view('livewire.students', ['students' => $students]);
     }
 }

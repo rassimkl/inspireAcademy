@@ -29,16 +29,16 @@ class RedirectIfAuthenticated
                 switch ($user->user_type_id) {
                     case 1:
                         return redirect()->route('home');
-                        break;
+                     
                     case 2:
                         return redirect()->route('teacher/home');
-                        break;
+                        
                     case 3:
                         return redirect()->route('student.dashboard');
-                        break;
+                        
                     default:
                         return redirect(RouteServiceProvider::HOME);
-                        break;
+                        
                 }
             }
         }

@@ -9,13 +9,51 @@ use Livewire\Attributes\Title;
 #[Title('Courses')]
 class Courses extends Main
 {
+    public $courseId;
+    protected $listeners = [
+        'deleteCourse' => 'deleteCourse',
+
+    ];
 
     public $courseStatuses;
     public $status = 0;
 
     public function mount()
     {
+
         $this->courseStatuses = Status::all();
+    }
+
+    public function confirmDelete($courseId)
+    {
+        $this->courseId = $courseId;
+        $this->dispatch('confirmTask', 'Are you sure you want to Delete Course', 'deleteCourse');
+
+    }
+    public function deleteCourse()
+    {
+
+        $course = Course::findOrFail($this->courseId);
+        $this->authorize('addCourse', $this->course);
+        // Check if the status is 1
+        if ($course->status_id !== 1) {
+
+            return;
+        }
+
+        // Detach students from the course
+        $course->students()->detach();
+
+        // Delete the course
+        $course->delete();
+
+        $this->dispatch('showAlert', [
+            'title' => "Course Deleted Succesfully",
+            'text' => '',
+            'icon' => 'success'
+        ]);
+        $this->reset(['courseId']);
+
     }
     public function render()
     {

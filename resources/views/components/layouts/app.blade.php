@@ -38,10 +38,11 @@
         <div class="header">
             <div class="header-left">
                 <a href="{{ route('home') }}" class="logo">
-                    <img src="{{ URL::to('assets/img/logo.png') }}" alt="Logo">
+                <h4> Inspire Academy</h4>
+          
                 </a>
                 <a href="{{ route('home') }}" class="logo logo-small">
-                    <img src="{{ URL::to('assets/img/logo-small.png') }}" alt="Logo" width="30" height="30">
+                    <img  alt="Logo" width="30" height="30">
                 </a>
             </div>
             <div class="menu-toggle">
@@ -50,12 +51,7 @@
                 </a>
             </div>
 
-            <div class="top-nav-search">
-                <form>
-                    <input type="text" class="form-control" placeholder="Search here">
-                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
+          
             <a class="mobile_btn" id="mobile_btn">
                 <i class="fas fa-bars"></i>
             </a>

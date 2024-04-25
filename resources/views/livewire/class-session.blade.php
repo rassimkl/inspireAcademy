@@ -46,6 +46,11 @@
                                                     {{ $message }}
                                                 </p>
                                             @enderror
+                                               @error('hours')
+                                                <p class="text-danger" role="alert">
+                                                    {{ $message }}
+                                                </p>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -56,10 +61,10 @@
                                         <div  wire:ignore>
                                             <input id="datepickeru" wire:model.live='date' class="form-control datetimepicker @error('date') is-invalid @enderror" name="date" type="text" placeholder="DD-MM-YYYY" >
                                             </div>
-                                            @error('date')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                           @error('date')
+                                                <p class="text-danger" role="alert">
+                                                    {{ $message }}
+                                                </p>
                                             @enderror
                                         </div>
                                     </div>
@@ -70,10 +75,10 @@
                                             <div wire:ignore>
             <input type="text" class="form-control" id='start_time' wire:model.live.500ms="start_time">
             </div>
-                                            @error('start_time')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                             @error('start_time')
+                                                <p class="text-danger" role="alert">
+                                                    {{ $message }}
+                                                </p>
                                             @enderror
                                         </div>
                                     </div>
@@ -83,13 +88,14 @@
     
 
      <div class="col-12 col-sm-4">
-                                        <div wire:ignore  class="form-group local-forms calendar-icon">
+                                        <div  class="form-group local-forms calendar-icon">
                                             <label>End time <span class="login-danger"></span></label>
-            <input disabled type="text" class="form-control" id='end_time' wire:model="end_time">
-                                            @error('end_time')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                          <div  wire:ignore>                  
+            <input disabled type="text" class="form-control" id='end_time' wire:model="end_time"></div>     
+                                              @error('end_time')
+                                                <p class="text-danger" role="alert">
+                                                    {{ $message }}
+                                                </p>
                                             @enderror
                                         </div>
                                     </div>

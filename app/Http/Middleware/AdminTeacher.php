@@ -17,7 +17,20 @@ class AdminTeacher
     {
 
         if (auth()->check() && (auth()->user()->user_type_id !== 1 && auth()->user()->user_type_id !== 2)) {
-            return back();
+            switch (auth()->user()->user_type_id) {
+                case 1:
+                    return redirect()->route('home');
+                  
+                case 2:
+                    return redirect()->route('teacher/home');
+                  
+                case 3:
+                    return redirect()->route('student.dashboard');
+                   
+                default:
+                    return redirect('');
+                 
+            }
         }
         return $next($request);
     }

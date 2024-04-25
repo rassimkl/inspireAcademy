@@ -302,7 +302,7 @@
                                             
                                                <th class="text-center">Time</th>
                                          
-                                            <th class="text-end">Edit</th>
+                                            <th class="text-center">Place</th>
                                             <th class="text-end">Submit</th>
                                         </tr>
                                     </thead>
@@ -330,7 +330,7 @@
                                         <td class='text-center'>{{ date('H:i', strtotime($uclass->start_time)) }}/{{ date('H:i', strtotime($uclass->end_time)) }}</td>
 
 
-                                              <td>{{$uclass->room->name }}</td>
+                                              <td class="text-center">{{$uclass->room->name }}</td>
                                               <td class="text-end">
                                                 <div class="actions">
                                          

@@ -106,14 +106,14 @@
 @endif 
 @if(auth()->user()->user_type_id==1)
 
-                <li class="submenu {{set_active(['teacher/payments',])}}" {{ request()->is('invoice/edit/*') ? 'active' : '' }}>
+                <li class="submenu {{set_active(['teacher/payments','/teachers/all/payments'])}}" {{ request()->is('invoice/edit/*') ? 'active' : '' }}>
                     <a href="#"><i class="fas fa-clipboard"></i>
                         <span> Payments</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
                         <li><a class="{{set_active(['teacher/payments'])}}" href="{{ route('teacher/payments') }}">Teacher Payments</a></li>
-                        <li><a class="{{set_active(['invoice/grid/page'])}}" href="{{ route('invoice/grid/page') }}">Invoices Grid</a></li>
+                        <li><a class="{{set_active(['teachers/all/payments'])}}" href="{{ route('teacher/all/payments') }}">All Payments</a></li>
                       
                     </ul>
                 </li>

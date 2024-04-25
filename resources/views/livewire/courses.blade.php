@@ -142,13 +142,17 @@
                                            
                                             <td class="text-end">
                                                 <div class="actions">
-                                         
-                                                    <a        href="{{ route('user/edit', ['userId' => $course->id]) }}" class="btn btn-sm bg-danger-light">
+                                                @if($course->status_id<3)
+                                                    <a        href="{{ route('courses/edit', ['course' => $course->id]) }}" class="btn btn-sm bg-danger-light">
                                                         <i class="far fa-edit me-2"></i>
                                                     </a>
-                                                    <a class="btn btn-sm bg-danger-light student_delete" data-bs-toggle="modal" data-bs-target="#studentUser">
+                                                    @endif
+
+                                                            @if($course->status_id==1)
+                                                    <a wire:click="confirmDelete({{ $course->id }})" class="btn btn-sm bg-danger-light ">
                                                         <i class="far fa-trash-alt me-2"></i>
                                                     </a>
+                                                     @endif
                                                 </div>
                                             </td>
                                             @endif
