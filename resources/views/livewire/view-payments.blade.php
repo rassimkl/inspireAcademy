@@ -87,6 +87,7 @@
                                                @if(!$selectedTeacher)
                                             <th>Teacher</th>@endif
                                               <th  class="text-center">Date</th>
+                                                <th  class="text-center">Action</th>
                                           
                                        
                                         
@@ -119,7 +120,10 @@
                                            <td class='text-center'>    {{ date('F j, Y', strtotime($payment->created_at)) }}
 {{ date('H:i', strtotime($payment->created_at)) }}</td>
 
-                                           
+    <td class='text-center'>
+    <a href="{{ route('download.pdf', ['payment' => $payment->id]) }}" class="btn btn-success" style="color: white;">Download invoice</a>
+</td>
+
                                            
                                         </tr>
                                         @endforeach
@@ -149,7 +153,7 @@
                 <h2>Total Payment</h2>
                 <p>€ {{$totalAmount}}</p> <!-- Replace with actual total payment -->
             </div>
-              
+           
         </div>
         
         @endif

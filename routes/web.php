@@ -25,6 +25,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,10 @@ use App\Http\Controllers\Auth\RegisterController;
 */
 
 /** for side bar menu active */
+
+
+Route::get('/download-pdf/{payment}', [PDFController::class, 'downloadPdf'])->name('download.pdf');
+
 
 
 

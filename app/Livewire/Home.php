@@ -75,14 +75,16 @@ class Home extends Component
 
 
 
+      
+            
+
+
         $this->classSubmitted = ClassSession::where('status', 2)
-            ->whereDate('created_at', '<=', Carbon::today()) // Classes submitted today or earlier
-            ->orderByDesc('created_at') // Order by submission time in descending order
-            ->limit(4) // Limit the results to the first 4 classes
+            ->orderBy('updated_at', 'desc')
+            ->take(2)
             ->get();
 
-
-
+      
 
 
 

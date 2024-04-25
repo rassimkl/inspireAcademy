@@ -19,6 +19,8 @@ class TeacherHome extends Component
     public $totalHoursThisMonth;
     public $calendarClasses;
     public $unfinishedClasses;
+
+    public $latestSubmitted;
     public function mount()
     {
 
@@ -29,10 +31,10 @@ class TeacherHome extends Component
         $this->calendarClasses = $this->teacher->classes;
 
         $this->unfinishedClasses = $this->teacher->classes
-        ->where('status', 1)
-        ->sortBy(function ($class) {
-            return $class->date . ' ' . $class->start_time; // Combine date and start_time for sorting
-        });
+            ->where('status', 1)
+            ->sortBy(function ($class) {
+                return $class->date . ' ' . $class->start_time; // Combine date and start_time for sorting
+            });
         $this->totalStudents = $this->teacher->coursesAsTeacher->flatMap->students->unique()->count();
         $this->totalClasses = $this->teacher->coursesAsTeacher->flatMap->classes->unique()->count();
 
@@ -50,40 +52,49 @@ class TeacherHome extends Component
         // Get the current date and time
         $currentDateTime = Carbon::now();
 
-    // Get the current date and time
-$currentDateTime = now();
+        // Get the current date and time
+        $currentDateTime = now();
 
-// Retrieve the teacher's upcoming classes for today
-$this->upcomingClasses = $this->teacher->coursesAsTeacher()
-    ->whereHas('classes', function ($query) use ($currentDateTime) {
-        $query->whereDate('date', $currentDateTime->toDateString())
-           ;
-    })
-    ->with(['classes' => function ($query) use ($currentDateTime) {
-        $query->whereDate('date', $currentDateTime->toDateString())
-            
-            ->orderBy('start_time', 'asc'); // Order by start_time in ascending order
-    }])
-    ->get()
-    ->flatMap->classes; // Flatten the classes collection
+        // Retrieve the teacher's upcoming classes for today
+        $this->upcomingClasses = $this->teacher->coursesAsTeacher()
+            ->whereHas('classes', function ($query) use ($currentDateTime) {
+                $query->whereDate('date', $currentDateTime->toDateString())
+                ;
+            })
+            ->with([
+                'classes' => function ($query) use ($currentDateTime) {
+                    $query->whereDate('date', $currentDateTime->toDateString())
+
+                        ->orderBy('start_time', 'asc'); // Order by start_time in ascending order
+                }
+            ])
+            ->get()
+            ->flatMap->classes; // Flatten the classes collection
 
 
 
-            $this->courses = $this->teacher->coursesAsTeacher()
+        $this->courses = $this->teacher->coursesAsTeacher()
             ->whereIn('status_id', [1, 2])
-            ->with(['classes' => function ($query) {
-                $query->where('status', 2);
-            }])
-            ->withSum(['classes' => function ($query) {
-                $query->where('status', 2);
-            }], 'hours')
+            ->with([
+                'classes' => function ($query) {
+                    $query->where('status', 2);
+                }
+            ])
+            ->withSum([
+                'classes' => function ($query) {
+                    $query->where('status', 2);
+                }
+            ], 'hours')
             ->get();
+
+
 
     }
 
 
     public function render()
     {
+       
         return view('livewire.teacher-home');
     }
 }

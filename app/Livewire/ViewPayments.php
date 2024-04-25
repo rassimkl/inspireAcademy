@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Payment;
 use Livewire\Component;
 use Livewire\Attributes\Title;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 #[Title('Payments')]
 class ViewPayments extends Main
@@ -23,6 +24,8 @@ class ViewPayments extends Main
         $this->selectedMonth = Carbon::today()->format('m-Y');
         $this->teachers = User::where('user_type_id', 2)->get();
     }
+
+   
     public function render()
     {
         $selectedMonthDate = Carbon::createFromFormat('m-Y', $this->selectedMonth)->startOfMonth();

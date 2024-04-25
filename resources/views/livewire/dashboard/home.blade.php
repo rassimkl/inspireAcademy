@@ -144,22 +144,26 @@
                     </div>
                     <div class="card-body">
                         <div class="activity-groups">
+                          @foreach($classSubmitted as $class)
                             <div class="activity-awards">
-                          
+                        
                                 <div class="award-boxs">
                                     <img src="assets/img/icons/award-icon-01.svg" alt="Award">
                                 </div>
                                
                                 <div class="award-list-outs">
-                                    <h4>ClS Submitted</h4>
-                                    <h5>John Doe won 1st place in "Chess"</h5>
+                                    <h4>ClS{{$class->id}} Submitted</h4>
+                                    <h5>{{$class->course->name}}</h5>
                                 </div>
                             
                                 <div class="award-time-list">
-                                    <span>1 Day ago</span>
+                                 <span>{{ $class->updated_at->diffForHumans() }}</span>
+
                                 </div>
                                 
                             </div>
+@endforeach
+                            
                        
                         </div>
                     </div>

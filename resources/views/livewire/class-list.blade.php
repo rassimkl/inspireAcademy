@@ -18,7 +18,19 @@
             {!! Toastr::message() !!}
          <div class="student-group-form">
                 <div class="row">
-                 
+                     <div class="col-lg-2 col-md-4">
+                        <div class="form-group">
+                            <label for="teacherSelect" class="form-label text-center">Select Date :</label>
+                        <div wire:ignore>
+                        <input id="datepickeru" wire:model.live='selectedMonth' class="form-control  @error('date') is-invalid @enderror" name="date" type="text" placeholder="MM-YYYY" >
+</div>
+ @error('selectedMonth')
+                                                <span class="text-danger" >
+                                                    <p>{{ $message }}</p>
+                                                </span>
+                                            @enderror
+                        </div>
+                    </div>
                     <div class="col-lg-4 col-md-6">
                         <div class="form-group">
                          <label for="exampleInputEmail1" class="form-label">Status</label>
@@ -29,7 +41,28 @@
     </select>
     
 </div>
+
+
                     </div>
+   @if (auth()->user()->user_type_id == 1)
+                          <div class="col-lg-4 col-md-6">
+                        <div class="form-group">
+                         <label for="exampleInputEmail1" class="form-label">Teachers</label>
+  <div wire:ignore>
+            <select  class="form-control js-example-responsive  @error('teacher') is-invalid @enderror" id="teacher" >
+               <option value="">All</option>
+            @foreach ($teachers as $teacher)
+        <option value="{{ $teacher->id }}">{{ $teacher->first_name }} {{ $teacher->last_name }} </option>
+    @endforeach
+                <!-- Add more languages as needed -->
+            </select>
+            </div>
+    
+</div>
+
+
+                    </div>
+                    @endif
                     <div class="col-lg-2">
                         <div class="search-student-btn">
                            
@@ -88,6 +121,9 @@
                                             </th>
                                             <th>ID</th>
                                             <th>Course</th>
+                                              @if (auth()->user()->user_type_id == 1)
+<th>Teacher</th>
+                                              @endif
                                             <th>Hours</th>
                                             <th>Students</th>
                                             <th>Date</th>
@@ -113,6 +149,9 @@
                                                     <a href="{{ url('student/profile/'.$class->id) }}">{{ $class->course->name }} </a>
                                                 </h2>
                                             </td>
+                                               @if (auth()->user()->user_type_id == 1)
+                                             <td>{{ $class->course->teacher->first_name }} {{ $class->course->teacher->last_name }}</td>
+                                             @endif
                                             <td>{{ $class->hours }} </td>
                                             <td>{{ $class->course->students->count() }}</td>
                                             <td>{{ $class->date }}</td>
@@ -120,10 +159,14 @@
                                           
 
                                             <td>{{$class->room->name}}</td>
-                                        <td class="{{ $class->status == 2 ? 'text-success' : '' }}">
-    {{ $class->status == 1 ? 'Not Completed' : 'Completed' }}
+   <td>
+    @if($class->status == 1)
+        <span class="badge bg-danger">Not Completed</span>
+    @else
+        <span class="badge bg-success">Completed</span>
+    @endif
 </td>
-                                         <td class="text-end">
+                            <td class="text-end">
     @if($class->status != 2)
         <div class="actions">
             <a href="{{ route('class/edit', ['classsession' => $class->id]) }}" class="btn btn-sm bg-danger-light">
@@ -187,19 +230,35 @@
             </div>
         </div>
     </div>
-    @section('script')
+
+
+   @section('script')
 
     {{-- delete js --}}
     <script>
-        $(document).on('click','.student_delete',function()
-        {
-            var _this = $(this).parents('tr');
-            $('.e_id').val(_this.find('.id').text());
-            $('.e_avatar').val(_this.find('.avatar').text());
+       document.addEventListener('livewire:initialized', () => {
+
+            $('#teacher').select2({});
+
+              $('#teacher').on('change', function() {
+                var selectedteacher = $(this).val();
+
+                  @this.set('selectedTeacher',selectedteacher,true);
+                  });
+ var datetimePicker = $('#datepickeru');
+datetimePicker.datetimepicker({
+    format: "MM/YYYY", // Display format for month and year
+    viewMode: "months", // Initial view mode to show only months
+});
+
+        datetimePicker.on('dp.change', function(e) {
+            @this.set('selectedMonth', e.date.format('MM-YYYY'), true);
         });
+
+       });
+
+
     </script>
     @endsection
-
-
 
 </div>
