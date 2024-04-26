@@ -101,7 +101,9 @@
                                             <td>
                                               
                                             </td>
-                                            <td>CRS{{ $course->id }}</td>
+
+                                            
+                                            <td>  <a href="{{ route('course/deails', ['course' => $course]) }}">CRS{{ $course->id }}</a></td>
                                            
                                             <td hidden class="avatar">{{ $course->id }}</td>
                                             <td>
@@ -116,26 +118,18 @@
                                            <td>
     {{ $course->course_type == 1 ? 'Face To Face' : 'Online' }}
 </td>
-                                            <td>
-    @php
-        $statusClass = '';
-        switch ($course->status_id) {
-            case 1:
-                $statusClass = 'text-danger';
-                break;
-            case 2:
-                $statusClass = 'text-success';
-                break;
-            case 3:
-                $statusClass = 'text-primary';
-                break;
-            case 4:
-                $statusClass = 'text-decoration-line-through';
-                break;
-        }
-    @endphp
-    <span class="{{ $statusClass }}">{{ $course->status->name }}</span>
+                                    <td>
+    @if($course->status_id == 1)
+        <span class="badge bg-danger">{{ $course->status->name }}</span>
+    @elseif($course->status_id == 2)
+        <span class="badge bg-success">{{ $course->status->name }}</span>
+    @elseif($course->status_id == 3)
+             <span class="badge bg-info">{{ $course->status->name }}</span>
+    @elseif($course->status_id == 4)
+        <span class="badge bg-light text-dark">{{ $course->status->name }}</span>
+    @endif
 </td>
+
                                              <td class='text-center'>{{$course->students_count}}</td>
                             
 @if(auth()->user()->user_type_id==1) 

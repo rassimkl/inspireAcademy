@@ -10,8 +10,9 @@ use App\Mail\Reschedule;
 
 use App\Models\ClassSession;
 use App\Rules\NoClassConflict;
+use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Mail;
-
+#[Title('Edit Class')]
 class EditClassSession extends Component
 {
 

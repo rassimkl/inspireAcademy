@@ -8,8 +8,10 @@ use App\Models\Course;
 use Livewire\Component;
 use App\Mail\ClassCreated;
 use App\Rules\NoClassConflict;
+use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Mail;
 
+#[Title('create class')]
 class ClassSession extends Component
 {
 

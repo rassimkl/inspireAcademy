@@ -4,8 +4,10 @@ namespace App\Livewire;
 
 use App\Models\Course;
 use Livewire\Component;
+use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Auth;
 
+#[Title('Course')]
 class CourseDetails extends Component
 {
 

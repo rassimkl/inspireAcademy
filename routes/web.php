@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\ViewPayments;
 use App\Models\User;
 use App\Livewire\Home;
 use App\Livewire\Login;
@@ -11,21 +10,23 @@ use App\Livewire\EditUser;
 use App\Livewire\Students;
 use App\Livewire\Teachers;
 use App\Livewire\ClassList;
+use App\Livewire\ViewClass;
 use App\Livewire\EditCourse;
 use App\Livewire\SubmitClass;
 use App\Livewire\TeacherHome;
 use App\Livewire\UserDetails;
 use App\Livewire\ClassSession;
 use App\Livewire\CreateCourse;
+use App\Livewire\ViewPayments;
 use App\Livewire\CourseDetails;
 use App\Livewire\EditClassSession;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
 use App\Livewire\ManageTeacherPayments;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,6 @@ Route::get('/download-pdf/{payment}', [PDFController::class, 'downloadPdf'])->na
 
 
 Route::get('/', Login::class)->name('login')->middleware('guest');
-Route::get('/course/details/{course}', CourseDetails::class)->name('course/deails');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -93,6 +93,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['adminteacher'])->group(function () {
     Route::get('/teacher/classes/', ClassList::class)->name('teacher/classes');
     Route::get('/course/list', Courses::class)->name('course/list');
+    Route::get('/course/details/{course}', CourseDetails::class)->name('course/deails');
+    Route::get('/view-class/{classId}', ViewClass::class)->name('class/details');
+
 
 });
 

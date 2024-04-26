@@ -4,7 +4,9 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\Attributes\Title;
 
+#[Title('User')]
 class UserDetails extends Component
 {
 

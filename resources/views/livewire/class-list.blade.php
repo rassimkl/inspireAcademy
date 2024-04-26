@@ -140,13 +140,13 @@
                                             <td>
                                               
                                             </td>
-                                            <td>CLS{{ $class->id }}</td>
-                                           
+                                            <td> <a href="{{ route('class/details', ['classId' => $class->id]) }}">CLS{{ $class->id }}</a></td>
+                                            
                                        
                                             <td>
                                                 <h2 class="table-avatar">
                                                     
-                                                    <a href="{{ url('student/profile/'.$class->id) }}">{{ $class->course->name }} </a>
+                                                    <a href="">{{ $class->course->name }} </a>
                                                 </h2>
                                             </td>
                                                @if (auth()->user()->user_type_id == 1)

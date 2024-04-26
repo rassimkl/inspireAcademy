@@ -4,9 +4,12 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use App\Models\Room;
-use App\Models\ClassSession;
 use Livewire\Component;
-
+use App\Models\ClassSession;
+use Livewire\Attributes\Title;
+use App\Mail\ClassSubmittedEmail;
+use Illuminate\Support\Facades\Mail;
+#[Title('Submit Class')]
 class SubmitClass extends Component
 {
     public $course;
@@ -77,6 +80,8 @@ class SubmitClass extends Component
         ]);
 
         $this->course->updateStatus();
+        $classSession = $this->classsession;
+        Mail::to('ali.gogo11ayad@gmail.com')->queue(new ClassSubmittedEmail($classSession));
 
         $this->redirect(TeacherHome::class);
 

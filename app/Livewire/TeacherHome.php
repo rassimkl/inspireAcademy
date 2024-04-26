@@ -2,10 +2,12 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Livewire\Component;
-use Carbon\Carbon;
+use Livewire\Attributes\Title;
 
+#[Title('Home')]
 
 class TeacherHome extends Component
 {

@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->time('end_time');
             $table->tinyInteger('status')->default(1)->comment('1: Not Completed, 2: Completed');
             $table->tinyInteger('payment_status')->default(1)->comment('1: Not Paid, 2: Paid');
-            $table->string('report')->nullable();
+            $table->string('report', 1000)->nullable();
             $table->timestamps();
         });
     }
