@@ -1,12 +1,32 @@
 <?php
 
+use App\Models\User;
 use App\Livewire\Home;
+use App\Livewire\Login;
+use App\Livewire\AddUser;
+use App\Livewire\Courses;
+use App\Livewire\Interns;
+use App\Livewire\EditUser;
+use App\Livewire\Students;
+use App\Livewire\Teachers;
+use App\Livewire\ClassList;
+use App\Livewire\ViewClass;
+use App\Livewire\EditCourse;
+use App\Livewire\SubmitClass;
+use App\Livewire\TeacherHome;
+use App\Livewire\UserDetails;
+use App\Livewire\ClassSession;
+use App\Livewire\CreateCourse;
+use App\Livewire\ViewPayments;
+use App\Livewire\CourseDetails;
+use App\Livewire\EditClassSession;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
+use App\Livewire\ManageTeacherPayments;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
-use PHPUnit\Metadata\Api\HookMethods;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +42,64 @@ use PHPUnit\Metadata\Api\HookMethods;
 /** for side bar menu active */
 
 
+Route::get('/download-pdf/{payment}', [PDFController::class, 'downloadPdf'])->name('download.pdf');
 
+
+
+
+Route::get('/', Login::class)->name('login')->middleware('guest');
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', Home::class)->name('home');
+    Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
 });
+
+Route::middleware(['auth', 'teacher'])->group(function () {
+
+
+
+
+    Route::get('/teacher/home', TeacherHome::class)->name('teacher/home');
+
+    Route::get('/add/class/{course}', ClassSession::class)->name('class/add');
+    Route::get('/edit/class/{classsession}', EditClassSession::class)->name('class/edit');
+    Route::get('/submit/class/{classsession}', SubmitClass::class)->name('class/submit');
+
+
+
+
+
+
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    Route::get('/home', Home::class)->name('home');
+    Route::get('user/add/page', AddUser::class)->name('user/add/page'); // page student
+    Route::get('/user/profile/{user}', UserDetails::class)->name('user/details');
+
+    Route::get('/student/list', Students::class)->name('student/list');
+    Route::get('/teacher/list', Teachers::class)->name('teacher/list');
+    Route::get('/intern/list', Interns::class)->name('intern/list');
+    Route::get('/users/edit/{userId}', EditUser::class)->name('user/edit');
+    Route::get('/courses/create', CreateCourse::class)->name('courses.create');
+
+    Route::get('/teacher/payments/', ManageTeacherPayments::class)->name('teacher/payments');
+    Route::get('/courses/{course}/edit', EditCourse::class)->name('courses/edit');
+    Route::get('/teachers/all/payments', ViewPayments::class)->name('teacher/all/payments');
+
+
+});
+Route::middleware(['adminteacher'])->group(function () {
+    Route::get('/teacher/classes/', ClassList::class)->name('teacher/classes');
+    Route::get('/course/list', Courses::class)->name('course/list');
+    Route::get('/course/details/{course}', CourseDetails::class)->name('course/deails');
+    Route::get('/view-class/{classId}', ViewClass::class)->name('class/details');
+
+
+});
+
+
 
 function set_active($route)
 {
@@ -37,36 +109,50 @@ function set_active($route)
     return Request::path() == $route ? 'active' : '';
 }
 
-Route::get('/', function () {
-    return view('auth.login');
-});
 
 
-Auth::routes();
-Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
-    // ----------------------------login ------------------------------//
-    Route::controller(LoginController::class)->group(function () {
-        Route::get('/login', 'login')->name('login');
-        Route::post('/login', 'authenticate');
-        Route::get('/logout', 'logout')->name('logout');
-        Route::post('change/password', 'changePassword')->name('change/password');
-    });
 
-    // ----------------------------- register -------------------------//
-    Route::controller(RegisterController::class)->group(function () {
-        Route::get('/register', 'register')->name('register');
-        Route::post('/register', 'storeUser')->name('register');
-    });
-});
+
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // -------------------------- main dashboard ----------------------//
     Route::controller(HomeController::class)->group(function () {
         //Route::get('/home', 'index')->middleware('auth')->name('home');
         Route::get('user/profile/page', 'userProfile')->middleware('auth')->name('user/profile/page');
-        Route::get('teacher/dashboard', 'teacherDashboardIndex')->middleware('auth')->name('teacher/dashboard');
+
         Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // ----------------------------- user controller ---------------------//
     Route::controller(UserManagementController::class)->group(function () {
@@ -86,9 +172,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     // ------------------------ student -------------------------------//
     Route::controller(StudentController::class)->group(function () {
-        Route::get('student/list', 'student')->middleware('auth')->name('student/list'); // list student
+        //Route::get('student/list', 'student')->middleware('auth')->name('student/list'); // list student
         Route::get('student/grid', 'studentGrid')->middleware('auth')->name('student/grid'); // grid student
-        Route::get('student/add/page', 'studentAdd')->middleware('auth')->name('student/add/page'); // page student
         Route::post('student/add/save', 'studentSave')->name('student/add/save'); // save record student
         Route::get('student/edit/{id}', 'studentEdit'); // view for edit
         Route::post('student/update', 'studentUpdate')->name('student/update'); // update record student

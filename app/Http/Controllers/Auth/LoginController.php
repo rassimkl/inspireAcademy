@@ -32,17 +32,17 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-    * Where to redirect users after login.
-    *
-    * @var string
-    */
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-    * Create a new controller instance.
-    *
-    * @return void
-    */
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->middleware('guest')->except([
@@ -61,17 +61,17 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         $request->validate([
-            'email'    => 'required|string',
+            'email' => 'required|string',
             'password' => 'required|string',
         ]);
-        
+
         DB::beginTransaction();
         try {
-            
-            $email     = $request->email;
-            $password  = $request->password;
 
-            if (Auth::attempt(['email'=>$email,'password'=>$password])) {
+            $email = $request->email;
+            $password = $request->password;
+
+            if (Auth::attempt(['email' => $email, 'password' => $password])) {
                 /** get session */
                 $user = Auth::User();
                 Session::put('name', $user->name);
@@ -84,22 +84,22 @@ class LoginController extends Controller
                 Session::put('avatar', $user->avatar);
                 Session::put('position', $user->position);
                 Session::put('department', $user->department);
-                Toastr::success('Login successfully :)','Success');
+                Toastr::success('Login successfully :)', 'Success');
                 return redirect()->route('home');
             } else {
-                Toastr::error('fail, WRONG USERNAME OR PASSWORD :)','Error');
+                Toastr::error('fail, WRONG USERNAME OR PASSWORD :)', 'Error');
                 return redirect('login');
             }
-           
-        } catch(\Exception $e) {
+
+        } catch (\Exception $e) {
             DB::rollback();
-            Toastr::error('fail, LOGIN :)','Error');
+            Toastr::error('fail, LOGIN :)', 'Error');
             return redirect()->back();
         }
     }
 
     /** logout */
-    public function logout( Request $request)
+    public function logout(Request $request)
     {
         Auth::logout();
         // forget login session
@@ -115,7 +115,7 @@ class LoginController extends Controller
         $request->session()->forget('department');
         $request->session()->flush();
 
-        Toastr::success('Logout successfully :)','Success');
+        Toastr::success('Logout successfully :)', 'Success');
         return redirect('login');
     }
 

@@ -20,13 +20,30 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
-
+    
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $user = Auth::guard($guard)->user();
+    
+                // Check the user's type and redirect accordingly
+                switch ($user->user_type_id) {
+                    case 1:
+                        return redirect()->route('home');
+                     
+                    case 2:
+                        return redirect()->route('teacher/home');
+                        
+                    case 3:
+                        return redirect()->route('student.dashboard');
+                        
+                    default:
+                        return redirect(RouteServiceProvider::HOME);
+                        
+                }
             }
         }
-
+    
         return $next($request);
     }
+    
 }
