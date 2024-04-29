@@ -97,6 +97,7 @@
                             <table
                                 class="table star-student table-hover table-center table-borderless table-striped">
                                 <thead class="thead-light">
+                                    @if(!$classesForToday->isEmpty())
                                     <tr>
                                         <th>Class</th>
                                         <th>Course</th>
@@ -104,8 +105,10 @@
                                         <th class="text-center">Time</th>
                                         <th class="text-end">Room</th>
                                     </tr>
+@endif
                                 </thead>
                                 <tbody>
+                                         <h4 class='text-center'>No classes for Today!</h4>
                                 @foreach($classesForToday as $tclass)
                                     <tr>
                                         <td class="text-nowrap">

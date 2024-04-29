@@ -103,9 +103,11 @@
                                     
                                         <table class="table table-center">
                                             <tbody>
+                                      
                                             @foreach($upcomingClasses as $class)
                                          
                                                 <tr>
+                                             
                                                     <td>
                                                         <div class="date">
                                                             <b>Class-{{$class->id}}</b>
