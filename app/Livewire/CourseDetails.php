@@ -31,7 +31,7 @@ class CourseDetails extends Component
 
 
         $this->classCount = $course->classes->where('status', 2)->count();
-     
+        $this->hoursGiven = $course->classes->where('status', 2)->sum('hours');
        
     }
     public function render()

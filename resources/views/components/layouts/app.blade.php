@@ -42,7 +42,7 @@
           
                 </a>
                 <a href="{{ route('home') }}" class="logo logo-small">
-                    <img  alt="Logo" width="30" height="30">
+                
                 </a>
             </div>
             <div class="menu-toggle">

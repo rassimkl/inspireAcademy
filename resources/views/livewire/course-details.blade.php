@@ -162,7 +162,7 @@
                                          
                                         </div>
                                         <div class="hello-park">
-                                            <h5>Classes</h5>
+                                            <h5>Classes :</h5>
                                            
                                  @if($course->classes->isEmpty())
     <p class='text-center'>No Classes</p>
@@ -181,6 +181,9 @@
                 </p>
             </a>
         </div>
+         @if(!$loop->last)
+        <hr> <!-- Add your separator here -->
+    @endif
     @endforeach
 @endif
 
@@ -217,6 +220,9 @@
             </p>
         </a>
     </div>
+      @if(!$loop->last)
+        <hr> <!-- Add your separator here -->
+    @endif
 @endforeach
                     </div>
                 </div>

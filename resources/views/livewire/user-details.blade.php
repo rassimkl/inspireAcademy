@@ -211,6 +211,9 @@
 
                                                 </p>
                                             </div>
+                                              @if(!$loop->last)
+        <hr> <!-- Add your separator here -->
+    @endif
                                             @endforeach
                                          
                                         </div>
