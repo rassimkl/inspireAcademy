@@ -212,7 +212,7 @@
                         <p>Are you sure want to delete?</p>
                     </div>
                     <div class="modal-btn delete-action">
-                        <form action="{{ route('student/delete') }}" method="POST">
+                        <form  method="POST">
                             @csrf
                             <div class="row">
                                 <input type="hidden" name="id" class="e_id" value="">

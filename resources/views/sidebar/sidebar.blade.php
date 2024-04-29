@@ -84,8 +84,8 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="{{ route('department/list/page') }}" class="{{set_active(['department/list/page'])}} {{ request()->is('department/edit/*') ? 'active' : '' }}">Rooms List</a></li>
-                        <li><a href="{{ route('department/add/page') }}" class="{{set_active(['department/add/page'])}}">Add Room</a></li>
+                        <li><a href="" class="{{set_active(['department/list/page'])}} {{ request()->is('department/edit/*') ? 'active' : '' }}">Rooms List</a></li>
+                        <li><a href="" class="{{set_active(['department/add/page'])}}">Add Room</a></li>
                         <li><a>Edit Room</a></li>
                     </ul>
                 </li>
