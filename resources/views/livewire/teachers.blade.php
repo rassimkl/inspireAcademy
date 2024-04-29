@@ -76,12 +76,12 @@
                                             <td>
                                                
                                             </td>
-                                            <td>TCH{{ $teacher->id }}</td>
+                                            <td> <a href="{{ route('user/details', ['user' => $teacher->id]) }}"> TCH{{ $teacher->id }} </a></td>
                                            
                                             <td hidden class="avatar">{{ $teacher->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                    <a href="student-details.html"class="avatar avatar-sm me-2">
+                                                    <a href="{{ route('user/details', ['user' => $teacher->id]) }}" class="avatar avatar-sm me-2">
                                                         <img class="avatar-img rounded-circle" src="{{ $teacher->profile_picture ? Storage::url('student-photos/'.$teacher->profile_picture) :Storage::url('student-photos/default.png') }}" alt="User Image">
                                                     </a>
                                                     <a href="{{ route('user/details', ['user' => $teacher->id]) }}">{{ $teacher->first_name }} {{ $teacher->last_name }}</a>
@@ -119,33 +119,7 @@
     </div>
 
     {{-- model student delete --}}
-    <div class="modal custom-modal fade" id="studentUser" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="form-header">
-                        <h3>Delete Student</h3>
-                        <p>Are you sure want to delete?</p>
-                    </div>
-                    <div class="modal-btn delete-action">
-                        <form action="{{ route('teacher/delete') }}" method="POST">
-                            @csrf
-                            <div class="row">
-                                <input type="hidden" name="id" class="e_id" value="">
-                                <input type="hidden" name="avatar" class="e_avatar" value="">
-                                <div class="col-6">
-                                    <button type="submit" class="btn btn-primary continue-btn submit-btn" style="border-radius: 5px !important;">Delete</button>
-                                </div>
-                                <div class="col-6">
-                                    <a href="#" data-bs-dismiss="modal"class="btn btn-primary paid-cancel-btn">Cancel</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     @section('script')
 
     {{-- delete js --}}

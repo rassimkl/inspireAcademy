@@ -191,7 +191,13 @@
                                             <div class="educate-year">
                                                 <h6>{{ ($course->created_at)->format('F j, Y') }}</h6>
                                               <p>
-    {{$course->name}} with {{$course->teacher->first_name}} {{$course->teacher->last_name}}
+ @if($user->user_type_id == 2)
+    {{$course->name}}
+@else
+   <a href="{{ route('course/deails', ['course' => $course]) }}">{{$course->name}}</a> with <a href="{{ route('user/details', ['user' => $course->teacher->id]) }}">
+        {{$course->teacher->first_name}} {{$course->teacher->last_name}}
+    </a>
+@endif
     @if($course->status_id == 1)
         <span style="color: red;">({{$course->status->name}})</span>  {{$course->classes_sum_hours??0}} out of {{$course->total_hours}} Hours
     @elseif($course->status_id == 2)

@@ -183,10 +183,36 @@
 
                                          
                                         </div>
+                                        
                                     </div>
+                                    
                                 </div>
+                                
                             </div>
+                            
                         </div>
+                            <div class="col-lg-8">
+                            <div class="student-personals-grp">
+                                <div class="card mb-0">
+                                    <div class="card-body">
+                                        <div class="heading-detail">
+                                            <h4>Students</h4>
+                                        </div>
+                                      
+                                        <div class="hello-park">
+                                           
+                                            @if(($course->students)->isEmpty())
+                                            <p class='text-center'>No Students Assigned to this course</p>@endif
+                                    @foreach($course->students as $student)
+    <div class="educate-year">
+    <a href="{{ route('user/details', ['user' => $student->id]) }}">
+            <h5>{{$student->first_name}} {{$student->last_name}}</h5>
+            <p style="color: {{ $classSession->status == 1 ? 'red' : ($classSession->status == 2 ? 'green' : '') }}">
+           
+            </p>
+        </a>
+    </div>
+@endforeach
                     </div>
                 </div>
             </div>
