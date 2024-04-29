@@ -192,7 +192,7 @@
                                                 <h6>{{ ($course->created_at)->format('F j, Y') }}</h6>
                                               <p>
  @if($user->user_type_id == 2)
-    {{$course->name}}
+   <a href="{{ route('course/deails', ['course' => $course]) }}">{{$course->name}}</a>
 @else
    <a href="{{ route('course/deails', ['course' => $course]) }}">{{$course->name}}</a> with <a href="{{ route('user/details', ['user' => $course->teacher->id]) }}">
         {{$course->teacher->first_name}} {{$course->teacher->last_name}}

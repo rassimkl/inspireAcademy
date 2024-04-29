@@ -77,7 +77,7 @@
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Teacher</h4>
-                                                <h5>{{$course->teacher->first_name}} {{$course->teacher->last_name}}</h5>
+                                                <h5><a  href="{{ route('user/details', ['user' => $course->teacher->id]) }}">{{$course->teacher->first_name}} {{$course->teacher->last_name}}</a></h5>
                                             </div>
                                         </div>
                                         <div class="personal-activity">
@@ -163,22 +163,27 @@
                                         </div>
                                         <div class="hello-park">
                                             <h5>Classes</h5>
-                                            @if(($course->classes)->isEmpty())
-                                            <p class='text-center'>No Classes</p>@endif
-                                    @foreach($course->classes as $classSession)
-    <div class="educate-year">
-        <a href="{{ route('class/details', ['classId' => $classSession->id]) }}">
-            <h6>{{ \Carbon\Carbon::parse($classSession->date)->format('F j, Y') }} - {{ $classSession->start_time }} to {{ $classSession->end_time }}</h6>
-            <p style="color: {{ $classSession->status == 1 ? 'red' : ($classSession->status == 2 ? 'green' : '') }}">
-                @if($classSession->status == 1)
-                    Not Completed
-                @elseif($classSession->status == 2)
-                    Completed
-                @endif
-            </p>
-        </a>
-    </div>
-@endforeach
+                                           
+                                 @if($course->classes->isEmpty())
+    <p class='text-center'>No Classes</p>
+@else
+    @foreach($course->classes->sortByDesc('date') as $classSession)
+        <div class="educate-year">
+            <a href="{{ route('class/details', ['classId' => $classSession->id]) }}">
+                <h5 class='mb-2'>CLS{{$classSession->id}}</h5>
+                <h6>{{ \Carbon\Carbon::parse($classSession->date)->format('F j, Y') }} - {{ $classSession->start_time }} to {{ $classSession->end_time }}</h6>
+                <p style="color: {{ $classSession->status == 1 ? 'red' : ($classSession->status == 2 ? 'green' : '') }}">
+                    @if($classSession->status == 1)
+                        Not Completed
+                    @elseif($classSession->status == 2)
+                        Completed
+                    @endif
+                </p>
+            </a>
+        </div>
+    @endforeach
+@endif
+
 
 
                                          
@@ -207,7 +212,7 @@
     <div class="educate-year">
     <a href="{{ route('user/details', ['user' => $student->id]) }}">
             <h5>{{$student->first_name}} {{$student->last_name}}</h5>
-            <p style="color: {{ $classSession->status == 1 ? 'red' : ($classSession->status == 2 ? 'green' : '') }}">
+      
            
             </p>
         </a>

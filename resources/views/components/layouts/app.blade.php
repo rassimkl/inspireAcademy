@@ -90,7 +90,7 @@
 		{{-- content page --}}
               {{ $slot }}
         <footer>
-            <p>Copyright ©  <?php echo date('Y'); ?> Soeng Swwwouy.</p>
+            <p>Copyright ©  <?php echo date('Y'); ?> Inspire Academy.</p>
         </footer>
     
     </div>

@@ -103,7 +103,10 @@
                                     
                                         <table class="table table-center">
                                             <tbody>
-                                      
+                                        @if($upcomingClasses->isEmpty())
+                                            <h5 class='text-center'>No classes for today!</h5>
+@endif
+                                        
                                             @foreach($upcomingClasses as $class)
                                          
                                                 <tr>

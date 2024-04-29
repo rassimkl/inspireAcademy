@@ -146,11 +146,11 @@
                                             <td>
                                                 <h2 class="table-avatar">
                                                     
-                                                    <a href="">{{ $class->course->name }} </a>
+                                                  <a href="{{ route('class/details', ['classId' => $class->id]) }}">{{ $class->course->name }} </a>
                                                 </h2>
                                             </td>
                                                @if (auth()->user()->user_type_id == 1)
-                                             <td>{{ $class->course->teacher->first_name }} {{ $class->course->teacher->last_name }}</td>
+                                             <td> <a  href="{{ route('user/details', ['user' => $class->course->teacher->id]) }}">{{ $class->course->teacher->first_name }} {{ $class->course->teacher->last_name }}</a></td>
                                              @endif
                                             <td>{{ $class->hours }} </td>
                                             <td>{{ $class->course->students->count() }}</td>

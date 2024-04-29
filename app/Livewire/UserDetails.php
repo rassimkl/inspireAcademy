@@ -28,7 +28,11 @@ class UserDetails extends Component
                     'classes' => function ($query) {
                         $query->where('status', '=', '2');
                     }
-                ])
+                ])->withSum([
+                        'classes' => function ($query) {
+                            $query->where('status', 2);
+                        }
+                    ], 'hours')
                 ->get();
         } elseif ($user->user_type_id == 2) {
 
@@ -37,26 +41,30 @@ class UserDetails extends Component
                     'classes' => function ($query) {
                         $query->where('status', '=', '2');
                     }
-                ])->withSum(['classes' => function ($query) {
-                    $query->where('status', 2);
-                }], 'hours')
+                ])->withSum([
+                        'classes' => function ($query) {
+                            $query->where('status', 2);
+                        }
+                    ], 'hours')
                 ->get();
         } elseif ($user->user_type_id == 4) {
 
             $this->courses = $user->coursesAsStudent()
-            ->withCount([
-                'classes' => function ($query) {
-                    $query->where('status', '=', '2');
-                }
-            ])->withSum(['classes' => function ($query) {
-                $query->where('status', 2);
-            }], 'hours')
-            ->get();
+                ->withCount([
+                    'classes' => function ($query) {
+                        $query->where('status', '=', '2');
+                    }
+                ])->withSum([
+                        'classes' => function ($query) {
+                            $query->where('status', 2);
+                        }
+                    ], 'hours')
+                ->get();
         }
-     
 
 
-        
+
+
         $classesCount = 0;
         foreach ($this->courses as $course) {
 
