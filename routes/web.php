@@ -6,6 +6,7 @@ use App\Livewire\Login;
 use App\Livewire\AddUser;
 use App\Livewire\Courses;
 use App\Livewire\Interns;
+use App\Livewire\Student;
 use App\Livewire\EditUser;
 use App\Livewire\Students;
 use App\Livewire\Teachers;
@@ -48,6 +49,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', Login::class)->name('login')->middleware('guest');
 
+Route::get('/student', Student::class)->name('student/home');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
@@ -91,14 +93,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 Route::middleware(['adminteacher'])->group(function () {
     Route::get('/teacher/classes/', ClassList::class)->name('teacher/classes');
-    Route::get('/course/list', Courses::class)->name('course/list');
+  
     Route::get('/course/details/{course}', CourseDetails::class)->name('course/deails');
     Route::get('/view-class/{classId}', ViewClass::class)->name('class/details');
     Route::get('/user/profile/{user}', UserDetails::class)->name('user/details');
 
 
 });
-
+Route::middleware(['teacherstudentadmin'])->group(function () {
+    Route::get('/course/list', Courses::class)->name('course/list');
+});
 
 
 function set_active($route)

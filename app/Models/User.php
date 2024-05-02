@@ -70,6 +70,12 @@ class User extends Authenticatable
 
     }
 
+    public function studentclasses()
+    {
+        return $this->hasManyThrough(ClassSession::class, Course::class, 'student_id', 'course_id');
+
+    }
+
    
 
 

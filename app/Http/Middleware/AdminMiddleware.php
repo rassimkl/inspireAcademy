@@ -25,7 +25,7 @@ class AdminMiddleware
                     return redirect()->route('teacher/home');
 
                 case 3:
-                    return redirect()->route('student.dashboard');
+                    return redirect()->route('student/home');
 
                 default:
                     return redirect('');

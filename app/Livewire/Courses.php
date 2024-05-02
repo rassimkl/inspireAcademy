@@ -73,9 +73,13 @@ class Courses extends Main
             $query->where('status_id', $this->status);
         }
 
-        if ($user->user_type_id != 1) {
+        if ($user->user_type_id == 2) {
             // If the user is a teacher, filter courses by the teacher's ID
             $query->where('teacher_id', $user->id);
+        }elseif($user->user_type_id == 3){
+            $query->whereHas('students', function ($subQuery) use ($user) {
+                $subQuery->where('student_id', $user->id);
+            });
         }
 
         $courses = $query->where(function ($query) use ($searchTerm) {

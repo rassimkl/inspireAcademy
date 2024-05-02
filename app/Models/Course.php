@@ -61,4 +61,12 @@ class Course extends Model
             $this->save();
         }
     }
+
+    public function getCompletionPercentageAttribute()
+    {
+        $totalHours = $this->classes()->sum('hours');
+        $completedHours = $this->classes()->where('status', 2)->sum('hours');
+        $percentage = ($totalHours > 0) ? (($completedHours / $totalHours) * 100) : 0;
+        return $percentage;
+    }
 }

@@ -6,7 +6,7 @@
                     <span>Main Menu</span>
                 </li>
               
-                <li class="submenu {{set_active(['home','teacher/home','student/dashboard'])}}">
+                <li class="submenu {{set_active(['home','teacher/home','student/home'])}}">
                     <a>
                         <i class="fas fa-tachometer-alt"></i>
                         <span> Home</span> 
@@ -15,7 +15,7 @@
                     <ul>
                         @if(auth()->user()->user_type_id==1)<li><a href="{{ route('home') }}" class="{{set_active(['home'])}}">Dashboard</a></li> @endif
                   @if(auth()->user()->user_type_id==2) <li><a href="{{ route('teacher/home') }}" class="{{set_active(['teacher/home'])}}">Dashboard</a></li> @endif
-                         @if(auth()->user()->user_type_id==3) <li><a href="{{ route('student/dashboard') }}" class="{{set_active(['student/dashboard'])}}">Dashboard</a></li>@endif
+                         @if(auth()->user()->user_type_id==3) <li><a href="{{ route('student/home') }}" class="{{set_active(['student/home'])}}">Dashboard</a></li>@endif
                     </ul>
                 </li>
                 @if (Session::get('role_name') === 'Admin' || Session::get('role_name') === 'Super Admin')

@@ -11,7 +11,7 @@ class Login extends Component
     public $email;
     public $password;
 
-    public $remember=true;
+    public $remember = true;
 
     protected $rules = [
         'email' => 'required|email',
@@ -34,6 +34,8 @@ class Login extends Component
                 return redirect()->route('home');
             } elseif ($user->user_type_id === 2) {
                 return redirect()->route('teacher/home');
+            } elseif ($user->user_type_id === 3) {
+                return redirect()->route('student/home');
             }
         }
         $this->addError('email', 'These credentials do not match our records.');
