@@ -91,16 +91,16 @@ class Student extends Component
 
 
 
-            $this->pendingClasses = $user->coursesAsStudent()
+        $this->pendingClasses = $user->coursesAsStudent()
             ->with([
                 'classes' => function ($query) {
                     $query->where('status', 1) // Filter classes by status 1
-                          ->orderBy('start_time', 'asc'); // Order by start_time in ascending order
+                        ->orderBy('start_time', 'asc'); // Order by start_time in ascending order
                 }
             ])
             ->get()
             ->flatMap->classes; // Flatten the classes collection
-        
+
 
 
     }

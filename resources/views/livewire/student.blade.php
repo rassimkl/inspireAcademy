@@ -190,7 +190,7 @@
                                             <td>
                                               
                                             </td>
-                                            <td>CRS{{ $course->id }}</td>
+                                            <td>  <a href="{{ route('course/deails', ['course' => $course]) }}">CRS{{ $course->id }}</a></td>
                                            
                                             <td hidden class="avatar">{{ $course->id }}</td>
                                             <td>
@@ -326,7 +326,7 @@
                
             </div>
         </div>
-
+</div>
         
     </div>
 

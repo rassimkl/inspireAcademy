@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\CourseFile;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Course extends Model
 {
@@ -62,11 +63,9 @@ class Course extends Model
         }
     }
 
-    public function getCompletionPercentageAttribute()
+
+    public function files()
     {
-        $totalHours = $this->classes()->sum('hours');
-        $completedHours = $this->classes()->where('status', 2)->sum('hours');
-        $percentage = ($totalHours > 0) ? (($completedHours / $totalHours) * 100) : 0;
-        return $percentage;
+        return $this->hasMany(CourseFile::class);
     }
 }
