@@ -38,8 +38,8 @@
                     <div class="card-body">
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
-                                <h6>Teachers</h6>
-                                <h3>{{$teacherCount}}</h3>
+                                <h6>Courses In Progress</h6>
+                                <h3>{{$coursesCount}}</h3>
                             </div>
                             <div class="db-icon">
                                 <img src="{{ URL::to('assets/img/icons/dash-icon-02.svg') }}" alt="Dashboard Icon">
@@ -53,7 +53,7 @@
                     <div class="card-body">
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
-                                <h6>Classses</h6>
+                                <h6>Classes Submitted This Month</h6>
                                 <h3>{{$currentMonthClasses}}</h3>
                             </div>
                             <div class="db-icon">
@@ -68,7 +68,7 @@
                     <div class="card-body">
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
-                                <h6>Payment</h6>
+                                <h6>Payments</h6>
                                 <h3>€{{$totalPayment}}</h3>
                             </div>
                             <div class="db-icon">

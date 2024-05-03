@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Carbon\Carbon;
+use App\Models\Course;
 use Livewire\Component;
 use App\Models\UserType;
 use App\Models\ClassSession;
@@ -21,6 +22,8 @@ class Home extends Component
 
     public $classSubmitted;
 
+    public $coursesCount;
+
     public function mount()
     {
 
@@ -28,7 +31,9 @@ class Home extends Component
     public function render()
     {
         $this->studentCount = UserType::where('name', 'Student')->firstOrFail()->users()->count();
-        $this->teacherCount = UserType::where('name', 'Teacher')->firstOrFail()->users()->count();
+        $this->coursesCount = Course::whereIn('status_id', [2])
+            ->count();
+        ;
         $classesToPayThisMonth = ClassSession::whereYear('date', '=', date('Y'))
             ->whereMonth('date', '=', date('m'))
             ->where('status', '=', 2)
@@ -75,8 +80,8 @@ class Home extends Component
 
 
 
-      
-            
+
+
 
 
         $this->classSubmitted = ClassSession::where('status', 2)
@@ -84,7 +89,7 @@ class Home extends Component
             ->take(2)
             ->get();
 
-      
+
 
 
 

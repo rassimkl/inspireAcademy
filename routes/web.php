@@ -49,7 +49,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', Login::class)->name('login')->middleware('guest');
 
-Route::get('/student', Student::class)->name('student/home');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
@@ -100,6 +100,7 @@ Route::middleware(['adminteacher'])->group(function () {
 
 });
 Route::middleware(['teacherstudentadmin'])->group(function () {
+    Route::get('/student', Student::class)->name('student/home');
     Route::get('/course/list', Courses::class)->name('course/list');
     Route::get('/course/details/{course}', CourseDetails::class)->name('course/deails');
 });
