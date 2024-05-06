@@ -108,7 +108,9 @@
 @endif
                                 </thead>
                                 <tbody>
+                                @if($classesForToday->isEmpty())
                                          <h4 class='text-center'>No classes for Today!</h4>
+                                         @endif
                                 @foreach($classesForToday as $tclass)
                                     <tr>
                                         <td class="text-nowrap">

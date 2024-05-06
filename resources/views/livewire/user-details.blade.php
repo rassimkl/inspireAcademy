@@ -172,7 +172,7 @@
     </div>
 
 
-
+    @if($user->user_type_id==2 || $user->user_type_id==4)
          @if( auth()->user()->user_type_id==1 || auth()->user()->id == $user->id)                         
  <div class="personal-activity mb-0">
         <div class="personal-icons">
@@ -209,6 +209,7 @@
                                     </div>
     </form>
      @endcan
+
        @cannot('viewAdmin',$user->userType)
 <p>No contract uploaded</p>
        @endcannot
@@ -225,7 +226,8 @@
  @endcan
     @endif
    
-
+    @endif
+   
 
 
 
