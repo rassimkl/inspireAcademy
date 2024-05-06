@@ -157,16 +157,92 @@
                                         </div>
   
 
- <div class="personal-activity mb-0">
+ <div class="personal-activity mb">
         <div class="personal-icons">
             <i class="feather-globe"></i> <!-- Assuming 'feather-globe' represents a globe icon -->
         </div>
         <div class="views-personal">
             <h4>Country</h4>
+          
+
             <h5>{{$user->country}}</h5>
+
+          
         </div>
     </div>
+
+
+
+         @if( auth()->user()->user_type_id==1 || auth()->user()->id == $user->id)                         
+ <div class="personal-activity mb-0">
+        <div class="personal-icons">
+            <i class="fas fa-file-contract"></i> <!-- Assuming 'feather-globe' represents a globe icon -->
+        </div>
+        <div class="views-personal">
+            <h4>Contract</h4>
+          
+
+  @if (!$user->contracts()->exists())
+
+                                 
+                                    <div class="mt-2 views-personal">
+            
+
+        </div>
+
+          @can('viewAdmin',$user->userType)
+
+                                                    <form class='mt-2'  wire:submit="save">
+                                       
+        <input class="form-control" type="file" wire:model="contract">
+             @error('contract')
+                                                <span class="text-danger" >
+                                                    <p>{{ $message }}</p>
+                                                </span>
+                                            @enderror
+
+       <div class="col-12">
+                                        <div class="student-submit">
+                                            <button type="submit" class="btn btn-primary mt-2">Upload Contract</button>
+                                        </div>
+                                        
                                     </div>
+    </form>
+     @endcan
+       @cannot('viewAdmin',$user->userType)
+<p>No contract uploaded</p>
+       @endcannot
+  @elseif( auth()->user()->user_type_id==1 || auth()->user()->id == $user->id)
+
+                       <a href="{{ asset('storage/' . $user->contracts->first()->path) }}" class="btn btn-sm bg-danger-light">
+               <i class="fa fa-download">Download</i>
+            </a>
+   @can('viewAdmin',$user->userType)
+                    <a wire:click="cdeleteFile({{$user->contracts->first()->id }})" class="btn btn-sm bg-danger-light">
+    <i class="fa fa-trash"> Delete {{$user->contracts->first()->id }} </i>
+
+</a>
+ @endcan
+    @endif
+   
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+       @endif
+    
+
+    
+                                    </div>
+                                    
                                 </div>
                             </div>
                           

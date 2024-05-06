@@ -95,7 +95,7 @@ Route::middleware(['adminteacher'])->group(function () {
     Route::get('/teacher/classes/', ClassList::class)->name('teacher/classes');
 
     Route::get('/view-class/{classId}', ViewClass::class)->name('class/details');
-    Route::get('/user/profile/{user}', UserDetails::class)->name('user/details');
+
 
 
 });
@@ -103,6 +103,7 @@ Route::middleware(['teacherstudentadmin'])->group(function () {
     Route::get('/student', Student::class)->name('student/home');
     Route::get('/course/list', Courses::class)->name('course/list');
     Route::get('/course/details/{course}', CourseDetails::class)->name('course/deails');
+    Route::get('/user/profile/{user}', UserDetails::class)->name('user/details');
 });
 
 

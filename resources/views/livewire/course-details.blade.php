@@ -274,9 +274,9 @@
      @can('addClass',$course)
             <a wire:click="cdeleteFile({{ $file->id }})" class="btn btn-sm bg-danger-light">
     <i class="fa fa-trash"></i>
-    @endcan
-</a>
 
+</a>
+    @endcan
                     
                        
                     </div>

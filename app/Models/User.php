@@ -59,7 +59,7 @@ class User extends Authenticatable
         return $this->hasMany(Course::class, 'teacher_id');
     }
 
-  
+
 
     public function coursesAsStudent()
     {
@@ -78,12 +78,17 @@ class User extends Authenticatable
 
     }
 
-   
+
 
 
     public function myCoursesstudents()
     {
         return $this->hasManyThrough(User::class, Course::class, 'teacher_id', 'id', 'id', 'id')
         ;
+    }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
     }
 }

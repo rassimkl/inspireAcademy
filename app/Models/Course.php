@@ -68,4 +68,9 @@ class Course extends Model
     {
         return $this->hasMany(CourseFile::class);
     }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
 }
