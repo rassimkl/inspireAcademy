@@ -8,10 +8,12 @@ use App\Models\Course;
 use Livewire\Component;
 use App\Mail\Reschedule;
 
+use App\Mail\ClassCreated;
 use App\Models\ClassSession;
 use App\Rules\NoClassConflict;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Mail;
+
 #[Title('Edit Class')]
 class EditClassSession extends Component
 {
@@ -184,8 +186,8 @@ class EditClassSession extends Component
             'icon' => 'success'
         ]);
 
-        if ($this->notifyUser) {
-            $this->sendEmail($this->classsession);
+        foreach ($this->course->students as $student) {
+            $this->sendEmail($this->classSession, $student->email);
         }
 
         $this->calculateRemainingHours();
@@ -198,12 +200,12 @@ class EditClassSession extends Component
         $this->remainingHours = $this->course->total_hours - $this->totalHours;
     }
 
-    public function sendEmail(\App\Models\ClassSession $classSession)
+    public function sendEmail(\App\Models\ClassSession $classSession, $email)
     {
 
         //Mail::to('ali.gogo11ayad@gmail.com')->send(new ClassCreated($classSession));
 
-        Mail::to('ali.gogo11ayad@gmail.com')->queue(new Reschedule($classSession, $this->oldclassSession));
+        Mail::to($email)->queue(new ClassCreated($classSession));
 
     }
 

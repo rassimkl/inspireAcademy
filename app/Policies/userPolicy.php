@@ -29,4 +29,6 @@ class userPolicy
     {
         return $user->user_type_id === 1; // Assuming user_type_id 1 represents admins
     }
+
+    
 }

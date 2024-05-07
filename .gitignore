@@ -10,3 +10,5 @@
 # Ignore cache and session files
 /storage/framework/cache/*
 /storage/framework/sessions/*
+/storage/*
+/public/storage

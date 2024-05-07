@@ -112,7 +112,7 @@
                                                     <a href="{{ route('course/deails', ['course' => $course]) }}">{{ $course->name }}</a>
                                                 </h2>
                                             </td>
-                                            <td>{{ $course->teacher->first_name }} {{ $course->teacher->last_name }} </td>
+                                            <td><a  href="{{ route('user/details', ['user' => $course->teacher->id]) }}"> {{ $course->teacher->first_name }} {{ $course->teacher->last_name }} </a></td>
                                             <td>{{$course->classes_sum_hours??0}}/{{ $course->total_hours }} H</td>
                                             <td>{{ $course->charge_per_hour }}</td>
                                            <td>
@@ -178,7 +178,7 @@
                         <p>Are you sure want to delete?</p>
                     </div>
                     <div class="modal-btn delete-action">
-                        <form action="{{ route('student/delete') }}" method="POST">
+                        <form  method="POST">
                             @csrf
                             <div class="row">
                                 <input type="hidden" name="id" class="e_id" value="">

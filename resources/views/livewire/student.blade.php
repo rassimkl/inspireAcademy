@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Welcome {{$teacher->first_name}} {{$teacher->last_name}}</h3>
+                            <h3 class="page-title">Welcome {{$student->first_name}} {{$student->last_name}}</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                                 <li class="breadcrumb-item active">Teacher</li>
@@ -19,13 +19,13 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-3 col-sm-6 col-12 d-flex   ">
+                <div class="col-xl-4 col-sm-6 col-12 d-flex   ">
                     <div class="card bg-comman w-100">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6>Total Courses</h6>
-                                    <h3>{{$teacher->coursesAsTeacher->count()-$courses->count()}}/{{$teacher->coursesAsTeacher->count()}} </h3>
+                                    <h3>{{$finishedCourses}}/{{$numberOfCoures}} </h3>
                                 </div>
                                 <div class="db-icon">
                                     <img src="{{ URL::to('assets/img/icons/teacher-icon-01.svg') }}" alt="Dashboard Icon">
@@ -34,28 +34,14 @@
                         </div>
                     </div>
                 </div>
-                <div class=" col-xl-3 col-sm-6 col-12 d-flex">
-                    <div class="card bg-comman w-100">
-                        <div class="card-body">
-                            <div class="db-widgets d-flex justify-content-between align-items-center">
-                                <div class="db-info">
-                                    <h6>Total Students</h6>
-                                    <h3> {{$totalStudents}}</h3>
-                                </div>
-                                <div class="db-icon">
-                                    <img src="{{ URL::to('assets/img/icons/dash-icon-01.svg') }}" alt="Dashboard Icon">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+             
+                <div class="col-xl-4 col-sm-6 col-12 d-flex">
                     <div class="card bg-comman w-100">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6>Total Classes</h6>
-                                    <h3>{{$totalClasses}}</h3>
+                                    <h3>{{$numberOfClasses}}</h3>
                                 </div>
                                 <div class="db-icon">
                                     <img src="{{ URL::to('assets/img/icons/teacher-icon-02.svg') }}" alt="Dashboard Icon">
@@ -64,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                <div class="col-xl-4 col-sm-6 col-12 d-flex">
                     <div class="card bg-comman w-100">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
@@ -85,7 +71,7 @@
             <div >
                 <div >
                     <div class="row">
-                        <div class="col-12 col-lg-8 col-xl-5 d-flex">
+                        <div class="col-12 col-lg-10 col-xl-6 d-flex">
                             <div class="card flex-fill comman-shadow">
                                 <div class="card-header">
                                     <div class="row align-items-center">
@@ -103,18 +89,18 @@
                                     
                                         <table class="table table-center">
                                             <tbody>
-                                        @if($upcomingClasses->isEmpty())
+                                        @if($todayClasses->isEmpty())
                                             <h5 class='text-center'>No classes for today!</h5>
 @endif
                                         
-                                            @foreach($upcomingClasses as $class)
+                                            @foreach($todayClasses as $class)
                                          
                                                 <tr>
                                              
                                                     <td>
                                                         <div class="date">
                                                             <b>Class-{{$class->id}}</b>
-                                                            <p>Course:{{$class->course->name}} {{$class->room->name}}</p>
+                                                            <h6>Course:{{$class->course->name}} {{$class->room->name}}</h6>
                                                             <ul class="teacher-date-list">
                                                                 <li><i class="fas fa-calendar-alt me-2"></i>{{   Carbon\Carbon::parse($class->date)->format('M j, Y')}}</li>
                                                                 <li>|</li>
@@ -123,18 +109,18 @@
                                                             </ul>
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td class='d-none'>
                                                        <div class="lesson-confirm">
     @if($class->status == 2)
   <a>Submitted</a>
     @else
-        <a href="{{ route('class/submit', ['classsession' => $class->id]) }}">Submit</a>
+        <a >Submit</a>
     @endif
 </div>
                                                             @if($class->status == 2)
                                                 
                                                         @else
-  <a href="{{ route('class/edit', ['classsession' => $class->id]) }}" class="btn btn-info">Reschedule</a>
+  <a  class="btn btn-info">Reschedule</a>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -149,25 +135,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-4 col-xl-2 d-flex">
-                            <div class="card flex-fill comman-shadow">
-                                <div class="card-header">
-                                    <div class="row align-items-center">
-                                        <div class="col-12">
-                                            <h5 class="text-center card-title">Hours This Month</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="dash-widget">
-                                    <div class="circle-bar circle-bar1">
-                                        <div >
-                                            <h1>{{$totalHoursThisMonth}}</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="col-12 col-lg-12 col-xl-5 d-flex">
+                   
+                          <div class="col-12 col-lg-12 col-xl-6 d-flex">
                     <div class="card flex-fill comman-shadow">
                         <div class="card-body">
                             <div id="teacher-calendar" class="calendar-container"></div>
@@ -182,7 +151,7 @@
                                 <div class="card-header">
                                     <div class="row align-items-center">
                                         <div class="col-6">
-                                            <h5 class="card-title">Pending Courses</h5>
+                                            <h5 class="card-title">My Courses</h5>
                                         </div>
                                         <div class="col-6">
                                               {{-- <span class="float-end view-link"><a href="{{ route('course/list') }}">Add Class</a></span> --}}
@@ -205,12 +174,12 @@
                                             <th>Name</th>
                                    
                                             <th>Total Hours</th>
-                                            <th>Charge/Hour</th>
+                                           
                                          
                                               <th>Status</th>
                                                <th class="text-center">Students</th>
                                          
-                                            <th class="text-end">Class</th>
+                                           
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -221,7 +190,7 @@
                                             <td>
                                               
                                             </td>
-                                            <td>CRS{{ $course->id }}</td>
+                                            <td>  <a href="{{ route('course/deails', ['course' => $course]) }}">CRS{{ $course->id }}</a></td>
                                            
                                             <td hidden class="avatar">{{ $course->id }}</td>
                                             <td>
@@ -232,7 +201,7 @@
                                             </td>
                                          
                                             <td class="">{{$course->classes_sum_hours??0}}/{{ $course->total_hours }} H</td>
-                                            <td>{{ $course->charge_per_hour }} €</td>
+                                           
                                     
                                                <td>
     @php
@@ -258,15 +227,7 @@
                             
 
                                            
-                                            <td class="text-end">
-                                                <div class="actions">
-                                         
-                                                    <a        href="{{ route('class/add', ['course' => $course->id]) }}" class="btn btn-sm bg-danger-light">
-<i class="feather-plus"></i></a></span>
-                                                    </a>
-                                                   
-                                                </div>
-                                            </td>
+                                       
                                         </tr>
                                         @endforeach
                                         
@@ -286,11 +247,11 @@
                                 <div class="card-header">
                                     <div class="row align-items-center">
                                         <div class="col-6">
-                                            <h5 class="card-title">Pending Classes</h5>
+                                            <h5 class="card-title">My Classes</h5>
                                             
                                         </div>
                                         <div class="col-6">
-    <span class="float-end view-link"><a href="{{ route('teacher/classes') }}">View All Classes</a></span>                                        </div>
+                            </div>
                                     </div>
                                 </div>
                                 <div class="">
@@ -315,13 +276,13 @@
                                                <th class="text-center">Time</th>
                                          
                                             <th class="text-center">Place</th>
-                                            <th class="text-end">Submit</th>
+                                           
                                         </tr>
                                     </thead>
                                     <tbody>
                          
                                   
-                                        @foreach ($unfinishedClasses as $uclass )
+                                        @foreach ($pendingClasses as $uclass )
                                         <tr>
                                             <td>
                                               
@@ -343,18 +304,7 @@
 
 
                                               <td class="text-center">{{$uclass->room->name }}</td>
-                                              <td class="text-end">
-                                                <div class="actions">
                                          
-                                                    <a        href="{{ route('class/edit', ['classsession' => $uclass->id]) }}" class="btn btn-sm bg-danger-light">
-                                                        <i class="far fa-edit me-2"></i>
-                                                    </a>
-                                                    <a  href="{{ route('class/submit', ['classsession' => $uclass->id]) }}" class="btn btn-sm bg-danger-light student_delete" >
-                                                     <i class="fa fa-check" aria-hidden="true"></i>
-
-                                                    </a>
-                                                </div>
-                                            </td>
                                         </tr>
                                         @endforeach
                                         
@@ -376,7 +326,7 @@
                
             </div>
         </div>
-
+</div>
         
     </div>
 

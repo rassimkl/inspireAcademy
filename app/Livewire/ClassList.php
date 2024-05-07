@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use App\Models\User;
-use Livewire\Component;
 use App\Models\ClassSession;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +35,7 @@ class ClassList extends Main
             } else {
                 $classesQuery = ClassSession::with('course')->orderBy('date', 'desc');
             }
-        } else {
+        } elseif ($user->user_type_id == 2) {
             $classesQuery = $user->classes()->with('course')->orderBy('date', 'desc');
         }
         // Check the value of $status and apply appropriate filtering

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\CourseFile;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Course extends Model
 {
@@ -60,5 +61,16 @@ class Course extends Model
             $this->status_id = 3; // Update status to "completed"
             $this->save();
         }
+    }
+
+
+    public function files()
+    {
+        return $this->hasMany(CourseFile::class);
+    }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
     }
 }

@@ -42,7 +42,7 @@
           
                 </a>
                 <a href="{{ route('home') }}" class="logo logo-small">
-                    <img  alt="Logo" width="30" height="30">
+                
                 </a>
             </div>
             <div class="menu-toggle">
@@ -90,7 +90,7 @@
 		{{-- content page --}}
               {{ $slot }}
         <footer>
-            <p>Copyright ©  <?php echo date('Y'); ?> Soeng Swwwouy.</p>
+            <p>Copyright ©  <?php echo date('Y'); ?> Inspire Academy.</p>
         </footer>
     
     </div>
