@@ -148,7 +148,7 @@ class ClassSession extends Component
     public function createClass()
     {
 
-       
+
         $validatedData = $this->validate();
 
 
@@ -180,17 +180,21 @@ class ClassSession extends Component
         $this->loadClasses($this->room_id);
 
         if ($this->notifyUser) {
-            $this->sendEmail($classSession);
+
+            foreach ($this->course->students as $student) {
+                $this->sendEmail($classSession, $student->email);
+            }
+
         }
 
     }
 
-    public function sendEmail(\App\Models\ClassSession $classSession)
+    public function sendEmail(\App\Models\ClassSession $classSession, $email)
     {
 
         //Mail::to('ali.gogo11ayad@gmail.com')->send(new ClassCreated($classSession));
 
-        Mail::to('ali.gogo11ayad@gmail.com')->queue(new ClassCreated($classSession));
+        Mail::to($email)->queue(new ClassCreated($classSession));
 
     }
 
