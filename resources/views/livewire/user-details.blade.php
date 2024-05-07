@@ -220,7 +220,7 @@
             </a>
    @can('viewAdmin',$user->userType)
                     <a wire:click="cdeleteFile({{$user->contracts->first()->id }})" class="btn btn-sm bg-danger-light">
-    <i class="fa fa-trash"> Delete {{$user->contracts->first()->id }} </i>
+    <i class="fa fa-trash">Delete</i>
 
 </a>
  @endcan

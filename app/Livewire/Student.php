@@ -5,7 +5,9 @@ namespace App\Livewire;
 use Carbon\Carbon;
 use App\Models\User;
 use Livewire\Component;
+use Livewire\Attributes\Title;
 
+#[Title('Student')]
 class Student extends Component
 {
     public $courses;
