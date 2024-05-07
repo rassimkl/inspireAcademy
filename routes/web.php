@@ -24,10 +24,9 @@ use App\Livewire\EditClassSession;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
 use App\Livewire\ManageTeacherPayments;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\StudentController;
+
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Auth\RegisterController;
+
 
 /*
 |--------------------------------------------------------------------------
