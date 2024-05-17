@@ -27,9 +27,7 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
-      - name: Run production build
-        run: |
-          php artisan livewire:discover
+     
 
       - name: Upload to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
