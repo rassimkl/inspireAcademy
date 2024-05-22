@@ -70,7 +70,7 @@
                 <li class="nav-item dropdown has-arrow new-user-menus">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
-                            <img class="rounded-circle"  width="31"alt="{{ Session::get('name') }}">
+                            <img src="{{ Storage::url('student-photos/default.png')}}" class="rounded-circle"  width="31"alt="{{ Session::get('name') }}">
                             <div class="user-text">
                                 <h6></h6>
                                 <p class="text-muted mb-0">{{ Session::get('role_name') }}</p>
