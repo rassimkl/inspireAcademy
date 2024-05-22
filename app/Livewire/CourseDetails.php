@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Storage;
 class CourseDetails extends Component
 {
     protected $listeners = [
-        'deleteFile' => 'deleteFile', 'deleteFilec' => 'deleteFilec'
+        'deleteFile' => 'deleteFile',
+        'deleteFilec' => 'deleteFilec'
 
     ];
     use WithFileUploads;
@@ -30,17 +31,14 @@ class CourseDetails extends Component
 
     public $fileId;
 
-    public $contract;
+
 
     protected $rules = [
         'doc' => 'required|file|max:10240', // Adjust the maximum file size as needed (10MB in this example)
         'title' => 'required|string',
     ];
 
-    protected $rulesc = [
-        'contract' => 'required|file|max:10240', // Adjust the maximum file size as needed (10MB in this example)
 
-    ];
 
 
 
@@ -152,55 +150,6 @@ class CourseDetails extends Component
 
     }
 
-    public function savec(User $student)
-    {
-        $this->authorize('viewAdmin', auth()->user()->userType);
-        $this->validate($this->rulesc);
-
-        try {
-
-
-            // Generate a unique filename to prevent overwriting existing files
-            $filename = $this->contract->getClientOriginalName();
-            $randomNumber = uniqid();
-            $newFilename = $randomNumber . '_' . $filename;
-            $path = $this->contract->storeAs('contracts', $newFilename, 'public');
-
-            // Save file path and associated course ID to the database
-            Contract::create([
-                'course_id' => $this->course->id,
-                'user_id' => $student->id,
-                'title' => $student->first_name,
-                'filename' => $filename,
-                'path' => $path,
-                'mime_type' => $this->contract->getMimeType(),
-            ]);
-
-            $this->dispatch('showAlert', [
-                'title' => "File uploaded succesfully",
-                'text' => '',
-                'icon' => 'success'
-            ]);
-
-            $this->reset([
-                'contract',
-
-            ]);
-
-
-
-        } catch (Exception $e) {
-            // Display error message using SweetAlert
-            $errorMessage = 'An error occurred while uploading the file' . $e->getMessage();
-
-            $this->dispatch('showAlert', [
-                'title' => "error",
-                'text' => $errorMessage,
-                'icon' => 'warning'
-            ]);
-
-        }
-    }
 
     public function cdeleteFilec($fileid)
     {

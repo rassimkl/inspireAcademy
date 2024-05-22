@@ -193,41 +193,10 @@
                                                 <a href="{{ route('user/details', ['user' => $student->id]) }}">
                                                     <h5>{{$student->first_name}} {{$student->last_name}}</h5>
                                                 </a>
-                                                @if (!$student->contracts()->where('course_id', $course->id)->exists())
-                                                    @can('viewAdmin',$student->userType)
-                                              
-                                                    <form class='mt-2'  wire:submit="savec({{ $student->id }})">
-                                       
-        <input class="form-control" type="file" wire:model="contract">
-             @error('contract')
-                                                <span style="color: red;" class="text-danger" >
-                                                    <p>{{ $message }}</p>
-                                                </span>
-                                             
-                                            @enderror
-
-       <div class="col-12">
-                                        <div class="student-submit">
-                                            <button type="submit" class="btn btn-primary mt-2">Upload Contract</button>
-                                        </div>
-                                           @endcan
-                                           </form>
-
-                                  
-                                        @else
-  <a href="{{ asset('storage/' . $student->contracts()->where('course_id', $course->id)->first()->path) }}" class="btn btn-sm bg-danger-light">
-               <i class="fa fa-download">Download Contract</i>
-            </a>
-
-            @if(auth()->user()->user_type_id==1 || auth()->user()->user_type_id==$student->id)
-                    <a wire:click="cdeleteFilec({{$student->contracts()->where('course_id', $course->id)->first()->id }})" class="btn btn-sm bg-danger-light">
-    <i class="fa fa-trash"> Delete Contract</i>
-
-</a>
- @endif
+                                               
     
 
-    @endif
+  
                                             </div>
                                             @if(!$loop->last)
                                             <hr/> <!-- Add your separator here -->
