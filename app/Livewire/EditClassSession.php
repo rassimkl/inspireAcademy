@@ -187,7 +187,7 @@ class EditClassSession extends Component
         ]);
 
         foreach ($this->course->students as $student) {
-            $this->sendEmail($this->classSession, $student->email);
+            $this->sendEmail($this->classsession, $student->email);
         }
 
         $this->calculateRemainingHours();
