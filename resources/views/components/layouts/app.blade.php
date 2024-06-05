@@ -38,7 +38,7 @@
         <div class="header">
             <div class="header-left">
                 <a href="{{ route('home') }}" class="logo">
-                <h4> The Inspire Academy</h4>
+                <h4> Inspire Academy</h4>
           
                 </a>
                 <a href="{{ route('home') }}" class="logo logo-small">
