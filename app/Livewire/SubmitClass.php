@@ -81,7 +81,7 @@ class SubmitClass extends Component
 
         $this->course->updateStatus();
         $classSession = $this->classsession;
-        Mail::to('ali.gogo11ayad@gmail.com')->queue(new ClassSubmittedEmail($classSession));
+        Mail::to('contact@inspireacademy.fr')->queue(new ClassSubmittedEmail($classSession));
 
         $this->redirect(TeacherHome::class);
 
