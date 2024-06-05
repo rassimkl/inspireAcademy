@@ -139,7 +139,7 @@
                   <i style="letter-spacing: 25px; mso-font-width: -100%; mso-text-raise: 30pt;">&nbsp;</i>
                 <![endif]-->
 
-           <a href="{{ route('class/details', ['classId' => $class->id]) }}" style="text-decoration: none; color: inherit;">
+           <a href="inspireacademy.website/view-class/{{$class->id}}" style="text-decoration: none; color: inherit;">
         <span style="mso-text-raise: 15pt; color: #ffffff; background-color: #007bff; padding: 5px 10px; border-radius: 5px;">Learn more</span>
     </a>
                   <!--[if mso]>
