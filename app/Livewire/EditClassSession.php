@@ -187,7 +187,7 @@ class EditClassSession extends Component
         ]);
 
         foreach ($this->course->students as $student) {
-            $this->sendEmail($this->classsession, $student->email);
+            $this->sendEmail($this->classsession, $student->email, $this->oldclassSession);
         }
 
         $this->calculateRemainingHours();
@@ -200,12 +200,12 @@ class EditClassSession extends Component
         $this->remainingHours = $this->course->total_hours - $this->totalHours;
     }
 
-    public function sendEmail(\App\Models\ClassSession $classSession, $email)
+    public function sendEmail(\App\Models\ClassSession $classSession, $email, $oldclassSession)
     {
 
         //Mail::to('ali.gogo11ayad@gmail.com')->send(new ClassCreated($classSession));
 
-        Mail::to($email)->queue(new ClassCreated($classSession));
+        Mail::to($email)->queue(new Reschedule($classSession, $oldclassSession));
 
     }
 
