@@ -257,7 +257,7 @@
         </thead>
         <tbody>
             <!-- This is where you would loop through your classes -->
-            @foreach($course->files as $file)
+            @forelse($course->files as $file)
             <tr>
                 <td></td>
                 <td><a href="#">FL{{$file->id}}</a></td>
@@ -286,7 +286,11 @@
                     </div>
                 </td>
             </tr>
-            @endforeach
+            @empty
+         <tr>
+            <td colspan="6" style="text-align: center;">No files available</td>
+        </tr>
+            @endforelse
             <!-- Repeat this row for each class -->
         </tbody>
     </table>
