@@ -44,7 +44,7 @@ class CourseDetails extends Component
 
     public function save()
     {
-        $this->authorize('addCourse', $this->course);
+        $this->authorize('addfiletoCourse', $this->course);
         $this->validate();
 
         try {
