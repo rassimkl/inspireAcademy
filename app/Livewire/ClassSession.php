@@ -126,20 +126,28 @@ class ClassSession extends Component
         if (!empty($this->hours) && !empty($this->start_time)) {
             // Convert the hours to minutes
             $minutes = $this->hours * 60;
-
+        
             // Calculate the end time by adding the minutes to the start time
             $start = \DateTime::createFromFormat('H:i', $this->start_time);
-            $end = clone $start;
-            $end->modify('+' . $minutes . ' minutes');
-
-            // Set the end time property
-            $this->end_time = $end->format('H:i');
-
-            // Dispatch a Livewire event to update the end time
-            $this->dispatch('updateEndtime', $this->end_time);
+        
+            if ($start !== false) { // Check if $start is a valid DateTime object
+                $end = clone $start;
+                $end->modify('+' . $minutes . ' minutes');
+        
+                // Set the end time property
+                $this->end_time = $end->format('H:i');
+        
+                // Dispatch a Livewire event to update the end time
+                $this->dispatch('updateEndtime', $this->end_time);
+            } else {
+                // Handle the case where the start time format is invalid
+                $this->end_time = null;
+                // Optionally, log an error or dispatch an event to notify the user
+            }
         } else {
             $this->end_time = null;
         }
+        
     }
 
 
