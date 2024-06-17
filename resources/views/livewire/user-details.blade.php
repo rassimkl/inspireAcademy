@@ -81,7 +81,7 @@
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Department </h4>
-                                                <h5>Computer Science</h5>
+                                                <h5>Language</h5>
                                             </div>
                                         </div>
                                         <div class="personal-activity">
