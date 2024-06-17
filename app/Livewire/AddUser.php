@@ -229,7 +229,7 @@ class AddUser extends Component
         'gender' => 'required|in:Male,Female',
         'date_of_birth' => 'nullable|date',
         'email' => 'required|email|unique:users,email',
-        'phone_number' => ['required', 'string'],
+        'phone_number' => ['required', 'string', 'regex:/^\+?[0-9\s]+$/'],
         'blood_group' => 'nullable|string',
         'address' => 'nullable|string',
         'city' => 'nullable|string',

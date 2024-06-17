@@ -236,7 +236,7 @@ class EditUser extends Component
                 'email',
                 Rule::unique('users', 'email')->ignore($this->user_id),
             ],
-            'phone_number' => ['required', 'string', 'regex:/^\+?[0-9]+$/'],
+            'phone_number' => ['required', 'string', 'regex:/^\+?[0-9\s]+$/'],
             'blood_group' => 'nullable|string',
             'address' => 'nullable|string',
             'city' => 'nullable|string',
@@ -275,7 +275,7 @@ class EditUser extends Component
 
             $this->date_of_birth = Carbon::parse($user->date_of_birth)->format('d-m-Y');
             $this->email = $user->email;
-          
+
             $this->phone_number = $user->phone_number;
             $this->blood_group = $user->blood_group;
             $this->address = $user->address;
