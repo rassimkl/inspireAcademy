@@ -76,7 +76,7 @@
                 </li>
                             
 
-                @if(auth()->user()->user_type_id==1)
+                {{-- @if(auth()->user()->user_type_id==1)
 
                 <li class="submenu {{set_active(['department/add/page','department/edit/page'])}} {{ request()->is('department/edit/*') ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-building"></i>
@@ -89,7 +89,7 @@
                         <li><a>Edit Room</a></li>
                     </ul>
                 </li>
-                @endif
+                @endif --}}
  @if(auth()->user()->user_type_id==2 || auth()->user()->user_type_id==1)
                 <li class="submenu {{set_active(['subject/list/page','subject/add/page','teacher/classes'])}} {{ request()->is('submit/class/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }} {{ request()->is('edit/class/*') ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-book-reader"></i>
