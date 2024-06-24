@@ -124,9 +124,17 @@
 
                                 
                                     <div class="col-12">
-                                        <div class="student-submit">
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                        </div>
+           <div class="d-flex justify-content-between">
+        <!-- Update Button -->
+        <div class="student-submit">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+
+        <!-- Cancel Class Button -->
+        <div class="student-submit">
+            <button type="button"  wire:click="cdeleteClass"  class="btn btn-danger">Cancel Class</button>
+        </div>
+    </div>
                                                     <div class="form-check mt-2">
         <input class="form-check-input" type="checkbox" value="1" id="notifyUser" name="notifyUser" wire:model="notifyUser">
         <label class="form-check-label" for="notifyUser">
@@ -136,6 +144,8 @@
                                     </div>
                                 </div>
                             </form>
+
+                           
                         </div>
                             <div class="row">
   <div wire:ignore class="col-md-8 offset-md-2">

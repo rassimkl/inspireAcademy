@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Mail;
 class EditClassSession extends Component
 {
 
+    protected $listeners = [
+        'deleteClass' => 'deleteClass',
+
+    ];
     public $course;
     public $classsession;
     public $hours;
@@ -193,6 +197,36 @@ class EditClassSession extends Component
         $this->calculateRemainingHours();
         $this->loadClasses($validatedData['room_id']);
     }
+
+
+    public function cdeleteClass()
+    {
+
+        $this->dispatch('cancelClass', 'Are you sure you want to Cancel this Class', 'deleteClass');
+
+    }
+
+    public function deleteClass()
+    {
+
+        $this->authorize('addClass', $this->course);
+        if ($this->classsession->status == 2) {
+            return;
+        }
+        $this->classsession->delete();
+
+
+        $this->dispatch('showAlert', [
+            'title' => "Class Canceled Succesfully",
+            'text' => '',
+            'icon' => 'success'
+        ]);
+
+
+        $this->redirect(TeacherHome::class);
+
+    }
+
 
     public function calculateRemainingHours()
     {
