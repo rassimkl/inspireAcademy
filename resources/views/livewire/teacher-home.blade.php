@@ -337,7 +337,23 @@
                                             </td>
                                          
                                             <td class="">{{$uclass->hours}}H</td>
-                                            <td>{{ $uclass->date }}</td>
+       <td>
+    @php
+        $date = strtotime($uclass->date);
+        $formattedDate = date('m-d-Y', $date);
+        $today = date('m-d-Y');
+        $tomorrow = date('m-d-Y', strtotime('+1 day'));
+    @endphp
+    
+    @if ($formattedDate == $today)
+        Today
+    @elseif ($formattedDate == $tomorrow)
+        Tomorrow
+    @else
+        {{ $formattedDate }}
+    @endif
+</td>
+
                                     
                                         <td class='text-center'>{{ date('H:i', strtotime($uclass->start_time)) }}/{{ date('H:i', strtotime($uclass->end_time)) }}</td>
 
