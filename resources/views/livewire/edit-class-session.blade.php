@@ -192,7 +192,7 @@
         var datetimePicker = $('#datepickeru');
 
         datetimePicker.on('dp.change', function(e) {
-            @this.set('date', e.date.format('MM-DD-YYYY'), true);
+            @this.set('date', e.date.format('DD-MM-YYYY'), true);
         });
 
         starTimepicker.on('dp.change', function(e) {
