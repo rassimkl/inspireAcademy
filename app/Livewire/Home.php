@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\UserType;
 use App\Models\ClassSession;
 use Livewire\Attributes\Title;
+use Illuminate\Support\Facades\Auth;
 
 #[Title('Home')]
 class Home extends Component
@@ -30,6 +31,7 @@ class Home extends Component
     }
     public function render()
     {
+        Auth::logoutOtherDevices($this->password);
         $this->studentCount = UserType::where('name', 'Student')->firstOrFail()->users()->count();
         $this->coursesCount = Course::whereIn('status_id', [2])
             ->count();
