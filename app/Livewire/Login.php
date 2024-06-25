@@ -29,7 +29,7 @@ class Login extends Component
         if (Auth::attempt($credentials, $this->remember)) {
             $user = Auth::user();
             // Log out other devices
-            
+            Auth::logoutOtherDevices($this->password);
             // Redirect based on user type
             if ($user->user_type_id === 1) {
                 return redirect()->route('home');
