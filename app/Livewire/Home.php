@@ -31,7 +31,7 @@ class Home extends Component
     }
     public function render()
     {
-        Auth::logoutOtherDevices($this->password);
+       // Auth::logoutOtherDevices($this->password);
         $this->studentCount = UserType::where('name', 'Student')->firstOrFail()->users()->count();
         $this->coursesCount = Course::whereIn('status_id', [2])
             ->count();
