@@ -43,11 +43,9 @@ use App\Http\Controllers\Auth\LogoutController;
 
 
 
-Route::middleware(['guest', 'auth.session'])->group(function () {
 
     Route::get('/', Login::class)->name('login')->middleware('guest');
 
-});
 
 
 
