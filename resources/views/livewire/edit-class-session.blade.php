@@ -6,7 +6,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Add Class for Course: {{$course->name}} </h3>
+                            <h3 class="page-title">Edit Class for Course: {{$course->name}} </h3>
                             
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('user/add/page') }}">User</a></li>
