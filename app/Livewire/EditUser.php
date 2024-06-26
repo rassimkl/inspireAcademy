@@ -311,7 +311,7 @@ class EditUser extends Component
 
         $validatedData['languages'] = json_encode($validatedData['languages']);
         $validatedData['date_of_birth'] = Carbon::parse($validatedData['date_of_birth'])->toDateString();
-dd($validatedData);
+
 
         // Create a new student record
         $this->user->update($validatedData);
