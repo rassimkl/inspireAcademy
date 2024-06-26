@@ -306,7 +306,7 @@ class EditUser extends Component
 
         if ($this->passwordEnabled) {
 
-            $validatedData['password'] = Hash::make('password');
+            $validatedData['password'] = Hash::make($validatedData['password']);
         }
 
         $validatedData['languages'] = json_encode($validatedData['languages']);
