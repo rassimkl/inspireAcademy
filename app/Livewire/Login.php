@@ -31,7 +31,7 @@ class Login extends Component
             // Log out other devices
             Auth::logoutOtherDevices($this->password);
             // Regenerate session to ensure it's up-to-date
-            session()->regenerate();
+      
             // Redirect based on user type
             if ($user->user_type_id === 1) {
                 return redirect()->route('home');
