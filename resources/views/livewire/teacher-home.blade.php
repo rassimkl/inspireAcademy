@@ -226,8 +226,7 @@
                                             <td hidden class="avatar">{{ $course->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                 
-                                                    <a href="{{ url('student/profile/'.$course->id) }}"> {{ $course->name }}</a>
+                                                      <a href="{{ route('course/deails', ['course' => $course]) }}">{{$course->name }}</a>
                                                 </h2>
                                             </td>
                                          
@@ -306,7 +305,7 @@
                                              
                                             </th>
                                             <th>ID</th>
-                                            <th>Name</th>
+                                            <th>Course</th>
                                    
                                             <th>Hours</th>
                                             <th>Date</th>
@@ -331,7 +330,7 @@
                                             <td hidden class="avatar">{{ $uclass->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                  <a href="{{ route('course/deails', ['course' => $uclass->course]) }}">CRS{{$uclass->course->name }}</a>
+                                                  <a href="{{ route('course/deails', ['course' => $uclass->course]) }}">{{$uclass->course->name }}</a>
                              
                                                 </h2>
                                             </td>
