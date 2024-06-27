@@ -331,7 +331,7 @@
                                             <td hidden class="avatar">{{ $uclass->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                  <a href="{{ route('course/deails', ['course' => $$uclass->course]) }}">CRS{{$uclass->course->name }}</a>
+                                                  <a href="{{ route('course/deails', ['course' => $uclass->course]) }}">CRS{{$uclass->course->name }}</a>
                              
                                                 </h2>
                                             </td>
