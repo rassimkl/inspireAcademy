@@ -210,7 +210,7 @@
                                               <th>Status</th>
                                                <th class="text-center">Students</th>
                                          
-                                            <th class="text-end">Class</th>
+                                            <th class="text-end">Add Class</th>
                                         </tr>
                                     </thead>
                                     <tbody>
