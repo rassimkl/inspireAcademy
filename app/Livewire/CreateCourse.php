@@ -22,7 +22,7 @@ class CreateCourse extends Component
     public $students;
     public $selectedStudents;
     public $teacher;
-    public $chargePerHour = 10;
+    public $chargePerHour = 25;
     public $userType;
 
 
