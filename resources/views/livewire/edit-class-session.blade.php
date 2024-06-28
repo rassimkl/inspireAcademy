@@ -243,7 +243,8 @@ function initializeCalendar() {
                     minute: '2-digit',
                     hour12: false
                 },
-                events: events
+                events: events,
+                 slotEventOverlap:false,
             });
 
             calendar.render();
