@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Exception;
 use App\Models\User;
+use App\Models\Status;
 use Livewire\Component;
 use App\Models\Contract;
 use Livewire\WithFileUploads;
@@ -20,11 +21,15 @@ class UserDetails extends Component
     ];
     public $user;
     public $courses;
+    public $loopcourses;
 
     public $contract;
     public $fileId;
 
     public $classesCount;
+
+    public $status = 1;
+    public $courseStatuses;
 
     protected $rules = [
         'contract' => 'required|file|max:10240', // Adjust the maximum file size as needed (10MB in this example)
@@ -38,6 +43,7 @@ class UserDetails extends Component
             return back();
         }
 
+        $this->courseStatuses = Status::all();
         $this->user = $user;
         if ($user->user_type_id == 3) {
             $this->courses = $user->coursesAsStudent()
@@ -54,6 +60,7 @@ class UserDetails extends Component
         } elseif ($user->user_type_id == 2) {
 
             $this->courses = $user->coursesAsTeacher()
+                ->where('courses.status_id', $this->status)
                 ->withCount([
                     'classes' => function ($query) {
                         $query->where('status', '=', '2');
@@ -186,6 +193,47 @@ class UserDetails extends Component
 
     public function render()
     {
+
+        if ($this->user->user_type_id == 3) {
+            $this->loopcourses = $this->user->coursesAsStudent()
+                ->withCount([
+                    'classes' => function ($query) {
+                        $query->where('status', '=', '2');
+                    }
+                ])->withSum([
+                        'classes' => function ($query) {
+                            $query->where('status', 2);
+                        }
+                    ], 'hours')
+                ->get();
+        } elseif ($this->user->user_type_id == 2) {
+
+            $this->loopcourses = $this->user->coursesAsTeacher()
+                ->where('courses.status_id', $this->status)
+                ->withCount([
+                    'classes' => function ($query) {
+                        $query->where('status', '=', '2');
+                    }
+                ])->withSum([
+                        'classes' => function ($query) {
+                            $query->where('status', 2);
+                        }
+                    ], 'hours')
+                ->get();
+        } elseif ($this->user->user_type_id == 4) {
+
+            $this->loopcourses = $this->user->coursesAsStudent()
+                ->withCount([
+                    'classes' => function ($query) {
+                        $query->where('status', '=', '2');
+                    }
+                ])->withSum([
+                        'classes' => function ($query) {
+                            $query->where('status', 2);
+                        }
+                    ], 'hours')
+                ->get();
+        }
         return view('livewire.user-details');
     }
 }

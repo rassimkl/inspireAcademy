@@ -261,12 +261,27 @@
                                             <p>{{$user->info}}</p>
                                          
                                         </div>
+                                           <hr> <!-- Add your separator here -->
                                         <div class="hello-park">
-                                            <h5>Courses</h5>
-                                            @if($courses->isEmpty())
+
+                     <div class="d-flex align-items-center">
+    <h5 class="mb-0 mr-4 ">Courses : </h5> <!-- Adding mr-2 for margin right -->
+    <div class="form-group mb-0 px-4">
+        <label for="status" class="visually-hidden">Filter by Status:</label>
+        <select id="status" wire:model.live="status" class="form-select">
+           
+            @foreach($courseStatuses as $status)
+                <option value="{{$status->id}}">{{$status->name}}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+
+                  
+                                            @if($loopcourses->isEmpty())
                                             <p class='text-center'>No Courses</p>@endif
-                                            @foreach($courses as $course)
-                                            <div class="educate-year">
+                                            @foreach($loopcourses as $course)
+                                            <div class="educate-year pt-4">
                                                 <h6>{{ ($course->created_at)->format('F j, Y') }}</h6>
                                               <p>
  @if($user->user_type_id == 2)
