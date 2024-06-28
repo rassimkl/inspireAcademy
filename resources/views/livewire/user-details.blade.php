@@ -265,7 +265,7 @@
                                         <div class="hello-park">
 
                      <div class="d-flex align-items-center">
-    <h5 class="mb-0 mr-4 ">Courses : </h5> <!-- Adding mr-2 for margin right -->
+    <h5 class="mb-0 mr-4 ">Courses : {{$loopcourses->count()}} </h5> <!-- Adding mr-2 for margin right -->
     <div class="form-group mb-0 px-4">
         <label for="status" class="visually-hidden">Filter by Status:</label>
         <select id="status" wire:model.live="status" class="form-select">
