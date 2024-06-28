@@ -35,12 +35,7 @@ class Student extends Component
         $user = auth()->user();
         $this->student = $user;
         $this->courses = $user->coursesAsStudent;
-        $this->courses->withSum([
-            'classes' => function ($query) {
-                $query->where('status', 2);
-            }
-        ], 'hours')
-            ->get();
+       
         $this->numberOfCoures = $this->courses->count();
 
         $this->totalHours = $user->coursesAsStudent->flatMap(function ($course) {
