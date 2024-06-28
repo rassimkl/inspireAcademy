@@ -17,7 +17,8 @@ class ClassSession extends Model
         'end_time',
         'payment_status',
         'status',
-        'report'
+        'report',
+        'meeting_link'
     ];
 
 

@@ -117,14 +117,30 @@
                 </span>
             @enderror
         </div>
+        
     </div>
+
+    
 </div>
                                                 
                 
-                                  
+                     
+                                                                 <div class="col-12 col-sm-4">
+       @if($is_online)
+        <div class="form-group local-forms">
+            <label>Meeting Link <span class="login-danger"></span></label>
+            <input type="text" wire:model="meeting_link" class="form-control @error('meeting_link') is-invalid @enderror" name="meeting_link">
+            @error('meeting_link')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    @endif
+    
+</div>             
                                      
-
-   
+ 
 
                                  
                                     

@@ -36,7 +36,14 @@ class EditClassSession extends Component
     public $conflict;
 
     public $oldclassSession;
-    public $notifyUser = true;
+
+    public $meeting_link;
+    public $is_online = false;
+
+
+    public $notifyUser = false;
+
+
 
     public $events = [];
 
@@ -47,6 +54,7 @@ class EditClassSession extends Component
         'start_time' => 'required|date_format:H:i',
         'end_time' => 'required|date_format:H:i|after:start_time',
         'room_id' => 'required|exists:rooms,id',
+        'meeting_link' => '',
 
     ];
 
@@ -91,8 +99,16 @@ class EditClassSession extends Component
         $this->date = Carbon::parse($classsession->date)->format('d-m-Y');
         $this->start_time = Carbon::parse($classsession->start_time)->format('H:i');
         $this->end_time = Carbon::parse($classsession->end_time)->format('H:i');
-
+        $this->meeting_link = $classsession->meeting_link;
         $this->room_id = $classsession->room_id;
+
+        if ($this->room_id == 102) {
+            $this->is_online = true;
+
+
+        }
+
+
         $this->loadClasses($classsession->room_id);
 
 
@@ -134,6 +150,7 @@ class EditClassSession extends Component
     public function updatedRoomId($value)
     {
         $this->loadClasses($value);
+        $this->is_online = ($value == 102);
     }
 
 

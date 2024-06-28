@@ -100,7 +100,9 @@
                                                     <td>
                                                         <div class="date">
                                                             <b>Class-{{$class->id}}</b>
-                                                            <h6>Course:{{$class->course->name}} {{$class->room->name}}</h6>
+                                                            <h6>Course:{{$class->course->name}} {{$class->room->name}}  <a href="{{ $class->meeting_link }}" target="_blank" style="font-size: inherit; font-weight: inherit; color: inherit; text-decoration: underline;">
+            Meeting Link
+        </a> </h6>
                                                             <ul class="teacher-date-list">
                                                                 <li><i class="fas fa-calendar-alt me-2"></i>{{   Carbon\Carbon::parse($class->date)->format('M j, Y')}}</li>
                                                                 <li>|</li>
@@ -298,7 +300,25 @@
                                             </td>
                                          
                                             <td class="">{{$uclass->hours}}H</td>
-                                            <td>{{ $uclass->date }}</td>
+                              <td>
+    @php
+        $date = strtotime($uclass->date);
+        $formattedDate = date('m-d-Y', $date);
+        $today = date('m-d-Y');
+        $tomorrow = date('m-d-Y', strtotime('+1 day'));
+        $yesterday = date('m-d-Y', strtotime('-1 day'));
+    @endphp
+    
+    @if ($formattedDate == $today)
+        Today
+    @elseif ($formattedDate == $tomorrow)
+        Tomorrow
+    @elseif ($formattedDate == $yesterday)
+        Yesterday
+    @else
+        {{ $formattedDate }}
+    @endif
+</td>
                                     
                                         <td class='text-center'>{{ date('H:i', strtotime($uclass->start_time)) }}/{{ date('H:i', strtotime($uclass->end_time)) }}</td>
 
