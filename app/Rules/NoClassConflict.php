@@ -29,7 +29,7 @@ class NoClassConflict implements Rule
 
     public function passes($attribute, $value)
     {
-        if ($this->roomId == 102) {
+        if ($this->roomId == 102 || $this->roomId == 101) {
             return true;
         }
         $query = ClassSession::where('room_id', $this->roomId)
