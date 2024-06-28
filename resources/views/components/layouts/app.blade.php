@@ -29,9 +29,13 @@
 	<script src="{{ URL::to('assets/js/toastr_jquery.min.js') }}"></script>
 	<script src="{{ URL::to('assets/js/toastr.min.js') }}"></script>
 
-   <style>
+   
+ <style>
+        .event-hour {
+            display: none;
+        }
+    </style>
 
-</style>
 </head>
 <body>
     <div class="main-wrapper">
