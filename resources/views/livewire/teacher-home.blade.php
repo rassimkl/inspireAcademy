@@ -336,18 +336,21 @@
                                             </td>
                                          
                                             <td class="">{{$uclass->hours}}H</td>
-       <td>
+    <td>
     @php
         $date = strtotime($uclass->date);
         $formattedDate = date('m-d-Y', $date);
         $today = date('m-d-Y');
         $tomorrow = date('m-d-Y', strtotime('+1 day'));
+        $yesterday = date('m-d-Y', strtotime('-1 day'));
     @endphp
     
     @if ($formattedDate == $today)
         Today
     @elseif ($formattedDate == $tomorrow)
         Tomorrow
+    @elseif ($formattedDate == $yesterday)
+        Yesterday
     @else
         {{ $formattedDate }}
     @endif
