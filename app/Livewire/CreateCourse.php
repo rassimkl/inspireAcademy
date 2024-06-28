@@ -34,7 +34,7 @@ class CreateCourse extends Component
                 'required',
                 Rule::in([1, 2]),
             ],
-            'totalHours' => 'required|numeric',
+            'totalHours' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'chargePerHour' => 'required|numeric',
             'teacher' => 'required|exists:users,id',
             'selectedStudents' => ['required', 'array'],
