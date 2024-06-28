@@ -100,7 +100,9 @@
                                                     <td>
                                                         <div class="date">
                                                             <b>Class-{{$class->id}}</b>
-                                                            <h6>Course:{{$class->course->name}} {{$class->room->name}}</h6>
+                                                            <h6>Course:{{$class->course->name}} {{$class->room->name}}  <a href="{{ $class->meeting_link }}" target="_blank" style="font-size: inherit; font-weight: inherit; color: inherit; text-decoration: underline;">
+            Meeting Link
+        </a> </h6>
                                                             <ul class="teacher-date-list">
                                                                 <li><i class="fas fa-calendar-alt me-2"></i>{{   Carbon\Carbon::parse($class->date)->format('M j, Y')}}</li>
                                                                 <li>|</li>
