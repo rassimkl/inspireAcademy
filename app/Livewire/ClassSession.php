@@ -26,7 +26,15 @@ class ClassSession extends Component
     public $remainingHours;
     public $rooms;
     public $conflict;
-    public $notifyUser = true;
+
+
+
+    public $meeting_link;
+    public $is_online = false;
+
+
+
+    public $notifyUser = false;
 
     public $events = [];
 
@@ -39,7 +47,7 @@ class ClassSession extends Component
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
             'room_id' => 'required|exists:rooms,id',
-
+            'meeting_link' => '',
 
 
         ];
@@ -70,9 +78,12 @@ class ClassSession extends Component
         $this->rooms = Room::all();
         $this->calculateRemainingHours();
         $this->loadClasses(1);
+
+
         if ($this->course->course_type == 2) {
 
             $this->room_id = 102;
+            $this->is_online = true;
         }
 
 
@@ -83,6 +94,7 @@ class ClassSession extends Component
     public function updatedRoomId($value)
     {
         $this->loadClasses($value);
+        $this->is_online = ($value == 102);
     }
     public function loadClasses($roomId)
     {
@@ -126,17 +138,17 @@ class ClassSession extends Component
         if (!empty($this->hours) && !empty($this->start_time)) {
             // Convert the hours to minutes
             $minutes = $this->hours * 60;
-        
+
             // Calculate the end time by adding the minutes to the start time
             $start = \DateTime::createFromFormat('H:i', $this->start_time);
-        
+
             if ($start !== false) { // Check if $start is a valid DateTime object
                 $end = clone $start;
                 $end->modify('+' . $minutes . ' minutes');
-        
+
                 // Set the end time property
                 $this->end_time = $end->format('H:i');
-        
+
                 // Dispatch a Livewire event to update the end time
                 $this->dispatch('updateEndtime', $this->end_time);
             } else {
@@ -147,7 +159,7 @@ class ClassSession extends Component
         } else {
             $this->end_time = null;
         }
-        
+
     }
 
 
