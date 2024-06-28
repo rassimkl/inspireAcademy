@@ -34,7 +34,12 @@ class Student extends Component
         $currentMonth = Carbon::now()->month;
         $user = auth()->user();
         $this->student = $user;
-        $this->courses = $user->coursesAsStudent;
+        $this->courses = $user->coursesAsStudent()->withSum([
+        'classes' => function ($query) {
+            $query->where('status', 2);
+        }
+    ], 'hours')
+    ->get();;
        
         $this->numberOfCoures = $this->courses->count();
 
