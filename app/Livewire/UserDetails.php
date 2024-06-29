@@ -60,7 +60,7 @@ class UserDetails extends Component
         } elseif ($user->user_type_id == 2) {
 
             $this->courses = $user->coursesAsTeacher()
-                ->where('courses.status_id', $this->status)
+             
                 ->withCount([
                     'classes' => function ($query) {
                         $query->where('status', '=', '2');
