@@ -38,7 +38,7 @@ class ManageTeacherPayments extends Component
     public function mount()
     {
 
-        $this->loadTeachers();
+        $this->loadTeachers(Carbon::today()->format('m-Y'));
         $this->selectedMonth = Carbon::today()->format('m-Y');
 
 
@@ -48,7 +48,7 @@ class ManageTeacherPayments extends Component
     {
         $date = Carbon::createFromFormat('m-Y', $selectedMonth)->startOfMonth();
 
- 
+
 
         $this->lessons = ClassSession::whereHas('course', function ($query) use ($teacherId) {
             $query->where('teacher_id', $teacherId);
@@ -73,29 +73,38 @@ class ManageTeacherPayments extends Component
         $this->totalHours = $totalHours;
         $this->totalPayment = $totalCharge;
     }
-    public function loadTeachers()
+    public function loadTeachers($date)
     {
-        
+
+        $this->Selectedteacher = null;
+        // Parse the input date
+        $parsedDate = Carbon::createFromFormat('m-Y', $date);
+        $month = $parsedDate->format('m');
+        $year = $parsedDate->format('Y');
+
         $this->teachers = User::where('user_type_id', 2)
             ->with([
-                'classes' => function ($query) {
-                    $query->whereMonth('date', Carbon::parse($this->selectedMonth)->format('m'))
-                        ->whereYear('date', Carbon::parse($this->selectedMonth)->format('Y'))
-                        ->where('payment_status', 1)->where('status', 2);
+                'classes' => function ($query) use ($month, $year) {
+                    $query->whereMonth('date', $month)
+                        ->whereYear('date', $year)
+                        ->where('payment_status', 1)
+                        ->where('status', 2);
                 }
             ])
-            ->whereHas('classes', function ($query) {
-                $query->whereMonth('date', Carbon::parse($this->selectedMonth)->format('m'))
-                    ->whereYear('date', Carbon::parse($this->selectedMonth)->format('Y'))
-                    ->where('payment_status', 1)->where('status', 2);
+            ->whereHas('classes', function ($query) use ($month, $year) {
+                $query->whereMonth('date', $month)
+                    ->whereYear('date', $year)
+                    ->where('payment_status', 1)
+                    ->where('status', 2);
             })
-
             ->get();
-
     }
 
     public function updatedSelectedMonth($value)
     {
+        $this->loadTeachers($value);
+        $this->lessons = [];
+
         $this->validate();
         $this->loadClasses($this->Selectedteacher, $value);
 
@@ -145,7 +154,7 @@ class ManageTeacherPayments extends Component
 
             $this->reset(['Selectedteacher', 'totalPayment', 'lessons', 'totalHours']);
 
-            $this->loadTeachers();
+            $this->loadTeachers(Carbon::today()->format('m-Y'));
         } catch (\Exception $e) {
             DB::rollBack();
 
