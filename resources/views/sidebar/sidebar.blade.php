@@ -5,19 +5,36 @@
                 <li class="menu-title">
                     <span>Main Menu</span>
                 </li>
-              
-                <li class="submenu {{set_active(['home','teacher/home','student/home'])}}">
-                    <a>
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span> Home</span> 
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul>
-                        @if(auth()->user()->user_type_id==1)<li><a href="{{ route('home') }}" class="{{set_active(['home'])}}">Dashboard</a></li> @endif
-                  @if(auth()->user()->user_type_id==2) <li><a href="{{ route('teacher/home') }}" class="{{set_active(['teacher/home'])}}">Dashboard</a></li> @endif
-                         @if(auth()->user()->user_type_id==3) <li><a href="{{ route('student/home') }}" class="{{set_active(['student/home'])}}">Dashboard</a></li>@endif
-                    </ul>
-                </li>
+ 
+@if(auth()->user()->user_type_id==1)
+    <li class="{{set_active(['home'])}}">
+        <a href="{{ route('home') }}">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Home</span>
+        </a>
+    </li>
+@endif
+@if(auth()->user()->user_type_id==2)
+    <li class="{{set_active(['teacher/home'])}}">
+        <a href="{{ route('teacher/home') }}">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Home</span>
+        </a>
+    </li>
+@endif
+@if(auth()->user()->user_type_id==3)
+    <li class="{{set_active(['student/home'])}}">
+        <a href="{{ route('student/home') }}">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Home</span>
+        </a>
+    </li>
+@endif
+
+
+
+
+                
                 @if (Session::get('role_name') === 'Admin' || Session::get('role_name') === 'Super Admin')
                 <li class="submenu {{set_active(['list/users'])}} {{ (request()->is('view/user/edit/*')) ? 'active' : '' }}">
                     <a href="#">
