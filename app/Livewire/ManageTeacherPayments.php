@@ -48,7 +48,7 @@ class ManageTeacherPayments extends Component
     {
         $date = Carbon::createFromFormat('m-Y', $selectedMonth)->startOfMonth();
 
-
+ 
 
         $this->lessons = ClassSession::whereHas('course', function ($query) use ($teacherId) {
             $query->where('teacher_id', $teacherId);
@@ -75,9 +75,7 @@ class ManageTeacherPayments extends Component
     }
     public function loadTeachers()
     {
-        $this->selectedMonth =Carbon::createFromFormat('m-Y', $this->selectedMonth)->startOfMonth();
-  
-
+        
         $this->teachers = User::where('user_type_id', 2)
             ->with([
                 'classes' => function ($query) {
