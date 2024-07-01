@@ -75,7 +75,9 @@ class ManageTeacherPayments extends Component
     }
     public function loadTeachers()
     {
-        $this->selectedMonth = now()->format('Y-m');
+        $this->selectedMonth =Carbon::createFromFormat('m-Y', $this->selectedMonth)->startOfMonth();
+  
+
         $this->teachers = User::where('user_type_id', 2)
             ->with([
                 'classes' => function ($query) {
