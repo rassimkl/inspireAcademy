@@ -122,7 +122,7 @@ class ManageTeacherPayments extends Component
     public function updatePaymentStatus()
     {
 
-        $this->dispatch('confirmTask', 'Are you sure you want to update Payment Status', 'updateStatusPayment');
+        $this->dispatch('confirmPaymentTask', 'Are you sure you want to set as Paid ?', 'updateStatusPayment');
 
     }
 
