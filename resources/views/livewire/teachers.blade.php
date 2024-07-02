@@ -61,7 +61,7 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                       <th>Gender</th>
-                                            <th>DOB</th>
+                                            <th>Status</th>
                                             <th>Email</th>
                                             <th>Mobile Number</th>
                                                <th>Languages</th>
@@ -88,7 +88,13 @@
                                                 </h2>
                                             </td>
                                             <td>{{ $teacher->gender }} </td>
-                                            <td>{{ $teacher->date_of_birth }}</td>
+                                           <td>
+                        @if ($teacher->active)
+                            <span class="badge badge-success">Active</span>
+                        @else
+                            <span class="badge badge-danger">Inactive</span>
+                        @endif
+                    </td>
                                             <td>{{ $teacher->email }}</td>
                                             <td>{{ $teacher->phone_number }}</td>
                                       <td> @foreach(json_decode($teacher->languages) as $key => $language)

@@ -46,15 +46,17 @@
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
+              <input class='mx-1' type="checkbox" wire:model="active"> Active
         </div>
     </div>
+    
 </div>
 
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>First Name <span class="login-danger">*</span></label>
                                             <input type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" placeholder="Enter First Name" wire:model.live='first_name'>
-                                            @error('first_name')
+                                            @error('active')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -226,6 +228,7 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    
                                  <div class="col-12 col-sm-4">
                                 <div class="form-group local-forms">
                                             <label>Password </label>
@@ -239,6 +242,8 @@
                                         </div>
                                           
                                     </div>
+
+                                    
                                     <div class="col-12">
                                         <div class="student-submit">
                                             <button type="submit" class="btn btn-primary">Update</button>
