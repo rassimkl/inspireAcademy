@@ -221,6 +221,8 @@ class EditUser extends Component
     public $profile_picture;
     public $user_type_id;
 
+    public $active;
+
     public $passwordEnabled = false;
 
 
@@ -246,6 +248,7 @@ class EditUser extends Component
             'languages' => 'required|array',
             'languages.*' => 'string',
             'profile_picture' => 'nullable|string',
+            'active' => 'required|boolean',
 
         ];
 
@@ -286,11 +289,12 @@ class EditUser extends Component
             $this->languages = json_decode($user->languages, true);
             $this->profile_picture = $user->profile_picture;
             $this->user_type_id = $user->user_type_id;
+            $this->active =  (bool) $user->active; 
 
             // Fetch user types
             $this->userTypes = UserType::pluck('name', 'id');
             $this->userType = $this->userTypes[$this->user_type_id] ?? "User";
-
+            
 
         }
     }
