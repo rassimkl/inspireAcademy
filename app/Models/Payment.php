@@ -9,7 +9,11 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['amount', 'user_id', 'hours'];
+    protected $casts = [
+        'payment_date' => 'date',
+    ];
+
+    protected $fillable = ['amount', 'user_id', 'hours', 'payment_date'];
     public function user()
     {
         return $this->belongsTo(User::class);

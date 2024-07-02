@@ -138,10 +138,14 @@ class ManageTeacherPayments extends Component
                 $lesson->save();
             }
 
+            $date = Carbon::createFromFormat('m-Y', $this->selectedMonth)->startOfMonth();
+
+
             Payment::create([
                 'user_id' => $this->Selectedteacher,
                 'amount' => $this->totalPayment,
                 'hours' => $this->totalHours,
+                'payment_date' => $date
             ]);
 
             DB::commit();

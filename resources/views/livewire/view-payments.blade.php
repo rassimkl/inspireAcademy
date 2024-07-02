@@ -117,8 +117,7 @@
                                             @if(!$selectedTeacher)
                                            <td>{{ ($payment->user->first_name) }} {{ ($payment->user->last_name) }}</td>@endif
                                           
-                                           <td class='text-center'>    {{ date('F j, Y', strtotime($payment->created_at)) }}
-{{ date('H:i', strtotime($payment->created_at)) }}</td>
+<td class='text-center'> {{$payment->payment_date->format('F Y')}}({{$payment->payment_date->format('m Y')}})</td>
 
     <td class='text-center'>
     <a href="{{ route('download.pdf', ['payment' => $payment->id]) }}" class="btn btn-success" style="color: white;">Download invoice</a>
