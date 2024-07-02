@@ -21,7 +21,8 @@ class ViewPayments extends Main
     public function mount()
     {
 
-        $this->selectedMonth = Carbon::today()->format('m-Y');
+        $this->selectedMonth = Carbon::today()->subMonth()->format('m-Y');
+
         $this->teachers = User::where('user_type_id', 2)->get();
     }
 
@@ -40,7 +41,7 @@ class ViewPayments extends Main
         }
 
         // Apply filter for the date range
-        $paymentsQuery->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
+        $paymentsQuery->whereBetween('payment_date', [$startOfMonth, $endOfMonth]);
 
         // Retrieve all payments without pagination
         $allPayments = $paymentsQuery->get();

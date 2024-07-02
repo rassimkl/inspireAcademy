@@ -122,7 +122,7 @@ class ManageTeacherPayments extends Component
     public function updatePaymentStatus()
     {
 
-        $this->dispatch('confirmTask', 'Are you sure you want to update Payment Status', 'updateStatusPayment');
+        $this->dispatch('confirmPaymentTask', 'Are you sure you want to set as Paid ?', 'updateStatusPayment');
 
     }
 
@@ -138,10 +138,14 @@ class ManageTeacherPayments extends Component
                 $lesson->save();
             }
 
+            $date = Carbon::createFromFormat('m-Y', $this->selectedMonth)->startOfMonth();
+
+
             Payment::create([
                 'user_id' => $this->Selectedteacher,
                 'amount' => $this->totalPayment,
                 'hours' => $this->totalHours,
+                'payment_date' => $date
             ]);
 
             DB::commit();

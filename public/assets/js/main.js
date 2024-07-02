@@ -33,6 +33,27 @@ document.addEventListener('livewire:initialized', () => {
     });
 
 
+    Livewire.on('confirmPaymentTask', (messagevalue) => {
+        const [message, listner] = messagevalue;
+        Swal.fire({
+            title: 'Are you sure?',
+            text: message,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, set as Paid!',
+            cancelButtonText: 'No, cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // User confirmed, call the Livewire delete method with the item ID
+
+                Livewire.dispatch(listner);
+            }
+        });
+    });
+
+
 
     Livewire.on('cancelClass', (messagevalue) => {
         const [message, listner] = messagevalue;
