@@ -110,14 +110,14 @@
                 <td>{{$user->first_name}} {{$user->last_name}}</td>
             </tr>
             <tr>
-                <td>DATA</td>
-                <td>No data</td>
+                <td>Date</td>
+                <td>{{ $payment->payment_date->format('Y-m-d') }}<br></td>
 
                 <td>Email Id:</td>
                 <td>{{$user->email}}</td>
             </tr>
             <tr>
-                <td>Paid Date:</td>
+                <td>Created At:</td>
                 <td>{{ $payment->created_at->format('Y-m-d') }}<br></td>
 
                 <td>Phone:</td>
