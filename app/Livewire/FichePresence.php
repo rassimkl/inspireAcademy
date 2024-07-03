@@ -13,7 +13,7 @@ class FichePresence extends Main
 {
 
     public $courses;
-    public $course= "0";
+    public $course = "0";
     public $selectedMonth;
     public $selectedTeacher;
     public $teachers;
@@ -39,7 +39,7 @@ class FichePresence extends Main
         $month = (int) $month;
         $year = (int) $year;
 
-        $this->courses = Course::whereHas('classes', function ($query) use ($month, $year) {
+        $this->courses = Course::where('teacher_id', $this->user->id)->whereHas('classes', function ($query) use ($month, $year) {
             $query->whereYear('date', $year)
                 ->whereMonth('date', $month);
         })->get();

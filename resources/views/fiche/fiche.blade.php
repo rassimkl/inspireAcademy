@@ -107,7 +107,7 @@
         </tr>
         <tr class="bg-blue">
           <th width="50%" colspan="2">Détails</th>
-          <th width="50%" colspan="2">Teacher Details</th>
+          <th width="50%" colspan="2"></th>
         </tr>
       </thead>
       <tbody>
