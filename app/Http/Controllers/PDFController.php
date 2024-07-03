@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Dompdf\Dompdf;
 use App\Models\Course;
-use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Payment; // Assuming Payment model is used
@@ -33,8 +32,8 @@ class PDFController extends Controller
         $pdf->render();
 
         // Output PDF to the browser
-        return $pdf->stream('invoice.pdf');
-
+         $pdf->stream('invoice.pdf');
+        exit();
         //return view('invoice.invoice', $data);
     }
 

@@ -7,13 +7,14 @@ use App\Models\User;
 use App\Livewire\Main;
 use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 
-
+#[Title('Fiche')]
 class FichePresence extends Main
 {
 
     public $courses;
-    public $course ="0";
+    public $course = "0";
     public $selectedMonth;
     public $selectedTeacher;
     public $teachers;
