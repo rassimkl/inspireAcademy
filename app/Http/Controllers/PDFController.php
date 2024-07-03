@@ -97,10 +97,8 @@ class PDFController extends Controller
         $pdf->render();
 
         // Output PDF to the browser
-        return $pdf->stream('fiche.pdf', [
-            'Attachment' => true
-        ]);
-
+         $pdf->stream('fiche.pdf');
+        exit();
         //return view('invoice.invoice', $data);
     }
 }
