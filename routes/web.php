@@ -69,7 +69,8 @@ Route::middleware(['auth', 'teacher'])->group(function () {
     Route::get('/submit/class/{classsession}', SubmitClass::class)->name('class/submit');
 
     Route::get('/teacher/Fiche', FichePresence::class)->name('teacher/fiche');
-   
+    Route::get('/download-fichpdf/{course}/{date}', [PDFController::class, 'downloadPdfich'])->name('downloadfich.pdf');
+
 
 
 
@@ -90,6 +91,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/courses/{course}/edit', EditCourse::class)->name('courses/edit');
     Route::get('/teachers/all/payments', ViewPayments::class)->name('teacher/all/payments');
     Route::get('/download-pdf/{payment}', [PDFController::class, 'downloadPdf'])->name('download.pdf');
+
+
 
 
 });

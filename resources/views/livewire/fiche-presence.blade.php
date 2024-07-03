@@ -35,7 +35,7 @@
                         <div class="form-group">
                          <label for="exampleInputEmail1" class="form-label">Course</label>
     <select wire:model.live="course" class="form-control">
-              <option value="0">Choose a course</option>
+              <option value="">Choose a course</option>
                                @foreach($courses as $course)
         <option value="{{$course->id}}">{{$course->name}}</option>
        
@@ -54,9 +54,10 @@
       <div class="col-lg-2">
         <label for="exampleInputEmail1" class="form-label">FICHE DE PRESENCE : </label>
                         <div class="search-student-btn">
-                            <button wire:click="downloadFiche" type="btn" class="btn btn-primary">
-                            <span wire:loading wire:target="downloadFiche" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Download</button>
+                                                   <a href="{{ route('downloadfich.pdf', ['course' => $course,'date'=>$selectedMonth]) }}" class="btn btn-success" style="color: white;">Download Fiche</a>
+
+                         
+                            </button>
                         </div>
                     </div>
                     <div class="col-lg-2">

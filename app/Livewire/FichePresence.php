@@ -4,16 +4,16 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Livewire\Main;
 use App\Models\Course;
-use Livewire\Component;
-use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Auth;
+
 
 class FichePresence extends Main
 {
 
     public $courses;
-    public $course;
+    public $course= "0";
     public $selectedMonth;
     public $selectedTeacher;
     public $teachers;
@@ -50,55 +50,9 @@ class FichePresence extends Main
 
         $this->validate();
 
-        $classesQuery = $this->user->classes()->with('course')->orderBy('date', 'desc');
-        $classesQuery->where('course_id', $this->course);
-        // Check the value of $status and apply appropriate filtering
-
-        // Parse the selected month and year from the date string
-        if ($this->selectedMonth) {
-            list($month, $year) = explode('-', $this->selectedMonth);
-
-            // Add condition to filter by selected month and year
-            $classesQuery->whereYear('date', '=', $year)
-                ->whereMonth('date', '=', $month);
-        }
-
-        $classes = $classesQuery->get();
-
-        foreach ($classes as $class) {
-            if ($class->status == 1) {
-                $this->addError('course', 'Please Submit all classes');
-                return; // Exit the method to prevent further execution
-            }
-        }
-
-        $course = Course::findOrFail($this->course);
-        $students = $course->students;
-
-        // Load the view with the data
-        $data = ['course' => $course, 'teacher' => $this->user, 'students' => $students, 'classes' => $classes, 'date' => $this->selectedMonth];
 
 
-        $view = view('fiche.fiche', $data);
 
-        // Create a new DOMPDF instance
-        $pdf = new Dompdf();
-        $pdf->set_option('isHtml5ParserEnabled', true);
-        $pdf->set_option('isRemoteEnabled', false); // Disable remote file fetching if not needed
-
-        // Load HTML content into DOMPDF
-        $pdf->loadHtml($view);
-
-        // (Optional) Set paper size and orientation
-        $pdf->setPaper('A4', 'portrait');
-
-        // Render PDF (important to call this before outputting PDF content)
-        $pdf->render();
-
-        // Output PDF to the browser
-        return $pdf->stream('fiche.pdf');
-
-        //return view('invoice.invoice', $data);
 
     }
     public function updatedSelectedMonth($value)
@@ -116,7 +70,7 @@ class FichePresence extends Main
                 ->whereMonth('date', $month);
         })->get();
 
-        $this->course = 0;
+        $this->course = "0";
 
     }
     public function render()
