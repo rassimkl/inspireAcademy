@@ -89,8 +89,7 @@ class FichePresence extends Main
         // Load HTML content into DOMPDF
         $pdf->loadHtml($view);
 
-        // (Optional) Set paper size and orientation
-        $pdf->setPaper('A4', 'portrait');
+       
 
         // Render PDF (important to call this before outputting PDF content)
         $pdf->render();
