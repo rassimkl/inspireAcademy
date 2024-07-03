@@ -79,10 +79,12 @@ class FichePresence extends Main
         $data = ['course' => $course, 'teacher' => $this->user, 'students' => $students, 'classes' => $classes, 'date' => $this->selectedMonth];
 
 
-        $view = view('fiche.fiche', $data);
+        $view = view('fiche.fiche', $data)->render();
 
         // Create a new DOMPDF instance
         $pdf = new Dompdf();
+        $pdf->set_option('isHtml5ParserEnabled', true);
+        $pdf->set_option('isRemoteEnabled', false); // Disable remote file fetching if not needed
 
         // Load HTML content into DOMPDF
         $pdf->loadHtml($view);
@@ -91,7 +93,7 @@ class FichePresence extends Main
         $pdf->setPaper('A4', 'portrait');
 
         // Render PDF (important to call this before outputting PDF content)
-    
+        $pdf->render();
 
         // Output PDF to the browser
         return $pdf->stream('fiche.pdf');
