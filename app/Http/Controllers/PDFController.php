@@ -81,7 +81,8 @@ class PDFController extends Controller
         $data = ['course' => $course, 'teacher' => $user, 'students' => $students, 'classes' => $classes, 'date' => $date];
 
 
-        $view = view('fiche.fiche', $data);
+        $view = view('fiche.fiche', $data)->render();
+        ;
 
         // Create a new DOMPDF instance
         $pdf = new Dompdf();
