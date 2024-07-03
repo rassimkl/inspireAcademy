@@ -135,6 +135,15 @@
                     </ul>
                 </li>
 @endif
+
+@if(auth()->user()->user_type_id==2)
+    <li class="{{set_active(['teacher/fiche'])}}">
+        <a href="{{ route('teacher/fiche') }}">
+            <i class="fas fa-file-alt"></i>
+            <span>Fiche De Presence</span>
+        </a>
+    </li>
+@endif
             
             </ul>
         </div>
