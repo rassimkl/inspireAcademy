@@ -13,7 +13,7 @@ class FichePresence extends Main
 {
 
     public $courses;
-    public $course = "0";
+    public $course ="0";
     public $selectedMonth;
     public $selectedTeacher;
     public $teachers;

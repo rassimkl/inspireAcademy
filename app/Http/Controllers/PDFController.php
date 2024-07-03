@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Dompdf\Dompdf;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Payment; // Assuming Payment model is used
 
@@ -43,7 +44,12 @@ class PDFController extends Controller
 
         $user = Auth::user();
 
-
+        $course = Course::findOrFail($courseid);
+        if (!$courseid || $course->teacher_id != $user->id) {
+            $errors = new MessageBag;
+            $errors->add('course', 'Please select a course first');
+            return redirect('/teacher/Fiche')->withErrors($errors);
+        }
         $classesQuery = $user->classes()->with('course')->orderBy('date', 'desc');
         $classesQuery->where('course_id', $courseid);
         // Check the value of $status and apply appropriate filtering
@@ -61,12 +67,14 @@ class PDFController extends Controller
 
         foreach ($classes as $class) {
             if ($class->status == 1) {
-                $this->addError('course', 'Please Submit all classes');
-                return; // Exit the method to prevent further execution
+                $errors = new MessageBag;
+                $errors->add('course', 'Please submit all classes before generating Fiche');
+                return redirect('/teacher/Fiche')->withErrors($errors);
+
             }
         }
 
-        $course = Course::findOrFail($courseid);
+
         $students = $course->students;
 
         // Load the view with the data
