@@ -79,7 +79,7 @@ class FichePresence extends Main
         $data = ['course' => $course, 'teacher' => $this->user, 'students' => $students, 'classes' => $classes, 'date' => $this->selectedMonth];
 
 
-        $view = view('fiche.fiche', $data)->render();
+        $view = view('fiche.fiche', $data);
 
         // Create a new DOMPDF instance
         $pdf = new Dompdf();
@@ -89,7 +89,8 @@ class FichePresence extends Main
         // Load HTML content into DOMPDF
         $pdf->loadHtml($view);
 
-       
+        // (Optional) Set paper size and orientation
+        $pdf->setPaper('A4', 'portrait');
 
         // Render PDF (important to call this before outputting PDF content)
         $pdf->render();
