@@ -77,7 +77,9 @@ class FichePresence extends Main
 
         // Load the view with the data
         $data = ['course' => $course, 'teacher' => $this->user, 'students' => $students, 'classes' => $classes, 'date' => $this->selectedMonth];
-        $view = view('fiche.fiche', $data)->render();
+
+
+        $view = view('fiche.fiche', $data);
 
         // Create a new DOMPDF instance
         $pdf = new Dompdf();
