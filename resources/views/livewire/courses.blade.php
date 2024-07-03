@@ -42,6 +42,22 @@
     </select>
                         </div>
                     </div>
+@if(auth()->user()->user_type_id==1)
+                    <div class=" mx-1 col-lg-2 col-md-3">
+                        <div class="form-group">
+                        
+                               <select wire:model.live="Selectedteacher" class="form-select form-control">
+                                <option value="0">All Teachers</option>
+                               @foreach($teachers as $teacher)
+        <option value="{{$teacher->id}}">{{$teacher->first_name}}</option>
+       
+        @endforeach
+    </select>
+                        </div>
+                    </div>
+                    @endif
+
+                    
                 </div>
             </div>
             <div class="row">
@@ -71,6 +87,8 @@
             </select>
     <label class="my-1" for="perPage">entries</label>
 </div>
+
+
                             <div class="table-responsive">
                                 <table
                                     class="table border-0 star-student table-hover table-center mb-0  table-striped">

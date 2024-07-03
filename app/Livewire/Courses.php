@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use App\Models\Course;
 use App\Models\Status;
 use Livewire\Attributes\Title;
@@ -18,12 +19,19 @@ class Courses extends Main
     public $courseStatuses;
     public $status = 0;
 
+    public $teachers;
 
+    public $Selectedteacher;
 
     public function mount()
     {
 
         $this->courseStatuses = Status::all();
+
+        if (auth()->user()->user_type_id == 1) {
+
+            $this->teachers = User::where('user_type_id', 2)->get();
+        }
     }
 
     public function confirmDelete($courseId)
@@ -73,6 +81,10 @@ class Courses extends Main
 
         if ($this->status != 0) {
             $query->where('status_id', $this->status);
+        }
+        if ($this->Selectedteacher != 0 && $user->user_type_id == 1) {
+
+            $query->where('teacher_id', $this->Selectedteacher);
         }
 
         if ($user->user_type_id == 2) {
