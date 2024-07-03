@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\FichePresence;
 use App\Models\User;
 use App\Livewire\Home;
 use App\Livewire\Login;
@@ -44,7 +45,7 @@ use App\Http\Controllers\Auth\LogoutController;
 
 
 
-    Route::get('/', Login::class)->name('login')->middleware('guest');
+Route::get('/', Login::class)->name('login')->middleware('guest');
 
 
 
@@ -67,8 +68,8 @@ Route::middleware(['auth', 'teacher'])->group(function () {
     Route::get('/edit/class/{classsession}', EditClassSession::class)->name('class/edit');
     Route::get('/submit/class/{classsession}', SubmitClass::class)->name('class/submit');
 
-
-
+    Route::get('/teacher/Fiche', FichePresence::class)->name('teacher/fiche');
+   
 
 
 
