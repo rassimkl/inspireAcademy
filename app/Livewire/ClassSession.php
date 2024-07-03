@@ -40,16 +40,20 @@ class ClassSession extends Component
 
     public function rules()
     {
+        $minDate = now()->subDays(15)->toDateString();
 
         return [
             'hours' => 'required|min:0.5',
-            'date' => ['required', 'date', 'after_or_equal:today'],
+            'date' => [
+                'required',
+                'date',
+
+                'after_or_equal:' . $minDate,
+            ],
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
             'room_id' => 'required|exists:rooms,id',
             'meeting_link' => '',
-
-
         ];
     }
 
@@ -98,7 +102,7 @@ class ClassSession extends Component
     }
     public function loadClasses($roomId)
     {
-        $today = now()->toDateString();
+        $today = now()->subDays(15)->toDateString();
 
         $classes = \App\Models\ClassSession::where('date', '>=', $today)
             ->where('room_id', $roomId)
