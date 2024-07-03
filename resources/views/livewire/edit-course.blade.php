@@ -69,7 +69,7 @@
         <label class="@error('teacher') text-danger @enderror">Teacher <span class="login-danger">*</span>@error('teacher') - Choose a teacher @enderror</label>
         <div >
 <div wire:ignore>
-            <select  class="form-control js-example-responsive  @error('teacher') is-invalid @enderror" id="teacher" >
+            <select @if($course->status_id > 1) disabled @endif   class="form-control js-example-responsive  @error('teacher') is-invalid @enderror" id="teacher" >
                <option value="null">Choose a teacher</option>
             @foreach ($teachers as $teacher)
         <option value="{{ $teacher->id }}">{{ $teacher->first_name }} {{ $teacher->last_name }} </option>
@@ -128,7 +128,9 @@
                                                 
                                   <div class="col-12 col-sm-4">
     <div class="form-group local-forms">
-        <label>Total Hours <span class="login-danger">*</span></label>
+     
+        <label>Total Hours <span class="login-danger">*</span> <span style="color: black;">Done Hours: {{$doneHours}}</span> / <span style="color: black;">Pending Hours: {{$pendingHours}}</span>
+</label>
         <div class="position-relative">
              <input type="number" step="0.01" class="form-control @error('totalHours') is-invalid @enderror" name="totalHours" placeholder="Enter Total hours" wire:model='totalHours'>
             @error('totalHours')

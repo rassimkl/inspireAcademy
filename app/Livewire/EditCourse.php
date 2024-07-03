@@ -24,6 +24,9 @@ class EditCourse extends Component
     public $chargePerHour;
     public $userType;
 
+    public $doneHours;
+    public $pendingHours;
+
     public function rules()
     {
         return [
@@ -59,6 +62,11 @@ class EditCourse extends Component
         $this->teachers = User::where('user_type_id', UserType::where('name', 'Teacher')->firstOrFail()->id)->get();
         $this->selectedStudents = $course->students->pluck('id')->toArray();
         $this->teacher = $course->teacher->id;
+
+        $this->doneHours = $this->course->classes->where('status', 2)->sum('hours');
+        $this->pendingHours = $this->course->classes->where('status', 1)->sum('hours');
+
+
     }
 
 
@@ -66,6 +74,12 @@ class EditCourse extends Component
     {
         $this->validate();
 
+        if ($this->totalHours < ($this->doneHours + $this->pendingHours)) {
+            $this->addError('totalHours', 'Cant be less than the Pending Hours + Done Hours. Please submit or cancel pending classes');
+            return;
+        }
+
+    
         $this->course->update([
             'name' => $this->name,
             'info' => $this->info,
