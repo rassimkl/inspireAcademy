@@ -18,6 +18,8 @@ class Courses extends Main
     public $courseStatuses;
     public $status = 0;
 
+
+
     public function mount()
     {
 
@@ -34,7 +36,7 @@ class Courses extends Main
     {
 
         $course = Course::findOrFail($this->courseId);
-        $this->authorize('addCourse', $this->course);
+        $this->authorize('addCourse', $course);
         // Check if the status is 1
         if ($course->status_id !== 1) {
 
@@ -76,7 +78,7 @@ class Courses extends Main
         if ($user->user_type_id == 2) {
             // If the user is a teacher, filter courses by the teacher's ID
             $query->where('teacher_id', $user->id);
-        }elseif($user->user_type_id == 3){
+        } elseif ($user->user_type_id == 3) {
             $query->whereHas('students', function ($subQuery) use ($user) {
                 $subQuery->where('student_id', $user->id);
             });
