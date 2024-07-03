@@ -91,7 +91,7 @@ class FichePresence extends Main
         $pdf->setPaper('A4', 'portrait');
 
         // Render PDF (important to call this before outputting PDF content)
-        $pdf->render();
+    
 
         // Output PDF to the browser
         return $pdf->stream('fiche.pdf');
