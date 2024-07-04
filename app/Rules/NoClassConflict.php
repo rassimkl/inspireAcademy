@@ -16,49 +16,22 @@ class NoClassConflict implements Rule
     protected $startTime;
     protected $endTime;
     protected $classId;
-    protected $courseid;
 
-    public function __construct($classId, $roomId, $date, $startTime, $endTime, $courseid)
+    public function __construct($classId, $roomId, $date, $startTime, $endTime,$courseid)
     {
         $this->roomId = $roomId;
         $this->date = Carbon::parse($date)->format('Y-m-d');
         $this->classId = $classId;
         $this->startTime = $startTime;
         $this->endTime = $endTime;
-        $this->courseid = $courseid;
 
     }
 
     public function passes($attribute, $value)
     {
-
-        if (!$this->classId) {
         if ($this->roomId == 102 || $this->roomId == 101) {
-
-            $specialRoomQuery = ClassSession::where('course_id', $this->courseid)
-                ->where('date', $this->date)
-                ->where(function ($query) {
-                    $query->where(function ($q) {
-                        $q->where('start_time', '<', $this->startTime)
-                            ->where('end_time', '>', $this->startTime);
-                    })->orWhere(function ($q) {
-                        $q->where('start_time', '>=', $this->startTime)
-                            ->where('start_time', '<', $this->endTime);
-                    });
-                });
-
-
-            $conflictingClassesInSpecialRoom = $specialRoomQuery->exists();
-
-            // Return false if there's a conflicting class for the same user in these special rooms
-            if ($conflictingClassesInSpecialRoom) {
-                return false;
-            }
-
-
             return true;
         }
-    }else{
         $query = ClassSession::where('room_id', $this->roomId)
             ->where('date', $this->date)
             ->where(function ($query) {
@@ -82,7 +55,7 @@ class NoClassConflict implements Rule
 
         return !$conflictingClasses;
     }
-    }
+
 
 
     public function message()
