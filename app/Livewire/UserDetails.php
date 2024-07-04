@@ -196,6 +196,7 @@ class UserDetails extends Component
 
         if ($this->user->user_type_id == 3) {
             $this->loopcourses = $this->user->coursesAsStudent()
+            ->where('courses.status_id', $this->status)
                 ->withCount([
                     'classes' => function ($query) {
                         $query->where('status', '=', '2');
@@ -223,6 +224,7 @@ class UserDetails extends Component
         } elseif ($this->user->user_type_id == 4) {
 
             $this->loopcourses = $this->user->coursesAsStudent()
+            ->where('courses.status_id', $this->status)
                 ->withCount([
                     'classes' => function ($query) {
                         $query->where('status', '=', '2');

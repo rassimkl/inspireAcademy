@@ -262,6 +262,8 @@
                                          
                                         </div>
                                            <hr> <!-- Add your separator here -->
+
+                                           @if(auth()->user()->user_type_id==1)
                                         <div class="hello-park">
 
                      <div class="d-flex align-items-center">
@@ -311,6 +313,7 @@
                                          
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
