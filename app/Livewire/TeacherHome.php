@@ -25,7 +25,7 @@ class TeacherHome extends Component
     public $latestSubmitted;
     public function mount()
     {
-
+       
         $currentMonth = Carbon::now()->month;
 
 
@@ -96,7 +96,7 @@ class TeacherHome extends Component
 
     public function render()
     {
-       
+
         return view('livewire.teacher-home');
     }
 }

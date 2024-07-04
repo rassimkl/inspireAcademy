@@ -9,6 +9,7 @@ use Livewire\Component;
 use App\Mail\ClassCreated;
 use App\Rules\NoClassConflict;
 use Livewire\Attributes\Title;
+use App\Rules\ScheduleConflict;
 use Illuminate\Support\Facades\Mail;
 
 #[Title('create class')]
@@ -60,7 +61,7 @@ class ClassSession extends Component
     public function crules()
     {
         return [
-            'conflict' => [new NoClassConflict(null, $this->room_id, $this->date, $this->start_time, $this->end_time)],
+            'conflict' => [new NoClassConflict(null, $this->room_id, $this->date, $this->start_time, $this->end_time, $this->course->id)],
 
 
         ];
@@ -69,6 +70,9 @@ class ClassSession extends Component
 
 
     }
+
+
+
 
 
     public function mount(Course $course)
@@ -88,6 +92,7 @@ class ClassSession extends Component
 
             $this->room_id = 102;
             $this->is_online = true;
+            $this->loadClasses( 102);
         }
 
 
@@ -176,10 +181,9 @@ class ClassSession extends Component
         $validatedData = $this->validate();
 
 
-        if ($this->room_id != 101 && $this->room_id != 102) {//check if the class is physical class to check conflict in classes
-            $this->validate($this->crules());
 
-        }
+        $this->validate($this->crules());
+
 
         $validatedData['date'] = Carbon::parse($this->date)->format('Y-m-d');
 

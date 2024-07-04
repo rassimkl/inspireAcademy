@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function classes()
     {
-        return $this->hasManyThrough(ClassSession::class, Course::class, 'teacher_id', 'course_id');
+        return $this->hasManyThrough(ClassSession::class, Course::class, 'teacher_id', 'course_id', 'id', 'id');
 
     }
 

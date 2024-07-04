@@ -75,7 +75,7 @@ class EditClassSession extends Component
     public function crules()
     {
         return [
-            'conflict' => [new NoClassConflict($this->classsession->id, $this->room_id, $this->date, $this->start_time, $this->end_time)],
+            'conflict' => [new NoClassConflict($this->classsession->id, $this->room_id, $this->date, $this->start_time, $this->end_time,$this->course->id)],
 
 
         ];
