@@ -48,15 +48,28 @@ class EditClassSession extends Component
     public $events = [];
 
 
-    protected $rules = [
-        'hours' => 'required|min:0.25',
-        'date' => 'required|date|after_or_equal:today',
-        'start_time' => 'required|date_format:H:i',
-        'end_time' => 'required|date_format:H:i|after:start_time',
-        'room_id' => 'required|exists:rooms,id',
-        'meeting_link' => '',
+    public function rules()
+    {
+        $minDate = now()->subDays(15)->toDateString();
 
-    ];
+
+        return [
+            'hours' => 'required|min:0.25',
+            'date' => [
+                'required',
+                'date',
+
+                'after_or_equal:' . $minDate,
+            ],
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+            'room_id' => 'required|exists:rooms,id',
+            'meeting_link' => '',
+
+        ];
+    }
+
+
 
 
     public function crules()
