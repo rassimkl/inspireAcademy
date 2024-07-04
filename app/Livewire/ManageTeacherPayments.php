@@ -134,6 +134,7 @@ class ManageTeacherPayments extends Component
 
         try {
             foreach ($this->lessons as $lesson) {
+                $lesson->timestamps = false;
                 $lesson->payment_status = 2;
                 $lesson->save();
             }

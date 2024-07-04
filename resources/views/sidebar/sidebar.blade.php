@@ -9,7 +9,8 @@
 @if(auth()->user()->user_type_id==1)
     <li class="{{set_active(['home'])}}">
         <a href="{{ route('home') }}">
-            <i class="fas fa-tachometer-alt"></i>
+       <i class="fas fa-home"></i>
+
             <span>Home</span>
         </a>
     </li>
@@ -17,7 +18,8 @@
 @if(auth()->user()->user_type_id==2)
     <li class="{{set_active(['teacher/home'])}}">
         <a href="{{ route('teacher/home') }}">
-            <i class="fas fa-tachometer-alt"></i>
+       <i class="fas fa-home"></i>
+
             <span>Home</span>
         </a>
     </li>
@@ -25,7 +27,8 @@
 @if(auth()->user()->user_type_id==3)
     <li class="{{set_active(['student/home'])}}">
         <a href="{{ route('student/home') }}">
-            <i class="fas fa-tachometer-alt"></i>
+           <i class="fas fa-home"></i>
+
             <span>Home</span>
         </a>
     </li>
