@@ -71,7 +71,15 @@ class ClassSession extends Component
 
     }
 
+    public function srules()
+    {
+        return [
+            'conflict' => [new ScheduleConflict($this->course->teacher_id, $this->date, $this->start_time, $this->end_time,null)],
 
+
+        ];
+
+    }
 
 
 
@@ -92,7 +100,7 @@ class ClassSession extends Component
 
             $this->room_id = 102;
             $this->is_online = true;
-            $this->loadClasses( 102);
+            $this->loadClasses(102);
         }
 
 
@@ -183,7 +191,7 @@ class ClassSession extends Component
 
 
         $this->validate($this->crules());
-
+        $this->validate($this->srules());
 
         $validatedData['date'] = Carbon::parse($this->date)->format('Y-m-d');
 

@@ -12,6 +12,7 @@ use App\Mail\ClassCreated;
 use App\Models\ClassSession;
 use App\Rules\NoClassConflict;
 use Livewire\Attributes\Title;
+use App\Rules\ScheduleConflict;
 use Illuminate\Support\Facades\Mail;
 
 #[Title('Edit Class')]
@@ -75,12 +76,20 @@ class EditClassSession extends Component
     public function crules()
     {
         return [
-            'conflict' => [new NoClassConflict($this->classsession->id, $this->room_id, $this->date, $this->start_time, $this->end_time,$this->course->id)],
+            'conflict' => [new NoClassConflict($this->classsession->id, $this->room_id, $this->date, $this->start_time, $this->end_time, $this->course->id)],
 
 
         ];
     }
+    public function srules()
+    {
+        return [
+            'conflict' => [new ScheduleConflict($this->course->teacher_id, $this->date, $this->start_time, $this->end_time, $this->classsession->id)],
 
+
+        ];
+
+    }
 
     public function mount(ClassSession $classsession)
     {
@@ -205,6 +214,11 @@ class EditClassSession extends Component
 
         $validatedData = $this->validate();
         $this->validate($this->crules());
+        $this->validate($this->srules());
+
+
+
+
         $validatedData['date'] = Carbon::parse($this->date)->format('Y-m-d');
 
         if ($this->hours > $this->remainingHours) {
