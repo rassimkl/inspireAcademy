@@ -314,7 +314,7 @@
                                                <th class="text-center">Time</th>
                                          
                                             <th class="text-center">Place</th>
-                                            <th class="text-end">Submit</th>
+                                            <th class="text-end">Edit/Submit</th>
                                         </tr>
                                     </thead>
                                     <tbody>

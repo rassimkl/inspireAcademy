@@ -139,25 +139,25 @@
       
         </tr>
         <tr class="bg-blue">
-          <th>Date</th>
-          <th>Heure</th>
-          <th>Durée</th>
-          <th>En ligne</th>
-          <th>Signature</th>
-          <th>Signature du formateur</th>
-          <th>Suivi du cours</th>
+          <th style="text-align: center; vertical-align: middle;" >Date</th>
+          <th style="text-align: center; vertical-align: middle;" >Heure</th>
+          <th style="text-align: center; vertical-align: middle;" >Durée</th>
+          <th style="text-align: center; vertical-align: middle;" >En ligne</th>
+          <th style="text-align: center; vertical-align: middle;" >Signature</th>
+          <th style="text-align: center; vertical-align: middle;" >Signature du formateur</th>
+          <th style="text-align: center; vertical-align: middle;" >Suivi du cours</th>
         </tr>
       </thead>
       <tbody>
        @foreach($classes as $lesson)
         <tr>
        
-          <td width="15%">{{$lesson->date}}</td>
-          <td width="5%">{{$lesson->hours}}</td>
-           <td width="15%" class="fw-bold">
+          <td style="text-align: center; vertical-align: middle;" width="15%">{{$lesson->date}}</td>
+          <td style="text-align: center; vertical-align: middle;" width="2%">{{$lesson->hours}}</td>
+           <td style="text-align: center; vertical-align: middle;" width="12%" class="fw-bold">
     {{ substr($lesson->start_time, 0, 5) }}/{{ substr($lesson->end_time, 0, 5) }}
 </td>
-          <td width="5%">
+          <td style="text-align: center; vertical-align: middle;" width="4%">
     @if($course->room_id == 102)
         Oui
     @else
@@ -166,9 +166,9 @@
 </td>
 
         
-          <td width="15%" class="fw-bold"></td>
-          <td width="15%" class="fw-bold"></td>
-          <td width="35%" class="fw-bold">
+          <td style="text-align: center; vertical-align: middle;" width="10%" class="fw-bold"></td>
+          <td style="text-align: center; vertical-align: middle;" width="10%" class="fw-bold"></td>
+          <td width="47%" class="fw-bold">
          {{$lesson->report}}
           </td>
 
