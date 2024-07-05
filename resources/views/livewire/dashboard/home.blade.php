@@ -117,11 +117,12 @@
                                             <div>CLS{{$tclass->id}}</div>
                                         </td>
                                         <td class="text-nowrap">
-                                            <a href="profile.html">
+                                           
                                            {{$tclass->course->name}}
-                                            </a>
+                                           
                                         </td>
-                                        <td class="text-center">{{$tclass->course->teacher->first_name}} {{$tclass->course->teacher->last_name}}</td>
+                                        
+                                        <td class="text-center"> <a href="{{ route('user/details', ['user' => $tclass->course->teacher->id]) }}">{{ {$tclass->course->teacher->first_name }} {{$tclass->course->teacher->last_name }}</a></td>
                                         <td class="text-center">{{Carbon\Carbon::parse($tclass->start_time)->format('H:i')}}/{{Carbon\Carbon::parse($tclass->end_time)->format('H:i')}}</td>
                                         <td class="text-end">
                                             <div>{{$tclass->room->name}}</div>
