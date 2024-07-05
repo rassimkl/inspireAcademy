@@ -155,7 +155,7 @@
                                              @endif
                                             <td>{{ $class->hours }} </td>
                                             <td>{{ $class->course->students->count() }}</td>
-                                            <td>{{ $class->date }}</td>
+                                             <td>{{ (new DateTime($class->date))->format('d-m-Y') }}</td>
                                            <td class='text-center'>{{ date('H:i', strtotime($class->start_time)) }}/{{ date('H:i', strtotime($class->end_time)) }}</td>
                                           
 

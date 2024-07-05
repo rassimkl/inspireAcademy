@@ -339,10 +339,10 @@
     <td>
     @php
         $date = strtotime($uclass->date);
-        $formattedDate = date('m-d-Y', $date);
-        $today = date('m-d-Y');
-        $tomorrow = date('m-d-Y', strtotime('+1 day'));
-        $yesterday = date('m-d-Y', strtotime('-1 day'));
+        $formattedDate = date('d-m-Y', $date);
+        $today = date('d-m-Y');
+        $tomorrow = date('d-m-Y', strtotime('+1 day'));
+        $yesterday = date('d-m-Y', strtotime('-1 day'));
     @endphp
     
     @if ($formattedDate == $today)
