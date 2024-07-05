@@ -103,10 +103,11 @@
                                             <th>Name</th>
                                       <th>Teacher</th>
                                             <th>Total Hours</th>
-                                            <th>Charge/Hour</th>
+                                            <th>Latest class</th>
                                             <th>Type</th>
                                               <th>Status</th>
                                                <th class="text-center">Number of Students</th>
+                                               
                                          
                                               @if(auth()->user()->user_type_id==1) <th class="text-end">Action</th>@endif
                                         </tr>
@@ -126,13 +127,18 @@
                                             <td hidden class="avatar">{{ $course->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                 
-                                                    <a href="{{ route('course/deails', ['course' => $course]) }}">{{ $course->name }}</a>
+                                            
+                                                    <a href="{{ route('course/deails', ['course' => $course]) }}">{{ $course->name }} </a>
                                                 </h2>
                                             </td>
                                             <td><a  href="{{ route('user/details', ['user' => $course->teacher->id]) }}"> {{ $course->teacher->first_name }} {{ $course->teacher->last_name }} </a></td>
-                                            <td>{{$course->classes_sum_hours??0}}/{{ $course->total_hours }} H</td>
-                                            <td>{{ $course->charge_per_hour }}</td>
+                                            <td>{{$course->classes_sum_hours??0}}/{{ $course->total_hours }} H ({{ $course->charge_per_hour }}€/H)</td>
+                                                                        <td>
+            @if ($course->latestClassDate && $course->latestClassDate->date)
+                {{ \Illuminate\Support\Carbon::parse($course->latestClassDate->date)->diffForHumans() }}
+            @else
+                No class given
+            @endif
                                            <td>
     {{ $course->course_type == 1 ? 'Face To Face' : 'Online' }}
 </td>

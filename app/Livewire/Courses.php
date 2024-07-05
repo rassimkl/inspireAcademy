@@ -102,8 +102,8 @@ class Courses extends Main
                     ->orWhereRaw('lower(last_name) like ?', ['%' . $searchTerm . '%']);
             })->orWhere('name', 'like', '%' . $searchTerm . '%');
         })
+            ->with(['latestClassDate']) // Eager load the latest class date relationship
             ->paginate($this->perPage);
-
 
         return view('livewire.courses', ['courses' => $courses]);
     }

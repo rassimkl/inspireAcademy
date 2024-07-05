@@ -73,4 +73,11 @@ class Course extends Model
     {
         return $this->hasMany(Contract::class);
     }
+
+
+    public function latestClassDate()
+    {
+        return $this->hasOne(ClassSession::class)
+            ->latest('date');
+    }
 }
