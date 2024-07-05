@@ -9,6 +9,7 @@ use Livewire\Component;
 use App\Mail\Reschedule;
 
 use App\Mail\ClassCreated;
+use Livewire\Attributes\On;
 use App\Models\ClassSession;
 use App\Rules\NoClassConflict;
 use Livewire\Attributes\Title;
@@ -119,6 +120,7 @@ class EditClassSession extends Component
 
         $this->hours = $classsession->hours;
         $this->date = Carbon::parse($classsession->date)->format('d-m-Y');
+
         $this->start_time = Carbon::parse($classsession->start_time)->format('H:i');
         $this->end_time = Carbon::parse($classsession->end_time)->format('H:i');
         $this->meeting_link = $classsession->meeting_link;
@@ -135,6 +137,12 @@ class EditClassSession extends Component
 
 
 
+    }
+
+    #[On('datechange')]
+    public function changedate()
+    {
+        $this->dispatch('dateChanged', $this->date);
     }
 
     public function loadClasses($roomId)

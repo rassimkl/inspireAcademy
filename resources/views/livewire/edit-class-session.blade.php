@@ -182,6 +182,10 @@
 
         
  document.addEventListener('livewire:initialized', () => {
+
+
+    $wire.dispatch('datechange');
+    
         var formattedDate;
         var events;
 
