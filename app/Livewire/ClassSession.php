@@ -74,7 +74,7 @@ class ClassSession extends Component
     public function srules()
     {
         return [
-            'conflict' => [new ScheduleConflict($this->course->teacher_id, $this->date, $this->start_time, $this->end_time,null)],
+            'conflict' => [new ScheduleConflict($this->course->teacher_id, $this->date, $this->start_time, $this->end_time, null)],
 
 
         ];
@@ -201,7 +201,7 @@ class ClassSession extends Component
         }
 
         $validatedData['course_id'] = $this->course->id;
-
+        //dd($validatedData);
         $classSession = \App\Models\ClassSession::Create($validatedData);
 
 
