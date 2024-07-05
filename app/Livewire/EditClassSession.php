@@ -139,7 +139,7 @@ class EditClassSession extends Component
 
     public function loadClasses($roomId)
     {
-        $today = now()->toDateString();
+        $today = now()->subDays(15)->toDateString();
 
         $classes = ClassSession::where('date', '>=', $today)
             ->where('room_id', $roomId)
@@ -276,7 +276,7 @@ class EditClassSession extends Component
     {
         $this->totalHours = $this->course->classes->sum('hours');
         $this->remainingHours = $this->course->total_hours - $this->totalHours;
-       
+
         $this->remainingHours += $this->classsession->hours;
     }
 
