@@ -64,7 +64,9 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="heading-detail">
-                                            <h4>Personal Details :</h4>
+                                            <h4>Personal Details :@if(auth()->user()->user_type_id == 1)  <a        href="{{ route('user/edit', ['userId' => $user->id]) }}" class="btn btn-sm bg-danger-light">
+                                                        <i class="far fa-edit me-2"></i>
+                                                    </a>@endif</h4>
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
