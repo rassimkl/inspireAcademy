@@ -64,8 +64,8 @@
                                                 <li><a href="{{ route('intern/list') }}"  class="{{set_active(['intern/list','intern/grid'])}}">Intern List</a></li>
 
                        
-                        <li><a class="{{ (request()->is('users/edit/*')) ? 'active' : '' }}">User Edit</a></li>
-                        <li><a href=""  class="{{ (request()->is('user/profile/*')) ? 'active' : '' }}">User View</a></li>
+                        {{-- <li><a class="{{ (request()->is('users/edit/*')) ? 'active' : '' }}">User Edit</a></li> --}}
+                        {{-- <li><a href=""  class="{{ (request()->is('user/profile/*')) ? 'active' : '' }}">User View</a></li> --}}
                     </ul>
                 </li>
                 @endif
@@ -117,9 +117,9 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                             @if(auth()->user()->user_type_id==2)<li><a class="{{set_active(['subject/list/page'])}} {{ request()->is('subject/edit/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }}" href="#">Add Class</a></li>     @endif
+                             {{-- @if(auth()->user()->user_type_id==2)<li><a class="{{set_active(['subject/list/page'])}} {{ request()->is('subject/edit/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }}" href="#">Add Class</a></li>     @endif --}}
                         <li><a class="{{set_active(['teacher/classes'])}}" href="{{ route('teacher/classes') }}">All Classes</a></li>   
-                         @if(auth()->user()->user_type_id==2) <li><a class={{ request()->is('edit/class/*') ? 'active' : '' }}>Class Edit</a></li>     @endif
+                         {{-- @if(auth()->user()->user_type_id==2) <li><a class={{ request()->is('edit/class/*') ? 'active' : '' }}>Class Edit</a></li>     @endif --}}
                              @if(auth()->user()->user_type_id==2)    <li><a class={{ request()->is('submit/class/*') ? 'active' : '' }}>Submit Class</a></li>@endif
                     </ul>
                 </li>
