@@ -276,6 +276,8 @@ class EditClassSession extends Component
     {
         $this->totalHours = $this->course->classes->sum('hours');
         $this->remainingHours = $this->course->total_hours - $this->totalHours;
+       
+        $this->remainingHours += $this->classsession->hours;
     }
 
     public function sendEmail(\App\Models\ClassSession $classSession, $email, $oldclassSession)
