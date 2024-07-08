@@ -42,7 +42,7 @@ class Home extends Component
             ->count();
         ;
         $classesToPayThisMonth = ClassSession::whereYear('date', '=', date('Y'))
-            
+
             ->where('status', '=', 2)
             ->where('payment_status', '=', 1)
             ->with('course') // Preload the 'course' relationship
@@ -60,8 +60,11 @@ class Home extends Component
         }
         $this->totalPayment = $totalPayment;
 
-        $this->classesForToday = ClassSession::whereDate('date', '=', now()->format('Y-m-d'))->with('course')
-            ->get();
+        $this->classesForToday = ClassSession::whereDate('date', '=', now()->format('Y-m-d'))
+            ->with('course')
+            ->get()
+            ->sortBy('start_time');
+
 
 
 
