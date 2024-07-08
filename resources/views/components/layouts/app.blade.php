@@ -34,6 +34,10 @@
         .event-hour {
             display: none;
         }
+
+        .feather-more-vertical {
+    display: none;
+}
     </style>
 
 </head>
