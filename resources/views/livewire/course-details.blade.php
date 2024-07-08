@@ -62,7 +62,8 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="heading-detail">
-                                            <h4> Details :</h4>
+                                            <h4> Details : </h4>
+                                            
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
@@ -143,7 +144,14 @@
                                 <div class="card mb-0">
                                     <div class="card-body">
                                         <div class="heading-detail">
-                                            <h4>Info</h4>
+                                            <h4>Info  @if(auth()->user()->user_type_id==1) 
+                                              @if($course->status_id<3)
+                                                    <a        href="{{ route('courses/edit', ['course' => $course->id]) }}" class="btn btn-sm bg-danger-light">
+                                                        <i class="far fa-edit me-2"></i>
+                                                    </a>
+                                                    @endif
+                                            @endif</h4>
+                                           
                                         </div>
                                         <div class="hello-park">
                                             <p>{{$course->info??'No info'}}</p>
