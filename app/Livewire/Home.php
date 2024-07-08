@@ -24,6 +24,7 @@ class Home extends Component
     public $classSubmitted;
 
     public $coursesCount;
+    public $coursesCountdstart;
 
     public function mount()
     {
@@ -31,8 +32,12 @@ class Home extends Component
     }
     public function render()
     {
-       
+
         $this->studentCount = UserType::where('name', 'Student')->firstOrFail()->users()->count();
+        $this->coursesCountdstart = Course::whereIn('status_id', [1])
+            ->count();
+        ;
+
         $this->coursesCount = Course::whereIn('status_id', [2])
             ->count();
         ;

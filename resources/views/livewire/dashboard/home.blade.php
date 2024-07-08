@@ -38,8 +38,10 @@
                     <div class="card-body">
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
-                                <h6>Courses In Progress</h6>
-                                <h3>{{$coursesCount}}</h3>
+                                <h6>Courses In Progress / Didnt Start</h6>
+                                 
+                                <h3>{{$coursesCount}} / {{$coursesCountdstart}}</h3>
+                                 
                             </div>
                             <div class="db-icon">
                                 <img src="{{ URL::to('assets/img/icons/dash-icon-02.svg') }}" alt="Dashboard Icon">
