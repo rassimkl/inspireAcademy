@@ -80,13 +80,13 @@
                                             <th>
                                              
                                             </th>
-                                            <th>ID</th>
+                                            
                                             <th>Name</th>
                                    
                                             <th>Total Hours</th>
                                             <th>Latest class</th>
                                             <th>Type</th>
-                                              <th>Status</th>
+                                            
                                                <th class="text-center">Number of Students</th>
                                                   <th class="text-center" >Add CLass</th>
                                                
@@ -104,7 +104,7 @@
                                             </td>
 
                                             
-                                            <td>  <a href="{{ route('course/deails', ['course' => $course]) }}">CRS{{ $course->id }}</a></td>
+                                            
                                            
                                             <td hidden class="avatar">{{ $course->id }}</td>
                                             <td>
@@ -123,17 +123,7 @@
                                            <td>
     {{ $course->course_type == 1 ? 'Face To Face' : 'Online' }}
 </td>
-                                    <td>
-    @if($course->status_id == 1)
-        <span class="badge bg-danger">{{ $course->status->name }}</span>
-    @elseif($course->status_id == 2)
-        <span class="badge bg-success">{{ $course->status->name }}</span>
-    @elseif($course->status_id == 3)
-             <span class="badge bg-info">{{ $course->status->name }}</span>
-    @elseif($course->status_id == 4)
-        <span class="badge bg-light text-dark">{{ $course->status->name }}</span>
-    @endif
-</td>
+                           
 
                                              <td class='text-center'>{{$course->students_count}}</td>
                             
