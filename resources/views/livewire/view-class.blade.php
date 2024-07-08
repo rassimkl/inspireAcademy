@@ -106,7 +106,7 @@
                                                 <img src="{{ URL::to('assets/img/icons/buliding-icon.svg') }}" alt="">
                                             </div>
                                             <div class="views-personal">
-                                                <h4>Course Status </h4>
+                                                <h4>Class Status </h4>
                                                 @if($classSession->status == 1)
     <h5 style="color: red;">Not Completed</h5>
 @elseif($classSession->course->status_id == 2)
