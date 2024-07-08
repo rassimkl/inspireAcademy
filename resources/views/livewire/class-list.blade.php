@@ -148,8 +148,9 @@
                                        @endif
                                             <td>
                                                 <h2 class="table-avatar">
-                                                    
-                                                  <a href="{{ route('class/details', ['classId' => $class->id]) }}">{{ $class->course->name }} </a>
+                                                                                              
+
+                                                    <a href="{{ route('course/deails', ['course' =>$class->course]) }}">{{$class->course->name}}</a>
                                                 </h2>
                                             </td>
                                                @if (auth()->user()->user_type_id == 1)

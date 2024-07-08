@@ -16,7 +16,7 @@ class Course extends Model
         'info',
         'total_hours',
         'charge_per_hour',
-        'status',
+        'status_id',
     ];
     public function teacher()
     {

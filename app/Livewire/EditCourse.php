@@ -27,6 +27,8 @@ class EditCourse extends Component
     public $doneHours;
     public $pendingHours;
 
+    public $courseStatus;
+
     public function rules()
     {
         return [
@@ -57,11 +59,12 @@ class EditCourse extends Component
         $this->totalHours = $course->total_hours;
         $this->teacher = $course->teacher_id;
         $this->chargePerHour = $course->charge_per_hour;
+        $this->courseStatus = $course->status_id;
 
         $this->students = User::where('user_type_id', UserType::where('name', 'Student')->firstOrFail()->id)->orderBy('first_name', 'asc')->get();
         $this->teachers = User::where('user_type_id', UserType::where('name', 'Teacher')->firstOrFail()->id)->orderBy('first_name', 'asc')->get();
 
-       
+
 
 
         $this->selectedStudents = $course->students->pluck('id')->toArray();
@@ -79,11 +82,14 @@ class EditCourse extends Component
         $this->validate();
 
         if ($this->totalHours < ($this->doneHours + $this->pendingHours)) {
-            $this->addError('totalHours', 'Cant be less than the Pending Hours + Done Hours. Please submit or cancel pending classes');
+            $this->addError('totalHours', 'Please submit or cancel pending classes');
             return;
         }
+        if ($this->totalHours == $this->doneHours) {
 
-    
+            $this->courseStatus = 3;
+        }
+
         $this->course->update([
             'name' => $this->name,
             'info' => $this->info,
@@ -91,6 +97,7 @@ class EditCourse extends Component
             'charge_per_hour' => $this->chargePerHour,
             'teacher_id' => $this->teacher,
             'course_type' => $this->course_type,
+            'status_id' => $this->courseStatus,
         ]);
 
         // Sync students with the course
@@ -101,6 +108,11 @@ class EditCourse extends Component
             'text' => '',
             'icon' => 'success'
         ]);
+
+        if ($this->courseStatus == 3) {
+
+            $this->redirect(Courses::class);
+        }
 
 
     }
