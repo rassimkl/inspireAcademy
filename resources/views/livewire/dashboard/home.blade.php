@@ -116,11 +116,12 @@
                                 @foreach($classesForToday as $tclass)
                                     <tr>
                                         <td class="text-nowrap">
-                                            <div>CLS{{$tclass->id}}</div>
+                                        <a href="{{ route('class/details', ['classId' => $tclass->id]) }}">CLS{{$tclass->id}}</a>
+                                           
                                         </td>
                                         <td class="text-nowrap">
-                                           
-                                           {{$tclass->course->name}}
+                                             <a href="{{ route('course/deails', ['course' =>$tclass->course]) }}">{{$tclass->course->name}}</a>
+                                    
                                            
                                         </td>
                                         
