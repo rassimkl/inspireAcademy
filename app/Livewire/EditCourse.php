@@ -58,8 +58,12 @@ class EditCourse extends Component
         $this->teacher = $course->teacher_id;
         $this->chargePerHour = $course->charge_per_hour;
 
-        $this->students = User::where('user_type_id', UserType::where('name', 'Student')->firstOrFail()->id)->get();
-        $this->teachers = User::where('user_type_id', UserType::where('name', 'Teacher')->firstOrFail()->id)->get();
+        $this->students = User::where('user_type_id', UserType::where('name', 'Student')->firstOrFail()->id)->orderBy('first_name', 'asc')->get();
+        $this->teachers = User::where('user_type_id', UserType::where('name', 'Teacher')->firstOrFail()->id)->orderBy('first_name', 'asc')->get();
+
+       
+
+
         $this->selectedStudents = $course->students->pluck('id')->toArray();
         $this->teacher = $course->teacher->id;
 
