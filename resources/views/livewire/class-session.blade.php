@@ -154,7 +154,7 @@
                       <div class="form-check mt-2">
         <input class="form-check-input" type="checkbox" value="1" id="notifyUser" name="notifyUser" wire:model="notifyUser">
         <label class="form-check-label" for="notifyUser">
-            Notify user
+            Notify Student
         </label>
     </div>
                                         
