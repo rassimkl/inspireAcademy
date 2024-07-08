@@ -29,8 +29,7 @@ class Courses extends Main
         $this->courseStatuses = Status::all();
 
         if (auth()->user()->user_type_id == 1) {
-
-            $this->teachers = User::where('user_type_id', 2)->get();
+            $this->teachers = User::where('user_type_id', 2)->orderBy('first_name', 'asc')->get();
         }
     }
 

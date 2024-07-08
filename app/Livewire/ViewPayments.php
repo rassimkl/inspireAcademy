@@ -23,7 +23,7 @@ class ViewPayments extends Main
 
         $this->selectedMonth = Carbon::today()->subMonth()->format('m-Y');
 
-        $this->teachers = User::where('user_type_id', 2)->get();
+        $this->teachers = User::where('user_type_id', 2)->orderBy('first_name', 'asc')->get();
     }
 
    

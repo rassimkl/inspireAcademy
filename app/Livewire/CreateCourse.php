@@ -45,9 +45,13 @@ class CreateCourse extends Component
     public function mount()
     {
         $userType = UserType::where('name', 'Teacher')->firstOrFail()->id;
-        $this->teachers = User::where('user_type_id', $userType)->where('active',1)->get();
+
+
+    
+
+        $this->teachers = User::where('user_type_id', $userType)->where('active',1)->orderBy('first_name', 'asc')->get();
         $userType = UserType::where('name', 'Student')->firstOrFail()->id;
-        $this->students = User::where('user_type_id', $userType)->get();
+        $this->students = User::where('user_type_id', $userType)->orderBy('first_name', 'asc')->get();
 
     }
 

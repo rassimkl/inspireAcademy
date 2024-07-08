@@ -20,8 +20,12 @@ class ClassList extends Main
     {
         $this->selectedMonth = Carbon::today()->format('m-Y');
 
-        $this->teachers = User::where('user_type_id', 2)->get();
+        $this->teachers = User::where('user_type_id', 2)->orderBy('first_name', 'asc')->get();
         // Fetch paginated classes associated with the authenticated user
+
+
+
+
 
     }
     public function render()

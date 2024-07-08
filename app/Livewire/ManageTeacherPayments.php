@@ -97,7 +97,10 @@ class ManageTeacherPayments extends Component
                     ->where('payment_status', 1)
                     ->where('status', 2);
             })
-            ->get();
+            ->orderBy('first_name', 'asc')->get();
+
+
+            
     }
 
     public function updatedSelectedMonth($value)
