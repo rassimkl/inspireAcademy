@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 #[Title('Course')]
-class CourseDetails extends Component
+class CourseDetails extends Main
 {
     protected $listeners = [
         'deleteFile' => 'deleteFile',
@@ -194,6 +194,9 @@ class CourseDetails extends Component
     }
     public function render()
     {
-        return view('livewire.course-details');
+
+        $cclasses = $this->course->classes()->paginate(8);
+
+        return view('livewire.course-details', ['cclasses' => $cclasses]);
     }
 }

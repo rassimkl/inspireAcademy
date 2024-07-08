@@ -158,10 +158,10 @@
                                         </div>
                                         <div class="hello-park">
                                             <h5>Classes :</h5>
-                                            @if($course->classes->isEmpty())
+                                            @if($cclasses->isEmpty())
                                             <p class='text-center'>No Classes</p>
                                             @else
-                                            @foreach($course->classes->sortByDesc('date')->take(5) as $classSession)
+                                            @foreach($cclasses->sortByDesc('date')->take(5) as $classSession)
                                             <div class="educate-year">
                                                 <a href="{{ route('class/details', ['classId' => $classSession->id]) }}">
                                                     <h5 class='mb-2'>CLS{{$classSession->id}}</h5>
@@ -179,6 +179,7 @@
                                             <hr/> <!-- Add your separator here -->
                                             @endif
                                             @endforeach
+                                              {{ $cclasses->links() }}
                                             @endif
                                         </div>
                                     </div>
