@@ -134,6 +134,18 @@ class ManageTeacherPayments extends Component
 
         try {
             foreach ($this->lessons as $lesson) {
+                if ($lesson->status == 1) {
+                    $this->addError('Selectedteacher', 'One or more classes have to be submitted.');
+                    return;
+                }
+            }
+
+
+
+
+
+
+            foreach ($this->lessons as $lesson) {
                 $lesson->timestamps = false;
                 $lesson->payment_status = 2;
                 $lesson->save();

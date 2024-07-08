@@ -275,7 +275,7 @@ class EditClassSession extends Component
         ]);
 
 
-        $this->redirect(TeacherHome::class);
+        $this->redirect(ClassList::class);
 
     }
 

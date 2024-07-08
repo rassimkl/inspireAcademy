@@ -41,7 +41,7 @@
                                <select wire:model.live="selectedTeacher" class="form-select form-control">
                                 <option value="">All Teachers</option>
                                @foreach($teachers as $teacher)
-        <option value="{{$teacher->id}}">{{$teacher->first_name}}</option>
+        <option value="{{$teacher->id}}">{{$teacher->first_name}} {{$teacher->last_name}}</option>
        
         @endforeach
     </select>
