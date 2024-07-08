@@ -121,7 +121,7 @@
           </td>
 
           <td>Formateurs(s)</td>
-          <td>{{$teacher->last_name}} {{$teacher->last_name}} </td>
+          <td>{{$teacher->first_name}} {{$teacher->last_name}} </td>
         </tr>
         <tr>
           <td>Dates de formation</td>
