@@ -88,7 +88,7 @@ class Home extends Component
 
         $this->classSubmitted = ClassSession::where('status', 2)
             ->orderBy('updated_at', 'desc')
-            ->take(2)
+            ->take(5)
             ->get();
 
 

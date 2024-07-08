@@ -158,12 +158,20 @@
                                 </div>
                                
                                 <div class="award-list-outs">
-                                    <h4>ClS{{$class->id}} Submitted</h4>
-                                    <h5>{{$class->course->name}}</h5>
+
+                               <a href="{{ route('user/details', ['user' => $class->course->teacher->id]) }}">
+    <h4>{{ $class->course->teacher->first_name }} {{ $class->course->teacher->last_name }} Submitted</h4>
+</a>
+                                   
+                                   
+                                    <a href="{{ route('course/deails', ['course' =>$class->course]) }}">     <h5>{{$class->course->name}}</h5></a>
+                               
                                 </div>
                             
                                 <div class="award-time-list">
-                                 <span>{{ $class->updated_at->diffForHumans() }}</span>
+
+                                 <span>{{ $class->updated_at->diffForHumans() }}                                  <a href="{{ route('class/details', ['classId' => $class->id]) }}">(View Report)</a>
+</span>
 
                                 </div>
                                 
