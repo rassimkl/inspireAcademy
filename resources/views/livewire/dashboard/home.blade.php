@@ -84,7 +84,7 @@
 
         
         <div class="row">
-            <div class="col-xl-6 d-flex">
+            <div class="col-xl-7 d-flex">
 
                 <div class="card flex-fill student-space comman-shadow">
                     <div class="card-header d-flex align-items-center">
@@ -101,11 +101,12 @@
                                 <thead class="thead-light">
                                     @if(!$classesForToday->isEmpty())
                                     <tr>
-                                        <th>Class</th>
+                                        
                                         <th>Course</th>
                                         <th class="text-center">Teacher</th>
                                         <th class="text-center">Time</th>
-                                        <th class="text-end">Room</th>
+                                        <th class="text-center">Room</th>
+                                        <th class="text-center">Class</th>
                                     </tr>
 @endif
                                 </thead>
@@ -115,10 +116,7 @@
                                          @endif
                                 @foreach($classesForToday as $tclass)
                                     <tr>
-                                        <td class="text-nowrap">
-                                        <a href="{{ route('class/details', ['classId' => $tclass->id]) }}">CLS{{$tclass->id}}</a>
-                                           
-                                        </td>
+                                       
                                         <td class="text-nowrap">
                                              <a href="{{ route('course/deails', ['course' =>$tclass->course]) }}">{{$tclass->course->name}}</a>
                                     
@@ -127,8 +125,12 @@
                                         
                                         <td class="text-center"> <a href="{{ route('user/details', ['user' => $tclass->course->teacher->id]) }}">{{ $tclass->course->teacher->first_name }} {{$tclass->course->teacher->last_name }}</a></td>
                                         <td class="text-center">{{Carbon\Carbon::parse($tclass->start_time)->format('H:i')}}/{{Carbon\Carbon::parse($tclass->end_time)->format('H:i')}}</td>
-                                        <td class="text-end">
+                                        <td class="text-center">
                                             <div>{{$tclass->room->name}}</div>
+                                        </td>
+                                         <td class="text-center">
+                                        <a href="{{ route('class/details', ['classId' => $tclass->id]) }}">CLS{{$tclass->id}}</a>
+                                           
                                         </td>
                                     </tr>
                               @endforeach
@@ -141,7 +143,7 @@
                 </div>
 
             </div>
-            <div class="col-xl-6 d-flex">
+            <div class="col-xl-5 d-flex">
 
                 <div class="card flex-fill comman-shadow">
                     <div class="card-header d-flex align-items-center">
