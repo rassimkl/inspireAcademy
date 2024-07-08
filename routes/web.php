@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\AddClass;
 use App\Livewire\FichePresence;
 use App\Models\User;
 use App\Livewire\Home;
@@ -70,7 +71,7 @@ Route::middleware(['auth', 'teacher'])->group(function () {
 
     Route::get('/teacher/Fiche', FichePresence::class)->name('teacher/fiche');
     Route::get('/download-fichpdf/{course}/{date}', [PDFController::class, 'downloadPdfich'])->name('downloadfich.pdf');
-
+    Route::get('/courses/addclass', AddClass::class)->name('courses/addclass');
 
 
 
