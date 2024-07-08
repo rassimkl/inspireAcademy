@@ -111,7 +111,7 @@
                 </li>
                 @endif --}}
  @if(auth()->user()->user_type_id==2 || auth()->user()->user_type_id==1)
-                <li class="submenu {{set_active(['subject/list/page','subject/add/page','teacher/classes'])}} {{ request()->is('submit/class/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }} {{ request()->is('edit/class/*') ? 'active' : '' }}">
+                <li class="submenu {{set_active(['subject/list/page','subject/add/page','teacher/classes','courses/addclass'])}} {{ request()->is('submit/class/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }} {{ request()->is('edit/class/*') ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-book-reader"></i>
                         <span> Classes</span>
                         <span class="menu-arrow"></span>
@@ -120,7 +120,7 @@
                              {{-- @if(auth()->user()->user_type_id==2)<li><a class="{{set_active(['subject/list/page'])}} {{ request()->is('subject/edit/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }}" href="#">Add Class</a></li>     @endif --}}
                         <li><a class="{{set_active(['teacher/classes'])}}" href="{{ route('teacher/classes') }}">All Classes</a></li>   
                          {{-- @if(auth()->user()->user_type_id==2) <li><a class={{ request()->is('edit/class/*') ? 'active' : '' }}>Class Edit</a></li>     @endif --}}
-                             @if(auth()->user()->user_type_id==2)    <li><a class={{ request()->is('submit/class/*') ? 'active' : '' }}>Submit Class</a></li>@endif
+                             @if(auth()->user()->user_type_id==2)    <li><a href="{{ route('courses/addclass') }}" class={{ request()->is('courses/addclass/*') ? 'active' : '' }}>Add Class</a></li>@endif
                     </ul>
                 </li>
 @endif 

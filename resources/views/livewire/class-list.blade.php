@@ -130,7 +130,7 @@
                                             <th>Time</th>
                                             <th>Room</th>
                                               <th>Status</th>
-                                            <th class="text-end">Action</th>
+                                            <th class="text-end">Edit / Submit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
