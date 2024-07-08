@@ -115,12 +115,13 @@
                       <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Report <span class="login-danger"> </span></label>
-                                            <textarea  wire:model='report' class="form-control @error('report') is-invalid @enderror" type="text" name="info" placeholder="Enter class report" ></textarea>
+                                            <textarea  wire:model='report' class="form-control @error('report') is-invalid @enderror" type="text" name="info" placeholder="Enter class report that will appear on Fiche de presence" ></textarea>
                                             @error('report')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                           
                                         </div>
                                     </div>
                                   
