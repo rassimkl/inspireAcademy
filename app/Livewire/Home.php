@@ -42,7 +42,7 @@ class Home extends Component
             ->count();
         ;
         $classesToPayThisMonth = ClassSession::whereYear('date', '=', date('Y'))
-            ->whereMonth('date', '=', date('m'))
+            
             ->where('status', '=', 2)
             ->where('payment_status', '=', 1)
             ->with('course') // Preload the 'course' relationship
