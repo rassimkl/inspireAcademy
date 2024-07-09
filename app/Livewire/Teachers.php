@@ -46,7 +46,7 @@ class Teachers extends Main
         } catch (\Exception $e) {
             $this->dispatch('showAlert', [
                 'title' => "Error",
-                'text' => 'Failed to delete Teacher',
+                'text' => 'Failed to delete teacher: ' . $e->getMessage(),
                 'icon' => 'error'
             ]);
         }
