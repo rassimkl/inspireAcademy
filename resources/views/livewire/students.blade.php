@@ -77,7 +77,7 @@
                                             <th>
                                              
                                             </th>
-                                            <th>ID</th>
+                                          
                                             <th>Name</th>
                                       <th>Gender</th>
                                             <th>DOB</th>
@@ -95,7 +95,7 @@
                                             <td>
                                               
                                             </td>
-                                            <td><a  href="{{ route('user/details', ['user' => $student->id]) }}">STD{{ $student->id }}</a></td>
+                                            
                                            
                                             <td hidden class="avatar">{{ $student->id }}</td>
                                             <td>
