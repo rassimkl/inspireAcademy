@@ -23,7 +23,7 @@ class Teachers extends Main
     {
         try {
             $userToDelete = User::findOrFail($this->userId);
-            $this->authorize('deleteUser', $userToDelete->user_type_id);
+            $this->authorize('deleteUser', $userToDelete->userType);
 
             if ($userToDelete->coursesAsTeacher()->count() > 0) {
                 $this->dispatch('showAlert', [
