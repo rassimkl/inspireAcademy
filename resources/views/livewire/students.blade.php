@@ -84,7 +84,7 @@
                                             <th>Email</th>
                                             <th>Mobile Number</th>
                                                <th>Languages</th>
-                                            <th>Address</th>
+                                            <th>Courses</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
@@ -116,7 +116,7 @@
         {{ $language }}@if(!$loop->last),@endif
     @endforeach</td>
 
-                                            <td>{{$student->address}},{{$student->city}}</td>
+                                            <td>{{$student->ccount}}</td>
                                             <td class="text-end">
                                                 <div class="actions">
                                          

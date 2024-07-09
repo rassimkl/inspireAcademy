@@ -74,6 +74,7 @@ class Students extends Main
                     ->orWhere('phone_number', 'like', '%' . $searchTerm . '%')
                     ->orWhereRaw("LOWER(languages) LIKE '%$searchTerm%'"); // Convert column data to lowercase
             })
+            ->withCount('coursesAsStudent as ccount') // Eager load count of courses
             ->paginate($this->perPage);
 
         return view('livewire.students', ['students' => $students]);

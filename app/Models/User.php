@@ -95,7 +95,7 @@ class User extends Authenticatable
     }
 
     public function activeCourses()
-{
-    return $this->hasMany(Course::class, 'teacher_id')->whereIn('status_id', [1, 2]);
-}
+    {
+        return $this->hasMany(Course::class, 'teacher_id')->whereIn('status_id', [1, 2]);
+    }
 }
