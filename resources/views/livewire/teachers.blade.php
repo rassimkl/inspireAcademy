@@ -91,7 +91,7 @@
                                             <th>Email</th>
                                             <th>Mobile Number</th>
                                                <th>Languages</th>
-                                            <th>Address</th>
+                                            <th>Courses</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
@@ -122,11 +122,11 @@
                         @endif
                     </td>
                                             <td>{{ $teacher->email }}</td>
-                                            <td>{{ $teacher->phone_number }}</td>
+                                            <td >{{ $teacher->phone_number }}</td>
                                       <td> @foreach(json_decode($teacher->languages) as $key => $language)
         {{ $language }}@if(!$loop->last),@endif
     @endforeach</td>
-                                            <td>{{$teacher->address}},{{$teacher->city}}</td>
+                                            <td class='text-center'>{{$teacher->courses_count}}</td>
                                             <td class="text-end">
                                                 <div class="actions">
                                                       <a        href="{{ route('user/edit', ['userId' => $teacher->id]) }}" class="btn btn-sm bg-danger-light">

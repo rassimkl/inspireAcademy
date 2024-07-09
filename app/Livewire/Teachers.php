@@ -75,6 +75,8 @@ class Teachers extends Main
                     ->orWhere('phone_number', 'like', '%' . $searchTerm . '%')
                     ->orWhereRaw("LOWER(languages) LIKE '%$searchTerm%'"); // Convert column data to lowercase
             })
+            ->withCount(['activeCourses as courses_count']) // Eager load count of active courses
+
             ->paginate($this->perPage);
 
 

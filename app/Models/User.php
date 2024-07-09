@@ -93,4 +93,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Contract::class);
     }
+
+    public function activeCourses()
+{
+    return $this->hasMany(Course::class, 'teacher_id')->whereIn('status_id', [1, 2]);
+}
 }
