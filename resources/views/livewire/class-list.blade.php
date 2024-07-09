@@ -126,12 +126,12 @@
                                               @if (auth()->user()->user_type_id == 1)
 <th>Teacher</th>
                                               @endif
-                                            <th>Hours</th>
-                                            <th>Students</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Room</th>
-                                              <th>Status</th>
+                                            <th class="text-center">Hours</th>
+                                            <th class="text-center">Students</th>
+                                            <th class="text-center">Date</th>
+                                            <th class="text-center">Time</th>
+                                            <th class="text-center">Room</th>
+                                              <th class="text-center">Status</th>
                                             <th class="text-end">Edit / Submit</th>
                                         </tr>
                                     </thead>
@@ -156,7 +156,7 @@
                                                @if (auth()->user()->user_type_id == 1)
                                              <td> <a  href="{{ route('user/details', ['user' => $class->course->teacher->id]) }}">{{ $class->course->teacher->first_name }} {{ $class->course->teacher->last_name }}</a></td>
                                              @endif
-                                          <td>
+                                          <td class="text-center">
     @php
         // Extract hours and minutes
         $hours = floor($class->hours);
@@ -170,13 +170,13 @@
     @endphp
 </td>
 
-                                            <td>{{ $class->course->students->count() }}</td>
-                                            <td>{{ (new DateTime($class->date))->format('d-m-Y') }}</td>
+                                            <td class="text-center">{{ $class->course->students->count() }}</td>
+                                            <td class="text-center">{{ (new DateTime($class->date))->format('d-m-Y') }}</td>
                                            <td class='text-center'>{{ date('H:i', strtotime($class->start_time)) }}/{{ date('H:i', strtotime($class->end_time)) }}</td>
                                           
 
-                                            <td>{{$class->room->name}}</td>
-   <td>
+                                            <td class="text-center">{{$class->room->name}}</td>
+   <td class="text-center">
     @if($class->status == 1)
         <span class="badge bg-danger">Not Completed</span>
     @else
