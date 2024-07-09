@@ -99,7 +99,11 @@ class Courses extends Main
             $query->orWhereHas('teacher', function ($subQuery) use ($searchTerm) {
                 $subQuery->whereRaw('lower(first_name) like ?', ['%' . $searchTerm . '%'])
                     ->orWhereRaw('lower(last_name) like ?', ['%' . $searchTerm . '%']);
-            })->orWhere('name', 'like', '%' . $searchTerm . '%');
+            })->orWhere('name', 'like', '%' . $searchTerm . '%')
+              ->orWhereHas('students', function ($subQuery) use ($searchTerm) {
+                  $subQuery->whereRaw('lower(first_name) like ?', ['%' . $searchTerm . '%'])
+                      ->orWhereRaw('lower(last_name) like ?', ['%' . $searchTerm . '%']);
+              });
         })
             ->with(['latestClassDate']) // Eager load the latest class date relationship
             ->paginate($this->perPage);
