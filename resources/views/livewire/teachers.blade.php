@@ -32,6 +32,9 @@
                 </div>
             </div>
             
+
+
+            
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card card-table comman-shadow">
@@ -49,6 +52,29 @@
                                     </div>
                                 </div>
                             </div>
+
+<div class="per-page-container">
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <label class="my-1 mr-2" for="perPage">Show</label>
+        </div>
+        <div class="col-auto m-0 p-0">
+            <select wire:model.live="perPage" id="perPage" class=" custom-select-sm form form-control-sm">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            
+        </div>
+        <div class="col-auto">
+            <label class="my-1" for="perPage">entries</label>
+        </div>
+    </div>
+</div>
+
+
+
 
                             <div class="table-responsive">
                                 <table

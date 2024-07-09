@@ -89,7 +89,7 @@
 </div>
 
 
-                            <div class="table-responsive">
+                            <div class="table-responsive pt-1">
                                 <table
                                     class="table border-0 star-student table-hover table-center mb-0  table-striped">
                                     <thead class="student-thread">
