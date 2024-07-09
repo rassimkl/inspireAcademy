@@ -58,7 +58,7 @@
                                             <th>
                                                 
                                             </th>
-                                            <th>ID</th>
+                                        
                                             <th>Name</th>
                                       <th>Gender</th>
                                             <th>Status</th>
@@ -76,7 +76,7 @@
                                             <td>
                                                
                                             </td>
-                                            <td> <a href="{{ route('user/details', ['user' => $teacher->id]) }}"> TCH{{ $teacher->id }} </a></td>
+                                         
                                            
                                             <td hidden class="avatar">{{ $teacher->id }}</td>
                                             <td>
@@ -106,7 +106,7 @@
                                                       <a        href="{{ route('user/edit', ['userId' => $teacher->id]) }}" class="btn btn-sm bg-danger-light">
                                                         <i class="far fa-edit me-2"></i>
                                                     </a>
-                                                    <a class="btn btn-sm bg-danger-light student_delete" data-bs-toggle="modal" data-bs-target="#studentUser">
+                                                    <a class="btn btn-sm bg-danger-light " wire:click="confirmDelete({{ $teacher->id }})" >
                                                         <i class="far fa-trash-alt me-2"></i>
                                                     </a>
                                                 </div>

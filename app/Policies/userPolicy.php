@@ -30,5 +30,11 @@ class userPolicy
         return $user->user_type_id === 1; // Assuming user_type_id 1 represents admins
     }
 
+    public function deleteUser(User $user, User $userToDelete)
+    {
+        // Only admins (user_type_id 1) can delete users
+        return $user->user_type_id === 1;
+    }
+
     
 }

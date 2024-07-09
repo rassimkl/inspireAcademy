@@ -7,10 +7,59 @@ use Livewire\Component;
 use App\Models\UserType;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
+
 #[Title('Teachers')]
 class Teachers extends Main
 {
 
+    protected $listeners = [
+        'deleteTeacher' => 'deleteTeacher',
+
+    ];
+    public $userId;
+
+
+    public function deleteTeacher()
+    {
+        try {
+            $userToDelete = User::findOrFail($this->userId);
+            $this->authorize('deleteUser', $userToDelete);
+
+            if ($userToDelete->coursesAsTeacher()->count() > 0) {
+                $this->dispatch('showAlert', [
+                    'title' => "Cannot delete Teacher",
+                    'text' => 'This teacher has courses in the system',
+                    'icon' => 'error'
+                ]);
+                return;
+            }
+
+            $userToDelete->delete();
+
+            $this->dispatch('showAlert', [
+                'title' => "Teacher Deleted",
+                'text' => 'The teacher has been successfully deleted',
+                'icon' => 'success'
+            ]);
+
+            $this->userId = null;
+        } catch (\Exception $e) {
+            $this->dispatch('showAlert', [
+                'title' => "Error",
+                'text' => 'Failed to delete Teacher',
+                'icon' => 'error'
+            ]);
+        }
+    }
+
+
+
+    public function confirmDelete($userId)
+    {
+        $this->userId = $userId;
+        $this->dispatch('confirmTask', 'Are you sure you want to Delete This Teacher?', 'deleteTeacher');
+
+    }
 
     public function render()
     {
