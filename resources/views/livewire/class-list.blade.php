@@ -146,7 +146,7 @@
                                             <td> <a href="{{ route('class/details', ['classId' => $class->id]) }}">CLS{{ $class->id }}</a></td>
                                             
                                        @endif
-                                            <td class="text-center">
+                                            <td >
                                                 <h2 class="table-avatar">
                                                                                               
 
