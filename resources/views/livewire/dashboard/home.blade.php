@@ -118,8 +118,15 @@
                                     <tr>
                                        
                                         <td class="text-nowrap">
-                                             <a href="{{ route('course/deails', ['course' =>$tclass->course]) }}">{{$tclass->course->name}}</a>
-                                    
+  <a href="{{ route('course/deails', ['course' => $tclass->course]) }}">
+        {{ $tclass->course->name }}
+        @if ($tclass->status === 1)
+            <span style="color: red;"> &#8226; </span> <!-- Red dot for status 1 -->
+        @elseif ($tclass->status === 2)
+            <span style="color: green;"> &#8226; </span> <!-- Green dot for status 2 -->
+        @endif
+    </a>                                                                                 
+
                                            
                                         </td>
                                         
