@@ -80,7 +80,7 @@
                                           
                                             <th>Name</th>
                                       <th>Gender</th>
-                                            <th>DOB</th>
+                                          
                                             <th>Email</th>
                                             <th>Mobile Number</th>
                                                <th>Languages</th>
@@ -109,7 +109,7 @@
                                                 </h2>
                                             </td>
                                             <td>{{ $student->gender }} </td>
-                                            <td>{{ $student->date_of_birth }}</td>
+                                           
                                             <td>{{ $student->email }}</td>
                                             <td>{{ $student->phone_number }}</td>
                                             <td> @foreach(json_decode($student->languages) as $key => $language)
