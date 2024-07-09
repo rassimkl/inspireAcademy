@@ -48,7 +48,7 @@ class Course extends Model
             if ($hasInProgressClass) {
                 $this->status_id = 2; // Update status to "in progress"
                 $this->save();
-                return;
+                //return;
             }
         }
 
@@ -57,7 +57,7 @@ class Course extends Model
         $totalHours = $classesWithStatus2->sum('hours');
 
         // If the course status is not already "completed" (status 3) and all conditions are met, update to "completed"
-        if ($this->status_id != 3 && $classesWithStatus2->count() > 0 && $totalHours == $this->total_hours) {
+        if ($totalHours == $this->total_hours) {
             $this->status_id = 3; // Update status to "completed"
             $this->save();
         }
