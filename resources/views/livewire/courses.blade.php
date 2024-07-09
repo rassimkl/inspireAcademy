@@ -99,14 +99,15 @@
                                             <th>
                                              
                                             </th>
-                                            <th>ID</th>
+                                          
                                             <th>Name</th>
                                       <th>Teacher</th>
-                                            <th>Total Hours</th>
+                                            <th>Total Hours / Remainning</th>
+                                             <th>Charge</th>
                                             <th>Latest class</th>
-                                            <th>Type</th>
+                                            <th class="text-center">Type</th>
                                               <th>Status</th>
-                                               <th class="text-center">Number of Students</th>
+                                               <th class="text-center">Students</th>
                                                
                                          
                                               @if(auth()->user()->user_type_id==1) <th class="text-end">Action</th>@endif
@@ -122,7 +123,7 @@
                                             </td>
 
                                             
-                                            <td>  <a href="{{ route('course/deails', ['course' => $course]) }}">CRS{{ $course->id }}</a></td>
+                                         
                                            
                                             <td hidden class="avatar">{{ $course->id }}</td>
                                             <td>
@@ -132,8 +133,32 @@
                                                 </h2>
                                             </td>
                                             <td><a  href="{{ route('user/details', ['user' => $course->teacher->id]) }}"> {{ $course->teacher->first_name }} {{ $course->teacher->last_name }} </a></td>
-                                            <td>{{$course->classes_sum_hours??0}}/{{ $course->total_hours }} H ({{ $course->charge_per_hour }}€/H)</td>
+                         <td>
+    @php
+        $classesSumHours = $course->classes_sum_hours ?? 0;
+        $totalHours = $course->total_hours;
+
+        // Calculate hours and minutes for classes_sum_hours
+        $classesHours = floor($classesSumHours);
+        $classesMinutes = ($classesSumHours - $classesHours) * 60;
+
+        // Calculate hours and minutes for total_hours
+        $totalHoursWhole = floor($totalHours);
+        $totalMinutes = ($totalHours - $totalHoursWhole) * 60;
+
+        // Calculate the difference
+        $difference = $totalHours - $classesSumHours;
+        $differenceHours = floor($difference);
+        $differenceMinutes = ($difference - $differenceHours) * 60;
+    @endphp
+
+    {{ sprintf('%02d:%02d', $classesHours, $classesMinutes) }} / {{ sprintf('%02d:%02d', $totalHoursWhole, $totalMinutes) }} H (R: {{ sprintf('%02d:%02d', $differenceHours, $differenceMinutes) }})
+</td>
+
+                                                                          <td class='text-center'>{{$course->charge_per_hour}}€/H</td>
+
                                                                         <td>
+
             @if ($course->latestClassDate && $course->latestClassDate->date)
                 {{ \Illuminate\Support\Carbon::parse($course->latestClassDate->date)->diffForHumans() }}
             @else
