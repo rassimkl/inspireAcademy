@@ -27,9 +27,58 @@ class Home extends Component
     public $coursesCount;
     public $coursesCountdstart;
 
+    public $events = [];
+    public $rooms;
+
+    public $selectedRoomId='null';
+
     public function mount()
     {
+    
+        $this->loadData($this->selectedRoomId);
+        $this->rooms = Room::pluck('name', 'id');
 
+
+
+    }
+
+    public function updatedSelectedRoomId($value)
+    {
+        $this->loadData($value);
+
+        $this->dispatch('reloadcaldenar', $this->formattedEvents);
+    }
+    public function loadData($room)
+    {
+        $query = ClassSession::query();
+
+        if ($room !== 'null') {
+            $query->where('room_id', $this->selectedRoomId);
+        }
+
+
+
+        $this->formattedEvents = $query->get()->map(function ($classC) {
+            return [
+                'title' => $classC->course->name . ' - ' . $classC->room->name . ' - ' . $classC->course->teacher->first_name . ' ' . $classC->course->teacher->last_name,
+                'start' => $classC->date . ' ' . $classC->start_time,
+                'end' => $classC->date . ' ' . $classC->end_time,
+                'color' => $this->getColorForRoom($classC->room_id),
+                // Add any other properties you want to pass to FullCalendar
+            ];
+        });
+    }
+
+    private function getColorForRoom($roomId)
+    {
+        $colors = [
+            1 => '#FF5733',
+            2 => '#00468B',
+            3 => '#8B0000',
+            // Add more colors as needed
+        ];
+
+        return $colors[$roomId] ?? '#006400'; // Default color if room ID not found
     }
     public function render()
     {
@@ -68,58 +117,10 @@ class Home extends Component
 
 
 
-
-        $classesForCalendar = ClassSession::whereDate('date', '>=', now()->subMonth()->startOfMonth()->format('Y-m-d'))
-            ->get();
-
-
-        $colors = [
-            1 => '#FF5733',   // Specific color for room with ID 1
-            2 => '#00468B',
-            3 => '#8B0000',   // Specific color for room with ID 2
-            // Add more specific colors for other rooms as needed
-        ];
-
-        $defaultColor = '#006400'; // Dark green as default color for other rooms
-
-        $formattedEvents = [];
-
-        foreach ($classesForCalendar as $classC) {
-            $title = $classC->course->name . ' - ' . $classC->room->name . ' - ' . $classC->course->teacher->first_name . ' ' . $classC->course->teacher->last_name;
-
-            // Determine color based on room_id
-            $color = isset($colors[$classC->room_id]) ? $colors[$classC->room_id] : $defaultColor;
-
-            $formattedEvents[] = [
-                'title' => $title,
-                'start' => Carbon::parse($classC->date)->format('Y-m-d') . ' ' . $classC->start_time,
-                'end' => Carbon::parse($classC->date)->format('Y-m-d') . ' ' . $classC->end_time,
-                'color' => $color,
-                // Add any other properties you want to pass to FullCalendar
-            ];
-        }
-
-
-        $this->formattedEvents = $formattedEvents;
-
-
-
-
-
-
-
-
-
         $this->classSubmitted = ClassSession::where('status', 2)
             ->orderBy('updated_at', 'desc')
             ->take(5)
             ->get();
-
-
-
-
-
-
 
 
 

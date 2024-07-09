@@ -191,9 +191,25 @@
             </div>
         </div>
 
-         <div class="container">
-        <div id="calendar"></div>
+        <div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label for="roomSelect" class="form-label">Select a Room:</label>
+            <select wire:model.live="selectedRoomId" class="form-select" id="roomSelect" aria-label="Select Room">
+                <option value="null">All</option>
+                @foreach ($rooms as $id => $name)
+                    <option value="{{ $id }}">{{ $name }}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
+    <div wire:ignore class="row">
+        <div class="col-md-12">
+            <div id="calendar"></div>
+        </div>
+    </div>
+</div>
+
 
       
     </div>
@@ -202,9 +218,14 @@
 
     <script>
 document.addEventListener('livewire:initialized', () => {
-    var calendarEl = document.getElementById('calendar');
-    var classes = @json($formattedEvents); // Ensure $formattedEvents is properly encoded as JSON
 
+function loadCalendar(events) {
+
+
+    var calendarEl = document.getElementById('calendar');
+     calendarEl.innerHTML = '';
+    var classes = events; // Ensure $formattedEvents is properly encoded as JSON
+ 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
             left: 'prev,next today',
@@ -226,6 +247,28 @@ document.addEventListener('livewire:initialized', () => {
     });
 
     calendar.render();
+
+
+
+
+
+}
+
+
+
+ 
+
+loadCalendar(@json($formattedEvents));
+
+ Livewire.on('reloadcaldenar', function (data) {
+     
+    
+
+            console.table(data[0])
+            loadCalendar(data[0])
+
+    });
+
 });
 
 
