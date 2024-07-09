@@ -122,7 +122,7 @@
                                             @if(auth()->user()->user_type_id==1)
                                             <th>ID</th>
                                             @endif
-                                            <th>Course</th>
+                                            <th class="text-center">Course</th>
                                               @if (auth()->user()->user_type_id == 1)
 <th>Teacher</th>
                                               @endif
@@ -146,7 +146,7 @@
                                             <td> <a href="{{ route('class/details', ['classId' => $class->id]) }}">CLS{{ $class->id }}</a></td>
                                             
                                        @endif
-                                            <td>
+                                            <td class="text-center">
                                                 <h2 class="table-avatar">
                                                                                               
 
