@@ -201,28 +201,34 @@
 
 
     <script>
-    document.addEventListener('livewire:initialized', () => {
-  var calendarEl = document.getElementById('calendar');
- var classes = @this.get('formattedEvents');
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-        headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-            initialView: 'dayGridMonth',
-            events: classes,
-                    slotEventOverlap:false,
-                    
-            eventDidMount: function(arg) {
-                    // Change background color to blue for all events
-                    arg.el.style.backgroundColor = 'blue';
-                }, // an option!
-            // Add any other FullCalendar options here
-        });
-        calendar.render();
+document.addEventListener('livewire:initialized', () => {
+    var calendarEl = document.getElementById('calendar');
+    var classes = @json($formattedEvents); // Ensure $formattedEvents is properly encoded as JSON
 
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        initialView: 'dayGridMonth',
+        events: classes,
+        slotEventOverlap: false,
+        eventDidMount: function(arg) {
+            // Set background color based on event's color property
+            if (arg.event.extendedProps.color) {
+                arg.el.style.backgroundColor = arg.event.extendedProps.color;
+            }
+        },
+        eventDisplay: 'block', // Ensure events are displayed as blocks
+        eventBackgroundColor: '#3788D8', // Default background color for events
+        // Add any other FullCalendar options here
     });
+
+    calendar.render();
+});
+
+
 
     </script>
 

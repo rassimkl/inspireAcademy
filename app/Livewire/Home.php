@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Carbon\Carbon;
+use App\Models\Room;
 use App\Models\Course;
 use Livewire\Component;
 use App\Models\UserType;
@@ -72,17 +73,32 @@ class Home extends Component
             ->get();
 
 
+        $colors = [
+            1 => '#FF5733',   // Specific color for room with ID 1
+            2 => '#00468B',
+            3 => '#8B0000',   // Specific color for room with ID 2
+            // Add more specific colors for other rooms as needed
+        ];
+
+        $defaultColor = '#006400'; // Dark green as default color for other rooms
+
         $formattedEvents = [];
 
         foreach ($classesForCalendar as $classC) {
-            $title = $classC->course->name . '- ' . $classC->room->name . ' - ' . $classC->course->teacher->first_name . ' ' . $classC->course->teacher->last_name;
+            $title = $classC->course->name . ' - ' . $classC->room->name . ' - ' . $classC->course->teacher->first_name . ' ' . $classC->course->teacher->last_name;
+
+            // Determine color based on room_id
+            $color = isset($colors[$classC->room_id]) ? $colors[$classC->room_id] : $defaultColor;
+
             $formattedEvents[] = [
-                'title' => $title, // You can change this to any field you want to display
+                'title' => $title,
                 'start' => Carbon::parse($classC->date)->format('Y-m-d') . ' ' . $classC->start_time,
                 'end' => Carbon::parse($classC->date)->format('Y-m-d') . ' ' . $classC->end_time,
+                'color' => $color,
                 // Add any other properties you want to pass to FullCalendar
             ];
         }
+
 
         $this->formattedEvents = $formattedEvents;
 
