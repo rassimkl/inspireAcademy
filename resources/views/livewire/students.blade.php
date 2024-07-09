@@ -123,7 +123,7 @@
                                                     <a        href="{{ route('user/edit', ['userId' => $student->id]) }}" class="btn btn-sm bg-danger-light">
                                                         <i class="far fa-edit me-2"></i>
                                                     </a>
-                                                    <a class="btn btn-sm bg-danger-light student_delete" data-bs-toggle="modal" data-bs-target="#studentUser">
+                                                      <a class="btn btn-sm bg-danger-light " wire:click="confirmDelete({{ $student->id }})" >
                                                         <i class="far fa-trash-alt me-2"></i>
                                                     </a>
                                                 </div>
