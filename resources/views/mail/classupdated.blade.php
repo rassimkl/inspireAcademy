@@ -128,7 +128,7 @@
 <div class="class-info">
     <p>Your class was on <span class="class-date">{{$olddate}}</span> at <span class="class-hour">{{$oldstart_time}}</span> for <span class="class-hour">{{$oldhours}} {{Str::plural("Hour", $oldhours);}}</span>.</p>
     <br>
-    <p>Is reschdueled to <span class="class-date">{{$olddate}}</span> at <span class="class-hour">{{$start_time}}</span> for <span class="class-hour">{{$hours}} {{Str::plural("Hour", $hours);}}</span>.</p>
+    <p>Is reschdueled to <span class="class-date">{{$date}}</span> at <span class="class-hour">{{$start_time}}</span> for <span class="class-hour">{{$hours}} {{Str::plural("Hour", $hours);}}</span>.</p>
 </div>
 
 
