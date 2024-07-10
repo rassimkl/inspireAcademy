@@ -60,6 +60,7 @@ class Home extends Component
 
         $this->formattedEvents = $query->get()->map(function ($classC) {
             return [
+                'id'=>$classC->id,
                 'title' => $classC->course->name . ' - ' . $classC->room->name . ' - ' . $classC->course->teacher->first_name . ' ' . $classC->course->teacher->last_name,
                 'start' => $classC->date . ' ' . $classC->start_time,
                 'end' => $classC->date . ' ' . $classC->end_time,

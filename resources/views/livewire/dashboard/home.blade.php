@@ -251,6 +251,15 @@ function loadCalendar(events) {
         eventDisplay: 'block', // Ensure events are displayed as blocks
         eventBackgroundColor: '#3788D8', // Default background color for events
         // Add any other FullCalendar options here
+          eventClick: function(info) {
+                var eventObj = info.event;
+
+                // Construct the URL with the event ID
+                var url = `/view-class/${eventObj.id}`;
+
+                // Redirect to the constructed URL
+                window.location.href = url;
+            }
     });
 
     calendar.render();
