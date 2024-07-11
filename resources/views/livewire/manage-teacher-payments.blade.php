@@ -176,7 +176,7 @@
         $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
 $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
         // Output the time format
-        echo "$formattedHours";
+        echo "$formattedHours"." ( ".$lessons->count()." ".Str::plural('Session', $lessons->count())." )";
     @endphp</p> <!-- Replace with actual total hours -->
             </div>
             <div>
