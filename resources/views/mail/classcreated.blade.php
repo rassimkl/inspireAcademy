@@ -126,7 +126,20 @@
               <h1 style="font-size: 20px; line-height: 24px; font-family: 'Helvetica', Arial, sans-serif; font-weight: 600; text-decoration: none; color: #000000;">Your Next class Is schedueled</h1>
 
 <div class="class-info">
-    <p>You have a class on <span class="class-date">{{$date}}</span> at <span class="class-hour">{{$start_time}}</span> for <span class="class-hour">{{$hours}} {{Str::plural("Hour", $hours);}}</span>.</p>
+    <p>You have a class on <span class="class-date">{{$date}}</span> at <span class="class-hour">{{$start_time}}</span> for <span class="class-hour">
+     @php
+        // Extract hours and minutes
+        $hours = floor($class->hours);
+        $minutes = ($class->hours - $hours) * 60;
+
+        // Format minutes to two digits
+        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+
+        // Output the time format
+        echo "$hours:$formatted_minutes";
+    @endphp {{Str::plural("Hour", $hours);}}</span>.</p>
+
+
 </div>            
 
 <p></p>
