@@ -45,7 +45,9 @@ class ClassCreated extends Mailable
         $totalMinutes = intval($this->classSession->hours * 60); // Convert hours to total minutes
         $hours = floor($totalMinutes / 60); // Get the whole hours
         $minutes = $totalMinutes % 60; // Get the remaining minutes
-        $formattedHours = sprintf('%d:%02d', $hours, $minutes); // Format as H:M
+
+        $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $minutes . ' min' : '');
+
 
         return new Content(
             view: 'mail.classcreated',
