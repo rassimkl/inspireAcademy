@@ -126,9 +126,9 @@
               <h1 style="font-size: 20px; line-height: 24px; font-family: 'Helvetica', Arial, sans-serif; font-weight: 600; text-decoration: none; color: #000000;">Your Next class Is Re-schedueled</h1>
 
 <div class="class-info">
-    <p>Your class was on <span class="class-date">{{$olddate}}</span> at <span class="class-hour">{{$oldstart_time}}</span> for <span class="class-hour">{{$oldhours}} {{Str::plural("Hour", $oldhours);}}</span>.</p>
+    <p>Your class was on <span class="class-date">{{$olddate}}</span> at <span class="class-hour">{{$oldstart_time}}</span> for <span class="class-hour">{{$oldhours}} </span>.</p>
     <br>
-    <p>Is reschdueled to <span class="class-date">{{$date}}</span> at <span class="class-hour">{{$start_time}}</span> for <span class="class-hour">{{$hours}} {{Str::plural("Hour", $hours);}}</span>.</p>
+    <p>Is reschdueled to <span class="class-date">{{$date}}</span> at <span class="class-hour">{{$start_time}}</span> for <span class="class-hour">{{$hours}} </span>.</p>
 </div>
 
 
