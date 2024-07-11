@@ -38,17 +38,24 @@ class ClassCreated extends Mailable
      */
     public function content(): Content
     {
+        // Parse the start_time and remove the seconds
+        $startTime = Carbon::parse($this->classSession->start_time)->format('H:i');
+
+        // Format the hours to H:M
+        $totalMinutes = intval($this->classSession->hours * 60); // Convert hours to total minutes
+        $hours = floor($totalMinutes / 60); // Get the whole hours
+        $minutes = $totalMinutes % 60; // Get the remaining minutes
+        $formattedHours = sprintf('%d:%02d', $hours, $minutes); // Format as H:M
+
         return new Content(
             view: 'mail.classcreated',
             with: [
                 'date' => Carbon::parse($this->classSession->date)->format('F j, Y'),
-                'start_time' => $this->classSession->start_time,
-                'hours' => $this->classSession->hours,
-
+                'start_time' => $startTime,
+                'hours' => $formattedHours,
             ],
         );
     }
-
 
     /**
      * Get the attachments for the message.
