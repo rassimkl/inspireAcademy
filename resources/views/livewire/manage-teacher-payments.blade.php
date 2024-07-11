@@ -84,7 +84,7 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Room</th>
-                                            <th>Duration</th>
+                                            <th class="text-center">Duration</th>
                                             <th class='text-center'>Status</th>
                                             <th>Charge</th>
                                           
@@ -112,7 +112,19 @@
                                                 </h2>
                                             </td>
                                             <td>{{$lesson->room->name}}</td>
-                                            <td>{{ $lesson->hours}} {{Str::plural("Hour", $lesson->hours);}}</td>
+                                          <td class="text-center">
+    @php
+        // Extract hours and minutes
+        $hours = floor($lesson->hours);
+        $minutes = ($lesson->hours - $hours) * 60;
+
+        // Format minutes to two digits
+        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+  $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
+        // Output the time format
+        echo " $formattedHours";
+    @endphp
+</td>
 
                                                               <td class="text-center">
     @if($lesson->status == 1)
@@ -155,7 +167,17 @@
             <!-- Total hours and total payment -->
             <div>
                 <h2>Total Hours</h2>
-                <p>{{$totalHours}}</p> <!-- Replace with actual total hours -->
+                <p> @php
+        // Extract hours and minutes
+        $hours = floor($totalHours);
+        $minutes = ($totalHours - $hours) * 60;
+
+        // Format minutes to two digits
+        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+$formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
+        // Output the time format
+        echo "$formattedHours";
+    @endphp</p> <!-- Replace with actual total hours -->
             </div>
             <div>
                 <h2>Total Payment</h2>
