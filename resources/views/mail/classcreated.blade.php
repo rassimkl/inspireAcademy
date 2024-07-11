@@ -124,23 +124,9 @@
             <td style="width: 596px; vertical-align: top; padding-left: 30px; padding-right: 30px; padding-top: 10px; padding-bottom: 40px;" width="596">
 
               <h1 style="font-size: 20px; line-height: 24px; font-family: 'Helvetica', Arial, sans-serif; font-weight: 600; text-decoration: none; color: #000000;">Your Next class Is schedueled</h1>
-@php
-  
-    $start_time_without_seconds = substr($start_time, 0, 5); // Remove the seconds
-@endphp
+
 <div class="class-info">
-    <p>You have a class on <span class="class-date">{{$date}}</span> at <span class="class-hour">{{$start_time_without_seconds}}</span> for <span class="class-hour">
-     @php
-        // Extract hours and minutes
-        $hours = floor($class->hours);
-        $minutes = ($class->hours - $hours) * 60;
-
-        // Format minutes to two digits
-        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
-
-        // Output the time format
-        echo "$hours:$formatted_minutes";
-    @endphp {{Str::plural("Hour", $hours);}}</span>.</p>
+    <p>You have a class on <span class="class-date">{{$date}}</span> at <span class="class-hour">{{$start_time}}</span> for <span class="class-hour">{{$hours}} {{Str::plural("Hour", $hours);}}</span>.</p>
 
 
 </div>            
