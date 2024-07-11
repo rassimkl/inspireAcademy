@@ -23,6 +23,9 @@ class ManageTeacherPayments extends Component
 
     public $totalHours = 0;
     public $totalPayment = 0;
+
+    public $totalVPayment = 0;
+    public $totalVHours = 0;
     protected $rules = [
         'Selectedteacher' => 'required',
         'selectedMonth' => 'required|date_format:m-Y',
@@ -62,7 +65,9 @@ class ManageTeacherPayments extends Component
 
 
         $totalHours = 0;
+        $totalVHours = 0;
         $totalCharge = 0;
+        $totalVCharge = 0;
 
         foreach ($this->lessons as $lesson) {
             // Sum up the hours
@@ -70,9 +75,21 @@ class ManageTeacherPayments extends Component
 
             // Calculate the total charge for each class
             $totalCharge += $lesson->course->charge_per_hour * $lesson->hours;
+            if ($lesson->status == 2) {
+                // Sum up the hours
+                $totalVHours += $lesson->hours;
+
+                // Calculate the total charge for each class
+                $totalVCharge += $lesson->course->charge_per_hour * $lesson->hours;
+            }
+
+
         }
         $this->totalHours = $totalHours;
         $this->totalPayment = $totalCharge;
+
+        $this->totalVHours = $totalVHours;
+        $this->totalVPayment = $totalVCharge;
     }
     public function loadTeachers($date)
     {
