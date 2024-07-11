@@ -126,7 +126,7 @@
                                               @if (auth()->user()->user_type_id == 1)
 <th>Teacher</th>
                                               @endif
-                                            <th class="text-center">Hours</th>
+                                            <th class="text-center">Duration</th>
                                             <th class="text-center">Students</th>
                                             <th class="text-center">Date</th>
                                             <th class="text-center">Time</th>
@@ -166,7 +166,8 @@
         $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
 
         // Output the time format
-        echo "$hours:$formatted_minutes";
+        $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
+        echo "$formattedHours";
     @endphp
 </td>
 

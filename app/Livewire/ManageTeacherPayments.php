@@ -7,9 +7,10 @@ use App\Models\User;
 use App\Models\Payment;
 use Livewire\Component;
 use App\Models\ClassSession;
+use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\DB;
 
-
+#[Title('Manage Payments')]
 class ManageTeacherPayments extends Component
 {
     protected $listeners = [
