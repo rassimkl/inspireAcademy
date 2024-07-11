@@ -72,6 +72,7 @@ class Teachers extends Main
                 $searchTerm = mb_strtolower($this->search); // Convert search term to lowercase
                 $query->where('first_name', 'like', '%' . $searchTerm . '%')
                     ->orWhere('last_name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('email', 'like', '%' . $searchTerm . '%')
                     ->orWhere('phone_number', 'like', '%' . $searchTerm . '%')
                     ->orWhereRaw("LOWER(languages) LIKE '%$searchTerm%'"); // Convert column data to lowercase
             })
