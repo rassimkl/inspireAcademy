@@ -84,7 +84,8 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Room</th>
-                                            <th>Total Hours</th>
+                                            <th>Duration</th>
+                                            <th class='text-center'>Status</th>
                                             <th>Charge</th>
                                           
                                          <th  class="text-center">Date</th>
@@ -112,9 +113,17 @@
                                             </td>
                                             <td>{{$lesson->room->name}}</td>
                                             <td>{{ $lesson->hours}} {{Str::plural("Hour", $lesson->hours);}}</td>
+
+                                                              <td class="text-center">
+    @if($lesson->status == 1)
+        <span class="badge bg-danger text-center">Not Completed</span>
+    @else
+        <span class="badge bg-success text-center">Completed</span>
+    @endif
+</td>
                                             <td>€{{ ($lesson->hours)*$lesson->course->charge_per_hour }}</td>
                                           
-                                          
+                           
                                            <td class='text-center'>    {{ date('F j, Y', strtotime($lesson->date)) }}
 {{ date('H:i', strtotime($lesson->start_time)) }}</td>
 
@@ -155,6 +164,9 @@
                 <div class="col-12">
                                         <div class="student-submit">
                                             <button type="submit" wire:click='updatePaymentStatus' class="btn btn-primary">Paid</button>
+@error('paid')
+                                             <p style="color: red; margin-top: 10px;">{{$message}}</p>
+@enderror
                                         </div>
                                         
                                     </div>

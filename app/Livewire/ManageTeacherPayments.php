@@ -53,7 +53,7 @@ class ManageTeacherPayments extends Component
         $this->lessons = ClassSession::whereHas('course', function ($query) use ($teacherId) {
             $query->where('teacher_id', $teacherId);
         })
-            ->where('status', 2)
+
             ->where('payment_status', 1)
             ->whereMonth('date', Carbon::parse($date)->format('m'))
             ->whereYear('date', Carbon::parse($date)->format('Y'))
@@ -88,19 +88,19 @@ class ManageTeacherPayments extends Component
                     $query->whereMonth('date', $month)
                         ->whereYear('date', $year)
                         ->where('payment_status', 1)
-                        ->where('status', 2);
+                    ;
                 }
             ])
             ->whereHas('classes', function ($query) use ($month, $year) {
                 $query->whereMonth('date', $month)
                     ->whereYear('date', $year)
-                    ->where('payment_status', 1)
-                    ->where('status', 2);
+                    ->where('payment_status', 1);
+
             })
             ->orderBy('first_name', 'asc')->get();
 
 
-            
+
     }
 
     public function updatedSelectedMonth($value)
@@ -120,6 +120,17 @@ class ManageTeacherPayments extends Component
 
         $this->validate();
         $this->loadClasses($value, $this->selectedMonth);
+
+        foreach ($this->lessons as $lesson) {
+
+            if ($lesson->status == 1) {
+
+                $this->addError('Selectedteacher', 'One or more classes have to be submitted.');
+
+            }
+        }
+
+
     }
 
     public function updatePaymentStatus()
@@ -133,17 +144,23 @@ class ManageTeacherPayments extends Component
 
     public function updateStatusPayment()
     {
-        DB::beginTransaction();
 
+        DB::beginTransaction();
+        $allsubmited = true;
         try {
             foreach ($this->lessons as $lesson) {
+
                 if ($lesson->status == 1) {
-                    $this->addError('Selectedteacher', 'One or more classes have to be submitted.');
-                    return;
+                    $allsubmited = false;
+
                 }
             }
 
+            if (!$allsubmited) {
 
+                $this->addError('paid', 'Please Validate all Classes Before.');
+                return;
+            }
 
 
 
