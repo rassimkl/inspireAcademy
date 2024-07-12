@@ -175,10 +175,8 @@
             </div>
                 <div class="col-12">
                                         <div class="student-submit">
-                                            <button type="submit" wire:click='updatePaymentStatus' class="btn btn-primary">Paid</button>
-@error('paid')
-                                             <p style="color: red; margin-top: 10px;">{{$message}}</p>
-@enderror
+                                         
+
                                         </div>
                                         
                                     </div>
