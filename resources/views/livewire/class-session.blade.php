@@ -56,10 +56,10 @@
 
                <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms calendar-icon">
-                                                <label class="@error('date') text-danger @enderror">Date <span class="login-danger">*</span>@error('date') {{ $message }} @enderror</label>
+                                                <label>Date <span class="login-danger">*</span></label>
 
                                         <div  wire:ignore>
-                                            <input id="datepickeru" wire:model.live='date' class="form-control datetimepicker @error('date') is-invalid @enderror" name="date" type="text" placeholder="DD-MM-YYYY" >
+                                            <input id="datepickeru" wire:model.live='date' class="form-control datetimepicker " name="date" type="text" placeholder="DD-MM-YYYY" >
                                             </div>
                                            @error('date')
                                                 <p class="text-danger" role="alert">
