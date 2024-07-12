@@ -147,6 +147,16 @@
         </a>
     </li>
 @endif
+
+@if(auth()->user()->user_type_id==2)
+    <li class="{{set_active(['my/payments'])}}">
+        <a href="{{ route('my/payments') }}">
+       <i class="fas fa-clipboard"></i>
+
+            <span>My Payments</span>
+        </a>
+    </li>
+@endif
             
             </ul>
         </div>

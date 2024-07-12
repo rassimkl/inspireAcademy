@@ -1,7 +1,5 @@
 <?php
 
-use App\Livewire\AddClass;
-use App\Livewire\FichePresence;
 use App\Models\User;
 use App\Livewire\Home;
 use App\Livewire\Login;
@@ -9,12 +7,14 @@ use App\Livewire\AddUser;
 use App\Livewire\Courses;
 use App\Livewire\Interns;
 use App\Livewire\Student;
+use App\Livewire\AddClass;
 use App\Livewire\EditUser;
 use App\Livewire\Students;
 use App\Livewire\Teachers;
 use App\Livewire\ClassList;
 use App\Livewire\ViewClass;
 use App\Livewire\EditCourse;
+use App\Livewire\MyPayments;
 use App\Livewire\SubmitClass;
 use App\Livewire\TeacherHome;
 use App\Livewire\UserDetails;
@@ -22,11 +22,12 @@ use App\Livewire\ClassSession;
 use App\Livewire\CreateCourse;
 use App\Livewire\ViewPayments;
 use App\Livewire\CourseDetails;
+use App\Livewire\FichePresence;
 use App\Livewire\EditClassSession;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
-use App\Livewire\ManageTeacherPayments;
 
+use App\Livewire\ManageTeacherPayments;
 use App\Http\Controllers\Auth\LogoutController;
 
 
@@ -72,6 +73,8 @@ Route::middleware(['auth', 'teacher'])->group(function () {
     Route::get('/teacher/Fiche', FichePresence::class)->name('teacher/fiche');
     Route::get('/download-fichpdf/{course}/{date}', [PDFController::class, 'downloadPdfich'])->name('downloadfich.pdf');
     Route::get('/courses/addclass', AddClass::class)->name('courses/addclass');
+
+    Route::get('/my/payments/', MyPayments::class)->name('my/payments');
 
 
 
