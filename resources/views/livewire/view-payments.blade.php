@@ -108,8 +108,19 @@
                                             <td hidden class="avatar">{{ $payment->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                 
-                                                    <a href="{{ url('student/profile/'.$payment->id) }}">{{ $payment->hours }}</a>
+                                  
+                                                    <a >                                  @php
+        // Extract hours and minutes
+        $hours = floor($payment->hours);
+        $minutes = ($payment->hours - $hours) * 60;
+
+        // Format minutes to two digits
+        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+
+        // Output the time format
+        $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
+        echo "$formattedHours";
+    @endphp</a>
                                                 </h2>
                                             </td>
                                           

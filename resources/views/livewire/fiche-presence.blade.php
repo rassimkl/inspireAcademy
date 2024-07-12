@@ -153,7 +153,21 @@
                                                @if (auth()->user()->user_type_id == 1)
                                              <td> <a  href="{{ route('user/details', ['user' => $class->course->teacher->id]) }}">{{ $class->course->teacher->first_name }} {{ $class->course->teacher->last_name }}</a></td>
                                              @endif
-                                            <td>{{ $class->hours }} </td>
+
+
+                           
+                                            <td>                   @php
+        // Extract hours and minutes
+        $hours = floor($class->hours);
+        $minutes = ($class->hours - $hours) * 60;
+
+        // Format minutes to two digits
+        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+
+        // Output the time format
+        $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
+        echo "$formattedHours";
+    @endphp </td>
                                             <td>{{ $class->course->students->count() }}</td>
                                              <td>{{ (new DateTime($class->date))->format('d-m-Y') }}</td>
                                            <td class='text-center'>{{ date('H:i', strtotime($class->start_time)) }}/{{ date('H:i', strtotime($class->end_time)) }}</td>
