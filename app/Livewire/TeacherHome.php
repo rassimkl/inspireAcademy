@@ -41,7 +41,7 @@ class TeacherHome extends Component
         $this->totalClasses = $this->teacher->coursesAsTeacher->flatMap->classes->unique()->count();
 
         $this->totalHours = $this->teacher->coursesAsTeacher->flatMap(function ($course) {
-            return $course->classes->where('status', '=', '2')->pluck('hours');
+            return $course->classes->where('status', '=', '2')->where('status', '=', '2')->pluck('hours');
         })->sum();
 
         $this->totalHoursThisMonth = $this->teacher->coursesAsTeacher->flatMap(function ($course) use ($currentMonth) {

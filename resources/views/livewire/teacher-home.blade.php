@@ -70,7 +70,23 @@
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
                                     <h6>Total Hours</h6>
-                                    <h3>{{$totalHours}}</h3>
+
+
+   
+
+                                    <h3>                                                                                           
+    @php
+        // Extract hours and minutes
+        $hours = floor($totalHours);
+        $minutes = ($totalHours - $hours) * 60;
+
+        // Format minutes to two digits
+        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+
+        // Output the time format
+        $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
+        echo "$formattedHours";
+    @endphp</h3>
                                 </div>
                                 <div class="db-icon">
                                     <img src="{{ URL::to('assets/img/icons/teacher-icon-03.svg') }}" alt="Dashboard Icon">
@@ -160,8 +176,24 @@
                                 </div>
                                 <div class="dash-widget">
                                     <div class="circle-bar circle-bar1">
+
+  
                                         <div >
-                                            <h1>{{$totalHoursThisMonth}}</h1>
+                       <h2>                                                          
+    @php
+        // Extract hours and minutes
+        $hours = floor($totalHoursThisMonth);
+        $minutes = ($totalHoursThisMonth - $hours) * 60;
+
+        // Format minutes to two digits
+        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+
+        // Output the time format
+        $formattedHours = ($hours > 0 ? $hours . ' hr<br>' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
+        echo "$formattedHours";
+    @endphp
+</h2>
+
                                         </div>
                                     </div>
                                 </div>
@@ -230,7 +262,27 @@
                                                 </h2>
                                             </td>
                                          
-                                            <td class="">{{$course->classes_sum_hours??0}}/{{ $course->total_hours }} H</td>
+                                                      <td>
+    @php
+        $classesSumHours = $course->classes_sum_hours ?? 0;
+        $totalHours = $course->total_hours;
+
+        // Calculate hours and minutes for classes_sum_hours
+        $classesHours = floor($classesSumHours);
+        $classesMinutes = ($classesSumHours - $classesHours) * 60;
+
+        // Calculate hours and minutes for total_hours
+        $totalHoursWhole = floor($totalHours);
+        $totalMinutes = ($totalHours - $totalHoursWhole) * 60;
+
+        // Calculate the difference
+        $difference = $totalHours - $classesSumHours;
+        $differenceHours = floor($difference);
+        $differenceMinutes = ($difference - $differenceHours) * 60;
+    @endphp
+
+    {{ sprintf('%02d:%02d', $classesHours, $classesMinutes) }} / {{ sprintf('%02d:%02d', $totalHoursWhole, $totalMinutes) }} H (Rem: {{ sprintf('%02d:%02d', $differenceHours, $differenceMinutes) }})
+</td>
                                             <td>{{ $course->charge_per_hour }} €</td>
                                     
                                                <td>
@@ -335,7 +387,20 @@
                                                 </h2>
                                             </td>
                                          
-                                            <td class="">{{$uclass->hours}}H</td>
+                                                                  <td class="text-center">
+    @php
+        // Extract hours and minutes
+        $hours = floor($uclass->hours);
+        $minutes = ($uclass->hours - $hours) * 60;
+
+        // Format minutes to two digits
+        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+
+        // Output the time format
+        $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
+        echo "$formattedHours";
+    @endphp
+</td>
     <td>
     @php
         $date = strtotime($uclass->date);
