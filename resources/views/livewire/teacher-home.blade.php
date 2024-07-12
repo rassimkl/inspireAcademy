@@ -387,7 +387,7 @@
                                                 </h2>
                                             </td>
                                          
-                                                                  <td class="text-center">
+                                                                  <td >
     @php
         // Extract hours and minutes
         $hours = floor($uclass->hours);
