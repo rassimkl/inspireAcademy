@@ -74,6 +74,16 @@ class FichePresence extends Main
         $this->course = "0";
 
     }
+
+    public function getDownloadUrlProperty()
+    {
+        return route('downloadfich.pdf', ['course' => $this->course, 'date' => $this->selectedMonth]);
+    }
+
+    public function getcourse()
+    {
+        return $this->course;
+    }
     public function render()
     {
         //dd($this->selectedMonth);
@@ -95,6 +105,6 @@ class FichePresence extends Main
         $classes = $classesQuery->paginate($this->perPage);
 
 
-        return view('livewire.fiche-presence', ['classes' => $classes]);
+        return view('livewire.fiche-presence', ['course' => $this->course, 'date' => $this->selectedMonth, 'classes' => $classes]);
     }
 }

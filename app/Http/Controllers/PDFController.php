@@ -49,7 +49,7 @@ class PDFController extends Controller
             $errors->add('course', 'Please select a course first');
             return redirect('/teacher/Fiche')->withErrors($errors);
         }
-        $classesQuery = $user->classes()->with('course')->orderBy('date', 'desc');
+        $classesQuery = $user->classes()->with('course')->orderBy('date', 'asc');
         $classesQuery->where('course_id', $courseid);
         // Check the value of $status and apply appropriate filtering
 

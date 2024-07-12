@@ -95,6 +95,7 @@
           <th width="50%" colspan="2">
             <h2 class="text-start">Inspire Academy</h2>
             <h2 class="text-start">FICHE DE PRESENCE</h2>
+             <h3 class="text-start">{{$course->name}}</h3>
           </th>
           <th width="50%" colspan="2" class="text-end company-data">
          
@@ -128,7 +129,20 @@
           <td>{{$date}}<br /></td>
 
           <td>Durée</td>
-          <td>{{$course->total_hours}}</td>
+          <td>
+           @php
+        // Extract hours and minutes
+        $hours = floor($course->total_hours);
+        $minutes = ($course->total_hours - $hours) * 60;
+
+        // Format minutes to two digits
+        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+
+        // Output the time format
+        $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
+        echo "$formattedHours";
+    @endphp
+          </td>
         </tr>
       </tbody>
     </table>
@@ -152,13 +166,24 @@
        @foreach($classes as $lesson)
         <tr>
        
-          <td style="text-align: center; vertical-align: middle;" width="15%">{{$lesson->date}}</td>
-          <td style="text-align: center; vertical-align: middle;" width="2%">{{$lesson->hours}}</td>
+          <td style="text-align: center; vertical-align: middle;" width="13%">{{$lesson->date}}</td>
+          <td style="text-align: center; vertical-align: middle;" width="4%"> @php
+        // Extract hours and minutes
+        $hours = floor($lesson->hours);
+        $minutes = ($lesson->hours - $hours) * 60;
+
+        // Format minutes to two digits
+        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+
+        // Output the time format
+        $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
+        echo "$formattedHours";
+    @endphp</td>
            <td style="text-align: center; vertical-align: middle;" width="12%" class="fw-bold">
     {{ substr($lesson->start_time, 0, 5) }}/{{ substr($lesson->end_time, 0, 5) }}
 </td>
           <td style="text-align: center; vertical-align: middle;" width="4%">
-    @if($course->room_id == 102)
+    @if($lesson->room_id == 102)
         Oui
     @else
         Non
