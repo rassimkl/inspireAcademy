@@ -55,7 +55,7 @@
                                     </div>
 
                <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms calendar-icon">
+                                        <div wire:ignore.self class="form-group local-forms calendar-icon">
                                                 <label>Date <span class="login-danger">*</span></label>
 
                                         <div  wire:ignore>
