@@ -49,14 +49,14 @@
 
                <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms calendar-icon">
-                                                <label class="@error('date') text-danger @enderror">Date <span class="login-danger">*</span>@error('date') {{ $message }} @enderror</label>
+                                                <label>Date <span class="login-danger">*</span></label>
 
                                         <div  wire:ignore>
                                             <input id="datepickeru" wire:model='date' class="form-control datetimepicker @error('date') is-invalid @enderror" name="date" type="text"  >
                                             </div>
-                                            @error('date')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
+                                           @error('date')
+                                                <span class="text-danger" >
+                                                    <p>{{ $message }}</p>
                                                 </span>
                                             @enderror
                                         </div>
@@ -69,8 +69,8 @@
             <input type="text" class="form-control " id='start_time'  wire:model.live.500ms="start_time">
             </div>
                                             @error('start_time')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
+                                                <span class="text-danger" >
+                                                    <p>{{ $message }}</p>
                                                 </span>
                                             @enderror
                                         </div>
