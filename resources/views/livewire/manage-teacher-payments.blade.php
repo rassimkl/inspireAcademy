@@ -39,7 +39,7 @@
                                 <label for="teacherSelect" class="form-label">Select a Teacher :</label>
 
                                <select wire:model.live="Selectedteacher" class="form-select form-control">
-                                <option value="">Select a Teacher</option>
+                                <option value="0">Select a Teacher</option>
                                @foreach($teachers as $teacher)
         <option value="{{$teacher->id}}">{{$teacher->first_name}} {{$teacher->last_name}}</option>
        

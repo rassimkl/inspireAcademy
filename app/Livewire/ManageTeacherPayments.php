@@ -50,6 +50,12 @@ class ManageTeacherPayments extends Component
 
     public function loadClasses($teacherId, $selectedMonth)
     {
+
+        if ($teacherId == "0") {
+
+            $this->lessons = [];
+            return;
+        }
         $date = Carbon::createFromFormat('m-Y', $selectedMonth)->startOfMonth();
 
 
