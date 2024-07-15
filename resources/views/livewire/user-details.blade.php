@@ -70,25 +70,17 @@
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
-                                                <i class="feather-user"></i>
+                                              <i class="fas fa-user"></i>
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Name</h4>
                                                 <h5>{{$user->first_name}} {{$user->last_name}}</h5>
                                             </div>
                                         </div>
+                                     
                                         <div class="personal-activity">
                                             <div class="personal-icons">
-                                                <img src="{{ URL::to('assets/img/icons/buliding-icon.svg') }}" alt="">
-                                            </div>
-                                            <div class="views-personal">
-                                                <h4>Department </h4>
-                                                <h5>Language</h5>
-                                            </div>
-                                        </div>
-                                        <div class="personal-activity">
-                                            <div class="personal-icons">
-                                                <i class="feather-phone-call"></i>
+                                            <i class="fas fa-phone"></i>
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Mobile</h4>
@@ -97,7 +89,7 @@
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
-                                                <i class="feather-mail"></i>
+                                                <i class="fas fa-envelope"></i>
                                             </div>
                                            <div class="views-personal">
     <h4>Email</h4>
@@ -105,27 +97,11 @@
 </div>
 
                                         </div>
+                                     
+                        
                                         <div class="personal-activity">
                                             <div class="personal-icons">
-                                                <i class="feather-user"></i>
-                                            </div>
-                                            <div class="views-personal">
-                                                <h4>Gender</h4>
-                                                <h5>{{$user->gender}}</h5>
-                                            </div>
-                                        </div>
-                                        <div class="personal-activity">
-                                            <div class="personal-icons">
-                                                <i class="feather-calendar"></i>
-                                            </div>
-                                            <div class="views-personal">
-                                                <h4>Date of Birth</h4>
-                                                <h5>{{ \Carbon\Carbon::parse($user->date_of_birth)->format('F j, Y') }}</h5>
-                                            </div>
-                                        </div>
-                                        <div class="personal-activity">
-                                            <div class="personal-icons">
-                                                <i class="feather-italic"></i>
+                                              <i class="fas fa-language"></i>
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Language</h4>
@@ -137,20 +113,10 @@
     </h5>
                                             </div>
                                         </div>
-                                                                              @if($user->blood_group)
-    <div class="personal-activity ">
-        <div class="personal-icons">
-            <i class="feather-heart"></i> <!-- Assuming 'feather-heart' represents a heart icon -->
-        </div>
-        <div class="views-personal">
-            <h4>Blood Group</h4>
-            <h5>{{$user->blood_group}}</h5>
-        </div>
-    </div>
-@endif
+           
                                         <div class="personal-activity">
                                             <div class="personal-icons">
-                                                <i class="feather-map-pin"></i>
+                                            <i class="fas fa-map-marker-alt"></i>
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Address</h4>
@@ -161,7 +127,7 @@
 
  <div class="personal-activity mb">
         <div class="personal-icons">
-            <i class="feather-globe"></i> <!-- Assuming 'feather-globe' represents a globe icon -->
+            <i class="fas fa-globe"></i>
         </div>
         <div class="views-personal">
             <h4>Country</h4>
