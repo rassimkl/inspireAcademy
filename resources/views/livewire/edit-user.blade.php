@@ -106,24 +106,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                      <div class="col-12 col-sm-4">
-                                        <div class="form-group local-forms">
-                                            <label>Blood Group <span class="login-danger"></span></label>
-                                             <div class="position-relative">
-                                            <select wire:model='blood_group' class="form-control  @error('blood_group') is-invalid @enderror" name="blood_group">
-                                                <option selected >Please Select Group </option>
-                                                <option value="A+">A+</option>
-                                                <option value="B+" >B+</option>
-                                                <option value="O+" >O+</option>
-                                            </select>
-                                            @error('blood_group')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                              </div>
-                                        </div>
-                                    </div>
+                                   
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Address </label>
@@ -217,6 +200,52 @@
                                             @enderror
                                         </div>
                                     </div>
+
+ <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Siret<span class="login-danger"></span></label>
+                                            <input type="text" class="form-control @error('first_name') is-invalid @enderror" name="siret" placeholder="Enter Siret" wire:model.live='siret'>
+                                            @error('siret')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                      <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Iban <span class="login-danger"></span></label>
+                                            <input type="text" class="form-control @error('iban') is-invalid @enderror" name="iban" placeholder="Enter IBAN" wire:model.live='iban'>
+                                            @error('iban')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                      <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Bic<span class="login-danger"></span></label>
+                                            <input type="text" class="form-control @error('bic') is-invalid @enderror" name="bic" placeholder="Enter Bic" wire:model.live='bic'>
+                                            @error('bic')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                      <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label>Name In Bank<span class="login-danger"></span></label>
+                                            <input type="text" class="form-control @error('name_on_bank') is-invalid @enderror" name="name_on_bank" placeholder="Enter Name in the Bank" wire:model.live='name_on_bank'>
+                                            @error('name_on_bank')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    
                                           <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Info <span class="login-danger"></span></label>

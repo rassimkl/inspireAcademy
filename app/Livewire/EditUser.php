@@ -225,6 +225,11 @@ class EditUser extends Component
 
     public $passwordEnabled = false;
 
+    public $iban;
+    public $bic;
+    public $name_on_bank;
+    public $siret;
+
 
     public function rules()
     {
@@ -249,6 +254,10 @@ class EditUser extends Component
             'languages.*' => 'string',
             'profile_picture' => 'nullable|string',
             'active' => 'required|boolean',
+            'iban' => 'nullable|string',
+            'bic' => 'nullable|string',
+            'name_on_bank' => 'nullable|string',
+            'siret' => 'nullable|string',
 
         ];
 
@@ -289,12 +298,18 @@ class EditUser extends Component
             $this->languages = json_decode($user->languages, true);
             $this->profile_picture = $user->profile_picture;
             $this->user_type_id = $user->user_type_id;
-            $this->active =  (bool) $user->active; 
+            $this->active = (bool) $user->active;
+
+
+            $this->siret = $user->siret;
+            $this->name_on_bank = $user->name_on_bank;
+            $this->bic = $user->bic;
+            $this->iban = $user->iban;
 
             // Fetch user types
             $this->userTypes = UserType::pluck('name', 'id');
             $this->userType = $this->userTypes[$this->user_type_id] ?? "User";
-            
+
 
         }
     }
