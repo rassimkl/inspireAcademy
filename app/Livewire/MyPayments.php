@@ -57,7 +57,7 @@ class MyPayments extends Component
             $query->where('teacher_id', $teacherId);
         })
 
-            ->where('payment_status', 1)
+        
             ->whereMonth('date', Carbon::parse($date)->format('m'))
             ->whereYear('date', Carbon::parse($date)->format('Y'))
             ->get();
