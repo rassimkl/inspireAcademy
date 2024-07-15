@@ -87,41 +87,55 @@
                     <h2 class="text-start">Inspire Academy</h2>
                 </th>
                 <th width="50%" colspan="2" class="text-end company-data">
-                    <span>Invoice Id: PYT{{$payment->id}}</span> <br>
+                    
              <span>Date: {{ now()->format('Y-m-d') }}</span> <br>
 
 
                     <span>Zip code : 64200</span> <br>
                     <span>Address: 25 All. du Moura, Biarritz</span> <br>
-                         <span>Phone : 05540075512</span> 
+                         <span>Phone : 05 54 00 75 5 12</span> 
                 </th>
             </tr>
             <tr class="bg-blue">
-                <th width="50%" colspan="2">Payment Details</th>
-                <th width="50%" colspan="2">Teacher Details</th>
+                <th width="50%" colspan="2">Details</th>
+                <th width="50%" colspan="2"></th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>Payment Id:</td>
-                <td>{{$payment->id}}</td>
+                <td>1</td>
 
                 <td>Full Name:</td>
                 <td>{{$user->first_name}} {{$user->last_name}}</td>
             </tr>
             <tr>
-                <td>Month</td>
-                <td>{{ $payment->payment_date->format('Y-m-d') }}<br></td>
+                <td>Date</td>
+                <td>{{$date}}<br></td>
 
                 <td>Email Id:</td>
                 <td>{{$user->email}}</td>
             </tr>
             <tr>
                 <td>Created At:</td>
-                <td>{{ $payment->created_at->format('Y-m-d') }}<br></td>
+                <td>23<br></td>
 
                 <td>Phone:</td>
                 <td>{{$user->phone_number}}</td>
+            </tr>
+             <tr>
+                <td>Siret</td>
+                <td>{{$user->siret}}<br></td>
+
+                <td>TITULAIRE:</td>
+                <td>{{$user->name_on_bank}}<br></td>
+            </tr>
+             <tr>
+                <td>Bic/Swift:</td>
+                <td>{{$user->bic}}<br></td>
+
+                <td>IBAN:</td>
+                <td>{{$user->iban}}</td>
             </tr>
          
      
@@ -136,28 +150,38 @@
                 </th>
             </tr>
             <tr class="bg-blue">
-                <th>ID</th>
+                <th>Description</th>
                 <th></th>
-                <th>Price</th>
-                <th>Hours</th>
-                <th>Total</th>
+                <th>Heures </th>
+                <th>Prix unitaire €</th>
+                <th>Montant €</th>
             </tr>
         </thead>
         <tbody>
+@php
+$total=0;
+@endphp
+          @foreach ($courses as $courseId => $hours)
+            @php
+                $course = App\Models\Course::find($courseId);
+                $total+=$hours*$course->charge_per_hour; // Adjust your Course model namespace
+            @endphp
             <tr>
-                <td width="10%">{{$payment->id}}</td>
+                <td width="30%">{{$course->name}}</td>
                 <td>
                   
                 </td>
-                <td width="10%">€ {{$payment->amount}}</td>
-                <td width="10%">{{$payment->hours}} Hours</td>
-                <td width="15%" class="fw-bold">€ {{$payment->amount}}</td>
+                <td width="10%">{{$hours}}</td>
+                <td width="15%">{{ $course->charge_per_hour}}</td>
+                <td width="15%" class="fw-bold">€ {{ $course->charge_per_hour*$hours}}</td>
             </tr>
-           
+           @if($loop->last)
             <tr>
                 <td colspan="4" class="total-heading">Total Amount - <small>Inc. all vat/tax</small> :</td>
-                <td colspan="1" class="total-heading">€ {{$payment->amount}}</td>
+                <td colspan="1" class="total-heading">€ {{$total}}</td>
             </tr>
+            @endif
+            @endforeach
         </tbody>
     </table>
 

@@ -132,9 +132,10 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a class="{{set_active(['teacher/payments'])}}" href="{{ route('teacher/payments') }}">Teacher Payments</a></li>
+                        <li><a class="{{set_active(['teacher/payments'])}}" href="{{ route('teacher/payments') }}">Manage Payments</a></li>
+                         <li><a class="{{set_active(['teacher/payments/history'])}}" href="{{ route('teacher/payments/history')}}">Invoice</a></li>
                         <li><a class="{{set_active(['teachers/all/payments'])}}" href="{{ route('teacher/all/payments') }}">All Payments</a></li>
-                      
+                       
                     </ul>
                 </li>
 @endif

@@ -23,10 +23,11 @@ use App\Livewire\CreateCourse;
 use App\Livewire\ViewPayments;
 use App\Livewire\CourseDetails;
 use App\Livewire\FichePresence;
+use App\Livewire\PaymentHistory;
 use App\Livewire\EditClassSession;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PDFController;
 
+use App\Http\Controllers\PDFController;
 use App\Livewire\ManageTeacherPayments;
 use App\Http\Controllers\Auth\LogoutController;
 
@@ -92,9 +93,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/courses/create', CreateCourse::class)->name('courses.create');
 
     Route::get('/teacher/payments/', ManageTeacherPayments::class)->name('teacher/payments');
+    Route::get('/teacher/payments/history', PaymentHistory::class)->name('teacher/payments/history');
+    
     Route::get('/courses/{course}/edit', EditCourse::class)->name('courses/edit');
     Route::get('/teachers/all/payments', ViewPayments::class)->name('teacher/all/payments');
     Route::get('/download-pdf/{payment}', [PDFController::class, 'downloadPdf'])->name('download.pdf');
+    Route::get('/download-invoice-pdf/{teacherId}/{date}', [PDFController::class, 'downloadInvoicePdf'])->name('download.invoice.pdf');
+
 
 
 

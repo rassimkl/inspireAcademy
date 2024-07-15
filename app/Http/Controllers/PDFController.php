@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Dompdf\Dompdf;
+use App\Models\User;
 use App\Models\Course;
+use App\Models\ClassSession;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Payment; // Assuming Payment model is used
@@ -32,7 +34,7 @@ class PDFController extends Controller
         $pdf->render();
 
         // Output PDF to the browser
-         $pdf->stream('invoice.pdf');
+        $pdf->stream('invoice.pdf');
         exit();
         //return view('invoice.invoice', $data);
     }
@@ -97,8 +99,68 @@ class PDFController extends Controller
         $pdf->render();
 
         // Output PDF to the browser
-         $pdf->stream('fiche.pdf');
+        $pdf->stream('fiche.pdf');
         exit();
         //return view('invoice.invoice', $data);
     }
+
+
+    public function downloadInvoicePdf($teacherId, $date)
+    {
+        list($month, $year) = explode('-', $date);
+
+
+        $hasPaymentStatus1 = ClassSession::whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->where('payment_status', 1)
+            ->exists();
+
+        // Check the result
+        if ($hasPaymentStatus1) {
+
+            $errors = new MessageBag;
+            $errors->add('download', 'Please set all classes as paid before generating Invoice in Manage Payments section');
+            return redirect()->route('teacher/payments/history')->withErrors($errors);
+
+        }
+
+
+        // Fetch data from the database
+
+        $classes = ClassSession::whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->where('payment_status', 2)
+            ->get();
+
+        $hoursByCourse = [];
+
+        foreach ($classes as $lesson) {
+            $courseId = $lesson->course_id;
+            $hoursByCourse[$courseId] = ($hoursByCourse[$courseId] ?? 0) + $lesson->hours;
+        }
+        $teacher = User::find($teacherId);
+     
+        // Load the view with the data
+        $data = ['user' => $teacher, 'courses' => $hoursByCourse, 'date' => $date];
+
+        $view = view('invoice.facture', $data)->render();
+
+        // Create a new DOMPDF instance
+        $pdf = new Dompdf();
+
+        // Load HTML content into DOMPDF
+        $pdf->loadHtml($view);
+
+        // (Optional) Set paper size and orientation
+        $pdf->setPaper('A4', 'portrait');
+
+        // Render PDF (important to call this before outputting PDF content)
+        $pdf->render();
+
+        // Output PDF to the browser
+        $pdf->stream('invoice.pdf');
+        exit();
+        //return view('invoice.invoice', $data);
+    }
+
 }
