@@ -213,7 +213,7 @@
                                       <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Iban <span class="login-danger"></span></label>
-                                            <input type="text" class="form-control @error('iban') is-invalid @enderror" name="iban" placeholder="Enter First Name" wire:model.live='iban'>
+                                            <input type="text" class="form-control @error('iban') is-invalid @enderror" name="iban" placeholder="Enter IBAN" wire:model.live='iban'>
                                             @error('iban')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
