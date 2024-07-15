@@ -67,7 +67,7 @@
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
-                                                <i class="feather-user"></i>
+                                              <i class="fas fa-user"></i>
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Teacher</h4>
@@ -76,7 +76,7 @@
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
-                                                <img src="{{ URL::to('assets/img/icons/buliding-icon.svg') }}" alt="">
+                                             <i class="fas fa-check-circle"></i> 
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Status </h4>
@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
-                                                <i class="feather-phone-call"></i>
+                                               <i class="fas fa-phone"></i>
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Mobile</h4>
@@ -102,7 +102,7 @@
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
-                                                <i class="feather-mail"></i>
+                                              <i class="fas fa-envelope"></i>
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Email</h4>
@@ -111,7 +111,7 @@
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
-                                                <i class="feather-calendar"></i>
+                                               <i class="fas fa-calendar-alt"></i>
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Created</h4>
@@ -120,7 +120,12 @@
                                         </div>
                                         <div class="personal-activity">
                                             <div class="personal-icons">
-                                                <i class="feather-italic"></i>
+                                            @if($course->course_type ==1)
+                                              
+                                               <i class="fas fa-users"></i> 
+                                              @else
+                                             <i class="fas fa-desktop"></i>
+                                              @endif
                                             </div>
                                             <div class="views-personal">
                                                 <h4>Type</h4>
