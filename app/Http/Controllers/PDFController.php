@@ -109,12 +109,13 @@ class PDFController extends Controller
     {
         list($month, $year) = explode('-', $date);
 
+        $teacher = User::find($teacherId);
 
-        $hasPaymentStatus1 = ClassSession::whereMonth('date', '=', $month)
-            ->whereYear('date', '=', $year)
+        $hasPaymentStatus1 = $teacher->classes()
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
             ->where('payment_status', 1)
-            ->get();
-        dd($hasPaymentStatus1);
+            ->exists();
         // Check the result
         if ($hasPaymentStatus1) {
 
