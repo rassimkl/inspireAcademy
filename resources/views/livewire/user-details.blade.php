@@ -173,6 +173,66 @@
         </div>
     </div>
 
+@if( auth()->user()->user_type_id==1 || auth()->user()->id == $user->id)
+     <div class="personal-activity mb">
+        <div class="personal-icons">
+        <i class="fas fa-briefcase"></i> 
+        </div>
+        <div class="views-personal">
+            <h4>Siret</h4>
+          
+
+            <h5>{{$user->siret}}</h5>
+
+          
+        </div>
+    </div>
+
+
+<div class="personal-activity mb">
+        <div class="personal-icons">
+         <i class="fas fa-user"></i> 
+        </div>
+        <div class="views-personal">
+            <h4>Name in Bank</h4>
+          
+
+            <h5>{{$user->name_on_bank}}</h5>
+
+          
+        </div>
+    </div>
+
+    <div class="personal-activity mb">
+        <div class="personal-icons">
+         <i class="fas fa-university"></i>
+        </div>
+        <div class="views-personal">
+            <h4>Bic</h4>
+          
+
+            <h5>{{$user->bic}}</h5>
+
+          
+        </div>
+    </div>
+
+
+    <div class="personal-activity mb">
+        <div class="personal-icons">
+          <i class="fas fa-credit-card"></i>
+        </div>
+        <div class="views-personal">
+            <h4>Iban</h4>
+          
+
+            <h5>{{$user->iban}}</h5>
+
+          
+        </div>
+    </div>
+@endif
+
 
     @if($user->user_type_id==2 || $user->user_type_id==4)
          @if( auth()->user()->user_type_id==1 || auth()->user()->id == $user->id)                         
