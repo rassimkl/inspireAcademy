@@ -204,9 +204,11 @@
                                             @endif
                                             @foreach($course->students as $student)
                                             <div class="educate-year">
-                                                <a href="{{ route('user/details', ['user' => $student->id]) }}">
-                                                    <h5>{{$student->first_name}} {{$student->last_name}}</h5>
-                                                </a>
+                                               <a href="{{ route('user/details', ['user' => $student->id]) }}" style="display: flex; align-items: center; text-decoration: none;">
+    <span style="margin-right: 5px;"><i class="fas fa-user"></i></span>
+    <h5 style="margin: 0;">  {{ $student->first_name}} {{$student->last_name}}</h5>
+</a>
+
                                                
     
 
