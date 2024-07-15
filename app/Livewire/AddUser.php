@@ -218,6 +218,11 @@ class AddUser extends Component
     public $languages;
     public $profile_picture;
 
+    public $iban;
+    public $bic;
+    public $name_on_bank;
+    public $siret;
+
 
     #[Url]
     public $user_type_id;
@@ -241,6 +246,10 @@ class AddUser extends Component
         'profile_picture' => 'nullable|string',
         'user_type_id' => 'required|exists:user_types,id',
         'password' => 'required|string',
+        'iban' => 'nullable|string',
+        'bic' => 'nullable|string',
+        'name_on_bank' => 'nullable|string',
+        'siret' => 'nullable|string',
 
     ];
 
@@ -289,6 +298,10 @@ class AddUser extends Component
             'languages',
             'profile_picture',
             'user_type_id',
+            'iban',
+            'bic',
+            'name_on_bank',
+            'siret',
         ]);
 
 

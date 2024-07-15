@@ -36,6 +36,10 @@ class User extends Authenticatable
         'info',
         'user_type_id',
         'active',
+        'iban',
+        'bic',
+        'name_on_bank',
+        'siret',
         // Add profile picture to fillable
     ];
     /**
