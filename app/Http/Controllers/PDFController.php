@@ -111,7 +111,8 @@ class PDFController extends Controller
 
 
         $hasPaymentStatus1 = ClassSession::whereYear('date', $year)
-            ->whereMonth('date', $month)
+            ->whereMonth('date', '=', $month)
+            ->whereYear('date', '=', $year)
             ->where('payment_status', 1)
             ->exists();
 
@@ -139,7 +140,7 @@ class PDFController extends Controller
             $hoursByCourse[$courseId] = ($hoursByCourse[$courseId] ?? 0) + $lesson->hours;
         }
         $teacher = User::find($teacherId);
-     
+
         // Load the view with the data
         $data = ['user' => $teacher, 'courses' => $hoursByCourse, 'date' => $date];
 
