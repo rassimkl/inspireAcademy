@@ -214,8 +214,8 @@ class ManageTeacherPayments extends Component
             ]);
 
             $this->reset(['Selectedteacher', 'totalPayment', 'lessons', 'totalHours']);
-
-            $this->loadTeachers(Carbon::today()->format('m-Y'));
+      
+            $this->loadTeachers($this->selectedMonth);
         } catch (\Exception $e) {
             DB::rollBack();
 
