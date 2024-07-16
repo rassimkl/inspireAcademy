@@ -150,7 +150,7 @@
                                           <div class="d-flex justify-content-between">
                 <div id="total-count" class="text-muted">Total: {{ collect($lessons)->count() }} entries</div>
            
-          
+          </div>
                             </div>
          @if (is_null($Selectedteacher) || is_null($selectedMonth))
     <p class="text-center">Please choose both a teacher and a date.</p>
