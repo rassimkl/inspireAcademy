@@ -52,7 +52,7 @@ class EditClassSession extends Component
 
     public function rules()
     {
-        $minDate = now()->subDays(15)->toDateString();
+        $minDate = now()->subDays(31)->toDateString();
 
 
         return [
@@ -147,7 +147,7 @@ class EditClassSession extends Component
 
     public function loadClasses($roomId)
     {
-        $today = now()->subDays(15)->toDateString();
+        $today = now()->subDays(31)->toDateString();
 
         $classes = ClassSession::where('date', '>=', $today)
             ->where('room_id', $roomId)

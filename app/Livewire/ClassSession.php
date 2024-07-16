@@ -41,7 +41,7 @@ class ClassSession extends Component
 
     public function rules()
     {
-        $minDate = now()->subDays(15)->toDateString();
+        $minDate = now()->subDays(31)->toDateString();
 
         return [
             'hours' => 'required|min:0.5',
@@ -115,7 +115,7 @@ class ClassSession extends Component
     }
     public function loadClasses($roomId)
     {
-        $today = now()->subDays(15)->toDateString();
+        $today = now()->subDays(31)->toDateString();
 
         $classes = \App\Models\ClassSession::where('date', '>=', $today)
             ->where('room_id', $roomId)
