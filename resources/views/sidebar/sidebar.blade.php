@@ -52,7 +52,7 @@
                 @endif
 {{-- //user --}}
 @if(auth()->user()->user_type_id==1)
-                <li class="submenu {{set_active(['student/list','student/grid','user/add/page','teacher/list','intern/list'])}} {{ (request()->is('users/edit/*')) ? 'active' : '' }} {{ (request()->is('user/profile/*')) ? 'active' : '' }}">
+                <li class="submenu {{set_active(['student/list','student/grid','user/add/page','teacher/list','intern/list','admin/list'])}} {{ (request()->is('users/edit/*')) ? 'active' : '' }} {{ (request()->is('user/profile/*')) ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-graduation-cap"></i>
                         <span> Users</span>
                         <span class="menu-arrow"></span>
@@ -62,6 +62,7 @@
                         <li><a href="{{ route('student/list') }}"  class="{{set_active(['student/list','student/grid'])}}">Student List</a></li>
                                                 <li><a href="{{ route('teacher/list') }}"  class="{{set_active(['teacher/list','teacher/grid'])}}">Teacher List</a></li>
                                                 <li><a href="{{ route('intern/list') }}"  class="{{set_active(['intern/list','intern/grid'])}}">Intern List</a></li>
+                                                <li><a href="{{ route('admin/list') }}"  class="{{set_active(['admin/list','intern/grid'])}}">Admin List</a></li>
 
                        
                         {{-- <li><a class="{{ (request()->is('users/edit/*')) ? 'active' : '' }}">User Edit</a></li> --}}

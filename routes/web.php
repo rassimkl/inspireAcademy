@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\AdminList;
 use App\Models\User;
 use App\Livewire\Home;
 use App\Livewire\Login;
@@ -89,12 +90,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/student/list', Students::class)->name('student/list');
     Route::get('/teacher/list', Teachers::class)->name('teacher/list');
     Route::get('/intern/list', Interns::class)->name('intern/list');
+    Route::get('/admin/list', AdminList::class)->name('admin/list');
     Route::get('/users/edit/{userId}', EditUser::class)->name('user/edit');
     Route::get('/courses/create', CreateCourse::class)->name('courses.create');
 
     Route::get('/teacher/payments/', ManageTeacherPayments::class)->name('teacher/payments');
     Route::get('/teacher/payments/history', PaymentHistory::class)->name('teacher/payments/history');
-    
+
     Route::get('/courses/{course}/edit', EditCourse::class)->name('courses/edit');
     Route::get('/teachers/all/payments', ViewPayments::class)->name('teacher/all/payments');
     Route::get('/download-pdf/{payment}', [PDFController::class, 'downloadPdf'])->name('download.pdf');
