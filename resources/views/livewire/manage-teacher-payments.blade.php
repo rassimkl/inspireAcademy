@@ -102,13 +102,12 @@
                                             <td>
                                               
                                             </td>
-                                            <td>CLS{{ $lesson->id }}</td>
+                                            <td>   <a href="{{ route('class/details', ['classId' => $lesson->id]) }}">CLS{{ $lesson->id }}</a></td>
                                            
                                             <td hidden class="avatar">{{ $lesson->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                 
-                                                    <a href="{{ url('student/profile/'.$lesson->id) }}">{{ $lesson->course->name }}</a>
+                                                 <a href="{{ route('course/deails', ['course' => $lesson->course_id]) }}">{{ $lesson->course->name  }} </a>
                                                 </h2>
                                             </td>
                                             <td>{{$lesson->room->name}}</td>
