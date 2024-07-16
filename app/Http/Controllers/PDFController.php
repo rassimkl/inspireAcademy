@@ -128,7 +128,7 @@ class PDFController extends Controller
 
         // Fetch data from the database
 
-        $classes = ClassSession::whereYear('date', $year)
+        $classes = $teacher->classes()->whereYear('date', $year)
             ->whereMonth('date', $month)
             ->where('payment_status', 2)
             ->get();
