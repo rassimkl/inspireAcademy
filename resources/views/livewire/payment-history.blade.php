@@ -204,7 +204,7 @@
             </div>
                 <div class="col-12">
                                         <div class="student-submit">
-                                          <a href="{{ route('download.invoice.pdf', ['teacherId' => $Selectedteacher,"date"=>$selectedMonth]) }}" class="btn btn-success" style="color: white;">Download invoice</a>
+                                          <a href="{{ route('download.invoice.pdf', ['teacherId' => $Selectedteacher,"date"=>$selectedMonth]) }}" class="btn btn-success" style="color: white;"><i class="fas fa-download"></i> Download invoice</a>
 @error('download')
                                              <p style="color: red; margin-top: 10px;">{{$message}}</p>
 @enderror
