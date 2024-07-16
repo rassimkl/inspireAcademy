@@ -65,7 +65,7 @@
                             <div class="page-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h3 class="page-title">Classes : {{collect($lessons)->count()}} {{ Str::plural('Session',  collect($lessons)->count()) }}</h3>
+                                        <h3 class="page-title">Classes : </h3>
                                     </div>
                                     <div class="col-auto text-end float-end ms-auto download-grp">
                                         
