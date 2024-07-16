@@ -154,6 +154,11 @@
                                     </tbody>
 
                                 </table>
+                                   <div class="d-flex justify-content-between">
+                <div id="total-count" class="text-muted">Total: {{collect($lessons)->count() }} entries</div>
+             
+          
+                            </div>
                                 {{-- {{ $courses->links() }} --}}
                             </div>
          @if (is_null($Selectedteacher) || is_null($selectedMonth))

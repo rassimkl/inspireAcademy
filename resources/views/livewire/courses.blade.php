@@ -205,8 +205,21 @@
                                     </tbody>
 
                                 </table>
-                                {{ $courses->links() }}
+                                 <div class="d-flex justify-content-between">
+                <div id="total-count" class="text-muted">Total: {{ $courses->total() }} entries</div>
+                <nav>
+                    {{ $courses->links() }}
+                </nav>
+            </div>
+        
                             </div>
+                          
+
+
+
+
+
+
                                                                            @if ($courses->isEmpty())
     <p class="text-center">No courses available.</p>
     @endif

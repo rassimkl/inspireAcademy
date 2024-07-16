@@ -211,7 +211,14 @@
                                     </tbody>
                                 </table>
    
-                                {{ $classes->links() }}
+                                 <div class="d-flex justify-content-between">
+                <div id="total-count" class="text-muted">Total: {{ $classes->total() }} entries</div>
+                <nav>
+                    {{ $classes->links() }}
+                </nav>
+            </div>
+        
+                           
                             </div>
                         </div>
                     </div>

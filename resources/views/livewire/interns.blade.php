@@ -129,7 +129,12 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                {{ $interns->links() }}
+                                            <div class="d-flex justify-content-between">
+                <div id="total-count" class="text-muted">Total: {{ $interns->total() }} entries</div>
+                <nav>
+                    {{ $interns->links() }}
+                </nav>
+            </div>
                             </div>
                         </div>
                     </div>
