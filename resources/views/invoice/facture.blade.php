@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Invoice #6</title>
+    <title>Facture</title>
 
     <style>
         html,
@@ -91,38 +91,33 @@
              <span>Date: {{ now()->format('Y-m-d') }}</span> <br>
 
 
-                    <span>Zip code : 64200</span> <br>
+                    <span>Code postal : 64200</span> <br>
                     <span>Address: 25 All. du Moura, Biarritz</span> <br>
                          <span>Phone : 05 54 00 75 5 12</span> 
                 </th>
             </tr>
             <tr class="bg-blue">
-                <th width="50%" colspan="2">Details</th>
+                <th width="50%" colspan="2">Détails</th>
                 <th width="50%" colspan="2"></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Payment Id:</td>
-                <td>1</td>
+              <td>Email :</td>
+                <td>{{$user->email}}</td>
 
-                <td>Full Name:</td>
-                <td>{{$user->first_name}} {{$user->last_name}}</td>
+                <td>Nom et prénom:</td>
+                <td>{{$user->last_name}} {{$user->first_name}}</td>
             </tr>
             <tr>
                 <td>Date</td>
                 <td>{{$date}}<br></td>
 
-                <td>Email Id:</td>
-                <td>{{$user->email}}</td>
-            </tr>
-            <tr>
-                <td>Created At:</td>
-                <td>23<br></td>
-
                 <td>Phone:</td>
                 <td>{{$user->phone_number}}</td>
+              
             </tr>
+           
              <tr>
                 <td>Siret</td>
                 <td>{{$user->siret}}<br></td>
@@ -146,15 +141,15 @@
         <thead>
             <tr>
                 <th class="no-border text-start heading" colspan="5">
-                   Payments
+                   Paiements
                 </th>
             </tr>
             <tr class="bg-blue">
-                <th>Description</th>
+                <th>Formations</th>
                 <th></th>
-                <th>Heures </th>
-                <th>Prix unitaire €</th>
-                <th>Montant €</th>
+                <th>Heures</th>
+                <th>prix par heure €</th>
+                <th>Total €</th>
             </tr>
         </thead>
         <tbody>
@@ -177,7 +172,7 @@ $total=0;
             </tr>
            @if($loop->last)
             <tr>
-                <td colspan="4" class="total-heading">Total Amount - <small>Inc. all vat/tax</small> :</td>
+                <td colspan="4" class="total-heading">Montant Total :</td>
                 <td colspan="1" class="total-heading">€ {{$total}}</td>
             </tr>
             @endif
@@ -187,7 +182,7 @@ $total=0;
 
     <br>
     <p class="text-center">
-        Thank your for working with Inspire Academy
+       Merci de travailler avec Inspire Academy
     </p>
 
 </body>

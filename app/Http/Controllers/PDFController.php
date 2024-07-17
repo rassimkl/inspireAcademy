@@ -159,7 +159,7 @@ class PDFController extends Controller
         $pdf->render();
 
         // Output PDF to the browser
-        $pdf->stream('invoice.pdf');
+        $pdf->stream("$teacher->last_name $teacher->first_name-$date-.pdf");
         exit();
         //return view('invoice.invoice', $data);
     }
