@@ -16,6 +16,7 @@ class ClassList extends Main
     public $selectedMonth;
     public $selectedTeacher;
     public $teachers;
+
     public function mount()
     {
         $this->selectedMonth = Carbon::today()->format('m-Y');
@@ -30,36 +31,38 @@ class ClassList extends Main
     }
     public function render()
     {
-        //dd($this->selectedMonth);
         $user = Auth::user();
         if ($user->user_type_id == 1) {
             if ($this->selectedTeacher) {
                 $userS = User::find($this->selectedTeacher);
-                $classesQuery = $userS->classes()->with('course')->orderBy('date', 'desc');
+                $classesQuery = $userS->classes()->with('course');
             } else {
-                $classesQuery = ClassSession::with('course')->orderBy('date', 'desc');
+                $classesQuery = ClassSession::with('course');
             }
         } elseif ($user->user_type_id == 2) {
-            $classesQuery = $user->classes()->with('course')->orderBy('date', 'desc');
+            $classesQuery = $user->classes()->with('course');
         }
-        // Check the value of $status and apply appropriate filtering
+
         if ($this->status == 1) {
             $classesQuery->where('status', 1);
         } elseif ($this->status == 2) {
             $classesQuery->where('status', 2);
         }
-        // Parse the selected month and year from the date string
+
         if ($this->selectedMonth) {
             list($month, $year) = explode('-', $this->selectedMonth);
-
-            // Add condition to filter by selected month and year
             $classesQuery->whereYear('date', '=', $year)
                 ->whereMonth('date', '=', $month);
         }
+
+        $classesQuery->orderBy($this->sortField, $this->sortDirection);
 
         $classes = $classesQuery->paginate($this->perPage);
 
 
         return view('livewire.class-list', ['classes' => $classes]);
     }
+
+
+ 
 }

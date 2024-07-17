@@ -128,7 +128,16 @@
                                               @endif
                                             <th class="text-center">Duration</th>
                                             <th class="text-center">Students</th>
-                                            <th class="text-center">Date</th>
+                                  <th wire:click="sortBy('date')" style="cursor: pointer;">
+                Date
+                @if($sortField == 'date')
+                    @if($sortDirection == 'asc')
+                        ▲
+                    @else
+                        ▼
+                    @endif
+                @endif
+            </th>
                                             <th class="text-center">Time</th>
                                             <th class="text-center">Room</th>
                                               <th class="text-center">Status</th>

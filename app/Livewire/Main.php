@@ -14,18 +14,35 @@ class Main extends Component
     protected $paginationTheme = 'bootstrap';
 
 
+    public $sortField = 'id';
+    public $sortDirection = 'desc';
+
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+    }
+
     public function clearSearch()
     {
         $this->search = '';
     }
-    
+
     public function updatingSearch()
     {
-        
+
         $this->resetPage();
     }
     public function updatingPerPage()
     {
         $this->resetPage();
     }
+
+
+
+
 }
