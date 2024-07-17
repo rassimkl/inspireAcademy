@@ -100,7 +100,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/courses/{course}/edit', EditCourse::class)->name('courses/edit');
     Route::get('/teachers/all/payments', ViewPayments::class)->name('teacher/all/payments');
     Route::get('/download-pdf/{payment}', [PDFController::class, 'downloadPdf'])->name('download.pdf');
-    Route::get('/download-invoice-pdf/{teacherId}/{date}', [PDFController::class, 'downloadInvoicePdf'])->name('download.invoice.pdf');
 
 
 
@@ -113,6 +112,8 @@ Route::middleware(['adminteacher'])->group(function () {
     Route::get('/view-class/{classId}', ViewClass::class)->name('class/details');
 
     Route::get('/user/profile/{user}', UserDetails::class)->name('user/details');
+    Route::get('/download-invoice-pdf/{teacherId}/{date}', [PDFController::class, 'downloadInvoicePdf'])->name('download.invoice.pdf');
+
 
 });
 Route::middleware(['teacherstudentadmin'])->group(function () {
