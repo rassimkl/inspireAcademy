@@ -22,6 +22,8 @@ class MyPayments extends Component
 
     public $totalVPayment = 0;
     public $totalVHours = 0;
+
+
     protected $rules = [
 
         'selectedMonth' => 'required|date_format:m-Y',
@@ -43,6 +45,8 @@ class MyPayments extends Component
 
         $this->loadClasses($this->selectedMonth);
 
+
+
     }
 
     public function loadClasses($selectedMonth)
@@ -51,13 +55,11 @@ class MyPayments extends Component
 
         $date = Carbon::createFromFormat('m-Y', $selectedMonth)->startOfMonth();
 
-
-
         $this->lessons = ClassSession::whereHas('course', function ($query) use ($teacherId) {
             $query->where('teacher_id', $teacherId);
         })
 
-        
+
             ->whereMonth('date', Carbon::parse($date)->format('m'))
             ->whereYear('date', Carbon::parse($date)->format('Y'))
             ->get();

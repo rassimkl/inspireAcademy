@@ -70,6 +70,8 @@ class PDFController extends Controller
             if ($class->status == 1) {
                 $errors = new MessageBag;
                 $errors->add('course', 'Please submit all classes before generating Fiche');
+
+
                 return redirect('/teacher/Fiche')->withErrors($errors);
 
             }
@@ -116,11 +118,13 @@ class PDFController extends Controller
             ->whereYear('date', $year)
             ->where('payment_status', 1)
             ->exists();
+
         // Check the result
         if ($hasPaymentStatus1) {
 
             $errors = new MessageBag;
             $errors->add('download', 'Please set all classes as paid before generating Invoice in Manage Payments section');
+
             return redirect()->route('teacher/payments/history')->withErrors($errors);
 
         }
@@ -131,6 +135,70 @@ class PDFController extends Controller
         $classes = $teacher->classes()->whereYear('date', $year)
             ->whereMonth('date', $month)
             ->where('payment_status', 2)
+            ->get();
+
+        $hoursByCourse = [];
+
+        foreach ($classes as $lesson) {
+            $courseId = $lesson->course_id;
+            $hoursByCourse[$courseId] = ($hoursByCourse[$courseId] ?? 0) + $lesson->hours;
+        }
+        $teacher = User::find($teacherId);
+
+        // Load the view with the data
+        $data = ['user' => $teacher, 'courses' => $hoursByCourse, 'date' => $date];
+
+        $view = view('invoice.facture', $data)->render();
+
+        // Create a new DOMPDF instance
+        $pdf = new Dompdf();
+
+        // Load HTML content into DOMPDF
+        $pdf->loadHtml($view);
+
+        // (Optional) Set paper size and orientation
+        $pdf->setPaper('A4', 'portrait');
+
+        // Render PDF (important to call this before outputting PDF content)
+        $pdf->render();
+
+        // Output PDF to the browser
+        $pdf->stream("$teacher->last_name $teacher->first_name-$date-.pdf");
+        exit();
+        //return view('invoice.invoice', $data);
+    }
+
+
+    public function downloadInvoiceAsTeacherPdf($teacherId, $date)
+    {
+        list($month, $year) = explode('-', $date);
+
+        $teacher = User::find($teacherId);
+
+
+        $hasPaymentStatus1 =  $teacher->classes()
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->where('status', 1)
+            ->exists();
+
+
+        // Check the result
+        if ($hasPaymentStatus1) {
+
+            $errors = new MessageBag;
+            $errors->add('download', 'All classes should be validated');
+
+            return redirect()->route('my/payments')->withErrors($errors);
+
+        }
+
+
+        // Fetch data from the database
+
+        $classes = $teacher->classes()->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->where('status', 2)
             ->get();
 
         $hoursByCourse = [];
