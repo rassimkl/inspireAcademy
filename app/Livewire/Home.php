@@ -30,11 +30,11 @@ class Home extends Component
     public $events = [];
     public $rooms;
 
-    public $selectedRoomId='null';
+    public $selectedRoomId = 'null';
 
     public function mount()
     {
-    
+
         $this->loadData($this->selectedRoomId);
         $this->rooms = Room::pluck('name', 'id');
 
@@ -60,7 +60,7 @@ class Home extends Component
 
         $this->formattedEvents = $query->get()->map(function ($classC) {
             return [
-                'id'=>$classC->id,
+                'id' => $classC->id,
                 'title' => $classC->course->name . ' - ' . $classC->room->name . ' - ' . $classC->course->teacher->first_name . ' ' . $classC->course->teacher->last_name,
                 'start' => $classC->date . ' ' . $classC->start_time,
                 'end' => $classC->date . ' ' . $classC->end_time,
@@ -111,21 +111,23 @@ class Home extends Component
         }
         $this->totalPayment = $totalPayment;
 
-       
 
-// Get the classes for today
-$this->classesForToday = ClassSession::whereDate('date', '=', now()->format('Y-m-d'))
-    ->with('course')
-    ->get()
-    ->sortBy('start_time');
 
-    $count = max($this->classesForToday->count()-2, 5);
+        // Get the classes for today
+        $this->classesForToday = ClassSession::whereDate('date', '=', now()->format('Y-m-d'))
+            ->with('course')
+            ->get()
+            ->sortBy('start_time');
 
-// Get the latest submitted classes
-$this->classSubmitted = ClassSession::where('status', 2)
-    ->orderBy('updated_at', 'desc')
-    ->take($count)
-    ->get();
+        $count = max($this->classesForToday->count() - 2, 5);
+        if ($count > 8) {
+            $count = 9;
+        }
+        // Get the latest submitted classes
+        $this->classSubmitted = ClassSession::where('status', 2)
+            ->orderBy('updated_at', 'desc')
+            ->take($count)
+            ->get();
 
 
 
