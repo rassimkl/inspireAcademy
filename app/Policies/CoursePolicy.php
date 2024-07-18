@@ -38,7 +38,7 @@ class CoursePolicy
     public function addfiletoCourse(User $user, Course $course)
     {
 
-        if ($course->teacher->id == $user->id) {
+        if ($course->teacher->id == $user->id || $user->user_type_id == 1) {
             return true;
         }
         return false;

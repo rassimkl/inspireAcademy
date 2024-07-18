@@ -118,7 +118,7 @@ class CourseDetails extends Main
     public function deleteFile()
     {
         try {
-            $this->authorize('addCourse', $this->course);
+            $this->authorize('addfiletoCourse', $this->course);
 
             // Find the file by ID
             $file = CourseFile::findOrFail($this->fileId);
