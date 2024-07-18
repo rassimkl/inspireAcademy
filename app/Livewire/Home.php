@@ -111,18 +111,21 @@ class Home extends Component
         }
         $this->totalPayment = $totalPayment;
 
-        $this->classesForToday = ClassSession::whereDate('date', '=', now()->format('Y-m-d'))
-            ->with('course')
-            ->get()
-            ->sortBy('start_time');
+       
 
+// Get the classes for today
+$this->classesForToday = ClassSession::whereDate('date', '=', now()->format('Y-m-d'))
+    ->with('course')
+    ->get()
+    ->sortBy('start_time');
 
+    $count = max($this->classesForToday->count(), 5);
 
-        $this->classSubmitted = ClassSession::where('status', 2)
-            ->orderBy('updated_at', 'desc')
-            ->take(5)
-            ->get();
-
+// Get the latest submitted classes
+$this->classSubmitted = ClassSession::where('status', 2)
+    ->orderBy('updated_at', 'desc')
+    ->take($count)
+    ->get();
 
 
 
