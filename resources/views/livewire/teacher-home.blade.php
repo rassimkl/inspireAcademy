@@ -83,9 +83,13 @@
         // Format minutes to two digits
         $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
 
+ if ($hours == 0 && $minutes == 0) {
+        echo '0';
+    } else {
         // Output the time format
         $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
         echo "$formattedHours";
+    }
     @endphp</h3>
                                 </div>
                                 <div class="db-icon">
