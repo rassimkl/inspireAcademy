@@ -121,7 +121,7 @@ class Home extends Component
 
         $count = max($this->classesForToday->count() - 2, 5);
         if ($count > 8) {
-            $count = 9;
+            $count = 7;
         }
         // Get the latest submitted classes
         $this->classSubmitted = ClassSession::where('status', 2)
