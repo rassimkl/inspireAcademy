@@ -100,11 +100,11 @@
                                             <td hidden class="avatar">{{ $student->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                    <a  href="{{ route('user/details', ['user' => $student->id]) }}" class="avatar avatar-sm me-2">
+                                                    <a   class="avatar avatar-sm me-2">
                                                         <img class="avatar-img rounded-circle" src="{{ $student->profile_picture ? Storage::url('student-photos/'.$student->profile_picture) :Storage::url('student-photos/default.png') }}" alt="User Image">
                                                     </a>
 
-                                                    <a href="{{ route('user/details', ['user' => $student->id]) }}">{{ $student->first_name }} {{ $student->last_name }}</a>
+                                                    <a >{{ $student->first_name }} {{ $student->last_name }}</a>
 
                                                 </h2>
                                             </td>
