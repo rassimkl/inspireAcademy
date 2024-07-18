@@ -180,18 +180,26 @@
   
                                         <div >
                        <h2>                                                          
-    @php
-        // Extract hours and minutes
-        $hours = floor($totalHoursThisMonth);
-        $minutes = ($totalHoursThisMonth - $hours) * 60;
+   @php
+    // Extract hours and minutes
+    $hours = floor($totalHoursThisMonth);
+    $minutes = ($totalHoursThisMonth - $hours) * 60;
 
-        // Format minutes to two digits
-        $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+    // Round the minutes to the nearest whole number
+    $minutes = round($minutes);
 
-        // Output the time format
+    // Format minutes to two digits if needed
+    $formatted_minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+
+    // Output the time format
+    if ($hours == 0 && $minutes == 0) {
+        echo '0';
+    } else {
         $formattedHours = ($hours > 0 ? $hours . ' hr<br>' : '') . ($minutes > 0 ? $formatted_minutes . ' min' : '');
         echo "$formattedHours";
-    @endphp
+    }
+@endphp
+
 </h2>
 
                                         </div>
