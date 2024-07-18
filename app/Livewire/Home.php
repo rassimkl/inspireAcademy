@@ -119,7 +119,7 @@ $this->classesForToday = ClassSession::whereDate('date', '=', now()->format('Y-m
     ->get()
     ->sortBy('start_time');
 
-    $count = max($this->classesForToday->count(), 5);
+    $count = max($this->classesForToday->count()-2, 5);
 
 // Get the latest submitted classes
 $this->classSubmitted = ClassSession::where('status', 2)
