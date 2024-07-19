@@ -413,13 +413,14 @@
         echo "$formattedHours";
     @endphp
 </td>
-    <td>
+<td>
     @php
         $date = strtotime($uclass->date);
         $formattedDate = date('d-m-Y', $date);
         $today = date('d-m-Y');
         $tomorrow = date('d-m-Y', strtotime('+1 day'));
         $yesterday = date('d-m-Y', strtotime('-1 day'));
+        $isPast = true;
     @endphp
     
     @if ($formattedDate == $today)
@@ -430,6 +431,14 @@
         Yesterday
     @else
         {{ $formattedDate }}
+    @endif
+
+    @if ($isPast)
+        <span class="text-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+            <!-- Or use an image icon -->
+            <!-- <img src="path/to/danger-icon.png" alt="Danger Icon"> -->
+        </span>
     @endif
 </td>
 
