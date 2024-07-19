@@ -133,8 +133,8 @@
                                              
                                                     <td>
                                                         <div class="date">
-                                                            <b>Class-{{$class->id}}</b>
-                                                            <p>Course:{{$class->course->name}} {{$class->room->name}}</p>
+                                                            <b>{{$class->course->name}} {{$class->room->name}}</b>
+                                                            <p></p>
                                                             <ul class="teacher-date-list">
                                                                 <li><i class="fas fa-calendar-alt me-2"></i>{{   Carbon\Carbon::parse($class->date)->format('M j, Y')}}</li>
                                                                 <li>|</li>
