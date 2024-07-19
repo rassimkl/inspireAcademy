@@ -436,7 +436,8 @@
     @if ($isPast)
         <span class="text-danger">
             <i class="fas fa-exclamation-triangle"></i>
-            Please Submitt
+            Please Submit
+             <i class="fa fa-check"></i>
             <!-- Or use an image icon -->
             <!-- <img src="path/to/danger-icon.png" alt="Danger Icon"> -->
         </span>
