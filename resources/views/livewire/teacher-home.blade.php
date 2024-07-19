@@ -437,7 +437,7 @@
         <span class="text-danger">
             <i class="fas fa-exclamation-triangle"></i>
             Please Submit
-             <i class="fa fa-check"></i>
+            
             <!-- Or use an image icon -->
             <!-- <img src="path/to/danger-icon.png" alt="Danger Icon"> -->
         </span>
