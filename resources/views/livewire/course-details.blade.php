@@ -166,7 +166,7 @@
                                             @if($cclasses->isEmpty())
                                             <p class='text-center'>No Classes</p>
                                             @else
-                                            @foreach($cclasses->sortByDesc('date')->take(5) as $classSession)
+                                            @foreach($cclasses->sortByDesc('date') as $classSession)
                                             <div class="educate-year">
                                                 <a href="{{ route('class/details', ['classId' => $classSession->id]) }}">
                                                     <h5 class='mb-2'>CLS{{$classSession->id}}</h5>
