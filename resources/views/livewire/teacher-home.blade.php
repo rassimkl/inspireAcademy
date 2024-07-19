@@ -456,7 +456,8 @@
                                                         <i class="far fa-edit me-2"></i>
                                                     </a>
                                                     <a  href="{{ route('class/submit', ['classsession' => $uclass->id]) }}" class="btn btn-sm bg-danger-light student_delete" >
-                                                     <i class="fa fa-check" aria-hidden="true"></i>
+                                                      <i class="fa fa-check" aria-hidden="true" style="color: {{ $isPast ? 'red' : 'inherit' }};"></i>
+
 
                                                     </a>
                                                 </div>
