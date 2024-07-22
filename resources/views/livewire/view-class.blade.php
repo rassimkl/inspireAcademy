@@ -176,7 +176,7 @@
 @endphp
 
 <!-- Google Calendar Link with Font Awesome Icon -->
-<a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{ urlencode('Class for Course ID ' . $classSession->course_id) }}&dates={{ $startDateTime }}/{{ $endDateTime }}&details={{ urlencode('Class with duration of ' . $classSession->hours . ' hours') }}&location={{ urlencode('Room ID ' . $classSession->room_id) }}" target="_blank" class="btn btn-primary">
+<a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{ urlencode($classSession->course->name) }}&dates={{ $startDateTime }}/{{ $endDateTime }}&details={{ urlencode('Class with duration of ' . $classSession->hours . ' hours') }}&location={{ urlencode($classSession->room->name) }}" target="_blank" class="btn btn-primary">
     <i class="fas fa-calendar-plus"></i> Add to Google Calendar
 </a>
 
