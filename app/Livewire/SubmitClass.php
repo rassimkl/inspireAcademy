@@ -9,6 +9,7 @@ use App\Models\ClassSession;
 use Livewire\Attributes\Title;
 use App\Mail\ClassSubmittedEmail;
 use Illuminate\Support\Facades\Mail;
+
 #[Title('Submit Class')]
 class SubmitClass extends Component
 {
@@ -64,8 +65,9 @@ class SubmitClass extends Component
 
         $endTime = Carbon::parse($this->date . ' ' . $this->end_time);
 
+        $endTimeWithGracePeriod = $endTime->subMinutes(10);
 
-        if ($endTime->greaterThan(Carbon::now())) {
+        if ($endTimeWithGracePeriod->greaterThan(Carbon::now())) {
             $this->addError('report', 'You cant submit before end of the class');
             return;
         }
