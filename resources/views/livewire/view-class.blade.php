@@ -35,7 +35,9 @@
                                               
                                             </div>
                                             <div class="names-profiles">
-                                                <h4>{{$classSession->course->name}}</h4>
+
+                                           
+                                                <h4>  <a href="{{ route('course/deails', ['course' => $classSession->course->id]) }}">{{ $classSession->course->name }} </a></h4>
                                             <h5>Class for {{ $classSession->hours }} {{ Str::plural('Hour', $classSession->hours) }}</h5>
 
                                             </div>

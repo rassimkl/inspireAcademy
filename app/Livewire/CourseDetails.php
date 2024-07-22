@@ -31,6 +31,7 @@ class CourseDetails extends Main
 
     public $fileId;
 
+    public $perPage = 5;
 
 
     protected $rules = [
@@ -195,7 +196,8 @@ class CourseDetails extends Main
     public function render()
     {
 
-        $cclasses = $this->course->classes()->paginate(8);
+        $cclasses = $this->course->classes()->orderBy('date', 'asc')->paginate(4);
+
 
         return view('livewire.course-details', ['cclasses' => $cclasses]);
     }

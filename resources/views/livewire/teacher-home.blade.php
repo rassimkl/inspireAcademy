@@ -400,8 +400,8 @@
                                             <td>
                                               
                                             </td>
-                                            <td>CLS{{ $uclass->id }}</td>
-                                           
+                                     
+                                              <td> <a href="{{ route('class/details', ['classId' => $uclass->id]) }}">CLS{{ $uclass->id }}</a></td>
                                             <td hidden class="avatar">{{ $uclass->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
