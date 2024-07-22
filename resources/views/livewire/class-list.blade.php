@@ -201,7 +201,7 @@
         {{ $formattedDate }}
     @endif
 
-    @if ($isPast)
+    @if ($isPast && $class->status==1)
         <span class="text-danger">
             <i class="fas fa-exclamation-triangle"></i>
           @if( auth()->user()->user_type_id==1)
