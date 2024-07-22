@@ -129,7 +129,21 @@
                                             <td>
                                                 <h2 class="table-avatar">
                                             
-                                                    <a href="{{ route('course/deails', ['course' => $course]) }}">{{ $course->name }} </a>
+                                                    <a href="{{ route('course/deails', ['course' => $course]) }}">{{ $course->name }} 
+
+                                                                              @if($course->classes_ucount>0)
+                                          <span class="text-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+         {{$course->classes_ucount}} {{ Str::plural('class', $course->classes_ucount) }} need submission
+            
+            <!-- Or use an image icon -->
+            <!-- <img src="path/to/danger-icon.png" alt="Danger Icon"> -->
+        </span>
+        @endif
+                                                    
+                                              
+                                                    </a>
+                
                                                 </h2>
                                             </td>
                                             <td><a  href="{{ route('user/details', ['user' => $course->teacher->id]) }}"> {{ $course->teacher->first_name }} {{ $course->teacher->last_name }} </a></td>
@@ -153,6 +167,7 @@
     @endphp
 
     {{ sprintf('%02d:%02d', $classesHours, $classesMinutes) }} / {{ sprintf('%02d:%02d', $totalHoursWhole, $totalMinutes) }} H (R: {{ sprintf('%02d:%02d', $differenceHours, $differenceMinutes) }})
+               
 </td>
 
                                                                           <td class='text-center'>{{$course->charge_per_hour}}€/H</td>

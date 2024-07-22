@@ -270,7 +270,18 @@
                                             <td hidden class="avatar">{{ $course->id }}</td>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                      <a href="{{ route('course/deails', ['course' => $course]) }}">{{$course->name }}</a>
+                                                      <a href="{{ route('course/deails', ['course' => $course]) }}">{{$course->name }}
+                                                      
+                                                                              @if($course->classes_ucount>0)
+                                          <span class="text-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+         {{$course->classes_ucount}} {{ Str::plural('class', $course->classes_ucount) }} need submission
+            
+            <!-- Or use an image icon -->
+            <!-- <img src="path/to/danger-icon.png" alt="Danger Icon"> -->
+        </span>
+        @endif
+                                                      </a>
                                                 </h2>
                                             </td>
                                          

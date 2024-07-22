@@ -128,7 +128,7 @@
                                               @endif
                                             <th class="text-center">Duration</th>
                                             <th class="text-center">Students</th>
-                                  <th wire:click="sortBy('date')" style="cursor: pointer;">
+                                  <th class="text-center" wire:click="sortBy('date')" style="cursor: pointer;">
                 Date
                 @if($sortField == 'date')
                     @if($sortDirection == 'asc')
@@ -181,7 +181,41 @@
 </td>
 
                                             <td class="text-center">{{ $class->course->students->count() }}</td>
-                                            <td class="text-center">{{ (new DateTime($class->date))->format('d-m-Y') }}</td>
+                                       <td>
+    @php
+        $date = strtotime($class->date);
+        $formattedDate = date('d-m-Y', $date);
+        $today = date('d-m-Y');
+        $tomorrow = date('d-m-Y', strtotime('+1 day'));
+        $yesterday = date('d-m-Y', strtotime('-1 day'));
+        $isPast = $date < strtotime('today');
+    @endphp
+    
+    @if ($formattedDate == $today)
+        Today
+    @elseif ($formattedDate == $tomorrow)
+        Tomorrow
+    @elseif ($formattedDate == $yesterday)
+        Yesterday
+    @else
+        {{ $formattedDate }}
+    @endif
+
+    @if ($isPast)
+        <span class="text-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+          @if( auth()->user()->user_type_id==1)
+           
+           Need Submition
+           @else
+Please Submit
+           @endif
+            
+            <!-- Or use an image icon -->
+            <!-- <img src="path/to/danger-icon.png" alt="Danger Icon"> -->
+        </span>
+    @endif
+</td>
                                            <td class='text-center'>{{ date('H:i', strtotime($class->start_time)) }}/{{ date('H:i', strtotime($class->end_time)) }}</td>
                                           
 

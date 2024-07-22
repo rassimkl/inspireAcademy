@@ -25,7 +25,7 @@ class TeacherHome extends Component
     public $latestSubmitted;
     public function mount()
     {
-       
+
         $currentMonth = Carbon::now()->month;
 
 
@@ -76,6 +76,12 @@ class TeacherHome extends Component
 
 
         $this->courses = $this->teacher->coursesAsTeacher()
+            ->withCount([
+                'classes as classes_ucount' => function ($subQuery) use ($currentDateTime) {
+                    $subQuery->where('status', 1)
+                        ->where('date', '<', $currentDateTime);
+                }
+            ]) // Eager load the latest class date relationship
             ->whereIn('status_id', [1, 2])
             ->with([
                 'classes' => function ($query) {

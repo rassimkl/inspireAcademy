@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\CourseFile;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -59,7 +60,7 @@ class Course extends Model
         // If the course status is not already "completed" (status 3) and all conditions are met, update to "completed"
         if ($totalHours == $this->total_hours) {
             $this->status_id = 3; // Update status to "completed"
-            $this->save();  
+            $this->save();
         }
     }
 
@@ -79,5 +80,14 @@ class Course extends Model
     {
         return $this->hasOne(ClassSession::class)
             ->latest('date');
+    }
+
+    public function unsubmittedClassesCount()
+    {
+        $today = Carbon::today();
+        return $this->hasMany(ClassSession::class)
+            ->where('status', 1)
+            ->where('date', '<', $today)
+            ->count();
     }
 }
