@@ -425,6 +425,17 @@
     @endphp
 </td>
 <td>
+
+@php
+    // Format date and time for Google Calendar
+    $startDateTime = \Carbon\Carbon::parse("{$uclass->date} {$uclass->start_time}")->format('Ymd\THis');
+    $endDateTime = \Carbon\Carbon::parse("{$uclass->date} {$uclass->end_time}")->format('Ymd\THis');
+@endphp
+
+<!-- Google Calendar Link with Font Awesome Icon -->
+<a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{ urlencode('Class for Course ID ' . $uclass->course_id) }}&dates={{ $startDateTime }}/{{ $endDateTime }}&details={{ urlencode('Class with duration of ' . $uclass->hours . ' hours') }}&location={{ urlencode('Room ID ' . $uclass->room_id) }}" target="_blank">
+    <i class="fas fa-calendar-plus"></i> 
+</a>
     @php
         $date = strtotime($uclass->date);
         $formattedDate = date('d-m-Y', $date);
