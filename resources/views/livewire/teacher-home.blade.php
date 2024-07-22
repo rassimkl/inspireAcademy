@@ -433,7 +433,7 @@
 @endphp
 
 <!-- Google Calendar Link with Font Awesome Icon -->
-<a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{ urlencode('Class for Course ID ' . $uclass->course_id) }}&dates={{ $startDateTime }}/{{ $endDateTime }}&details={{ urlencode('Class with duration of ' . $uclass->hours . ' hours') }}&location={{ urlencode('Room ID ' . $uclass->room_id) }}" target="_blank">
+<a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{ urlencode($uclass->course->name) }}&dates={{ $startDateTime }}/{{ $endDateTime }}&details={{ urlencode('Class with duration of ' . $uclass->hours . ' hours') }}&location={{ urlencode($uclass->room->name) }}" target="_blank">
     <i class="fas fa-calendar-plus"></i> 
 </a>
     @php
