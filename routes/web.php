@@ -48,7 +48,6 @@ use App\Http\Controllers\Auth\LogoutController;
 /** for side bar menu active */
 
 
-Route::get('/calendar-event/{id}', [EventController::class, 'addToCalendar'])->name('calendar.add');
 
 
 Route::get('/', Login::class)->name('login')->middleware('guest');

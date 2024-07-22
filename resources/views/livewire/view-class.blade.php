@@ -169,6 +169,17 @@
 </h5>
                                             </div>
                                         </div>
+                                        @php
+    // Format date and time for Google Calendar
+    $startDateTime = \Carbon\Carbon::parse("{$classSession->date} {$classSession->start_time}")->format('Ymd\THis');
+    $endDateTime = \Carbon\Carbon::parse("{$classSession->date} {$classSession->end_time}")->format('Ymd\THis');
+@endphp
+
+<!-- Google Calendar Link with Font Awesome Icon -->
+<a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{ urlencode('Class for Course ID ' . $classSession->course_id) }}&dates={{ $startDateTime }}/{{ $endDateTime }}&details={{ urlencode('Class with duration of ' . $classSession->hours . ' hours') }}&location={{ urlencode('Room ID ' . $classSession->room_id) }}" target="_blank" class="btn btn-primary">
+    <i class="fas fa-calendar-plus"></i> Add to Google Calendar
+</a>
+
   
 
                   </div>
