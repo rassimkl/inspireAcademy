@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\AdminList;
 use App\Models\User;
 use App\Livewire\Home;
 use App\Livewire\Login;
@@ -12,6 +11,7 @@ use App\Livewire\AddClass;
 use App\Livewire\EditUser;
 use App\Livewire\Students;
 use App\Livewire\Teachers;
+use App\Livewire\AdminList;
 use App\Livewire\ClassList;
 use App\Livewire\ViewClass;
 use App\Livewire\EditCourse;
@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PDFController;
 use App\Livewire\ManageTeacherPayments;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\Auth\LogoutController;
 
 
@@ -47,6 +48,7 @@ use App\Http\Controllers\Auth\LogoutController;
 /** for side bar menu active */
 
 
+Route::get('/calendar-event/{id}', [EventController::class, 'addToCalendar'])->name('calendar.add');
 
 
 Route::get('/', Login::class)->name('login')->middleware('guest');
