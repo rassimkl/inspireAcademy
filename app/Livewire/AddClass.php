@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Models\Course;
 use App\Models\Status;
 use Livewire\Component;
+use Livewire\Attributes\Title;
 
+#[Title('Add Class')]
 class AddClass extends Main
 {
     public $courseId;
