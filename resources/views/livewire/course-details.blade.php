@@ -138,6 +138,21 @@
                                                     Online
                                                     @endif
                                                 </h5>
+
+
+                                                
+                                            </div>
+
+                                            
+                                        </div>
+
+                                             <div class="personal-activity">
+                                            <div class="personal-icons">
+                                                 <i class="fa fa-euro-sign"></i>
+                                            </div>
+                                            <div class="views-personal">
+                                                <h4>Charge</h4>
+                                                <h5>{{ ($course->charge_per_hour) }}/H</h5>
                                             </div>
                                         </div>
                                     </div>
