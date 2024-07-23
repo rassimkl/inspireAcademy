@@ -38,7 +38,17 @@
         .feather-more-vertical {
     display: none;
 }
-    </style>
+
+      .icon-hover:hover {
+        background-color: #3d5ee1 !important;
+        color: #fff !important;
+    }
+    .icon-hover:hover i {
+        color: #fff !important;
+    }
+   
+
+</style>
 
 </head>
 <body>

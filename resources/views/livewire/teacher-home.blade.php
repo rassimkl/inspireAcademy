@@ -332,15 +332,14 @@
                             
 
                                            
-                                            <td class="text-end">
-                                                <div class="actions">
-                                         
-                                                    <a        href="{{ route('class/add', ['course' => $course->id]) }}" class="btn btn-sm bg-danger-light">
-<i class="feather-plus"></i></a></span>
-                                                    </a>
-                                                   
-                                                </div>
-                                            </td>
+                                         <td class="text-center">
+    <div >
+        <a href="{{ route('class/add', ['course' => $course->id]) }}" class="btn btn-sm bg-danger-light icon-hover">
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
+</td>
+
                                         </tr>
                                         @endforeach
                                         
