@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Status;
@@ -27,6 +28,7 @@ class AddClass extends Main
 
     public function render()
     {
+        $today = Carbon::today();
         $searchTerm = mb_strtolower($this->search);
         $user = auth()->user();
 
@@ -53,6 +55,12 @@ class AddClass extends Main
             })->orWhere('name', 'like', '%' . $searchTerm . '%');
         })
             ->with(['latestClassDate']) // Eager load the latest class date relationship
+            ->withCount([
+                'classes as classes_ucount' => function ($subQuery) use ($today) {
+                    $subQuery->where('status', 1)
+                        ->where('date', '<', $today);
+                }
+            ])
             ->paginate($this->perPage);
 
         return view('livewire.add-class', ['courses' => $courses]);

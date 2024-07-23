@@ -121,7 +121,7 @@
                              {{-- @if(auth()->user()->user_type_id==2)<li><a class="{{set_active(['subject/list/page'])}} {{ request()->is('subject/edit/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }}" href="#">Add Class</a></li>     @endif --}}
                         <li><a class="{{set_active(['teacher/classes'])}}" href="{{ route('teacher/classes') }}">All Classes</a></li>   
                          {{-- @if(auth()->user()->user_type_id==2) <li><a class={{ request()->is('edit/class/*') ? 'active' : '' }}>Class Edit</a></li>     @endif --}}
-                             @if(auth()->user()->user_type_id==2)    <li><a href="{{ route('courses/addclass') }}" class={{ request()->is('courses/addclass/*') ? 'active' : '' }}>Add Class</a></li>@endif
+                             @if(auth()->user()->user_type_id==2)    <li><a href="{{ route('courses/addclass') }}" class="{{set_active(['courses/addclass'])}}" class={{ request()->is('courses/addclass/*') ? 'active' : '' }}>Add Class</a></li>@endif
                     </ul>
                 </li>
 @endif 
