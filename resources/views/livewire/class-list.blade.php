@@ -141,7 +141,7 @@
                                             <th class="text-center">Time</th>
                                             <th class="text-center">Room</th>
                                               <th class="text-center">Status</th>
-                                            <th class="text-end">Edit / Submit</th>
+                                            <th class="text-center">Edit / Submit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -227,13 +227,13 @@ Please Submit
         <span class="badge bg-success">Completed</span>
     @endif
 </td>
-                            <td class="text-end">
+                            <td class="text-center">
     @if($class->status != 2)
-        <div class="actions">
-            <a href="{{ route('class/edit', ['classsession' => $class->id]) }}" class="btn btn-sm bg-danger-light">
+        <div class="">
+            <a href="{{ route('class/edit', ['classsession' => $class->id]) }}" class="btn btn-sm bg-danger-light icon-hover">
                 <i class="far fa-edit me-2"></i>
             </a>
-            <a href="{{ route('class/submit', ['classsession' => $class->id]) }}" class="btn btn-sm bg-danger-light student_delete">
+            <a href="{{ route('class/submit', ['classsession' => $class->id]) }}" class="btn btn-sm bg-danger-light student_delete icon-hover">
                 <i class="fa fa-check" aria-hidden="true"></i>
             </a>
         </div>
