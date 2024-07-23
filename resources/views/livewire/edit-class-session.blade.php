@@ -6,8 +6,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Edit Class for Course: {{$course->name}} </h3>
-                            
+                            <h3 class="page-title">Edit Class for Course: {{$course->name}}  </h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('user/add/page') }}">User</a></li>
                                 <li class="breadcrumb-item active">Add Class</li>
@@ -26,17 +25,21 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-12">
+                                    
                                         <h5 class="form-title student-info">Class Information
-                                            <span>
-                                                <a href="javascript:;"><i class="feather-more-vertical"></i></a>
-                                            </span>
+                                           
+                                                                   <p>Validated Hours: {{$doneHours}}</span> / <span style="color: black;">Unvalidated Hours: {{$pendingHours}}</span></p>
+
+                                           
                                         </h5>
+                                         <p>{{$remainingHours}} {{ Str::plural('Hour', $remainingHours) }} Remaining incl.</p>
+
                                     </div>
                        
 
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
-                                            <label>Hours <span class="login-danger">*</span> <span class="font-weight-bold">{{$remainingHours}} Hours Remaining incl</span>
+                                            <label>Hours <span class="login-danger">*</span> <span class="font-weight-bold"></span>
 </label>
                                             <input step="0.25" type="number" class="form-control @error('hours') is-invalid @enderror" name="hours" placeholder="Enter number of hours" wire:model.live.500ms='hours'>
                                           @error('conflict')

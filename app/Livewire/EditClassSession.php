@@ -46,7 +46,8 @@ class EditClassSession extends Component
     public $notifyUser = false;
 
 
-
+    public $pendingHours;
+    public $doneHours;
     public $events = [];
 
 
@@ -112,6 +113,10 @@ class EditClassSession extends Component
 
 
         $this->course = $classsession->course;
+
+        $this->doneHours = $this->course->classes->where('status', 2)->sum('hours');
+        $this->pendingHours = $this->course->classes->where('status', 1)->sum('hours');
+
         $this->authorize('addClass', $this->course);
 
         //$this->authorize('addClass', $course);

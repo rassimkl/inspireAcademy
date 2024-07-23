@@ -32,13 +32,15 @@
                                             <span>
                                                 <a href="javascript:;"><i class="feather-more-vertical"></i></a>
                                             </span>
+                                             <p>Validated Hours: {{$doneHours}}</span> / <span style="color: black;">Unvalidated Hours: {{$pendingHours}}</span></p>
                                         </h5>
+                                           <p>{{$remainingHours}} {{ Str::plural('Hour', $remainingHours) }} Remaining</p>
                                     </div>
                        
 
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
-                                            <label>Hours <span class="login-danger">*</span> <span class="font-weight-bold">{{$remainingHours}} Hours Remaining</span>
+                                            <label>Hours <span class="login-danger">*</span> <span class="font-weight-bold"></span>
 </label>
                                             <input step="0.25" type="number" class="form-control @error('hours') is-invalid @enderror" name="hours" placeholder="Enter number of hours" wire:model.live.500ms='hours'>
                                             @error('conflict')

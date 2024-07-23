@@ -27,7 +27,7 @@ class TeacherHome extends Component
     {
 
         $currentMonth = Carbon::now()->month;
-
+        $today = Carbon::today();
 
         $this->teacher = User::with(['coursesAsTeacher.students', 'coursesAsTeacher.classes'])->find(auth()->id());
         $this->calendarClasses = $this->teacher->classes;
@@ -77,9 +77,9 @@ class TeacherHome extends Component
 
         $this->courses = $this->teacher->coursesAsTeacher()
             ->withCount([
-                'classes as classes_ucount' => function ($subQuery) use ($currentDateTime) {
+                'classes as classes_ucount' => function ($subQuery) use ($today) {
                     $subQuery->where('status', 1)
-                        ->where('date', '<', $currentDateTime);
+                        ->where('date', '<', $today);
                 }
             ]) // Eager load the latest class date relationship
             ->whereIn('status_id', [1, 2])

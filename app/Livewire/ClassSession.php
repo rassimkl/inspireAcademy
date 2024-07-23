@@ -28,6 +28,9 @@ class ClassSession extends Component
     public $rooms;
     public $conflict;
 
+    public $pendingHours;
+    public $doneHours;
+
 
 
     public $meeting_link;
@@ -90,6 +93,8 @@ class ClassSession extends Component
         $this->calculateEndTime();
         $this->room_id = 1;
         $this->course = $course;
+        $this->doneHours = $this->course->classes->where('status', 2)->sum('hours');
+        $this->pendingHours = $this->course->classes->where('status', 1)->sum('hours');
         $this->authorize('addClass', $course);
         $this->rooms = Room::all();
         $this->calculateRemainingHours();
@@ -214,6 +219,8 @@ class ClassSession extends Component
         //$this->reset(['end_time', 'start_time', 'date', 'hours', 'room_id']);
         $this->calculateRemainingHours();
         $this->loadClasses($this->room_id);
+        $this->doneHours = $this->course->classes->where('status', 2)->sum('hours');
+        $this->pendingHours = $this->course->classes->where('status', 1)->sum('hours');
 
         if ($this->notifyUser) {
 
