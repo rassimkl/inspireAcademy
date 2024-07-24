@@ -175,7 +175,7 @@
                                                                         <td>
 
             @if ($course->latestClassDate && $course->latestClassDate->date)
-                {{ \Illuminate\Support\Carbon::parse($course->latestClassDate->date)->diffForHumans() }}
+                {{ \Illuminate\Support\Carbon::parse($course->latestClassDate->date . ' ' . $course->latestClassDate->start_time)->diffForHumans() }}
             @else
                 No class given
             @endif
