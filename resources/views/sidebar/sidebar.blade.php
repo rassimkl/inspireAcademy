@@ -8,7 +8,7 @@
  
 @if(auth()->user()->user_type_id==1)
     <li class="{{set_active(['home'])}}">
-        <a href="{{ route('home') }}" wire:navigate>
+        <a href="{{ route('home') }}">
        <i class="fas fa-home"></i>
 
             <span>Home</span>
@@ -17,7 +17,7 @@
 @endif
 @if(auth()->user()->user_type_id==2)
     <li class="{{set_active(['teacher/home'])}}">
-        <a href="{{ route('teacher/home') }}" wire:navigate>
+        <a href="{{ route('teacher/home') }}">
        <i class="fas fa-home"></i>
 
             <span>Home</span>
@@ -26,7 +26,7 @@
 @endif
 @if(auth()->user()->user_type_id==3)
     <li class="{{set_active(['student/home'])}}">
-        <a href="{{ route('student/home') }}" wire:navigate>
+        <a href="{{ route('student/home') }}">
            <i class="fas fa-home"></i>
 
             <span>Home</span>
@@ -46,7 +46,7 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="{{ route('list/users') }}" class="{{set_active(['list/users'])}} {{ (request()->is('view/user/edit/*')) ? 'active' : '' }}" wire:navigate>List Users</a></li>
+                        <li><a href="{{ route('list/users') }}" class="{{set_active(['list/users'])}} {{ (request()->is('view/user/edit/*')) ? 'active' : '' }}">List Users</a></li>
                     </ul>
                 </li>
                 @endif
@@ -58,11 +58,11 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                     <li><a href="{{ route('user/add/page') }}" class="{{set_active(['user/add/page'])}}" wire:navigate>User Add</a></li>
-                        <li><a href="{{ route('student/list') }}"  class="{{set_active(['student/list','student/grid'])}}" wire:navigate>Student List</a></li>
-                                                <li><a href="{{ route('teacher/list') }}"  class="{{set_active(['teacher/list','teacher/grid'])}}" wire:navigate>Teacher List</a></li>
-                                                <li><a href="{{ route('intern/list') }}"  class="{{set_active(['intern/list','intern/grid'])}}" wire:navigate>Intern List</a></li>
-                                                <li><a href="{{ route('admin/list') }}"  class="{{set_active(['admin/list','intern/grid'])}}" wire:navigate>Admin List</a></li>
+                     <li><a href="{{ route('user/add/page') }}" class="{{set_active(['user/add/page'])}}">User Add</a></li>
+                        <li><a href="{{ route('student/list') }}"  class="{{set_active(['student/list','student/grid'])}}">Student List</a></li>
+                                                <li><a href="{{ route('teacher/list') }}"  class="{{set_active(['teacher/list','teacher/grid'])}}">Teacher List</a></li>
+                                                <li><a href="{{ route('intern/list') }}"  class="{{set_active(['intern/list','intern/grid'])}}">Intern List</a></li>
+                                                <li><a href="{{ route('admin/list') }}"  class="{{set_active(['admin/list','intern/grid'])}}">Admin List</a></li>
 
                        
                         {{-- <li><a class="{{ (request()->is('users/edit/*')) ? 'active' : '' }}">User Edit</a></li> --}}
@@ -90,8 +90,8 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                      @if(auth()->user()->user_type_id==1)  <li><a href="{{ route('courses.create') }}" class="{{set_active(['courses/create'])}}" wire:navigate>Create Course</a></li>    @endif
-                         <li><a href="{{ route('course/list') }}" class="{{set_active(['course/list'])}}" wire:navigate>Courses</a></li>
+                      @if(auth()->user()->user_type_id==1)  <li><a href="{{ route('courses.create') }}" class="{{set_active(['courses/create'])}}">Create Course</a></li>    @endif
+                         <li><a href="{{ route('course/list') }}" class="{{set_active(['course/list'])}}">Courses</a></li>
                  
                     </ul>
                 </li>
@@ -119,9 +119,9 @@
                     </a>
                     <ul>
                              {{-- @if(auth()->user()->user_type_id==2)<li><a class="{{set_active(['subject/list/page'])}} {{ request()->is('subject/edit/*') ? 'active' : '' }} {{ request()->is('add/class/*') ? 'active' : '' }}" href="#">Add Class</a></li>     @endif --}}
-                        <li><a class="{{set_active(['teacher/classes'])}}" href="{{ route('teacher/classes') }}" wire:navigate>All Classes</a></li>   
+                        <li><a class="{{set_active(['teacher/classes'])}}" href="{{ route('teacher/classes') }}">All Classes</a></li>   
                          {{-- @if(auth()->user()->user_type_id==2) <li><a class={{ request()->is('edit/class/*') ? 'active' : '' }}>Class Edit</a></li>     @endif --}}
-                             @if(auth()->user()->user_type_id==2)    <li><a href="{{ route('courses/addclass') }}" class="{{set_active(['courses/addclass'])}}" class={{ request()->is('courses/addclass/*') ? 'active' : '' }} wire:navigate>Add Class</a></li>@endif
+                             @if(auth()->user()->user_type_id==2)    <li><a href="{{ route('courses/addclass') }}" class="{{set_active(['courses/addclass'])}}" class={{ request()->is('courses/addclass/*') ? 'active' : '' }}>Add Class</a></li>@endif
                     </ul>
                 </li>
 @endif 
@@ -133,9 +133,9 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a wire:navigate class="{{set_active(['teacher/payments'])}}" href="{{ route('teacher/payments') }}">Manage Payments</a></li>
-                         <li><a wire:navigate class="{{set_active(['teacher/payments/history'])}}" href="{{ route('teacher/payments/history')}}">Invoice</a></li>
-                        <li><a wire:navigate class="{{set_active(['teachers/all/payments'])}}" href="{{ route('teacher/all/payments') }}">All Payments</a></li>
+                        <li><a class="{{set_active(['teacher/payments'])}}" href="{{ route('teacher/payments') }}">Manage Payments</a></li>
+                         <li><a class="{{set_active(['teacher/payments/history'])}}" href="{{ route('teacher/payments/history')}}">Invoice</a></li>
+                        <li><a class="{{set_active(['teachers/all/payments'])}}" href="{{ route('teacher/all/payments') }}">All Payments</a></li>
                        
                     </ul>
                 </li>
@@ -143,7 +143,7 @@
 
 @if(auth()->user()->user_type_id==2)
     <li class="{{set_active(['teacher/fiche'])}}">
-        <a wire:navigate href="{{ route('teacher/fiche') }}">
+        <a href="{{ route('teacher/fiche') }}">
             <i class="fas fa-file-alt"></i>
             <span>Fiche De Presence</span>
         </a>
@@ -152,7 +152,7 @@
 
 @if(auth()->user()->user_type_id==2)
     <li class="{{set_active(['my/payments'])}}">
-        <a wire:navigate href="{{ route('my/payments') }}">
+        <a href="{{ route('my/payments') }}">
        <i class="fas fa-clipboard"></i>
 
             <span>My Payments</span>
