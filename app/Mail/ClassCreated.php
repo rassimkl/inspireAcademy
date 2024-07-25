@@ -40,6 +40,7 @@ class ClassCreated extends Mailable
     {
         // Parse the start_time and remove the seconds
         $startTime = Carbon::parse($this->classSession->start_time)->format('H:i');
+        $endTime = Carbon::parse($this->classSession->end_time)->format('H:i');
 
         // Format the hours to H:M
         $totalMinutes = intval($this->classSession->hours * 60); // Convert hours to total minutes
@@ -54,6 +55,7 @@ class ClassCreated extends Mailable
             with: [
                 'date' => Carbon::parse($this->classSession->date)->format('F j, Y'),
                 'start_time' => $startTime,
+                'end_time' => $endTime,
                 'hours' => $formattedHours,
             ],
         );
