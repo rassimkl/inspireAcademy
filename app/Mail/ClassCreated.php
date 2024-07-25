@@ -49,6 +49,13 @@ class ClassCreated extends Mailable
 
         $formattedHours = ($hours > 0 ? $hours . ' hr ' : '') . ($minutes > 0 ? $minutes . ' min' : '');
 
+        $googleCalendarUrl = $this->generateGoogleCalendarUrl(
+            'Class Session', // Title of the event
+            'Class session details.', // Description of the event
+            $this->classSession->date,
+            $this->classSession->start_time,
+            $this->classSession->end_time
+        );
 
         return new Content(
             view: 'mail.classcreated',
@@ -57,6 +64,7 @@ class ClassCreated extends Mailable
                 'start_time' => $startTime,
                 'end_time' => $endTime,
                 'hours' => $formattedHours,
+                'googleCalendarUrl' => $googleCalendarUrl,
             ],
         );
     }
@@ -70,4 +78,25 @@ class ClassCreated extends Mailable
     {
         return [];
     }
+
+    private function generateGoogleCalendarUrl($title, $description, $date, $startTime, $endTime): string
+    {
+        $startDateTime = Carbon::parse("{$date} {$startTime}")->format('Ymd\THis');
+        $endDateTime = Carbon::parse("{$date} {$endTime}")->format('Ymd\THis');
+
+        $query = http_build_query([
+            'action' => 'TEMPLATE',
+            'text' => $title,
+            'details' => $description,
+            'dates' => "{$startDateTime}/{$endDateTime}",
+            'ctz' => config('app.timezone', 'UTC'), // Use your application's timezone
+        ]);
+
+        return "https://www.google.com/calendar/render?$query";
+    }
+
+
+
+
+
 }
