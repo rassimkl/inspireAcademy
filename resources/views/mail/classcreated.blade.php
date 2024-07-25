@@ -127,16 +127,6 @@
 
 <div class="class-info">
     <p>You have a class on <span class="class-date">{{$date}}</span> at <span class="class-hour">{{$start_time}}</span> for <span class="class-hour">{{$hours}} </span>.</p>
-                         @php
-    // Format date and time for Google Calendar
-    $startDateTime = \Carbon\Carbon::parse("{$date} {$start_time}")->format('Ymd\THis');
-    $endDateTime = \Carbon\Carbon::parse("{$date} {$end_time}")->format('Ymd\THis');
-@endphp
-
-<!-- Google Calendar Link with Font Awesome Icon -->
-<a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{ urlencode() }}&dates={{ $startDateTime }}/{{ $endDateTime }}&details={{ urlencode('Class with duration of ' . $hours . ' hours') }}&location={{  }}" target="_blank" class="btn btn-primary">
-    <i class="fas fa-calendar-plus"></i> Add to Google Calendar
-</a>
 
 
 </div>            
