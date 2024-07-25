@@ -134,7 +134,7 @@
 @endphp
 
 <!-- Google Calendar Link with Font Awesome Icon -->
-<a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{ urlencode() }}&dates={{ $startDateTime }}/{{ $endDateTime }}&details={{ urlencode('Class with duration of ' . $hours . ' hours') }}&location={{  }}" target="_blank" class="btn btn-primary">
+<a href="">
     <i class="fas fa-calendar-plus"></i> Add to Google Calendar
 </a>
 
