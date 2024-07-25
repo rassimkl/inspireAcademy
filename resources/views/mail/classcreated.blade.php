@@ -128,7 +128,7 @@
 <div class="class-info">
     <p>You have a class on <span class="class-date">{{$date}}</span> at <span class="class-hour">{{$start_time}}</span> for <span class="class-hour">{{$hours}} </span>.</p>
 
-   <a href="{{ $googleCalendarUrl }}" target="_blank" style="display: inline-block; padding: 10px 20px; color: white; background-color: #4285F4; border-radius: 5px; text-decoration: none;">Add to Google Calendar</a>
+   <a href="{{ $googleCalendarUrl }}" target="_blank" style="display: inline-block; padding: 20px 20px; color: white; background-color: #4285F4; border-radius: 5px; text-decoration: none;">Add to Google Calendar</a>
 </div>            
 
 <p></p>
