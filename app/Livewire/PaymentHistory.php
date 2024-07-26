@@ -156,7 +156,7 @@ class PaymentHistory extends Component
         $this->loadClasses($this->Selectedteacher, $value);
 
         // Parse the selected month into a Carbon instance
-        $date = Carbon::createFromFormat('m-Y', $this->selectedMonth)->startOfMonth();
+        $date = Carbon::createFromFormat('m-Y', $value)->startOfMonth();
 
 
         $classesToPayThisMonth = ClassSession::where('status', '=', 2)
