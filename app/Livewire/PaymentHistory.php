@@ -176,7 +176,7 @@ class PaymentHistory extends Component
             $totalPayment += $courseChargePerHour * $classHours;
         }
         $this->totalAllPayment = $totalPayment;
-
+        dd($totalPayment);
     }
 
     public function updatedSelectedTeacher($value)
