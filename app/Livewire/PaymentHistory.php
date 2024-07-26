@@ -149,7 +149,7 @@ class PaymentHistory extends Component
 
     public function updatedSelectedMonth($value)
     {
-        dd($value);
+       
         $this->loadTeachers($value);
         $this->lessons = [];
 
