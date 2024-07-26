@@ -84,7 +84,7 @@
         <thead>
             <tr>
                 <th width="50%" colspan="2">
-                    <h2 class="text-start">Inspire Academy</h2>
+                    <h2 class="text-start">{{$user->last_name}} {{$user->first_name}}</h2>
                 </th>
                 <th width="50%" colspan="2" class="text-end company-data">
                     
@@ -182,7 +182,7 @@ $total=0;
 
     <br>
     <p class="text-center">
-       Merci de travailler avec Inspire Academy
+   Merci de votre collaboration
     </p>
 
 </body>
