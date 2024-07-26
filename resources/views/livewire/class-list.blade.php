@@ -228,7 +228,7 @@ Please Submit
     @endif
 </td>
                             <td class="text-center">
-    @if($class->status != 2)
+    @if($class->status != 2 || auth()->user()->user_type_id==1)
         <div class="">
             <a href="{{ route('class/edit', ['classsession' => $class->id]) }}" class="btn btn-sm bg-danger-light icon-hover">
                 <i class="far fa-edit me-2"></i>

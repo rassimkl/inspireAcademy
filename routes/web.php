@@ -70,8 +70,7 @@ Route::middleware(['auth', 'teacher'])->group(function () {
     Route::get('/teacher/home', TeacherHome::class)->name('teacher/home');
 
     Route::get('/add/class/{course}', ClassSession::class)->name('class/add');
-    Route::get('/edit/class/{classsession}', EditClassSession::class)->name('class/edit');
-    Route::get('/submit/class/{classsession}', SubmitClass::class)->name('class/submit');
+
 
     Route::get('/teacher/Fiche', FichePresence::class)->name('teacher/fiche');
     Route::get('/download-fichpdf/{course}/{date}', [PDFController::class, 'downloadPdfich'])->name('downloadfich.pdf');
@@ -114,6 +113,9 @@ Route::middleware(['adminteacher'])->group(function () {
     Route::get('/view-class/{classId}', ViewClass::class)->name('class/details');
 
     Route::get('/user/profile/{user}', UserDetails::class)->name('user/details');
+    Route::get('/edit/class/{classsession}', EditClassSession::class)->name('class/edit');
+    Route::get('/submit/class/{classsession}', SubmitClass::class)->name('class/submit');
+
 
 
 });

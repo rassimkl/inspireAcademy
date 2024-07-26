@@ -35,14 +35,16 @@ class SubmitClass extends Component
     {
         $this->classsession = $classsession;
 
-        if ($classsession->status == 2) {
+        if (auth()->user()->user_type_id == 1) {
+
+        } elseif ($classsession->status == 2) {
 
             $this->redirect(TeacherHome::class);
         }
 
         $this->course = $classsession->course;
 
-        //$this->authorize('addClass', $course);
+        $this->authorize('addClass', $this->course);
         $this->rooms = Room::all();
         $this->calculateRemainingHours();
 
@@ -50,7 +52,7 @@ class SubmitClass extends Component
         $this->date = Carbon::parse($classsession->date)->format('d-m-Y');
         $this->start_time = Carbon::parse($classsession->start_time)->format('H:i');
         $this->end_time = Carbon::parse($classsession->end_time)->format('H:i');
-
+        $this->report = $classsession->report;
         $this->room_id = $classsession->room_id;
 
 

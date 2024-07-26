@@ -96,7 +96,9 @@ class EditClassSession extends Component
     public function mount(ClassSession $classsession)
     {
 
-        if ($classsession->status == 2) {
+        if (auth()->user()->user_type_id == 1) {
+
+        } elseif ($classsession->status == 2) {
 
             $this->redirect(TeacherHome::class);
         }
@@ -119,7 +121,7 @@ class EditClassSession extends Component
 
         $this->authorize('addClass', $this->course);
 
-        //$this->authorize('addClass', $course);
+
         $this->rooms = Room::all();
         $this->calculateRemainingHours();
 
