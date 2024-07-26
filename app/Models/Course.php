@@ -76,10 +76,17 @@ class Course extends Model
     }
 
 
-    public function latestClassDate()
+    public function latestClassDate2()
     {
         return $this->hasOne(ClassSession::class)
             ->latest('date');
+    }
+
+    public function latestClassDate()
+    {
+        return $this->hasOne(ClassSession::class)
+            ->where('date', '>', now())
+            ->orderBy('date', 'asc');
     }
 
     public function unsubmittedClassesCount()
