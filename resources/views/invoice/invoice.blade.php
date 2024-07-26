@@ -84,7 +84,7 @@
         <thead>
             <tr>
                 <th width="50%" colspan="2">
-                    <h2 class="text-start">Inspire Academy</h2>
+                    <h2 class="text-start">{{$user->first_name}} {{$user->last_name}}</h2>
                 </th>
                 <th width="50%" colspan="2" class="text-end company-data">
                     <span>Invoice Id: PYT{{$payment->id}}</span> <br>
@@ -163,7 +163,7 @@
 
     <br>
     <p class="text-center">
-        Thank your for working with Inspire Academy
+       Merci de votre collaboration
     </p>
 
 </body>
