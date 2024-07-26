@@ -168,7 +168,7 @@ class PaymentHistory extends Component
 
 
         $classesToPayThisMonth = ClassSession::where('status', '=', 2)
-            ->where('payment_status', '=', 1)
+            ->where('payment_status', '=',2)
             ->whereMonth('date', Carbon::parse($date)->format('m'))
             ->whereYear('date', Carbon::parse($date)->format('Y'))
             ->with('course') // Preload the 'course' relationship
