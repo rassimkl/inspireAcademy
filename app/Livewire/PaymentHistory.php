@@ -43,6 +43,28 @@ class PaymentHistory extends Component
         $this->loadTeachers(Carbon::today()->format('m-Y'));
         $this->selectedMonth = Carbon::today()->format('m-Y');
 
+        // Parse the selected month into a Carbon instance
+        $date = Carbon::createFromFormat('m-Y', $this->selectedMonth)->startOfMonth();
+
+
+        $classesToPayThisMonth = ClassSession::where('status', '=', 2)
+            ->where('payment_status', '=', 2)
+            ->whereMonth('date', Carbon::parse($date)->format('m'))
+            ->whereYear('date', Carbon::parse($date)->format('Y'))
+            ->with('course') // Preload the 'course' relationship
+            ->get();
+
+
+        $totalPayment = 0;
+
+        foreach ($classesToPayThisMonth as $class) {
+            // Calculate the total payment for each class
+            $courseChargePerHour = $class->course->charge_per_hour;
+            $classHours = $class->hours;
+            $totalPayment += $courseChargePerHour * $classHours;
+        }
+        $this->totalAllPayment = $totalPayment;
+
 
     }
 
@@ -133,7 +155,27 @@ class PaymentHistory extends Component
         $this->validate();
         $this->loadClasses($this->Selectedteacher, $value);
 
+        // Parse the selected month into a Carbon instance
+        $date = Carbon::createFromFormat('m-Y', $this->selectedMonth)->startOfMonth();
 
+
+        $classesToPayThisMonth = ClassSession::where('status', '=', 2)
+            ->where('payment_status', '=', 2)
+            ->whereMonth('date', Carbon::parse($date)->format('m'))
+            ->whereYear('date', Carbon::parse($date)->format('Y'))
+            ->with('course') // Preload the 'course' relationship
+            ->get();
+
+
+        $totalPayment = 0;
+
+        foreach ($classesToPayThisMonth as $class) {
+            // Calculate the total payment for each class
+            $courseChargePerHour = $class->course->charge_per_hour;
+            $classHours = $class->hours;
+            $totalPayment += $courseChargePerHour * $classHours;
+        }
+        $this->totalAllPayment = $totalPayment;
 
     }
 
@@ -163,27 +205,7 @@ class PaymentHistory extends Component
     public function render()
     {
 
-        // Parse the selected month into a Carbon instance
-        $date = Carbon::createFromFormat('m-Y', $this->selectedMonth)->startOfMonth();
 
-
-        $classesToPayThisMonth = ClassSession::where('status', '=', 2)
-            ->where('payment_status', '=',2)
-            ->whereMonth('date', Carbon::parse($date)->format('m'))
-            ->whereYear('date', Carbon::parse($date)->format('Y'))
-            ->with('course') // Preload the 'course' relationship
-            ->get();
-
-
-        $totalPayment = 0;
-
-        foreach ($classesToPayThisMonth as $class) {
-            // Calculate the total payment for each class
-            $courseChargePerHour = $class->course->charge_per_hour;
-            $classHours = $class->hours;
-            $totalPayment += $courseChargePerHour * $classHours;
-        }
-        $this->totalAllPayment = $totalPayment;
 
 
         return view('livewire.payment-history');
