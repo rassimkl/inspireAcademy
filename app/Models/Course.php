@@ -102,7 +102,7 @@ class Course extends Model
     {
         // First, try to get the latest class date that is greater than now
         $latestClass = $this->hasOne(ClassSession::class)
-            ->where('date', '>', now())
+            ->where('date', '>=', now())
             ->orderBy('date', 'asc')
             ->first();
 
