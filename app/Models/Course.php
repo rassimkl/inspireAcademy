@@ -100,24 +100,25 @@ class Course extends Model
 
     public function latestClassDate()
     {
-        // First, try to get the latest class date that is greater than now
+        $today = now()->toDateString(); // Get today's date in 'Y-m-d' format
+    
+        // First, try to get the latest class date that is greater than or equal to today
         $latestClass = $this->hasOne(ClassSession::class)
-            ->where('date', '>=', now())
+            ->whereDate('date', '>=', $today)
             ->orderBy('date', 'asc')
             ->first();
-
-        // If no such class exists, get the nearest class date that is less than now
+    
+        // If no such class exists, get the nearest class date that is less than today
         if (!$latestClass) {
             $latestClass = $this->hasOne(ClassSession::class)
-                ->where('date', '<', now())
+                ->whereDate('date', '<', $today)
                 ->orderBy('date', 'desc')
                 ->first();
-
         }
-
+    
         return $latestClass;
     }
-
+    
     public function unsubmittedClassesCount()
     {
         $today = Carbon::today();
