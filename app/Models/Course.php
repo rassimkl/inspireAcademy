@@ -76,10 +76,26 @@ class Course extends Model
     }
 
 
-    public function latestClassDate2()
+    public function nearestClassDate()
     {
-        return $this->hasOne(ClassSession::class)
-            ->latest('date');
+        $now = now();
+
+        // Fetch the nearest future class
+        $nearestFutureClass = $this->classSessions()
+            ->where('date', '>=', $now)
+            ->orderBy('date', 'asc')
+            ->first();
+
+        // If a future class exists, return it
+        if ($nearestFutureClass) {
+            return $nearestFutureClass;
+        }
+
+        // If no future class exists, fetch the nearest past class
+        return $this->classSessions()
+            ->where('date', '<', $now)
+            ->orderBy('date', 'desc')
+            ->first();
     }
 
     public function latestClassDate()
