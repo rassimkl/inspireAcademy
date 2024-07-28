@@ -107,7 +107,7 @@ class Courses extends Main
                         ->orWhereRaw('lower(last_name) like ?', ['%' . $searchTerm . '%']);
                 });
         })
-            ->with(['latestClassDate'])
+            
             ->withCount([
                 'classes as classes_ucount' => function ($subQuery) use ($today) {
                     $subQuery->where('status', 1)

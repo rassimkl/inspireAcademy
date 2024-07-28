@@ -81,7 +81,7 @@ class Course extends Model
         $now = now();
 
         // Fetch the nearest future class
-        $nearestFutureClass = $this->classSessions()
+        $nearestFutureClass = $this->classes()
             ->where('date', '>=', $now)
             ->orderBy('date', 'asc')
             ->first();
@@ -92,7 +92,7 @@ class Course extends Model
         }
 
         // If no future class exists, fetch the nearest past class
-        return $this->classSessions()
+        return $this->classes()
             ->where('date', '<', $now)
             ->orderBy('date', 'desc')
             ->first();
@@ -100,9 +100,22 @@ class Course extends Model
 
     public function latestClassDate()
     {
-        return $this->hasOne(ClassSession::class)
+        // First, try to get the latest class date that is greater than now
+        $latestClass = $this->hasOne(ClassSession::class)
             ->where('date', '>', now())
-            ->orderBy('date', 'asc');
+            ->orderBy('date', 'asc')
+            ->first();
+
+        // If no such class exists, get the nearest class date that is less than now
+        if (!$latestClass) {
+            $latestClass = $this->hasOne(ClassSession::class)
+                ->where('date', '<', now())
+                ->orderBy('date', 'desc')
+                ->first();
+
+        }
+
+        return $latestClass;
     }
 
     public function unsubmittedClassesCount()
