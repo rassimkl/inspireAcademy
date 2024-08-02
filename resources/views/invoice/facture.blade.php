@@ -88,7 +88,7 @@
                 </th>
                 <th width="50%" colspan="2" class="text-end company-data">
                     
-           <span>numéro de facture :{{ $date->format('mY') }}{{$user->id}}T</span> <br>
+           <span>numéro de facture :{{ $date}}{{$user->id}}T</span> <br>
 
                     <span>Code postal : 64200</span> <br>
                     <span>Address: 25 All. du Moura, Biarritz</span> <br>
