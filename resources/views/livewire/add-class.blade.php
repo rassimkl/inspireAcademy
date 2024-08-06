@@ -125,12 +125,11 @@
                                             </td>
                                             <td>{{$course->classes_sum_hours??0}}/{{ $course->total_hours }} H ({{ $course->charge_per_hour }}€/H)</td>
                                                                         <td>
-            @if ($course->latestClassDate && $course->latestClassDate->date)
-                {{ \Illuminate\Support\Carbon::parse($course->latestClassDate->date)->diffForHumans() }}
+           @if ($course->latestClassDate() && $course->latestClassDate()->date)
+                {{ \Illuminate\Support\Carbon::parse($course->latestClassDate()->date . ' ' . $course->latestClassDate()->start_time)->diffForHumans() }}
             @else
                 No class given
-            @endif
-                                           <td>
+            @endif                       <td>
     {{ $course->course_type == 1 ? 'Face To Face' : 'Online' }}
 </td>
                            

@@ -56,7 +56,7 @@ class AddClass extends Main
                     ->orWhereRaw('lower(last_name) like ?', ['%' . $searchTerm . '%']);
             })->orWhere('name', 'like', '%' . $searchTerm . '%');
         })
-            ->with(['latestClassDate']) // Eager load the latest class date relationship
+         // Eager load the latest class date relationship
             ->withCount([
                 'classes as classes_ucount' => function ($subQuery) use ($today) {
                     $subQuery->where('status', 1)
