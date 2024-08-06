@@ -93,7 +93,7 @@
     @endphp</h3>
                                 </div>
                                 <div class="db-icon">
-                                    <img src="{{ URL::to('assets/img/icons/teacher-icon-03.svg') }}" alt="Dashboard Icon">
+                                    {{-- <img src="{{ URL::to('assets/img/icons/teacher-icon-03.svg') }}" alt="Dashboard Icon"> --}}
                                 </div>
                             </div>
                         </div>
