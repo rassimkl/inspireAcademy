@@ -69,10 +69,11 @@ class SubmitClass extends Component
 
         $endTimeWithGracePeriod = $endTime->subMinutes(10);
 
-        if ($endTimeWithGracePeriod->greaterThan(Carbon::now())) {
-            $this->addError('report', 'You cant submit before end of the class');
-            return;
-        }
+        // if ($endTimeWithGracePeriod->greaterThan(Carbon::now())) {
+        //     $this->addError('report', 'You cant submit before end of the class');
+        //     return;
+        // }
+        //can submit report at any time
 
         $validatedData['status'] = 2;
         $this->classsession->update($validatedData);
