@@ -65,14 +65,14 @@ class SubmitClass extends Component
 
         $validatedData = $this->validate();
 
-        $endTime = Carbon::parse($this->date . ' ' . $this->end_time);
+        $endTime = Carbon::parse($this->date . ' ' . $this->start_time);
 
         $endTimeWithGracePeriod = $endTime->subMinutes(10);
 
-        // if ($endTimeWithGracePeriod->greaterThan(Carbon::now())) {
-        //     $this->addError('report', 'You cant submit before end of the class');
-        //     return;
-        // }
+        if ($endTimeWithGracePeriod->greaterThan(Carbon::now())) {
+            $this->addError('report', 'You cant submit before end of the class');
+            return;
+        }
         //can submit report at any time
 
         $validatedData['status'] = 2;
