@@ -15,7 +15,6 @@ yarn-error.log
 .phpunit.result.cache
 .DS_Store
 *.log
-*.sql
 *.sqlite
 /public/uploads/tmp
 /.vscode
