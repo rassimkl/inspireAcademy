@@ -11,7 +11,7 @@
                             <h3 class="page-title">Welcome {{$student->first_name}} {{$student->last_name}}</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                                <li class="breadcrumb-item active">Teacher</li>
+                                <li class="breadcrumb-item active">Student</li>
                             </ul>
                         </div>
                     </div>

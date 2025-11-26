@@ -141,6 +141,16 @@
                 </li>
 @endif
 
+@if(auth()->user()->user_type_id==1)
+    <li class="{{ set_active(['online_courses.index']) }}">
+        <a href="{{ route('online_courses.index') }}">
+            <i class="fas fa-globe"></i>
+            <span>Online courses</span>
+        </a>
+    </li>
+@endif
+
+
 @if(auth()->user()->user_type_id==2)
     <li class="{{set_active(['teacher/fiche'])}}">
         <a href="{{ route('teacher/fiche') }}">
@@ -158,8 +168,30 @@
             <span>My Payments</span>
         </a>
     </li>
+
 @endif
-            
+
+@if(auth()->user()->user_type_id == 3)
+    <li class="{{ set_active(['student/online-courses']) }}">
+        <a href="{{ route('student.courses') }}">
+            <i class="fas fa-globe text-primary"></i>
+            <span>Online Courses</span>
+        </a>
+    </li>
+@endif
+
+
+@if(auth()->user()->user_type_id == 2)
+    <li class="{{ set_active(['Teacher/online-courses']) }}">
+        <a href="{{ route('teacher.OnlineCourses') }}">
+            <i class="fas fa-globe text-primary"></i>
+            <span>Online Courses</span>
+        </a>
+    </li>
+@endif
+
+
+
             </ul>
         </div>
     </div>

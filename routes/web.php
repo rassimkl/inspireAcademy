@@ -32,6 +32,10 @@ use App\Http\Controllers\PDFController;
 use App\Livewire\ManageTeacherPayments;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Livewire\Admin\OnlineCoursesLanguages;
+use App\Livewire\Admin\OnlineCoursesLanguageShow;
+use App\Livewire\Teacher\OnlineCourses;
+
 
 
 /*
@@ -80,6 +84,9 @@ Route::middleware(['auth', 'teacher'])->group(function () {
     Route::get('/download-asteacher-invoice-pdf/{teacherId}/{date}', [PDFController::class, 'downloadInvoiceAsTeacherPdf'])->name('download.invoice.t.pdf');
 
 
+    Route::get('/teacher/courses', OnlineCourses::class)->name('teacher.OnlineCourses');
+
+
 
 });
 
@@ -103,7 +110,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/download-pdf/{payment}', [PDFController::class, 'downloadPdf'])->name('download.pdf');
     Route::get('/download-invoice-pdf/{teacherId}/{date}', [PDFController::class, 'downloadInvoicePdf'])->name('download.invoice.pdf');
 
-
+    Route::get('/online-courses', OnlineCoursesLanguages::class)->name('online_courses.index');
+    Route::get('/online-courses/{language}', OnlineCoursesLanguageShow::class)->name('online_courses.show');
+    
 
 
 });
@@ -123,6 +132,7 @@ Route::middleware(['teacherstudentadmin'])->group(function () {
     Route::get('/student', Student::class)->name('student/home');
     Route::get('/course/list', Courses::class)->name('course/list');
     Route::get('/course/details/{course}', CourseDetails::class)->name('course/deails');
+    Route::get('/student/courses', \App\Livewire\Student\Courses::class)->name('student.courses');
 
 });
 
