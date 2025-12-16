@@ -126,7 +126,7 @@
 
                                 {{-- 📄 Icône + Nom du fichier (téléchargement direct) --}}
                                 <div class="d-flex align-items-center">
-                                    <a href="{{ asset('files/'.$course->file_path) }}" 
+                                    <a href="{{ asset('storage/'.$course->file_path) }}" 
                                        download 
                                        class="text-decoration-none d-flex align-items-center">
                                         <i class="fas fa-file-pdf text-danger fa-lg me-3"></i>
@@ -136,7 +136,7 @@
 
                                 {{-- 🟢 Boutons d’action : Open / Delete --}}
                                 <div>
-                                    <a href="{{ asset('files/'.$course->file_path) }}" 
+                                    <a href="{{ asset('storage/'.$course->file_path) }}" 
                                        target="_blank"
                                        class="btn btn-sm btn-outline-success me-2">
                                         <i class="fas fa-eye"></i> Open

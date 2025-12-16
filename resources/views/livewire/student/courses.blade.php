@@ -51,11 +51,11 @@
                                     <strong>{{ $course->title }}</strong>
                                 </div>
                                 <div>
-                                    <a href="{{ asset('files/'.$course->file_path) }}" target="_blank"
+                                    <a href="{{ asset('storage/'.$course->file_path) }}" target="_blank"
                                        class="btn btn-sm btn-outline-success me-2">
                                         <i class="fas fa-eye"></i> Open
                                     </a>
-                                    <a href="{{ asset('files/'.$course->file_path) }}" download
+                                    <a href="{{ asset('storage/'.$course->file_path) }}" download
                                        class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-download"></i> Download
                                     </a>
