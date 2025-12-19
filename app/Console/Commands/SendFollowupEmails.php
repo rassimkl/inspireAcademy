@@ -33,10 +33,6 @@ class SendFollowupEmails extends Command
             // Récupère tous les segments de la formation de cet étudiant
             $courseLinks = CourseStudent::where('student_id', $studentId)->get();
 
-            // Si tous les segments ont déjà followup_sent = true → aucun mail
-            if ($courseLinks->every(fn($c) => $c->followup_sent)) {
-                continue;
-            }
 
             // Total des heures prévues (somme des total_hours de chaque segment)
             $totalHours = Course::whereIn('id', $courseLinks->pluck('course_id'))
@@ -55,13 +51,12 @@ class SendFollowupEmails extends Command
             $progress = ($doneHours / $totalHours) * 100;
 
             // Si étudiant dépasse 50 % → envoyer un mail
-            if ($progress >= 50) {
+            if ($progress >= 50 && $courseLinks->contains('followup_sent', false)) {
 
                 // Envoi du mail
-                // Mail::to($student->email)->send(new \App\Mail\FollowupMail($student, $progress));
-                $this->info("TEST : Mail serait envoyé à {$student->email} ({$progress}%)");
+                Mail::to($student->email)->send(new \App\Mail\FollowupMail($student, $progress));
                 // Mail de notification pour l’école
-                $this->info("NOTIF ADMIN : {$student->name} a atteint {$progress}%.");
+                Mail::to('kloulrassim25@gmail.com')->send(new \App\Mail\AdminFollowupNotificationMail($student, $progress));
                 // On met followup_sent = true sur TOUTES ses lignes
                 CourseStudent::where('student_id', $studentId)
                     ->update(['followup_sent' => true]);
@@ -75,10 +70,9 @@ class SendFollowupEmails extends Command
 
             if ($progress >= 100 && $courseLinks->contains('finished_sent', false)) {
 
-                // Mail::to($student->email)->send(new \App\Mail\FinishedCourseMail($student, $progress));
+                Mail::to($student->email)->send(new \App\Mail\FinishedCourseMail($student, $progress));
 
-                $this->info("TEST → Mail FIN DE FORMATION serait envoyé à {$student->email} ({$progress}%)");
-                $this->info("NOTIF ADMIN → {$student->name} a TERMINÉ 100% de sa formation !");
+                Mail::to('kloulrassim25@gmail.com')->send(new \App\Mail\FinishedCourseAdminNotification($student, $progress));
 
                 // Marquer comme envoyé
                 CourseStudent::where('student_id', $studentId)
