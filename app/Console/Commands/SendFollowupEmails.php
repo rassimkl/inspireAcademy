@@ -56,7 +56,7 @@ class SendFollowupEmails extends Command
                 // Envoi du mail
                 Mail::to($student->email)->send(new \App\Mail\FollowupMail($student, $progress));
                 // Mail de notification pour l’école
-                Mail::to('kloulrassim25@gmail.com')->send(new \App\Mail\AdminFollowupNotificationMail($student, $progress));
+                Mail::to('contact@inspireacademy.fr')->send(new \App\Mail\AdminFollowupNotificationMail($student, $progress));
                 // On met followup_sent = true sur TOUTES ses lignes
                 CourseStudent::where('student_id', $studentId)
                     ->update(['followup_sent' => true]);
@@ -72,7 +72,7 @@ class SendFollowupEmails extends Command
 
                 Mail::to($student->email)->send(new \App\Mail\FinishedCourseMail($student, $progress));
 
-                Mail::to('kloulrassim25@gmail.com')->send(new \App\Mail\FinishedCourseAdminNotification($student, $progress));
+                Mail::to('contact@inspireacademy.fr')->send(new \App\Mail\FinishedCourseAdminNotification($student, $progress));
 
                 // Marquer comme envoyé
                 CourseStudent::where('student_id', $studentId)
