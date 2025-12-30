@@ -103,7 +103,7 @@
 
             <span>Zip code : 64200</span> <br />
             <span>Address: 25 All. du Moura, Biarritz</span> <br />
-            <span>Phone : 05540075512</span>
+            <span>Phone : 0540075512</span>
           </th>
         </tr>
         <tr class="bg-blue">
@@ -154,8 +154,8 @@
         </tr>
         <tr class="bg-blue">
           <th style="text-align: center; vertical-align: middle;" >Date</th>
-          <th style="text-align: center; vertical-align: middle;" >Heure</th>
           <th style="text-align: center; vertical-align: middle;" >Durée</th>
+          <th style="text-align: center; vertical-align: middle;" >Heure</th>
           <th style="text-align: center; vertical-align: middle;" >En ligne</th>
           <th style="text-align: center; vertical-align: middle;" >Signature</th>
           <th style="text-align: center; vertical-align: middle;" >Signature du formateur</th>
