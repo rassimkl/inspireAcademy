@@ -44,7 +44,7 @@ class ClassSession extends Component
 
     public function rules()
     {
-        $minDate = now()->subDays(31)->toDateString();
+        $minDate = now()->subMonths(6)->toDateString();
 
         return [
             'hours' => 'required|min:0.5',
