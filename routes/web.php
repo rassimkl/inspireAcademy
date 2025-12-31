@@ -35,6 +35,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Livewire\Admin\OnlineCoursesLanguages;
 use App\Livewire\Admin\OnlineCoursesLanguageShow;
 use App\Livewire\Teacher\OnlineCourses;
+use App\Livewire\Admin\FichePresenceGlobal;
 
 
 
@@ -113,6 +114,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/online-courses', OnlineCoursesLanguages::class)->name('online_courses.index');
     Route::get('/online-courses/{language}', OnlineCoursesLanguageShow::class)->name('online_courses.show');
     
+    Route::get('/admin/fiche-presence/export', FichePresenceGlobal::class)
+    ->name('admin.fiche.presence.export');
 
 
 });

@@ -150,6 +150,25 @@
     </li>
 @endif
 
+@if(auth()->user()->user_type_id == 1)
+<li class="submenu {{ set_active(['admin/fiche-presence/export']) }}">
+    <a href="#">
+        <i class="fas fa-file-alt"></i>
+        <span>Fiches de présence</span>
+        <span class="menu-arrow"></span>
+    </a>
+    <ul>
+        <li>
+            <a href="{{ route('admin.fiche.presence.export') }}"
+               class="{{ set_active(['admin/fiche-presence/export']) }}">
+                Export global (ZIP)
+            </a>
+        </li>
+    </ul>
+</li>
+@endif
+
+
 
 @if(auth()->user()->user_type_id==2)
     <li class="{{set_active(['teacher/fiche'])}}">
