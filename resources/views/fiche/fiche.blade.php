@@ -95,7 +95,7 @@
           <th width="50%" colspan="2">
             <h2 class="text-start">Inspire Academy</h2>
             <h2 class="text-start">FICHE DE PRESENCE</h2>
-             <h3 class="text-start">{{$course->name}}</h3>
+             <h2 class="text-start">{{$course->name}}</h2>
           </th>
           <th width="50%" colspan="2" class="text-end company-data">
          
@@ -103,7 +103,7 @@
 
             <span>Zip code : 64200</span> <br />
             <span>Address: 25 All. du Moura, Biarritz</span> <br />
-            <span>Phone : 0540075512</span>
+            <span>Phone : 05 40 07 55 12</span>
           </th>
         </tr>
         <tr class="bg-blue">
@@ -128,7 +128,7 @@
           <td>Dates de formation</td>
           <td>{{$date}}<br /></td>
 
-          <td>Durée</td>
+          <td>Durée de la formation</td>
           <td>
            @php
         // Extract hours and minutes
@@ -146,6 +146,23 @@
         </tr>
       </tbody>
     </table>
+
+    
+
+    @php
+    // Total des heures effectuées (somme des durées du tableau)
+    $totalHours = $classes->sum('hours');
+
+    $totalH = floor($totalHours);
+    $totalM = round(($totalHours - $totalH) * 60);
+
+    // Sécurité si on tombe sur 60 min
+    if ($totalM === 60) {
+        $totalH++;
+        $totalM = 0;
+    }
+@endphp
+
 
     <table>
       <thead>
@@ -201,6 +218,14 @@
         </tr>
 
         @endforeach
+
+        <tr>
+    <td colspan="7" style="text-align: left; font-weight: bold;">
+        Total des heures effectuées :
+        {{ $totalH }} hr {{ str_pad($totalM, 2, '0', STR_PAD_LEFT) }} min
+    </td>
+</tr>
+
       </tbody>
     </table>
 

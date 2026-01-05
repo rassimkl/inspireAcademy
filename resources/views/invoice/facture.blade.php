@@ -84,15 +84,17 @@
         <thead>
             <tr>
                 <th width="50%" colspan="2">
+                    <h2 class="text-start">Inspire Academy</h2>
+                    <h2 class="text-start">Facture</h2>
                     <h2 class="text-start">{{$user->last_name}} {{$user->first_name}}</h2>
                 </th>
                 <th width="50%" colspan="2" class="text-end company-data">
                     
        <span>Numéro de facture :{{ str_replace('-', '', $date) }}{{$user->id}}T</span> <br>
 
-                    <span>Code postal : 64200</span> <br>
-                    <span>Address: 25 All. du Moura, Biarritz</span> <br>
-                         <span>Phone : 05 54 00 75 5 12</span> 
+                      <span>Zip code : 64200</span> <br />
+                    <span>Address: 25 All. du Moura, Biarritz</span> <br />
+                    <span>Phone : 05 40 07 55 12</span>
                 </th>
             </tr>
             <tr class="bg-blue">

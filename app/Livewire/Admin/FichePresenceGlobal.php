@@ -23,46 +23,52 @@ class FichePresenceGlobal extends Component
     public function downloadZip()
     {
         $zipPath = storage_path("app/fiches_presence_{$this->year}.zip");
+    $zip = new \ZipArchive();
+    $zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
-        $zip = new ZipArchive();
-        $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+    // Tous les enseignants
+    $teachers = \App\Models\User::where('user_type_id', 2)->get();
 
-        // Tous les enseignants
-        $teachers = User::where('user_type_id', 2)->get();
+    foreach ($teachers as $teacher) {
 
-        foreach ($teachers as $teacher) {
+        $teacherFolder = "Enseignant_{$teacher->last_name}_{$teacher->first_name}";
 
-            $teacherFolder = "Enseignant_{$teacher->last_name}_{$teacher->first_name}";
+        foreach ($teacher->coursesAsTeacher as $course) {
 
-            foreach ($teacher->coursesAsTeacher as $course) {
+            // Boucle sur les 12 mois
+            for ($month = 1; $month <= 12; $month++) {
 
                 $classes = $course->classes()
                     ->whereYear('date', $this->year)
+                    ->whereMonth('date', $month)
                     ->get();
 
-                // Pas de fiche si aucune classe en 2025
+                // S’il n’y a aucune classe ce mois → on passe
                 if ($classes->isEmpty()) {
                     continue;
                 }
 
-                // Génération PDF avec TON TEMPLATE
-                $pdf = Pdf::loadView('fiche.fiche', [
+                // Nom du dossier du mois (ex : 01_Janvier)
+                $monthName = \Carbon\Carbon::create()->month($month)->translatedFormat('m_F');
+
+                $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('fiche.fiche', [
                     'course'   => $course,
                     'classes'  => $classes,
                     'students' => $course->students,
                     'teacher'  => $teacher,
-                    'date'     => $this->year,
+                    'date'     => $monthName . ' ' . $this->year,
                 ]);
 
-                $fileName = "{$teacherFolder}/{$course->name}_{$this->year}.pdf";
+                $fileName = "{$teacherFolder}/{$monthName}/{$course->name}.pdf";
 
                 $zip->addFromString($fileName, $pdf->output());
             }
         }
+    }
 
-        $zip->close();
+    $zip->close();
 
-        return response()->download($zipPath)->deleteFileAfterSend(true);
+    return response()->download($zipPath)->deleteFileAfterSend(true);
     }
 
     public function render()
