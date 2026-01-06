@@ -45,6 +45,7 @@
             font-size: 18px;
             font-weight: 700;
             font-family: sans-serif;
+
         }
         .order-details tbody tr td:nth-child(1) {
             width: 20%;
@@ -76,6 +77,11 @@
             background-color: #414ab1;
             color: #fff;
         }
+
+        .bg-blue th {
+          width : 162px;
+        }
+
     </style>
 </head>
 <body>
@@ -168,8 +174,8 @@ $total=0;
                 <td width="15%" class="fw-bold">€ {{ $course->charge_per_hour*$hours}}</td>
             </tr>
            @if($loop->last)
-            <tr>
-                <td colspan="4" class="total-heading">Montant Total :</td>
+            <tr id ="total">
+                <td colspan="3" class="total-heading">Montant Total :</td>
                 <td colspan="1" class="total-heading">€ {{$total}}</td>
             </tr>
             @endif
