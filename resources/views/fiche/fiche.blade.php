@@ -89,6 +89,18 @@
     </style>
   </head>
   <body>
+
+
+@php
+    use Carbon\Carbon;
+
+    // $date attendu sous forme MM-YYYY
+    $formattedMonth = Carbon::createFromFormat('m-Y', $date)
+        ->locale('fr')
+        ->translatedFormat('F Y');
+@endphp
+
+
     <table class="order-details">
       <thead>
         <tr>
@@ -125,10 +137,13 @@
           <td>{{$teacher->last_name}} {{$teacher->first_name}} </td>
         </tr>
         <tr>
-          <td>Dates de formation</td>
-          <td>{{$date}}<br /></td>
+          <td>Mois concerné</td>
+          <td style="text-transform: capitalize;">
+           {{ $formattedMonth }}
+          </td>
 
-          <td>Durée de la formation</td>
+
+          <td>Durée totale de la formation</td>
           <td>
            @php
         // Extract hours and minutes
