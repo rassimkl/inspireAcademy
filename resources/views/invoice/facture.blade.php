@@ -163,9 +163,6 @@ $total=0;
             @endphp
             <tr>
                 <td width="30%">{{$course->name}}</td>
-                <td>
-                  
-                </td>
                 <td width="10%">{{$hours}}</td>
                 <td width="15%">{{ $course->charge_per_hour}}</td>
                 <td width="15%" class="fw-bold">€ {{ $course->charge_per_hour*$hours}}</td>
