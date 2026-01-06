@@ -128,7 +128,7 @@
           <td>NOM Prénom</td>
           <td>
           @foreach($students as $student)
-            {{$student->first_name}} {{$student->last_name}},
+           {{$student->last_name}} {{$student->first_name}}
           @endforeach
           
           </td>
