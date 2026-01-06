@@ -147,7 +147,6 @@
             </tr>
             <tr class="bg-blue">
                 <th>Formations</th>
-                <th></th>
                 <th>Heures</th>
                 <th>prix par heure €</th>
                 <th>Total €</th>
