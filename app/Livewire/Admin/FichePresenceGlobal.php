@@ -56,7 +56,7 @@ class FichePresenceGlobal extends Component
                     'classes'  => $classes,
                     'students' => $course->students,
                     'teacher'  => $teacher,
-                    'date'     => $monthName . ' ' . $this->year,
+                    'date' => str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . $this->year,
                 ]);
 
                 $fileName = "{$teacherFolder}/{$monthName}/{$course->name}.pdf";
