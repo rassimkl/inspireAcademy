@@ -62,7 +62,12 @@
             <h3 class="fw-bold text-primary m-0">
                 🌐 Online courses
             </h3>
-        @else
+        @elseif(auth()->user()->user_type_id == 2)
+            {{-- Étudiant : simple titre à gauche --}}
+            <h3 class="fw-bold text-primary m-0">
+                🌐 Online courses
+            </h3>
+        @else 
             {{-- Admin/Prof : lien cliquable --}}
             <h3 class="fw-bold m-0">
                 <a href="{{ route('online_courses.index') }}" class="text-primary text-decoration-none">
