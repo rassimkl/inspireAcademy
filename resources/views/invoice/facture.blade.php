@@ -86,6 +86,17 @@
 </head>
 <body>
 
+@php
+    use Carbon\Carbon;
+
+    // $date attendu sous forme "MM-YYYY"
+    $formattedMonth = Carbon::createFromFormat('m-Y', $date)
+        ->locale('fr')
+        ->translatedFormat('F Y');
+@endphp
+
+
+
     <table class="order-details">
         <thead>
             <tr>
@@ -118,7 +129,11 @@
             </tr>
             <tr>
                 <td>Date</td>
-                <td>{{$date}}<br></td>
+                <td style="text-transform: capitalize;">
+                     {{ $formattedMonth }}<br>
+                </td>
+
+
 
                 <td>Phone:</td>
                 <td>{{$user->phone_number}}</td>
