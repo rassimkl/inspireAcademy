@@ -209,6 +209,16 @@
     </li>
 @endif
 
+@if(auth()->user()->user_type_id == 1)
+<li>
+    <a href="{{ route('admin.invoices.export') }}">
+        <i class="fas fa-file-invoice"></i>
+        <span>Export Factures</span>
+    </a>
+</li>
+@endif
+
+
 
 
             </ul>

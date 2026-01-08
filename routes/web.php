@@ -36,6 +36,8 @@ use App\Livewire\Admin\OnlineCoursesLanguages;
 use App\Livewire\Admin\OnlineCoursesLanguageShow;
 use App\Livewire\Teacher\OnlineCourses;
 use App\Livewire\Admin\FichePresenceGlobal;
+use App\Livewire\Admin\InvoiceGlobal;
+
 
 
 
@@ -116,6 +118,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     
     Route::get('/admin/fiche-presence/export', FichePresenceGlobal::class)
     ->name('admin.fiche.presence.export');
+
+    Route::get('/admin/factures/export', InvoiceGlobal::class)
+    ->name('admin.invoices.export');
 
 
 });
