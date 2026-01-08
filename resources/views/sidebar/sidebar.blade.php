@@ -205,7 +205,7 @@
 <li>
     <a href="{{ route('admin.invoices.export') }}">
         <i class="fas fa-file-invoice"></i>
-        <span>Export Factures</span>
+        <span>Factures</span>
     </a>
 </li>
 @endif
