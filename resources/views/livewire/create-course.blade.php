@@ -130,7 +130,7 @@
     <div class="form-group local-forms">
         <label>Total Hours <span class="login-danger">*</span></label>
         <div class="position-relative">
-             <input type="number" step="0.01" class="form-control @error('totalHours') is-invalid @enderror" name="totalHours" placeholder="Enter Total hours" wire:model='totalHours'>
+             <input type="number" step="1" class="form-control @error('totalHours') is-invalid @enderror" name="totalHours" placeholder="Enter Total hours" wire:model='totalHours'>
             @error('totalHours')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
