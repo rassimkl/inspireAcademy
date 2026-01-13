@@ -25,7 +25,7 @@ class FichePresenceGlobal extends Component
         $currentYear = Carbon::now()->year;
 
         // Exemple : de 2020 jusqu'à l'année en cours
-        $this->years = range(2024, $currentYear);
+        $this->years = range(2025, $currentYear);
 
         // Année sélectionnée par défaut = année en cours
         $this->year = $currentYear;

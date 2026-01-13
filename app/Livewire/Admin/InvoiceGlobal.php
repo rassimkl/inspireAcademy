@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class InvoiceGlobal extends Component
 {
-    public int $year = 2025;
+    public int $year;
+    public array $years = [];
 
     public function mount()
     {
@@ -19,6 +20,13 @@ class InvoiceGlobal extends Component
         if (Auth::user()->user_type_id !== 1) {
             abort(403);
         }
+        $currentYear = Carbon::now()->year;
+
+        // Exemple : de 2020 jusqu'à l'année en cours
+        $this->years = range(2025, $currentYear);
+
+        // Année sélectionnée par défaut = année en cours
+        $this->year = $currentYear;
     }
 
     public function downloadZip()
