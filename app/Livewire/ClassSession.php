@@ -8,22 +8,19 @@ use App\Models\Course;
 use Livewire\Component;
 use App\Mail\ClassCreated;
 use App\Rules\NoClassConflict;
-use Livewire\Attributes\Title;
 use App\Rules\ScheduleConflict;
+use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Mail;
 
 #[Title('create class')]
 class ClassSession extends Component
 {
-
-
     public $course;
     public $hours = 1;
     public $date;
     public $start_time;
     public $end_time;
     public $room_id;
-    public $total_hours;
     public $remainingHours;
     public $rooms;
     public $conflict;
@@ -31,32 +28,27 @@ class ClassSession extends Component
     public $pendingHours;
     public $doneHours;
 
-
-
     public $meeting_link;
     public $is_online = false;
-
-
 
     public $notifyUser = false;
 
     public $events = [];
+
+    /* =========================
+        VALIDATION
+    ========================= */
 
     public function rules()
     {
         $minDate = now()->subMonths(6)->toDateString();
 
         return [
-            'hours' => 'required|min:0.5',
-            'date' => [
-                'required',
-                'date',
-
-                'after_or_equal:' . $minDate,
-            ],
+            'hours'      => 'required|min:0.5',
+            'date'       => ['required', 'date', 'after_or_equal:' . $minDate],
             'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
-            'room_id' => 'required|exists:rooms,id',
+            'end_time'   => 'required|date_format:H:i|after:start_time',
+            'room_id'    => 'required|exists:rooms,id',
             'meeting_link' => '',
         ];
     }
@@ -64,60 +56,95 @@ class ClassSession extends Component
     public function crules()
     {
         return [
-            'conflict' => [new NoClassConflict(null, $this->room_id, $this->date, $this->start_time, $this->end_time, $this->course->id)],
-
-
+            'conflict' => [
+                new NoClassConflict(
+                    null,
+                    $this->room_id,
+                    $this->date,
+                    $this->start_time,
+                    $this->end_time,
+                    $this->course->id
+                )
+            ],
         ];
-
-
-
-
     }
 
     public function srules()
     {
         return [
-            'conflict' => [new ScheduleConflict($this->course->teacher_id, $this->date, $this->start_time, $this->end_time, null)],
-
-
+            'conflict' => [
+                new ScheduleConflict(
+                    $this->course->teacher_id,
+                    $this->date,
+                    $this->start_time,
+                    $this->end_time,
+                    null
+                )
+            ],
         ];
-
     }
 
-
+    /* =========================
+        MOUNT
+    ========================= */
 
     public function mount(Course $course)
     {
+        $this->course = $course;
+
+        $this->authorize('addClass', $course);
+
         $this->date = Carbon::today()->format('d-m-Y');
         $this->start_time = Carbon::now()->format('H:i');
         $this->calculateEndTime();
-        $this->room_id = 1;
-        $this->course = $course;
-        $this->doneHours = $this->course->classes->where('status', 2)->sum('hours');
-        $this->pendingHours = $this->course->classes->where('status', 1)->sum('hours');
-        $this->authorize('addClass', $course);
+
         $this->rooms = Room::all();
+
+        $this->doneHours    = $course->classes->where('status', 2)->sum('hours');
+        $this->pendingHours = $course->classes->where('status', 1)->sum('hours');
+
         $this->calculateRemainingHours();
-        $this->loadClasses(1);
 
+        // Valeur par défaut
+        $this->room_id = 1;
 
-        if ($this->course->course_type == 2) {
-
+        if ($course->course_type == 2) {
+            // ONLINE
             $this->room_id = 102;
             $this->is_online = true;
-            $this->loadClasses(102);
+            $this->clearCalendar();
+        } else {
+            $this->loadClasses($this->room_id);
         }
-
-
-
-
     }
+
+    /* =========================
+        ROOM CHANGE
+    ========================= */
 
     public function updatedRoomId($value)
     {
+        // Online ou Outside → pas de calendrier
+        if (in_array($value, [102, 101])) {
+            $this->is_online = ($value == 102);
+            $this->clearCalendar();
+            return;
+        }
+
+        $this->is_online = false;
         $this->loadClasses($value);
-        $this->is_online = ($value == 102);
     }
+
+    /* =========================
+        CALENDAR LOGIC
+    ========================= */
+
+    protected function clearCalendar()
+    {
+        $this->events = [];
+        $this->dispatch('roomChanged', []);
+    }
+
     public function loadClasses($roomId)
     {
         $today = now()->subDays(31)->toDateString();
@@ -129,126 +156,114 @@ class ClassSession extends Component
         $this->events = [];
 
         foreach ($classes as $class) {
+
+            // Si c’est le prof connecté → vrai nom
+            if ($class->course->teacher_id === auth()->id()) {
+                $title = $class->course->name;
+            } else {
+                $title = 'Salle occupée';
+            }
+
             $this->events[] = [
-                'title' => $class->course->name . ' In ' . $class->room->name,
+                'title' => $title,
                 'start' => $class->date . 'T' . $class->start_time,
-                'end' => $class->date . 'T' . $class->end_time,
-                // Add other necessary properties
+                'end'   => $class->date . 'T' . $class->end_time,
             ];
         }
+
         $this->dispatch('roomChanged', $this->events);
     }
 
-    public function updatedDate($value)
-    {
-        $this->dispatch('dateChanged', $value);
-        $this->loadClasses($this->room_id); // Pass the current room_id
+    /* =========================
+        TIME HANDLING
+    ========================= */
 
+    public function updatedDate()
+    {
+        $this->dispatch('dateChanged', $this->date);
+        $this->loadClasses($this->room_id);
     }
 
     public function updatedHours($value)
     {
-        $this->hours = max(0.25, $value); // Ensure hours is at least 0.5
+        $this->hours = max(0.25, $value);
         $this->calculateEndTime();
     }
-    public function updatedStartTime($value)
+
+    public function updatedStartTime()
     {
         $this->calculateEndTime();
     }
+
     protected function calculateEndTime()
     {
-        if (!empty($this->hours) && !empty($this->start_time)) {
-            // Convert the hours to minutes
-            $minutes = $this->hours * 60;
-
-            // Calculate the end time by adding the minutes to the start time
-            $start = \DateTime::createFromFormat('H:i', $this->start_time);
-
-            if ($start !== false) { // Check if $start is a valid DateTime object
-                $end = clone $start;
-                $end->modify('+' . $minutes . ' minutes');
-
-                // Set the end time property
-                $this->end_time = $end->format('H:i');
-
-                // Dispatch a Livewire event to update the end time
-                $this->dispatch('updateEndtime', $this->end_time);
-            } else {
-                // Handle the case where the start time format is invalid
-                $this->end_time = null;
-                // Optionally, log an error or dispatch an event to notify the user
-            }
-        } else {
+        if (!$this->hours || !$this->start_time) {
             $this->end_time = null;
+            return;
         }
 
+        $start = \DateTime::createFromFormat('H:i', $this->start_time);
+        $minutes = $this->hours * 60;
+
+        $end = clone $start;
+        $end->modify("+{$minutes} minutes");
+
+        $this->end_time = $end->format('H:i');
+        $this->dispatch('updateEndtime', $this->end_time);
     }
 
-
-
+    /* =========================
+        CREATE CLASS
+    ========================= */
 
     public function createClass()
     {
-
-
         $validatedData = $this->validate();
-
-
 
         $this->validate($this->crules());
         $this->validate($this->srules());
 
-        $validatedData['date'] = Carbon::parse($this->date)->format('Y-m-d');
-
         if ($this->hours > $this->remainingHours) {
-            $this->addError('hours', 'The total hours of this classe cannot exceed the remaining  ' . $this->remainingHours . ' hours for this course.');
+            $this->addError(
+                'hours',
+                "The total hours cannot exceed the remaining {$this->remainingHours} hours."
+            );
             return;
         }
 
+        $validatedData['date'] = Carbon::parse($this->date)->format('Y-m-d');
         $validatedData['course_id'] = $this->course->id;
-        //dd($validatedData);
-        $classSession = \App\Models\ClassSession::Create($validatedData);
 
-
+        $classSession = \App\Models\ClassSession::create($validatedData);
 
         $this->dispatch('showAlert', [
-            'title' => "Class Created Succesfully",
-            'text' => '',
-            'icon' => 'success'
+            'title' => 'Class created successfully',
+            'icon'  => 'success',
         ]);
-        //$this->reset(['end_time', 'start_time', 'date', 'hours', 'room_id']);
+
         $this->calculateRemainingHours();
         $this->loadClasses($this->room_id);
-        $this->doneHours = $this->course->classes->where('status', 2)->sum('hours');
+
+        $this->doneHours    = $this->course->classes->where('status', 2)->sum('hours');
         $this->pendingHours = $this->course->classes->where('status', 1)->sum('hours');
 
         if ($this->notifyUser) {
-
             foreach ($this->course->students as $student) {
-                $this->sendEmail($classSession, $student->email);
+                Mail::to($student->email)->queue(new ClassCreated($classSession));
             }
-
         }
-
     }
 
-    public function sendEmail(\App\Models\ClassSession $classSession, $email)
+    /* =========================
+        HELPERS
+    ========================= */
+
+    protected function calculateRemainingHours()
     {
-
-        //Mail::to('ali.gogo11ayad@gmail.com')->send(new ClassCreated($classSession));
-
-        Mail::to($email)->queue(new ClassCreated($classSession));
-
+        $used = $this->course->classes->sum('hours');
+        $this->remainingHours = $this->course->total_hours - $used;
     }
 
-
-
-
-    public function calculateRemainingHours()
-    {
-        $this->totalHours = $this->course->classes->sum('hours');
-        $this->remainingHours = $this->course->total_hours - $this->totalHours;
-    }
     public function render()
     {
         return view('livewire.class-session');
