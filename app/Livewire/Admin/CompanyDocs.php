@@ -16,15 +16,21 @@ class CompanyDocs extends Component
     /** Racine */
     public string $basePath = 'docs-entreprise';
 
-    /** Dossier courant (chemin complet) */
+    /** Dossier courant */
     public string $currentPath = 'docs-entreprise';
 
-    /** Suppression */
+    /** Suppressions */
     public ?string $folderToDelete = null;
+    public ?string $fileToDelete = null;
 
     /** Form */
     public string $newFolderName = '';
     public $uploadedFile;
+
+    protected $listeners = [
+        'deleteFolderConfirmed',
+        'deleteFileConfirmed',
+    ];
 
     public function mount()
     {
@@ -93,8 +99,6 @@ class CompanyDocs extends Component
         ]);
     }
 
-    protected $listeners = ['deleteFolderConfirmed'];
-
     public function deleteFolderConfirmed()
     {
         if (!$this->folderToDelete) {
@@ -103,11 +107,10 @@ class CompanyDocs extends Component
 
         $path = $this->currentPath . '/' . $this->folderToDelete;
 
-        if (!Storage::exists($path)) {
-            return;
+        if (Storage::exists($path)) {
+            Storage::deleteDirectory($path);
         }
 
-        Storage::deleteDirectory($path);
         $this->folderToDelete = null;
     }
 
@@ -129,9 +132,28 @@ class CompanyDocs extends Component
         $this->uploadedFile = null;
     }
 
-    public function deleteFile(string $file)
+    public function confirmDeleteFile(string $file)
     {
-        Storage::delete($this->currentPath . '/' . $file);
+        $this->fileToDelete = $file;
+
+        $this->dispatch('confirmDeleteFile', [
+            'text' => "Supprimer définitivement le fichier '{$file}' ?",
+        ]);
+    }
+
+    public function deleteFileConfirmed()
+    {
+        if (!$this->fileToDelete) {
+            return;
+        }
+
+        $path = $this->currentPath . '/' . $this->fileToDelete;
+
+        if (Storage::exists($path)) {
+            Storage::delete($path);
+        }
+
+        $this->fileToDelete = null;
     }
 
     /* ======================

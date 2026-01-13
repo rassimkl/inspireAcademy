@@ -25,7 +25,7 @@
         @endif
 
         {{-- =========================
-            CRÉATION DOSSIER (TOUJOURS EN HAUT)
+            CRÉATION DOSSIER
         ========================= --}}
         <div class="card mb-4">
             <div class="card-body">
@@ -48,11 +48,11 @@
         </div>
 
         {{-- =========================
-            UPLOAD (JUSTE APRÈS)
+            UPLOAD
         ========================= --}}
         <div class="card mb-4">
             <div class="card-body">
-                <h5>📄 Fichiers</h5>
+                <h5>📄 Upload fichier</h5>
 
                 <input type="file" wire:model="uploadedFile" class="form-control mb-2">
 
@@ -81,7 +81,7 @@
         </div>
 
         {{-- =========================
-            DOSSIERS (EN DESSOUS)
+            DOSSIERS
         ========================= --}}
         @if(count($this->folders))
             <div class="card mb-4">
@@ -117,7 +117,7 @@
         @endif
 
         {{-- =========================
-            LISTE DES FICHIERS (TOUT EN BAS)
+            FICHIERS
         ========================= --}}
         <div class="card">
             <div class="card-body">
@@ -125,10 +125,11 @@
 
                 <ul class="list-group">
                     @forelse($this->files as $file)
-                        <li class="list-group-item d-flex justify-content-between">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
                             {{ $file }}
+
                             <button
-                                wire:click="deleteFile('{{ $file }}')"
+                                wire:click="confirmDeleteFile('{{ $file }}')"
                                 class="btn btn-sm btn-danger"
                             >
                                 Supprimer
@@ -143,10 +144,14 @@
             </div>
         </div>
 
-        {{-- CONFIRMATION SUPPRESSION --}}
+        {{-- =========================
+            CONFIRMATIONS SWEETALERT
+        ========================= --}}
         <script>
             document.addEventListener('livewire:init', () => {
-                Livewire.on('confirmDelete', (data) => {
+
+                // Suppression dossier
+                Livewire.on('confirmDelete', data => {
                     Swal.fire({
                         title: 'Confirmation',
                         text: data.text,
@@ -154,12 +159,29 @@
                         showCancelButton: true,
                         confirmButtonText: 'Oui, supprimer',
                         cancelButtonText: 'Annuler'
-                    }).then((result) => {
+                    }).then(result => {
                         if (result.isConfirmed) {
                             Livewire.dispatch('deleteFolderConfirmed');
                         }
                     });
                 });
+
+                // Suppression fichier
+                Livewire.on('confirmDeleteFile', data => {
+                    Swal.fire({
+                        title: 'Confirmation',
+                        text: data.text,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Oui, supprimer',
+                        cancelButtonText: 'Annuler'
+                    }).then(result => {
+                        if (result.isConfirmed) {
+                            Livewire.dispatch('deleteFileConfirmed');
+                        }
+                    });
+                });
+
             });
         </script>
 

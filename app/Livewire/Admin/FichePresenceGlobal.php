@@ -7,10 +7,13 @@ use App\Models\User;
 use ZipArchive;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 class FichePresenceGlobal extends Component
 {
-    public int $year = 2025;
+    public int $year;
+    public array $years = [];
 
     public function mount()
     {
@@ -18,6 +21,14 @@ class FichePresenceGlobal extends Component
         if (Auth::user()->user_type_id !== 1) {
             abort(403);
         }
+
+        $currentYear = Carbon::now()->year;
+
+        // Exemple : de 2020 jusqu'à l'année en cours
+        $this->years = range(2024, $currentYear);
+
+        // Année sélectionnée par défaut = année en cours
+        $this->year = $currentYear;
     }
 
     public function downloadZip()
