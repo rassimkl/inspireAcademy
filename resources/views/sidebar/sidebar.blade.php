@@ -192,25 +192,44 @@
 
 
 @if(auth()->user()->user_type_id == 1)
-<li>
-    <a href="{{ route('admin.fiche.presence.export') }}">
-        <i class="fas fa-file-alt"></i>
-        <span>Fiches de présence</span>
+<li class="submenu {{ set_active([
+    'admin/fiche-presence/export',
+    'admin/factures/export'
+]) }}">
+    <a href="#">
+        <i class="fas fa-folder-open"></i>
+        <span>Teacher docs</span>
+        <span class="menu-arrow"></span>
     </a>
+    <ul>
+        <li>
+            <a href="{{ route('admin.fiche.presence.export') }}"
+               class="{{ set_active(['admin/fiche-presence/export']) }}">
+                <i class="fas fa-file-alt"></i>
+                Fiches de présence
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ route('admin.invoices.export') }}"
+               class="{{ set_active(['admin/factures/export']) }}">
+                <i class="fas fa-file-invoice"></i>
+                Factures
+            </a>
+        </li>
+    </ul>
 </li>
 @endif
 
 
 @if(auth()->user()->user_type_id == 1)
 <li>
-    <a href="{{ route('admin.invoices.export') }}">
-        <i class="fas fa-file-invoice"></i>
-        <span>Factures</span>
+    <a href="{{ route('admin.company.docs') }}">
+        <i class="fas fa-folder"></i>
+        <span>Docs entreprise</span>
     </a>
 </li>
 @endif
-
-
 
 
             </ul>
