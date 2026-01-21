@@ -291,7 +291,7 @@ li {
 <p>
 Les prérequis seront organisés en fonction des besoins des stagiaires.
 </p>
-<img class="img1" src="{{ public_path('storage/student-photos/programme-formation2.png') }}">
+<img class="img" src="{{ public_path('storage/student-photos/programme-formation2.png') }}">
 
 </td>
 </tr>

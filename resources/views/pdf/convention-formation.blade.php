@@ -207,7 +207,7 @@ au {{ \Carbon\Carbon::parse($dateAu)->format('d/m/Y') }}
        <span class = "sign"> The Inspire Academy</span> <br> 
         <span class = "sign"> {{ $signataireNom }} </span> <br>
         <span class = "sign"> {{ $signataireRole }} </span> 
-        <img align="right" src="{{ public_path('storage/student-photos/convention1.png') }}">
+        <img align="right" src="{{ public_path('storage/student-photos/convention.png') }}">
     </td>
 </tr>
 </table>
