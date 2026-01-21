@@ -129,7 +129,7 @@ li {
 
 <div class="academy-bar">THE INSPIRE ACADEMY</div>
 
-<img class="image" src="C:\xampp82\htdocs\inspireAcademy\storage\app\public\student-photos\programme-formation.png">
+<img class="image" src="{{ public_path('storage/student-photos/programme-formation.png') }}">
 
 <table>
 <tr>
@@ -168,8 +168,7 @@ li {
 </td>
 
 <td>
-
-<img class="image" src="C:\xampp82\htdocs\inspireAcademy\storage\app\public\student-photos\programme-formation1.png">
+<img class="image" src="{{ public_path('storage/student-photos/programme-formation1.png') }}">
 
 <strong>Contenu :</strong>
 <ul>
@@ -187,7 +186,8 @@ li {
     <li>Études de cas et analyse d’exemples concrets.</li>
 </ul>
 
-<img class="img" src="C:\xampp82\htdocs\inspireAcademy\storage\app\public\student-photos\programme-formation2.png">
+<img class="image" src="{{ public_path('storage/student-photos/programme-formation2.png') }}">
+
 </td>
 </tr>
 
@@ -243,7 +243,9 @@ li {
     <li>Études de textes spécialisés avec analyses de vocabulaire contextuel.</li>
     <li>Exercices de reformulation.</li>
 </ul>
-<img class="img1" src="C:\xampp82\htdocs\inspireAcademy\storage\app\public\student-photos\programme-formation3.png">
+
+<img class="image" src="{{ public_path('storage/student-photos/programme-formation3.png') }}">
+
 </td>
 
 <td>
@@ -289,7 +291,8 @@ li {
 <p>
 Les prérequis seront organisés en fonction des besoins des stagiaires.
 </p>
-<img class="img" src="C:\xampp82\htdocs\inspireAcademy\storage\app\public\student-photos\programme-formation2.png">
+<img class="image" src="{{ public_path('storage/student-photos/programme-formation2.png') }}">
+
 </td>
 </tr>
 </table>
