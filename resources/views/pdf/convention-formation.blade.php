@@ -90,10 +90,10 @@ h1 {
 <table class="header-table">
     <tr>
         <td align="left">
-            <img class="image" src="{{ public_path('storage/student-photos/convention1.png') }}">
+            <img class="logo" src="{{ public_path('storage/student-photos/convention1.png') }}">
         </td>
         <td align="right">
-            <img class="image" src="{{ public_path('storage/student-photos/convention1.png') }}">
+            <img class="logo" src="{{ public_path('storage/student-photos/convention1.png') }}">
         </td>
     </tr>
 </table>
@@ -150,10 +150,10 @@ au {{ \Carbon\Carbon::parse($dateAu)->format('d/m/Y') }}
 <table class="header-table">
     <tr>
         <td align="left">
-            <img class="image" src="{{ public_path('storage/student-photos/convention1.png') }}">
+            <img class="logo" src="{{ public_path('storage/student-photos/convention1.png') }}">
         </td>
         <td align="right">
-            <img class="image" src="{{ public_path('storage/student-photos/convention1.png') }}">
+            <img class="logo" src="{{ public_path('storage/student-photos/convention1.png') }}">
         </td>
     </tr>
 </table>
@@ -207,7 +207,7 @@ au {{ \Carbon\Carbon::parse($dateAu)->format('d/m/Y') }}
        <span class = "sign"> The Inspire Academy</span> <br> 
         <span class = "sign"> {{ $signataireNom }} </span> <br>
         <span class = "sign"> {{ $signataireRole }} </span> 
-        <img class="image" src="{{ public_path('storage/student-photos/convention1.png') }}">
+        <img align="right" src="{{ public_path('storage/student-photos/convention1.png') }}">
     </td>
 </tr>
 </table>

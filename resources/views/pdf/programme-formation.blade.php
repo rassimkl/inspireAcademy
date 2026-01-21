@@ -186,7 +186,7 @@ li {
     <li>Études de cas et analyse d’exemples concrets.</li>
 </ul>
 
-<img class="image" src="{{ public_path('storage/student-photos/programme-formation2.png') }}">
+<img class="img" src="{{ public_path('storage/student-photos/programme-formation2.png') }}">
 
 </td>
 </tr>
@@ -244,7 +244,7 @@ li {
     <li>Exercices de reformulation.</li>
 </ul>
 
-<img class="image" src="{{ public_path('storage/student-photos/programme-formation3.png') }}">
+<img class="img1" src="{{ public_path('storage/student-photos/programme-formation3.png') }}">
 
 </td>
 
@@ -291,7 +291,7 @@ li {
 <p>
 Les prérequis seront organisés en fonction des besoins des stagiaires.
 </p>
-<img class="image" src="{{ public_path('storage/student-photos/programme-formation2.png') }}">
+<img class="img1" src="{{ public_path('storage/student-photos/programme-formation2.png') }}">
 
 </td>
 </tr>
