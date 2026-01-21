@@ -138,7 +138,7 @@ h1 {
     4. Dates : du {{ \Carbon\Carbon::parse($dateDu)->format('d/m/Y') }}
 au {{ \Carbon\Carbon::parse($dateAu)->format('d/m/Y') }}
 .<br>
-    5. Durée : <p>{{ $duree }}heures.</p><br>
+    5. Durée : {{ $duree }}heures.<br>
     6. Lieu : {{ $lieu }}.<br>
     7. Modalités : {{ $modalite }}.<br>
     8. Justificatifs : attestation de présence et de formation.<br>
