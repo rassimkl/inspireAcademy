@@ -38,6 +38,8 @@ use App\Livewire\Teacher\OnlineCourses;
 use App\Livewire\Admin\FichePresenceGlobal;
 use App\Livewire\Admin\InvoiceGlobal;
 use App\Livewire\Admin\CompanyDocs;
+use App\Livewire\Admin\OnboardingMailForm;
+
 
 
 
@@ -126,6 +128,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/docs-entreprise', CompanyDocs::class)
     ->name('admin.company.docs');
 
+    Route::get('/admin/onboarding-mail', OnboardingMailForm::class)
+    ->name('admin.onboarding-mail');
+
 
 });
 Route::middleware(['adminteacher'])->group(function () {
@@ -149,6 +154,7 @@ Route::middleware(['teacherstudentadmin'])->group(function () {
 });
 
 
+if (!function_exists('set_active')) {
 function set_active($route)
 {
     if (is_array($route)) {
@@ -157,7 +163,7 @@ function set_active($route)
     return Request::path() == $route ? 'active' : '';
 }
 
-
+}
 
 
 

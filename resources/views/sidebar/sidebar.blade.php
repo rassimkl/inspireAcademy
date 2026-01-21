@@ -171,6 +171,25 @@
 
 @endif
 
+
+@if(auth()->user()->user_type_id == 1)
+<li class="submenu {{ set_active(['admin/onboarding-mail']) }}">
+    <a href="#">
+        <i class="fas fa-user-check"></i>
+        <span>Mails</span>
+        <span class="menu-arrow"></span>
+    </a>
+    <ul>
+        <li>
+            <a href="{{ route('admin.onboarding-mail') }}"
+               class="{{ set_active(['admin/onboarding-mail']) }}">
+                Mail d'entrée
+            </a>
+        </li>
+    </ul>
+</li>
+@endif
+
 @if(auth()->user()->user_type_id == 3)
     <li class="{{ set_active(['student/online-courses']) }}">
         <a href="{{ route('student.courses') }}">
