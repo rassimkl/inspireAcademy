@@ -5,41 +5,39 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
-
 class BrevoService
 {
     public function sendEmail(
-        string $toEmail,
+        string $to,
         string $subject,
-        string $htmlContent,
+        string $html,
         array $attachments = []
     ): void {
         $payload = [
             'sender' => [
-                'email' => config('brevo.from_email'),
-                'name'  => config('brevo.from_name'),
+                'email' => config('services.brevo.from_email'),
+                'name'  => config('services.brevo.from_name'),
             ],
-            'to' => [
-                ['email' => $toEmail],
-            ],
+            'to' => [[ 'email' => $to ]],
             'subject' => $subject,
-            'htmlContent' => $htmlContent,
+            'htmlContent' => $html,
         ];
 
         if (!empty($attachments)) {
-            $payload['attachment'] = [];
-
-            foreach ($attachments as $path) {
-                $payload['attachment'][] = [
+            $payload['attachment'] = collect($attachments)->map(function ($path) {
+                return [
                     'content' => base64_encode(Storage::get($path)),
                     'name' => basename($path),
                 ];
-            }
+            })->toArray();
         }
 
         Http::withHeaders([
-            'api-key' => config('brevo.key'),
+            'api-key' => config('services.brevo.key'),
             'Content-Type' => 'application/json',
-        ])->post('https://api.brevo.com/v3/smtp/email', $payload);
+        ])->post(
+            'https://api.brevo.com/v3/smtp/email',
+            $payload
+        )->throw();
     }
 }
