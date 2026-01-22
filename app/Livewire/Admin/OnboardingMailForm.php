@@ -5,9 +5,9 @@ namespace App\Livewire\Admin;
 use Livewire\Component;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\OnboardingStudentMail;
 use Illuminate\Support\Facades\Storage;
+use App\Services\BrevoService;
+
 
 
 class OnboardingMailForm extends Component
@@ -251,9 +251,8 @@ public function previewConventionPdf()
 
 
 
-public function sendMail()
+public function sendMail(BrevoService $brevo)
 {
-
     $this->sending = true;
 
     $this->validate();
@@ -270,35 +269,33 @@ public function sendMail()
     $conventionPath = '/public/mail_docs/' . $conventionName;
     Storage::put($conventionPath, $conventionPdf);
 
-    // ✅ RÈGLEMENT INTÉRIEUR (PDF EXISTANT)
+    // RÈGLEMENT
     $reglementPath = '/public/mail_docs/reglement-interieur.pdf';
 
-    // Envoi mail
-    Mail::to($this->email)->send(
-        new OnboardingStudentMail(
-            $this->mailPreview,
+    // ✅ ENVOI VIA BREVO
+    $brevo->sendEmail(
+        toEmail: $this->email,
+        subject: 'Votre inscription – The Inspire Academy',
+        htmlContent: $this->mailPreview,
+        attachments: [
             $programmePath,
             $conventionPath,
-            $reglementPath
-        )
+            $reglementPath,
+        ]
     );
 
-// 🧹 Nettoyage des anciens PDF générés
-$files = Storage::files('public/mail_docs');
-
-foreach ($files as $file) {
-    if (
-        str_contains($file, 'programme') ||
-        str_contains($file, 'convention')
-    ) {
-        Storage::delete($file);
+    // Nettoyage
+    foreach (Storage::files('public/mail_docs') as $file) {
+        if (str_contains($file, 'programme') || str_contains($file, 'convention')) {
+            Storage::delete($file);
+        }
     }
-}
 
     $this->sending = false;
 
-    session()->flash('success', 'Mail envoyé avec les documents joints.');
+    session()->flash('success', 'Mail envoyé avec succès.');
 }
+
 
     public function render()
     {
