@@ -251,40 +251,37 @@ public function previewConventionPdf()
 
 
 
-public function sendMail(BrevoService $brevo)
+public function sendMail()
 {
     $this->sending = true;
-
     $this->validate();
 
-    // Génération PROGRAMME
     $programmePdf = $this->generateProgrammePdf();
     $programmeName = 'programme-' . now()->timestamp . '.pdf';
-    $programmePath = '/public/mail_docs/' . $programmeName;
+    $programmePath = 'public/mail_docs/' . $programmeName;
     Storage::put($programmePath, $programmePdf);
 
-    // Génération CONVENTION
     $conventionPdf = $this->generateConventionPdf();
     $conventionName = 'convention-' . now()->timestamp . '.pdf';
-    $conventionPath = '/public/mail_docs/' . $conventionName;
+    $conventionPath = 'public/mail_docs/' . $conventionName;
     Storage::put($conventionPath, $conventionPdf);
 
-    // RÈGLEMENT
-    $reglementPath = '/public/mail_docs/reglement-interieur.pdf';
+    $reglementPath = 'public/mail_docs/reglement-interieur.pdf';
 
-    // ✅ ENVOI VIA BREVO
+    /** 🔥 ICI LA BONNE FAÇON */
+    $brevo = app(\App\Services\BrevoService::class);
+
     $brevo->sendEmail(
-        toEmail: $this->email,
-        subject: 'Votre inscription – The Inspire Academy',
-        htmlContent: $this->mailPreview,
-        attachments: [
+        $this->email,
+        'Votre inscription – The Inspire Academy',
+        $this->mailPreview,
+        [
             $programmePath,
             $conventionPath,
             $reglementPath,
         ]
     );
 
-    // Nettoyage
     foreach (Storage::files('public/mail_docs') as $file) {
         if (str_contains($file, 'programme') || str_contains($file, 'convention')) {
             Storage::delete($file);
@@ -292,9 +289,9 @@ public function sendMail(BrevoService $brevo)
     }
 
     $this->sending = false;
-
     session()->flash('success', 'Mail envoyé avec succès.');
 }
+
 
 
     public function render()
