@@ -79,6 +79,8 @@ class OnboardingMailForm extends Component
 
     public array $modalites = ['Présentiel', 'Distanciel'];
 
+    public bool $sending = false;
+
     /* =====================================================
      * INITIALISATION
      * ===================================================== */

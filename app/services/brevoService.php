@@ -35,9 +35,7 @@ class BrevoService
         Http::withHeaders([
             'api-key' => config('services.brevo.key'),
             'Content-Type' => 'application/json',
-        ])->post(
-            'https://api.brevo.com/v3/smtp/email',
-            $payload
-        )->throw();
+        ])->post('https://api.brevo.com/v3/smtp/email', $payload)
+         ->throw();
     }
 }
