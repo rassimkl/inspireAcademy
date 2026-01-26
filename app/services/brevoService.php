@@ -23,14 +23,27 @@ class BrevoService
             'htmlContent' => $html,
         ];
 
-        if (!empty($attachments)) {
-            $payload['attachment'] = collect($attachments)->map(function ($path) {
-                return [
-                    'content' => base64_encode(Storage::get($path)),
-                    'name' => basename($path),
-                ];
-            })->toArray();
+if (!empty($attachments)) {
+    $payload['attachment'] = collect($attachments)->map(function ($item) {
+
+        // Cas 1 : ancien format (string)
+        if (is_string($item)) {
+            $path = $item;
+            $name = basename($item);
         }
+        // Cas 2 : upload avec nom original
+        else {
+            $path = $item['path'];
+            $name = $item['name'];
+        }
+
+        return [
+            'content' => base64_encode(Storage::get($path)),
+            'name' => $name,
+        ];
+    })->toArray();
+}
+
 
         Http::withHeaders([
             'api-key' => config('services.brevo.key'),
