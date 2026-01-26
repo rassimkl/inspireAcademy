@@ -259,12 +259,12 @@ public function sendMail()
     $this->validate();
 
     $programmePdf = $this->generateProgrammePdf();
-    $programmeName = 'programme-Formation.pdf';
+    $programmeName = 'programme-formation.pdf';
     $programmePath = 'public/mail_docs/' . $programmeName;
     Storage::put($programmePath, $programmePdf);
 
     $conventionPdf = $this->generateConventionPdf();
-    $conventionName = 'convention-Formation.pdf';
+    $conventionName = 'convention-formation.pdf';
     $conventionPath = 'public/mail_docs/' . $conventionName;
     Storage::put($conventionPath, $conventionPdf);
 
