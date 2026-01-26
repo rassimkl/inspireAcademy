@@ -21,7 +21,7 @@ class BrevoService
     'to' => [[
         'email' => $to,
     ]],
-    'cc' => [[
+    'bcc' => [[
         'email' => 'inspireacademybiarritz@gmail.com',
     ]],
     'subject' => $subject,
