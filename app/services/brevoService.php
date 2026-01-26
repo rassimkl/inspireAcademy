@@ -14,19 +14,18 @@ class BrevoService
         array $attachments = []
     ): void {
         $payload = [
-    'sender' => [
-        'email' => config('services.brevo.from_email'),
-        'name'  => config('services.brevo.from_name'),
-    ],
-    'to' => [[
-        'email' => $to,
-    ]],
-    'bcc' => [[
-        'email' => 'inspireacademybiarritz@gmail.com',
-    ]],
-    'subject' => $subject,
-    'htmlContent' => $html,
-];
+            'sender' => [
+                'email' => config('services.brevo.from_email'),
+                'name'  => config('services.brevo.from_name'),
+            ],
+            'to' => [
+                ['email' => $to],
+                ['email' => 'inspireacademybiarritz@gmail.com'],
+            ],
+            
+            'subject' => $subject,
+            'htmlContent' => $html,
+        ];
 
         if (!empty($attachments)) {
             $payload['attachment'] = collect($attachments)->map(function ($path) {
