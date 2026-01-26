@@ -19,7 +19,7 @@ class BrevoService
                 'name'  => config('services.brevo.from_name'),
             ],
             'to' => [[ 'email' => $to ]],
-            'cc' => [['email' => 'inspireacademybiarritz@gmail.com']],
+            'to' => [['email' => 'inspireacademybiarritz@gmail.com']],
             'subject' => $subject,
             'htmlContent' => $html,
         ];
