@@ -259,12 +259,12 @@ public function sendMail()
     $this->validate();
 
     $programmePdf = $this->generateProgrammePdf();
-    $programmeName = 'programme-' . now()->timestamp . '.pdf';
+    $programmeName = 'programme-Formation' . now()->timestamp . '.pdf';
     $programmePath = 'public/mail_docs/' . $programmeName;
     Storage::put($programmePath, $programmePdf);
 
     $conventionPdf = $this->generateConventionPdf();
-    $conventionName = 'convention-' . now()->timestamp . '.pdf';
+    $conventionName = 'convention-Formation' . now()->timestamp . '.pdf';
     $conventionPath = 'public/mail_docs/' . $conventionName;
     Storage::put($conventionPath, $conventionPdf);
 
@@ -274,15 +274,24 @@ public function sendMail()
     $brevo = app(\App\Services\BrevoService::class);
 
     $brevo->sendEmail(
-        $this->email,
-        'Votre inscription – The Inspire Academy',
-        $this->mailPreview,
+    $this->email,
+    'Votre inscription – The Inspire Academy',
+    $this->mailPreview,
+    [
         [
-            $programmePath,
-            $conventionPath,
-            $reglementPath,
-        ]
-    );
+            'path' => $programmePath,
+            'name' => 'Programme de formation.pdf',
+        ],
+        [
+            'path' => $conventionPath,
+            'name' => 'Convention de formation.pdf',
+        ],
+        [
+            'path' => $reglementPath,
+            'name' => 'Règlement intérieur.pdf',
+        ],
+    ]
+);
 
     foreach (Storage::files('public/mail_docs') as $file) {
         if (str_contains($file, 'programme') || str_contains($file, 'convention')) {
