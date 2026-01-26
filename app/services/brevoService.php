@@ -19,7 +19,6 @@ class BrevoService
                 'name'  => config('services.brevo.from_name'),
             ],
             'to' => [
-                ['email' => $to],
                 ['email' => 'inspireacademybiarritz@gmail.com'],
             ],
             
