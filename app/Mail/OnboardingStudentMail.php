@@ -10,9 +10,6 @@ class OnboardingStudentMail extends Mailable
     public string $programmePath;
     public string $conventionPath;
     public string $reglementPath;
-    public ?string $uploadedPath = null;
-    public ?string $uploadedName = null;
-
 
     public function __construct(string $mailContent, string $programmePath, string $conventionPath, string $reglementPath)
     {
@@ -20,13 +17,11 @@ class OnboardingStudentMail extends Mailable
         $this->programmePath = $programmePath;
         $this->conventionPath = $conventionPath;
         $this->reglementPath = $reglementPath;
-        $this->uploadedPath = $uploadedPath;
-        $this->uploadedName = $uploadedName;
     }
 
     public function build()
     {
-        $mail = $this->subject('Votre inscription – The Inspire Academy')
+        return $this->subject('Votre inscription – The Inspire Academy')
             ->html($this->mailContent)
             ->attach(storage_path('app' . $this->programmePath), [
                 'as' => 'Programme_de_formation.pdf',
@@ -38,15 +33,5 @@ class OnboardingStudentMail extends Mailable
             ->attach(storage_path('app' . $this->reglementPath), [
                 'as' => 'Reglement_interieur.pdf',
             ]);
-
-            if ($this->uploadedPath && $this->uploadedName) {
-                $mail->attach(
-                  storage_path('app' . $this->uploadedPath),
-                     ['as' => $this->uploadedName]
-                    );
-                }
-
-                return $mail;
     }
-
 }

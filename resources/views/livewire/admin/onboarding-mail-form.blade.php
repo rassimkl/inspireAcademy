@@ -174,35 +174,6 @@
             </div>
         </div>
 
-        {{-- =========================
-             fichier optionnel
-        ========================== --}}
-
-        <div class="card mb-4">
-    <div class="card-header fw-semibold">Pièce jointe optionnelle</div>
-    <div class="card-body row g-3">
-
-        <div class="col-md-12">
-            <label class="form-label">Uploader un PDF</label>
-            <input type="file"
-                   accept="application/pdf"
-                   class="form-control @error('uploadedPdf') is-invalid @enderror"
-                   wire:model="uploadedPdf">
-
-            @error('uploadedPdf')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-
-            @if($uploadedPdfOriginalName)
-                <div class="mt-2 text-muted">
-                    Fichier sélectionné : <strong>{{ $uploadedPdfOriginalName }}</strong>
-                </div>
-            @endif
-        </div>
-
-    </div>
-</div>
-
 
         {{-- =========================
              APERÇU MAIL

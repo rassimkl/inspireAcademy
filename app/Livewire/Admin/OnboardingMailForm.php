@@ -7,18 +7,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Storage;
 use App\Services\BrevoService;
-use Livewire\WithFileUploads;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 
 
 class OnboardingMailForm extends Component
 {
-    use WithFileUploads;
-
-    public ?TemporaryUploadedFile $uploadedPdf = null;
-    public ?string $uploadedPdfOriginalName = null;
-
     /* =====================================================
      * 1️⃣ INFORMATIONS DE L’ÉTUDIANT
      * ===================================================== */
@@ -158,8 +151,6 @@ TXT;
 
             'signataireNom' => 'required|string|min:3',
             'signataireRole' => 'required|string|min:3',
-
-            'uploadedPdf' => 'nullable|file|mimes:pdf|max:10240',
         ];
     }
 
@@ -282,33 +273,17 @@ public function sendMail()
     /** 🔥 ICI LA BONNE FAÇON */
     $brevo = app(\App\Services\BrevoService::class);
 
-    $attachments = [
-    $programmePath,
-    $conventionPath,
-    $reglementPath,
-];
-
-// 🔹 PDF uploadé (optionnel)
-if ($this->uploadedPdf) {
-    $originalName = $this->uploadedPdf->getClientOriginalName();
-
-    $storedPath = $this->uploadedPdf->storeAs(
-        'public/mail_docs',
-        time() . '-' . $originalName
+    $brevo->sendEmail(
+        $this->email,
+        'Votre inscription – The Inspire Academy',
+        $this->mailPreview,
+        [
+            $programmePath,
+            $conventionPath,
+            $reglementPath,
+        ]
     );
 
-    $attachments[] = [
-        'path' => $storedPath,
-        'name' => $originalName, // 🔥 nom EXACT dans le mail
-    ];
-}
-
-$brevo->sendEmail(
-    $this->email,
-    'Votre inscription – The Inspire Academy',
-    $this->mailPreview,
-    $attachments
-);
     foreach (Storage::files('public/mail_docs') as $file) {
         if (str_contains($file, 'programme') || str_contains($file, 'convention')) {
             Storage::delete($file);
