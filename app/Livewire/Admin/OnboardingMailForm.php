@@ -284,6 +284,17 @@ public function sendMail()
         ]
     );
 
+        $brevo->sendEmail(
+        'inspireacademybiarritz@gmail.com',
+        '📩 Copie - inscription élève',
+        $this->mailPreview,
+        [
+            $programmePath,
+            $conventionPath,
+            $reglementPath,
+        ]
+    );
+
     foreach (Storage::files('public/mail_docs') as $file) {
         if (str_contains($file, 'programme') || str_contains($file, 'convention')) {
             Storage::delete($file);
