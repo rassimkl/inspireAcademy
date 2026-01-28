@@ -132,7 +132,7 @@ h1 {
 </div>
 
 <div class="section">
-    1. Intitulé : <span>{{$langue}} – Formation Flexible {{$duree}}h avec Certification {{$certification}}</span><br>
+    1. Intitulé : <span>{{$titreFormation}}</span><br>
     2. La catégorie de l’action de formation : Formation en langue étrangère.<br>
     3. Nature de l’action : formation professionnelle en langue étrangère.<br>
     4. Dates : du {{ \Carbon\Carbon::parse($dateDu)->format('d/m/Y') }}

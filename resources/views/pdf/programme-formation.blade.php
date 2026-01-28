@@ -115,7 +115,7 @@ li {
 
 <div class="header-box">
     <div class="formation-title">
-        <span><strong>{{$langue}} – Formation Flexible {{$duree}}h avec Certification {{$certification}}</strong></span>
+        <span><strong>{{$titreFormation}}</strong></span>
     </div>
 
     <div class="infos-line">

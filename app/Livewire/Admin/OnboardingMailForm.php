@@ -186,11 +186,11 @@ public function generateProgrammePdf(): string
     return Pdf::loadView('pdf.programme-formation', [
         'eleve' => $this->eleve,
         'dateDu' => $this->dateDu,
-        'dateAu' => $this->dateAu,
-        'langue' => $this->langue, 
+        'dateAu' => $this->dateAu, 
         'duree' => $this->duree,
         'contenuProgramme' => $this->contenuProgrammeFinal,
         'certification' => $this->certification,
+        'titreFormation' => $this->titreFormation,
     ])->output();
 }
 
@@ -230,8 +230,7 @@ public function generateConventionPdf(): string
         'dateSignature' => now()->format('d/m/Y'),
         'signataireNom' => $this->signataireNom,
         'signataireRole' => $this->signataireRole,
-        'langue' => $this->langue,
-        'certification' => $this->certification,
+        'titreFormation' => $this->titreFormation,
     ])->output();
 }
 
