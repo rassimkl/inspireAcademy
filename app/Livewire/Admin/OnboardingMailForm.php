@@ -142,7 +142,7 @@ TXT;
             'dateAu' => 'required|date|after_or_equal:dateDu',
 
             'duree' => 'required|string',
-            'lieu' => 'required|string',
+            'lieu' => 'string',
             'modalite' => 'required|in:Présentiel,Distanciel',
             'effectif' => 'required|string',
 
