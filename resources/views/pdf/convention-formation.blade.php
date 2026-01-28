@@ -139,7 +139,7 @@ h1 {
 au {{ \Carbon\Carbon::parse($dateAu)->format('d/m/Y') }}
 .<br>
     5. Durée : {{ $duree }} heures.<br>
-    6. Lieu : {{ $lieu }}.<br>
+    6. Lieu : {{ $modalite === 'Distanciel' ? '/' : $lieu }}.<br>
     7. Modalités : {{ $modalite }}.<br>
     8. Justificatifs : attestation de présence et de formation.<br>
 </div>

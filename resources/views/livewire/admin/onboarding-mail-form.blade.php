@@ -78,6 +78,17 @@
             <div class="card-header fw-semibold"> Informations de la formation</div>
             <div class="card-body row g-3">
 
+                <div class="col-12">
+                    <label class="form-label">Titre de la formation</label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        wire:model.live="titreFormation"
+                    >
+
+                </div>
+
                 <div class="col-md-4">
                     <label class="form-label">Langue</label>
                     <select class="form-select @error('langue') is-invalid @enderror" wire:model.live="langue">

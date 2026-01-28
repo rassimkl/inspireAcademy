@@ -42,7 +42,7 @@
                                         <div class="form-group local-forms">
                                             <label>Hours <span class="login-danger">*</span> <span class="font-weight-bold"></span>
 </label>
-                                            <input step="0.25" type="number" class="form-control @error('hours') is-invalid @enderror" name="hours" placeholder="Enter number of hours" wire:model.live.500ms='hours'>
+                                            <input step="0.05" type="number" class="form-control @error('hours') is-invalid @enderror" name="hours" placeholder="Enter number of hours" wire:model.live.500ms='hours'>
                                             @error('conflict')
                                                 <p class="text-danger" role="alert">
                                                     {{ $message }}

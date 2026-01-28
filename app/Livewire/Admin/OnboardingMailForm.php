@@ -27,6 +27,7 @@ class OnboardingMailForm extends Component
      * ===================================================== */
     public string $langue = 'Espagnol';
     public string $certification = 'LILATE';
+    public string $titreFormation = '';
 
     public ?string $dateDu = null;
     public ?string $dateAu = null;
@@ -176,8 +177,7 @@ public function updatedLangue($value)
         'signataireNom' => $this->signataireNom,
         'signataireRole' => $this->signataireRole,
         'langue' => $this->langue,
-        'duree' => $this->duree,
-        'certification' => $this->certification,
+        'titreFormation' => $this->titreFormation,
     ])->render();
 }
 

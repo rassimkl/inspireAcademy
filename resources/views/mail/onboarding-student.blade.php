@@ -15,7 +15,7 @@
 
 <p>
     J’ai le plaisir de vous confirmer votre inscription à la formation
-    <strong>"<span><strong>{{$langue}} – Formation Flexible {{$duree}}h avec Certification {{$certification}}</strong></span>"</strong>.
+    <strong><span><strong>{{$titreFormation}}</strong></span></strong>.
 </p>
 
 <p>
