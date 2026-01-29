@@ -102,4 +102,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Course::class, 'teacher_id')->whereIn('status_id', [1, 2]);
     }
+
+    public function availabilities()
+{
+    return $this->hasMany(\App\Models\TeacherAvailability::class);
+}
 }

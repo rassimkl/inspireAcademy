@@ -9,7 +9,6 @@ class TeacherAvailability extends Model
 {
     protected $fillable = [
         'user_id',
-        'language',
         'date',
         'start_time',
         'end_time',

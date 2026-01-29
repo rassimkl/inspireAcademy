@@ -40,7 +40,7 @@ use App\Livewire\Admin\InvoiceGlobal;
 use App\Livewire\Admin\CompanyDocs;
 use App\Livewire\Admin\OnboardingMailForm;
 use App\Livewire\Teacher\TeacherAvailabilityForm;
-//use App\Livewire\Admin\TeacherAvailabilitiesAdmin;
+use App\Livewire\Admin\TeacherAvailabilitiesAdmin;
 
 
 
@@ -133,8 +133,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/onboarding-mail', OnboardingMailForm::class)
     ->name('admin.onboarding-mail');
 
-    // Route::get('/admin/teacher-availabilities', TeacherAvailabilitiesAdmin::class)
-   // ->name('admin.teacher.availabilities');
+    Route::get('/admin/teacher-availabilities', TeacherAvailabilitiesAdmin::class)
+    ->name('admin.teacher.availabilities');
 
 });
 Route::middleware(['adminteacher'])->group(function () {
