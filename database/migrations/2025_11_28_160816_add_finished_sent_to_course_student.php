@@ -6,23 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-public function up()
-{
-    Schema::table('course_student', function (Blueprint $table) {
-        $table->boolean('finished_sent')->default(false);
-    });
-}
+    public function up(): void
+    {
+        Schema::table('course_student', function (Blueprint $table) {
+            if (!Schema::hasColumn('course_student', 'finished_sent')) {
+                $table->boolean('finished_sent')->default(false);
+            }
+        });
+    }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('course_student', function (Blueprint $table) {
-            //
+            if (Schema::hasColumn('course_student', 'finished_sent')) {
+                $table->dropColumn('finished_sent');
+            }
         });
     }
 };

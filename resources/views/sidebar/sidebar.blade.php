@@ -125,6 +125,31 @@
                     </ul>
                 </li>
 @endif 
+
+
+@if(auth()->user()->user_type_id == 2)
+    <li class="{{ set_active(['teacher/availabilities']) }}">
+        <a href="{{ route('teacher.availabilities') }}">
+            <i class="fas fa-calendar-check"></i>
+            <span>Mes disponibilités</span>
+        </a>
+    </li>
+@endif
+
+@if(auth()->user()->user_type_id == 1)
+<li class="{{ set_active(['admin/teacher-availabilities']) }}">
+    <a href="{{ route('admin.teacher.availabilities') }}">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Disponibilités enseignants</span>
+    </a>
+</li>
+@endif
+
+
+
+
+
+
 @if(auth()->user()->user_type_id==1)
 
                 <li class="submenu {{set_active(['teacher/payments','/teachers/all/payments'])}}" {{ request()->is('invoice/edit/*') ? 'active' : '' }}>

@@ -39,6 +39,8 @@ use App\Livewire\Admin\FichePresenceGlobal;
 use App\Livewire\Admin\InvoiceGlobal;
 use App\Livewire\Admin\CompanyDocs;
 use App\Livewire\Admin\OnboardingMailForm;
+use App\Livewire\Teacher\TeacherAvailabilityForm;
+//use App\Livewire\Admin\TeacherAvailabilitiesAdmin;
 
 
 
@@ -131,6 +133,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/onboarding-mail', OnboardingMailForm::class)
     ->name('admin.onboarding-mail');
 
+    // Route::get('/admin/teacher-availabilities', TeacherAvailabilitiesAdmin::class)
+   // ->name('admin.teacher.availabilities');
 
 });
 Route::middleware(['adminteacher'])->group(function () {
@@ -141,6 +145,10 @@ Route::middleware(['adminteacher'])->group(function () {
     Route::get('/user/profile/{user}', UserDetails::class)->name('user/details');
     Route::get('/edit/class/{classsession}', EditClassSession::class)->name('class/edit');
     Route::get('/submit/class/{classsession}', SubmitClass::class)->name('class/submit');
+
+    Route::get('/teacher/availabilities', TeacherAvailabilityForm::class)
+    ->name('teacher.availabilities');
+    
 
 
 
