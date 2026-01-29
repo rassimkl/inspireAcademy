@@ -6,7 +6,7 @@
             <div>
                 <h2 class="fw-bold mb-1">Mes disponibilités</h2>
                 <p class="text-muted mb-0">
-                    Indiquez vos créneaux de disponibilité
+                    Vos créneaux de disponibilité
                 </p>
             </div>
         </div>
