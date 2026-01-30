@@ -21,7 +21,7 @@ class TeacherAvailabilitiesAdmin extends Component
     public array $languages = [
         'Spanish',
         'English',
-        'Frensh',
+        'French',
         'Italian',
         'German',
         'Arabic',
