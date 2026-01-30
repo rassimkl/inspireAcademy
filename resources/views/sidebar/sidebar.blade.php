@@ -140,13 +140,38 @@
 <li class="{{ set_active(['admin/teacher-availabilities']) }}">
     <a href="{{ route('admin.teacher.availabilities') }}">
         <i class="fas fa-calendar-alt"></i>
-        <span>Disponibilités enseignants</span>
+        <span>Teachers availabilities</span>
     </a>
 </li>
 @endif
 
 
+@if(auth()->user()->user_type_id == 1)
+<li class="submenu {{ set_active(['admin/onboarding-mail']) }}">
+    <a href="#">
+        <i class="fas fa-user-check"></i>
+        <span>Mails</span>
+        <span class="menu-arrow"></span>
+    </a>
+    <ul>
+        <li>
+            <a href="{{ route('admin.onboarding-mail') }}"
+               class="{{ set_active(['admin/onboarding-mail']) }}">
+                Mail d'entrée
+            </a>
+        </li>
+    </ul>
+</li>
+@endif
 
+@if(auth()->user()->user_type_id==1)
+    <li class="{{ set_active(['online_courses.index']) }}">
+        <a href="{{ route('online_courses.index') }}">
+            <i class="fas fa-globe"></i>
+            <span>Online courses</span>
+        </a>
+    </li>
+@endif
 
 
 
@@ -166,14 +191,6 @@
                 </li>
 @endif
 
-@if(auth()->user()->user_type_id==1)
-    <li class="{{ set_active(['online_courses.index']) }}">
-        <a href="{{ route('online_courses.index') }}">
-            <i class="fas fa-globe"></i>
-            <span>Online courses</span>
-        </a>
-    </li>
-@endif
 
 
 @if(auth()->user()->user_type_id==2)
@@ -196,24 +213,6 @@
 
 @endif
 
-
-@if(auth()->user()->user_type_id == 1)
-<li class="submenu {{ set_active(['admin/onboarding-mail']) }}">
-    <a href="#">
-        <i class="fas fa-user-check"></i>
-        <span>Mails</span>
-        <span class="menu-arrow"></span>
-    </a>
-    <ul>
-        <li>
-            <a href="{{ route('admin.onboarding-mail') }}"
-               class="{{ set_active(['admin/onboarding-mail']) }}">
-                Mail d'entrée
-            </a>
-        </li>
-    </ul>
-</li>
-@endif
 
 @if(auth()->user()->user_type_id == 3)
     <li class="{{ set_active(['student/online-courses']) }}">
