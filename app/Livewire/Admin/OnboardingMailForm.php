@@ -70,6 +70,12 @@ class OnboardingMailForm extends Component
     public string $signataireNom = '';
     public string $signataireRole = '';
 
+
+    public string $text = '';
+    public string $textp2 = '';
+    public string $textp3 = '';
+
+
     /* =====================================================
      * LISTES POUR L’UI
      * ===================================================== */
@@ -152,8 +158,16 @@ TXT;
 
             'signataireNom' => 'required|string|min:3',
             'signataireRole' => 'required|string|min:3',
+
+            'titreFormation' => 'required|string|max:70'
         ];
     }
+
+    public function updatedTitreFormation()
+{
+    $this->validateOnly('titreFormation');
+}
+
 
 
 public function updatedLangue($value)
@@ -178,6 +192,9 @@ public function updatedLangue($value)
         'signataireRole' => $this->signataireRole,
         'langue' => $this->langue,
         'titreFormation' => $this->titreFormation,
+        'text' => $this->text,
+        'textp2' => $this->textp2,
+        'textp3' => $this->textp3,
     ])->render();
 }
 

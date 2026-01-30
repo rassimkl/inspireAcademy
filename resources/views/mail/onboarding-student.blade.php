@@ -43,6 +43,10 @@
     </a>
 </p>
 
+<p> <strong> {{$text}} </strong></p>
+<p> <strong> {{$textp2}} </strong></p>
+<p> <strong> {{$textp3}} </strong></p>
+
 <p>
     N’hésitez pas à nous recontacter si vous avez besoin de plus de renseignements.
 </p>
