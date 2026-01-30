@@ -46,7 +46,7 @@ class TeacherAvailabilityForm extends Component
 
     public function render()
     {
-        return view('livewire.teacher.teacher-availability-form', [
+        return view('livewire.Teacher.teacher-availability-form', [
             'availabilities' => TeacherAvailability::where('user_id', Auth::id())
                 ->orderBy('date')
                 ->orderBy('start_time')
