@@ -3,6 +3,16 @@
 <head>
 <meta charset="UTF-8">
 
+@php
+    $langueLower = mb_strtolower($langue);
+
+    $voyelles = ['a','e','i','o','u','y','à','â','é','è','ê','ë','î','ï','ô','ù','û'];
+
+    $preposition = in_array(mb_substr($langueLower, 0, 1), $voyelles)
+        ? "l’"
+        : "le ";
+@endphp
+
 <style>
 @page { margin: 30px 40px; }
 
@@ -104,6 +114,7 @@ li {
     font-size: 9px;
     color: #555;
 }
+
 </style>
 </head>
 
@@ -138,9 +149,9 @@ li {
 <h2>OBJECTIFS DE LA FORMATION</h2>
 <p>Cette formation est conçue pour permettre aux apprenants de :</p>
 <ul>
-    <li>Savoir se présenter et présenter autrui en espagnol.</li>
+    <li>Savoir se présenter et présenter autrui en {{ $langueLower }}.</li>
     <li>Comprendre différents accents et améliorer la compréhension orale.</li>
-    <li>Argumenter avec fluidité et assurance en espagnol.</li>
+    <li>Argumenter avec fluidité et assurance en {{ $langueLower }}.</li>
     <li>Acquérir un vocabulaire adapté à son secteur d'activité.</li>
     <li>Participer activement à des réunions, voyager et interagir dans un cadre professionnel et personnel.</li>
     <li>Maîtriser l'expression orale et écrite en contexte formel et informel.</li>
@@ -204,12 +215,12 @@ li {
 
 <strong>Objectifs :</strong>
 
-<p>S’exprimer avec assurance et comprendre l’espagnol parlé.</p>
+<p>S’exprimer avec assurance et comprendre {{$preposition}}{{ $langueLower }} parlé.</p>
 
 <strong>Contenu :</strong>
 <ul>
     <li>Exercices de prise de parole sur des thèmes variés.</li>
-    <li>Travail sur les différents accents espagnols et américains.</li>
+    <li>Travail sur les différents accents</li>
     <li>Pratique de dialogues et conversations spontanées.</li>
     <li>Jeux de rôles : présentation professionnelle, discussions de groupe.</li>
 </ul>
@@ -268,7 +279,7 @@ li {
     <li>Correction collaborative et feedback personnalisé.</li>
     <li>Utilisation d’exemples concrets.</li>
     <li>Exercices de rédaction avec contraintes.</li>
-    <li>Approche comparative espagnol / français.</li>
+    <li>Approche comparative</li>
 </ul>
 
 <h2>ORGANISATION ET MODALITÉS</h2>

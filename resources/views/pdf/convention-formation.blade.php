@@ -81,6 +81,10 @@ h1 {
 .page-break {
     page-break-before: always;
 }
+
+#si {
+    margin-top: 20px;
+}
 </style>
 </head>
 
@@ -207,7 +211,7 @@ au {{ \Carbon\Carbon::parse($dateAu)->format('d/m/Y') }}
        <span class = "sign"> The Inspire Academy</span> <br> 
         <span class = "sign"> {{ $signataireNom }} </span> <br>
         <span class = "sign"> {{ $signataireRole }} </span> 
-        <img align="right" src="{{ public_path('storage/student-photos/convention.png') }}">
+        <img id ="si" align="right" src="{{ public_path('storage/student-photos/convention.png') }}">
     </td>
 </tr>
 </table>

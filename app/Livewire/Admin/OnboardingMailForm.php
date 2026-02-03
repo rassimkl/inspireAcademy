@@ -208,6 +208,7 @@ public function generateProgrammePdf(): string
         'contenuProgramme' => $this->contenuProgrammeFinal,
         'certification' => $this->certification,
         'titreFormation' => $this->titreFormation,
+        'langue' => $this->langue,
     ])->output();
 }
 

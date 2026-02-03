@@ -160,6 +160,13 @@
                 Mail d'entrée
             </a>
         </li>
+
+        <li>
+            <a href="{{ route('admin.fin-formation') }}"
+               class="{{ set_active(['/admin/fin-formation']) }}">
+                fin de formation
+            </a>
+        </li>
     </ul>
 </li>
 @endif

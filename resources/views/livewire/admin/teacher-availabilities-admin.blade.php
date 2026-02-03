@@ -86,6 +86,10 @@
                                         <span class="badge bg-secondary ms-2">
                                             {{ $items->count() }} slot(s)
                                         </span>
+
+                                        <span class="badge bg-secondary ms-2">
+                                            {{ $teacher->languages}}
+                                        </span>
                                     </button>
                                 </h2>
 
