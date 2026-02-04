@@ -26,6 +26,7 @@ class EndOfTrainingMailForm extends Component
         'Espagnol', 'Anglais', 'Français',
         'Italien', 'Allemand', 'Arabe', 'Portugais', 'Basque', 'Russe'
     ];
+    
 
     public string $certification = '';
 
@@ -105,7 +106,7 @@ class EndOfTrainingMailForm extends Component
             'nom' => 'required|string|min:2',
             'email' => 'required|email',
 
-            'titreFormation' => 'required|string|max:100',
+            'titreFormation' => 'required|string|max:70',
             'langue' => 'required|string',
 
             'dateDu' => 'required|date',

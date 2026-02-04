@@ -73,8 +73,22 @@
             <div class="card-body row g-3">
 
                 <div class="col-12">
-                    <label class="form-label">Titre de la formation</label>
-                    <input class="form-control" wire:model.live.debounce.500ms="titreFormation">
+                    <label class="form-label">
+                        Titre de la formation
+                        <small class="text-muted">(70 caractères maximum)</small>
+                    </label>
+
+                    <input type="text"
+                           class="form-control @error('titreFormation') is-invalid @enderror"
+                           wire:model.live.debounce.500ms="titreFormation">
+
+                    @error('titreFormation')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+
+                    <div class="text-end small {{ strlen($titreFormation) > 70 ? 'text-danger' : 'text-muted' }}">
+                        {{ strlen($titreFormation) }}/70
+                    </div>
                 </div>
 
                 <div class="col-md-4">

@@ -76,7 +76,7 @@
     <strong>{{ $signataireNom }}</strong><br>
     {{ $signataireRole }}
 </p>
-<span> <img src="{{ public_path('storage/student-photos/attestationF1.png') }}" width ="180px"> </span>
+<span> <img src="{{ url('storage/student-photos/attestationF1.png') }}" width="120" alt="The Inspire Academy" /> </span>
 <p style="margin-top: 15px;">
     <strong>The Inspire Academy</strong><br>
     25 allée du Moura, 64200 Biarritz<br>
