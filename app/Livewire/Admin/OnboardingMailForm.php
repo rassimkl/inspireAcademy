@@ -7,6 +7,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Storage;
 use App\Services\BrevoService;
+use App\Models\Signataire;
 
 
 
@@ -67,8 +68,8 @@ class OnboardingMailForm extends Component
     public string $lienFormulaireEntree = 'https://docs.google.com/forms/d/e/1FAIpQLSdFUdhexOKbhm5GScY4koG8-C8WMUET5RSsTkVGA5FVfTluUg/viewform?usp=header';
 
     // Signature (simple : saisie directe)
-    public string $signataireNom = '';
-    public string $signataireRole = '';
+    public ?int $signataireId = null;
+
 
 
     public string $text = '';
@@ -102,8 +103,7 @@ Module 4 : Expression écrite
 TXT;
 
         // Valeurs par défaut utiles
-        $this->signataireNom = 'Maryam IGRAM';
-        $this->signataireRole = 'Directrice';
+    $this->signataireId = Signataire::where('actif', true)->value('id');
 
         // Initialisation automatique du lien de test
         if (isset($this->testsParLangue[$this->langue])) {
@@ -127,6 +127,20 @@ TXT;
         return trim($this->contenuCustom) !== ''
             ? $this->contenuCustom
             : $this->contenuParDefaut;
+    }
+
+    public function getSignatairesProperty()
+    {
+        return Signataire::where('actif', true)
+            ->orderBy('nom')
+            ->get();
+    }
+
+    public function getSignataireSelectionneProperty(): ?Signataire
+    {
+        return $this->signataireId
+            ? Signataire::find($this->signataireId)
+            : null;
     }
 
     /* =====================================================
@@ -156,8 +170,7 @@ TXT;
 
             'lienTestNiveau' => 'required|url',
 
-            'signataireNom' => 'required|string|min:3',
-            'signataireRole' => 'required|string|min:3',
+            'signataireId' => 'required|exists:signataires,id',
 
             'titreFormation' => 'required|string|max:70'
         ];
@@ -188,8 +201,8 @@ public function updatedLangue($value)
         'nom' => $this->nom,
         'lienFormulaireEntree' => $this->lienFormulaireEntree,
         'lienTestNiveau' => $this->lienTestNiveau,
-        'signataireNom' => $this->signataireNom,
-        'signataireRole' => $this->signataireRole,
+        'signataireNom' => $this->signataireSelectionne?->nom,
+        'signataireRole' => $this->signataireSelectionne?->role,
         'langue' => $this->langue,
         'titreFormation' => $this->titreFormation,
         'text' => $this->text,
@@ -246,8 +259,8 @@ public function generateConventionPdf(): string
 
         'villeSignature' => 'Biarritz',
         'dateSignature' => now()->format('d/m/Y'),
-        'signataireNom' => $this->signataireNom,
-        'signataireRole' => $this->signataireRole,
+        'signataireNom' => $this->signataireSelectionne->nom,
+        'signataireRole' => $this->signataireSelectionne->role,
         'titreFormation' => $this->titreFormation,
     ])->output();
 }

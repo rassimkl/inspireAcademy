@@ -136,24 +136,27 @@
         {{-- =========================
             SIGNATAIRE
         ========================== --}}
-        <div class="card mb-4">
+         <div class="card mb-4">
             <div class="card-header fw-semibold">Signataire</div>
-
             <div class="card-body row g-3">
 
-                <div class="col-md-6">
-                    <label class="form-label">Nom du signataire</label>
-                    <input class="form-control" wire:model.live="signataireNom">
-                </div>
+                <select class="form-select @error('signataireId') is-invalid @enderror"
+                        wire:model="signataireId">
+                    <option value="">— Sélectionner un signataire —</option>
 
-                <div class="col-md-6">
-                    <label class="form-label">Rôle du signataire</label>
-                    <input class="form-control" wire:model.live="signataireRole">
-                </div>
+                    @foreach($this->signataires as $signataire)
+                        <option value="{{ $signataire->id }}">
+                            {{ $signataire->nom }} — {{ $signataire->role }}
+                        </option>
+                    @endforeach
+                </select>
+
+                @error('signataireId')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
 
             </div>
         </div>
-
         {{-- =========================
             TEXTE DU MAIL
         ========================== --}}

@@ -155,6 +155,13 @@
     </a>
     <ul>
         <li>
+            <a href="{{ route('admin.signataires') }}"
+               class="{{ set_active(['/admin/signataires']) }}">
+                Signataires
+            </a>
+        </li>
+
+        <li>
             <a href="{{ route('admin.onboarding-mail') }}"
                class="{{ set_active(['admin/onboarding-mail']) }}">
                 Mail d'entrée
@@ -164,7 +171,7 @@
         <li>
             <a href="{{ route('admin.fin-formation') }}"
                class="{{ set_active(['/admin/fin-formation']) }}">
-                fin de formation
+                Fin de formation
             </a>
         </li>
     </ul>

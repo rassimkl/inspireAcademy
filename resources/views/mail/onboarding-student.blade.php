@@ -61,7 +61,7 @@
 </p>
 
 <p>
-    <strong>{{ $signataireNom }}</strong><br>
+    {{ $signataireNom }}<br>
     {{ $signataireRole }}
 </p>
 <span> <img src="{{ url('storage/student-photos/attestationF1.png') }}" width="120" alt="The Inspire Academy" /> </span>

@@ -6,6 +6,7 @@ use Livewire\Component;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use App\Services\BrevoService;
+use App\Models\Signataire;
 
 class EndOfTrainingMailForm extends Component
 {
@@ -37,8 +38,7 @@ class EndOfTrainingMailForm extends Component
     /* =====================================================
      * 3️⃣ SIGNATAIRE
      * ===================================================== */
-    public string $signataireNom = 'Maryam IGRAM';
-    public string $signataireRole = 'Directrice';
+    public ?int $signataireId = null;
 
     /* =====================================================
      * 4️⃣ TEXTE DU MAIL
@@ -74,6 +74,7 @@ class EndOfTrainingMailForm extends Component
             $this->lienTestNiveau = $this->testsParLangue[$this->langue];
     }
 
+    $this->signataireId = Signataire::where('actif', true)->value('id');
 
     }
 
@@ -85,6 +86,20 @@ class EndOfTrainingMailForm extends Component
         $this->lienTestNiveau = '';
     }
 }
+
+    public function getSignatairesProperty()
+    {
+        return Signataire::where('actif', true)
+            ->orderBy('nom')
+            ->get();
+    }
+
+    public function getSignataireSelectionneProperty(): ?Signataire
+    {
+        return $this->signataireId
+            ? Signataire::find($this->signataireId)
+            : null;
+    }
 
 
     /* =====================================================
@@ -113,8 +128,8 @@ class EndOfTrainingMailForm extends Component
             'dateAu' => 'required|date|after_or_equal:dateDu',
             'duree' => 'required|string',
 
-            'signataireNom' => 'required|string|min:3',
-            'signataireRole' => 'required|string|min:3',
+            'signataireId' => 'required|exists:signataires,id',
+
             'natureFormation' => 'required|in:action de formation,bilan de compétences,action de VAE,action de formation par apprentissage',
 
         ];
@@ -130,8 +145,8 @@ class EndOfTrainingMailForm extends Component
             'nom' => $this->nom,
             'titreFormation' => $this->titreFormation,
             'text' => $this->text,
-            'signataireNom' => $this->signataireNom,
-            'signataireRole' => $this->signataireRole,
+            'signataireNom' => $this->signataireSelectionne?->nom,
+            'signataireRole' => $this->signataireSelectionne?->role,
             'lienTestNiveau' => $this->lienTestNiveau,
             'lienSatisfaction' => $this->lienSatisfaction,
             'lienAvisGoogle' => $this->lienAvisGoogle,
@@ -154,8 +169,8 @@ class EndOfTrainingMailForm extends Component
             'dateDu' => $this->dateDu,
             'dateAu' => $this->dateAu,
             'duree' => $this->duree,
-            'signataireNom' => $this->signataireNom,
-            'signataireRole' => $this->signataireRole,
+            'signataireNom' => $this->signataireSelectionne?->nom,
+            'signataireRole' => $this->signataireSelectionne?->role,
             'villeSignature' => 'Biarritz',
             'dateSignature' => now()->format('d/m/Y'),
         ])->output();
@@ -190,8 +205,8 @@ class EndOfTrainingMailForm extends Component
             'dateDu' => $this->dateDu,
             'dateAu' => $this->dateAu,
             'duree' => $this->duree,
-            'signataireNom' => $this->signataireNom,
-            'signataireRole' => $this->signataireRole,
+            'signataireNom' => $this->signataireSelectionne?->nom,
+            'signataireRole' => $this->signataireSelectionne?->role,
             'villeSignature' => 'Biarritz',
             'dateSignature' => now()->format('d/m/Y'),
             'natureFormation' => $this->natureFormation,

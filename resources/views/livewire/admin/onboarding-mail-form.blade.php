@@ -190,19 +190,20 @@
             <div class="card-header fw-semibold">Signataire</div>
             <div class="card-body row g-3">
 
-                <div class="col-md-6">
-                    <label class="form-label">Nom du signataire</label>
-                    <input class="form-control @error('signataireNom') is-invalid @enderror"
-                           wire:model.live="signataireNom">
-                    @error('signataireNom') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                </div>
+                <select class="form-select @error('signataireId') is-invalid @enderror"
+                        wire:model="signataireId">
+                    <option value="">— Sélectionner un signataire —</option>
 
-                <div class="col-md-6">
-                    <label class="form-label">Rôle du signataire</label>
-                    <input class="form-control @error('signataireRole') is-invalid @enderror"
-                           wire:model.live="signataireRole">
-                    @error('signataireRole') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                </div>
+                    @foreach($this->signataires as $signataire)
+                        <option value="{{ $signataire->id }}">
+                            {{ $signataire->nom }} — {{ $signataire->role }}
+                        </option>
+                    @endforeach
+                </select>
+
+                @error('signataireId')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
 
             </div>
         </div>

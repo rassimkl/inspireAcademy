@@ -42,7 +42,7 @@ use App\Livewire\Admin\OnboardingMailForm;
 use App\Livewire\Teacher\TeacherAvailabilityForm;
 use App\Livewire\Admin\TeacherAvailabilitiesAdmin;
 use App\Livewire\Admin\EndOfTrainingMailForm;
-
+use App\Livewire\Admin\Signataires;
 
 
 
@@ -139,6 +139,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin/fin-formation', EndOfTrainingMailForm::class)
     ->name('admin.fin-formation');
+
+    
+    Route::get('/admin/signataires', Signataires::class)
+    ->name('admin.signataires');
 
 });
 Route::middleware(['adminteacher'])->group(function () {
