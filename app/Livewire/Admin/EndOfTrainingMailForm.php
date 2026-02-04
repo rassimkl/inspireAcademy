@@ -82,6 +82,12 @@ Nous restons à votre disposition pour toute question ou clarification suppléme
     // Choix d’affichage
     public bool $afficherTexteOptionnel = false;
 
+    // PDF disponibles
+    public array $pdfDisponibles = [];
+
+    // PDF cochés par l’admin
+    public array $pdfSelectionnes = [];
+
 
     public function mount(): void
     {
@@ -92,6 +98,17 @@ Nous restons à votre disposition pour toute question ou clarification suppléme
     }
 
     $this->signataireId = Signataire::where('actif', true)->value('id');
+
+    $this->pdfDisponibles = collect(
+        Storage::files('public/mail_docs')
+    )
+    ->filter(fn ($file) => str_ends_with($file, '.pdf'))
+    ->map(fn ($file) => [
+        'path' => $file,
+        'name' => basename($file),
+    ])
+    ->values()
+    ->toArray();
 
     }
 
@@ -260,14 +277,26 @@ Nous restons à votre disposition pour toute question ou clarification suppléme
         Storage::put($attestationPath, $this->generateAttestationPdf());
         Storage::put($certificatPath, $this->generateCertificatPdf());
 
+        $attachments = array_merge(
+            [
+                $attestationPath,
+                $certificatPath,
+            ],
+            $this->pdfSelectionnes // 👈 PDF cochés
+        );
+
         app(BrevoService::class)->sendEmail(
             $this->email,
             'Fin de formation – The Inspire Academy',
             $this->mailPreview,
-            [
-                $attestationPath,
-                $certificatPath,
-            ]
+            $attachments
+        );
+
+        app(BrevoService::class)->sendEmail(
+            'inspireacademybiarritz@gmail.com',
+            'copie_Fin de formation – The Inspire Academy',
+            $this->mailPreview,
+            $attachments
         );
 
         Storage::delete([$attestationPath, $certificatPath]);

@@ -168,6 +168,34 @@
     </div>
 </div>
 
+        {{-- =========================
+            pdf
+        ========================== --}}
+
+<div class="card mb-4">
+    <div class="card-header fw-semibold">📎 Documents pdf à joindre</div>
+    <div class="card-body">
+
+        @foreach($pdfDisponibles as $pdf)
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       wire:model="pdfSelectionnes"
+                       value="{{ $pdf['path'] }}">
+
+                <label class="form-check-label">
+                    {{ $pdf['name'] }}
+                </label>
+            </div>
+        @endforeach
+
+        @if(empty($pdfDisponibles))
+            <p class="text-muted">Aucun PDF disponible.</p>
+        @endif
+    </div>
+</div>
+
+
 
         {{-- =========================
             SIGNATAIRE
