@@ -134,6 +134,42 @@
         </div>
 
         {{-- =========================
+            texte optionnel
+        ========================== --}}
+
+        <div class="card mb-4">
+    <div class="card-header fw-semibold">Texte optionnel (modifiable)</div>
+
+    <div class="card-body row g-3">
+
+        <div class="col-12">
+
+            <textarea
+                class="form-control"
+                rows="3"
+                wire:model.live="texteOptionnel">
+            </textarea>
+        </div>
+
+        <div class="col-12">
+            <div class="form-check mt-2">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    wire:model.live="afficherTexteOptionnel"
+                    id="afficherTexteOptionnel">
+
+                <label class="form-check-label" for="afficherTexteOptionnel">
+                    Ajouter ce texte dans le mail
+                </label>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+        {{-- =========================
             SIGNATAIRE
         ========================== --}}
          <div class="card mb-4">
@@ -155,16 +191,6 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
 
-            </div>
-        </div>
-        {{-- =========================
-            TEXTE DU MAIL
-        ========================== --}}
-        <div class="card mb-4">
-            <div class="card-header fw-semibold">Texte du mail</div>
-
-            <div class="card-body">
-                <textarea class="form-control" rows="4" wire:model.live="text"></textarea>
             </div>
         </div>
 

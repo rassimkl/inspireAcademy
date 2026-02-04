@@ -43,7 +43,6 @@ class EndOfTrainingMailForm extends Component
     /* =====================================================
      * 4️⃣ TEXTE DU MAIL
      * ===================================================== */
-    public string $text = '';
 
     public bool $sending = false;
 
@@ -64,6 +63,24 @@ class EndOfTrainingMailForm extends Component
     'Basque'     => 'https://docs.google.com/forms/d/e/1FAIpQLSfTLS_Ik2Z42vmVRdDakIUVSxEoJxvkiYkZCsO81QoSFFOqcw/viewform?usp=header',
     'Russe'     => 'https://docs.google.com/forms/d/e/1FAIpQLSdhxfGgEf1ORPwCNS4uEfrRI9aJ2MSfeZ6uwXg8WtBOVVkp6Q/viewform?usp=header',
 ];
+
+    // Texte standard (fixe, modifiable si tu veux)
+    public string $texteOptionnel = 
+    "Nous devons également recueillir certaines informations complémentaires pour votre inscription à la certification , qui est contractuelle dans le cadre de votre formation.
+
+Pour cela, nous avons besoin des informations suivantes :
+
+Une date à laquelle vous seriez disponible pour passer la certification ;
+Votre niveau estimé avant la formation ;
+Votre niveau estimé après la formation.
+Nous vous serions reconnaissants de bien vouloir nous communiquer ces informations au plus vite afin de finaliser votre inscription à la certification.
+
+Nous restons à votre disposition pour toute question ou clarification supplémentaire.
+
+";
+
+    // Choix d’affichage
+    public bool $afficherTexteOptionnel = false;
 
 
     public function mount(): void
@@ -144,7 +161,6 @@ class EndOfTrainingMailForm extends Component
             'civilite' => $this->civilite,
             'nom' => $this->nom,
             'titreFormation' => $this->titreFormation,
-            'text' => $this->text,
             'signataireNom' => $this->signataireSelectionne?->nom,
             'signataireRole' => $this->signataireSelectionne?->role,
             'lienTestNiveau' => $this->lienTestNiveau,
@@ -152,6 +168,8 @@ class EndOfTrainingMailForm extends Component
             'lienAvisGoogle' => $this->lienAvisGoogle,
             'langue' => $this->langue,
             'certification' => $this->certification,
+            'texteOptionnel' => $this->texteOptionnel,
+            'afficherTexteOptionnel' => $this->afficherTexteOptionnel,
         ])->render();
     }
 

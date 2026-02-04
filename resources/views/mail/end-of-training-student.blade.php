@@ -39,28 +39,11 @@
 </p>
 
 <p>
-    Nous devons également recueillir certaines informations complémentaires pour votre
-    inscription à la certification <strong>{{ $certification }}</strong>, qui est contractuelle
-    dans le cadre de votre formation.
-</p>
-
-<p>
-    Pour cela, nous avons besoin des informations suivantes :
-</p>
-
-<ul>
-    <li>Une date à laquelle vous seriez disponible pour passer la certification ;</li>
-    <li>Votre niveau estimé avant la formation ;</li>
-    <li>Votre niveau estimé après la formation.</li>
-</ul>
-
-<p>
-    Nous vous serions reconnaissants de bien vouloir nous communiquer ces informations au plus
-    vite afin de finaliser votre inscription à la certification.
-</p>
-
-<p>
-    Nous restons à votre disposition pour toute question ou clarification supplémentaire.
+    @if($afficherTexteOptionnel)
+        <p>
+            {!! nl2br(e($texteOptionnel)) !!}
+        </p>
+    @endif
 </p>
 
 <p>
