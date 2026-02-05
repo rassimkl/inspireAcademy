@@ -87,9 +87,10 @@
                                             {{ $items->count() }} slot(s)
                                         </span>
 
-                                        <span class="badge bg-secondary ms-2">
-                                            {{ $teacher->languages}}
-                                        </span>
+                                    <span class="badge bg-secondary ms-2">
+                                        {{ implode(', ', json_decode($teacher->languages, true)) }}
+                                    </span>
+
                                     </button>
                                 </h2>
 
