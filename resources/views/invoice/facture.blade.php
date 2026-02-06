@@ -199,6 +199,11 @@ $total=0;
     </table>
 
     <br>
+    <p>
+  TVA non applicable article 293 b du CGI
+    </p>
+
+    <br>
     <p class="text-center">
    Merci de votre collaboration
     </p>
