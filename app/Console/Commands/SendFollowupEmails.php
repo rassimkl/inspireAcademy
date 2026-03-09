@@ -54,14 +54,14 @@ class SendFollowupEmails extends Command
             if ($progress >= 50 && $courseLinks->contains('followup_sent', false)) {
 
                 // Envoi du mail
-                Mail::to($student->email)->send(new \App\Mail\FollowupMail($student, $progress));
+                // Mail::to($student->email)->send(new \App\Mail\FollowupMail($student, $progress));
                 // Mail de notification pour l’école
                 Mail::to('contact@inspireacademy.fr')->send(new \App\Mail\AdminFollowupNotificationMail($student, $progress));
                 // On met followup_sent = true sur TOUTES ses lignes
                 CourseStudent::where('student_id', $studentId)
                     ->update(['followup_sent' => true]);
 
-                $this->info("Mail envoyé à {$student->email}");
+                $this->info("Notification admin envoyée pour l'étudiant {$student->email}");
             }
 
                /* =========================================================================
@@ -70,7 +70,7 @@ class SendFollowupEmails extends Command
 
             if ($progress >= 100 && $courseLinks->contains('finished_sent', false)) {
 
-                Mail::to($student->email)->send(new \App\Mail\FinishedCourseMail($student, $progress));
+                // Mail::to($student->email)->send(new \App\Mail\FinishedCourseMail($student, $progress));
 
                 Mail::to('contact@inspireacademy.fr')->send(new \App\Mail\FinishedCourseAdminNotification($student, $progress));
 
@@ -78,7 +78,7 @@ class SendFollowupEmails extends Command
                 CourseStudent::where('student_id', $studentId)
                     ->update(['finished_sent' => true]);
 
-                $this->info("✔ finished_sent mis à true");
+                $this->info("Notification admin envoyée pour la fin de formation de l'étudiant {$student->email}");
             }
 
 
